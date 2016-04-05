@@ -1,0 +1,14 @@
+{
+  "name": "boilerplate-app-js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/ArcGIS/boilerplate-app-js",
+  "dependencies": {
+    "bootstrap-sass": "~3.3.5",
+    "fontawesome": "~4.4.0",
+    "underscore": "~1.8.3",
+    "material-design-lite": "~1.0.5"
+  },
+  "resolutions": {
+    "fontawesome": "~4.4.0"
+  }
+}

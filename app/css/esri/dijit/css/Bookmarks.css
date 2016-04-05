@@ -1,0 +1,117 @@
+/* esriBookmarks
+ * 
+ * Styling esriBookmarks includes:
+ * 
+ * 1. Containers
+ * 		.esriBookmarks
+ *		.esriBookmarkList - container of .esriBookmarkTable
+ *		.esriBookmarkTable - Tabular view for bookmarks
+ *		.esriBookmarkLabel
+ *		.esriBookmarkEditBox - Textbox when editing a bookmark
+ * 2. Buttons
+ *		.esriBookmarkItem
+ *		.esriAddBookmark - "Add Bookmark" button
+ *
+ * 3. States - Hover, Active, Highlight, e.g.
+ *		.esriBookmarkHighlight - highlight (Hover, Active and Selected)
+ *		.esriAddBookmark:[hover | active]
+ */
+.esriBookmarks {
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  padding: 4px 0;
+}
+.esriBookmarkList {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #d0d0d0;
+}
+.esriBookmarkTable {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+.esriBookmarkTable td {
+  padding: 0;
+}
+.esriBookmarkItem {
+  display: inline-block;
+  width: 100%;
+  padding: 4px 0;
+}
+.esriBookmarkItem > div {
+  position: relative;
+}
+.esriBookmarkItem.esriBookmarkHighlight {
+  background: #007ac2;
+}
+.esriBookmarkItem.esriBookmarkHighlight .esriBookmarkLabel {
+  color: #fff;
+}
+.esriBookmarkItem.esriAddBookmark {
+  padding: 4px 12px;
+  border-radius: 2px;
+  box-shadow: none;
+  line-height: 20px;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  cursor: pointer;
+  border: 1px solid #d0d0d0;
+  background: #f5f5f5;
+  background: linear-gradient(#f5f5f5, #f5f5f5);
+  width: 8em;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+.esriBookmarkItem.esriAddBookmark:hover {
+  box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+  transition: all 0.1s;
+  background: #e1e1e1;
+  background: linear-gradient(#f6f6f6, #e1e1e1);
+}
+.esriBookmarkItem.esriAddBookmark:active {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.25) inset;
+  transition: none;
+  outline: none;
+  background: #d0d0d0;
+  background: linear-gradient(#f5f5f5, #f5f5f5);
+}
+.esriBookmarkLabel {
+  float: left;
+  margin-left: 8px;
+  line-height: 20px;
+  color: #007ac2;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.esriBookmarkEditImage,
+.esriBookmarkRemoveImage {
+  float: right;
+  display: inline-block;
+  height: 28px;
+  width: 28px;
+  background: transparent;
+  line-height: 28px;
+  text-align: center;
+  font-family: "FontAwesome";
+  margin-top: -4px;
+  cursor: pointer;
+}
+.esriBookmarkEditImage:before {
+  content: "\f040";
+}
+.esriBookmarkRemoveImage:before {
+  content: "\f00d";
+  color: #da4d1e;
+}
+.esriBookmarkEditBox {
+  line-height: 20px;
+  position: absolute;
+  top: -1px !important;
+  left: 8px !important;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkJvb2ttYXJrcy5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7Ozs7Ozs7Ozs7O0dBaUJHO0FBQ0g7RUFDRSxpQkFBaUI7RUFDakIsMEJBQTBCO0VBQzFCLGVBQWU7Q0FDaEI7QUFDRDtFQUNFLG1CQUFtQjtFQUNuQixpQ0FBaUM7Q0FDbEM7QUFDRDtFQUNFLFlBQVk7RUFDWixlQUFlO0VBQ2YsMEJBQTBCO0VBQzFCLG9CQUFvQjtDQUNyQjtBQUNEO0VBQ0UsV0FBVztDQUNaO0FBQ0Q7RUFDRSxzQkFBc0I7RUFDdEIsWUFBWTtFQUNaLGVBQWU7Q0FDaEI7QUFDRDtFQUNFLG1CQUFtQjtDQUNwQjtBQUNEO0VBQ0Usb0JBQW9CO0NBQ3JCO0FBQ0Q7RUFDRSxZQUFZO0NBQ2I7QUFDRDtFQUNFLGtCQUFrQjtFQUNsQixtQkFBbUI7RUFDbkIsaUJBQWlCO0VBQ2pCLGtCQUFrQjtFQUNsQiw4Q0FBOEM7RUFDOUMsZ0JBQWdCO0VBQ2hCLDBCQUEwQjtFQUMxQixvQkFBb0I7RUFDcEIsOENBQThDO0VBQzlDLFdBQVc7RUFDWCxtQkFBbUI7RUFDbkIsZUFBZTtFQUNmLGVBQWU7Q0FDaEI7QUFDRDtFQUNFLHNDQUFzQztFQUN0QyxxQkFBcUI7RUFDckIsb0JBQW9CO0VBQ3BCLDhDQUE4QztDQUMvQztBQUNEO0VBQ0UsNkNBQTZDO0VBQzdDLGlCQUFpQjtFQUNqQixjQUFjO0VBQ2Qsb0JBQW9CO0VBQ3BCLDhDQUE4QztDQUMvQztBQUNEO0VBQ0UsWUFBWTtFQUNaLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsZUFBZTtFQUNmLGlCQUFpQjtFQUNqQixvQkFBb0I7RUFDcEIsdUJBQXVCO0VBQ3ZCLG1CQUFtQjtFQUNuQixpQkFBaUI7RUFDakIsZ0JBQWdCO0NBQ2pCO0FBQ0Q7O0VBRUUsYUFBYTtFQUNiLHNCQUFzQjtFQUN0QixhQUFhO0VBQ2IsWUFBWTtFQUNaLHdCQUF3QjtFQUN4QixrQkFBa0I7RUFDbEIsbUJBQW1CO0VBQ25CLDJCQUEyQjtFQUMzQixpQkFBaUI7RUFDakIsZ0JBQWdCO0NBQ2pCO0FBQ0Q7RUFDRSxpQkFBaUI7Q0FDbEI7QUFDRDtFQUNFLGlCQUFpQjtFQUNqQixlQUFlO0NBQ2hCO0FBQ0Q7RUFDRSxrQkFBa0I7RUFDbEIsbUJBQW1CO0VBQ25CLHFCQUFxQjtFQUNyQixxQkFBcUI7Q0FDdEIiLCJmaWxlIjoiQm9va21hcmtzLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIGVzcmlCb29rbWFya3NcclxuICogXHJcbiAqIFN0eWxpbmcgZXNyaUJvb2ttYXJrcyBpbmNsdWRlczpcclxuICogXHJcbiAqIDEuIENvbnRhaW5lcnNcclxuICogXHRcdC5lc3JpQm9va21hcmtzXHJcbiAqXHRcdC5lc3JpQm9va21hcmtMaXN0IC0gY29udGFpbmVyIG9mIC5lc3JpQm9va21hcmtUYWJsZVxyXG4gKlx0XHQuZXNyaUJvb2ttYXJrVGFibGUgLSBUYWJ1bGFyIHZpZXcgZm9yIGJvb2ttYXJrc1xyXG4gKlx0XHQuZXNyaUJvb2ttYXJrTGFiZWxcclxuICpcdFx0LmVzcmlCb29rbWFya0VkaXRCb3ggLSBUZXh0Ym94IHdoZW4gZWRpdGluZyBhIGJvb2ttYXJrXHJcbiAqIDIuIEJ1dHRvbnNcclxuICpcdFx0LmVzcmlCb29rbWFya0l0ZW1cclxuICpcdFx0LmVzcmlBZGRCb29rbWFyayAtIFwiQWRkIEJvb2ttYXJrXCIgYnV0dG9uXHJcbiAqXHJcbiAqIDMuIFN0YXRlcyAtIEhvdmVyLCBBY3RpdmUsIEhpZ2hsaWdodCwgZS5nLlxyXG4gKlx0XHQuZXNyaUJvb2ttYXJrSGlnaGxpZ2h0IC0gaGlnaGxpZ2h0IChIb3ZlciwgQWN0aXZlIGFuZCBTZWxlY3RlZClcclxuICpcdFx0LmVzcmlBZGRCb29rbWFyazpbaG92ZXIgfCBhY3RpdmVdXHJcbiAqL1xyXG4uZXNyaUJvb2ttYXJrcyB7XHJcbiAgYmFja2dyb3VuZDogI2ZmZjtcclxuICBib3JkZXI6IDFweCBzb2xpZCAjZDBkMGQwO1xyXG4gIHBhZGRpbmc6IDRweCAwO1xyXG59XHJcbi5lc3JpQm9va21hcmtMaXN0IHtcclxuICBtYXJnaW4tYm90dG9tOiA4cHg7XHJcbiAgYm9yZGVyLWJvdHRvbTogMXB4IHNvbGlkICNkMGQwZDA7XHJcbn1cclxuLmVzcmlCb29rbWFya1RhYmxlIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBtYXJnaW46IDAgYXV0bztcclxuICBib3JkZXItY29sbGFwc2U6IGNvbGxhcHNlO1xyXG4gIGJvcmRlci1zcGFjaW5nOiAwcHg7XHJcbn1cclxuLmVzcmlCb29rbWFya1RhYmxlIHRkIHtcclxuICBwYWRkaW5nOiAwO1xyXG59XHJcbi5lc3JpQm9va21hcmtJdGVtIHtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgcGFkZGluZzogNHB4IDA7XHJcbn1cclxuLmVzcmlCb29rbWFya0l0ZW0gPiBkaXYge1xyXG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxufVxyXG4uZXNyaUJvb2ttYXJrSXRlbS5lc3JpQm9va21hcmtIaWdobGlnaHQge1xyXG4gIGJhY2tncm91bmQ6ICMwMDdhYzI7XHJcbn1cclxuLmVzcmlCb29rbWFya0l0ZW0uZXNyaUJvb2ttYXJrSGlnaGxpZ2h0IC5lc3JpQm9va21hcmtMYWJlbCB7XHJcbiAgY29sb3I6ICNmZmY7XHJcbn1cclxuLmVzcmlCb29rbWFya0l0ZW0uZXNyaUFkZEJvb2ttYXJrIHtcclxuICBwYWRkaW5nOiA0cHggMTJweDtcclxuICBib3JkZXItcmFkaXVzOiAycHg7XHJcbiAgYm94LXNoYWRvdzogbm9uZTtcclxuICBsaW5lLWhlaWdodDogMjBweDtcclxuICB0ZXh0LXNoYWRvdzogMCAxcHggMXB4IHJnYmEoMjU1LDI1NSwyNTUsMC43NSk7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIGJvcmRlcjogMXB4IHNvbGlkICNkMGQwZDA7XHJcbiAgYmFja2dyb3VuZDogI2Y1ZjVmNTtcclxuICBiYWNrZ3JvdW5kOiBsaW5lYXItZ3JhZGllbnQoI2Y1ZjVmNSwgI2Y1ZjVmNSk7XHJcbiAgd2lkdGg6IDhlbTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgbWFyZ2luOiAwIGF1dG87XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbn1cclxuLmVzcmlCb29rbWFya0l0ZW0uZXNyaUFkZEJvb2ttYXJrOmhvdmVyIHtcclxuICBib3gtc2hhZG93OiAwIDFweCAxcHggcmdiYSgwLDAsMCwwLjIpO1xyXG4gIHRyYW5zaXRpb246IGFsbCAwLjFzO1xyXG4gIGJhY2tncm91bmQ6ICNlMWUxZTE7XHJcbiAgYmFja2dyb3VuZDogbGluZWFyLWdyYWRpZW50KCNmNmY2ZjYsICNlMWUxZTEpO1xyXG59XHJcbi5lc3JpQm9va21hcmtJdGVtLmVzcmlBZGRCb29rbWFyazphY3RpdmUge1xyXG4gIGJveC1zaGFkb3c6IDAgMXB4IDNweCByZ2JhKDAsMCwwLDAuMjUpIGluc2V0O1xyXG4gIHRyYW5zaXRpb246IG5vbmU7XHJcbiAgb3V0bGluZTogbm9uZTtcclxuICBiYWNrZ3JvdW5kOiAjZDBkMGQwO1xyXG4gIGJhY2tncm91bmQ6IGxpbmVhci1ncmFkaWVudCgjZjVmNWY1LCAjZjVmNWY1KTtcclxufVxyXG4uZXNyaUJvb2ttYXJrTGFiZWwge1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG4gIG1hcmdpbi1sZWZ0OiA4cHg7XHJcbiAgbGluZS1oZWlnaHQ6IDIwcHg7XHJcbiAgY29sb3I6ICMwMDdhYzI7XHJcbiAgdGV4dC1hbGlnbjogbGVmdDtcclxuICB3aGl0ZS1zcGFjZTogbm93cmFwO1xyXG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcbi5lc3JpQm9va21hcmtFZGl0SW1hZ2UsXHJcbi5lc3JpQm9va21hcmtSZW1vdmVJbWFnZSB7XHJcbiAgZmxvYXQ6IHJpZ2h0O1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBoZWlnaHQ6IDI4cHg7XHJcbiAgd2lkdGg6IDI4cHg7XHJcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XHJcbiAgbGluZS1oZWlnaHQ6IDI4cHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGZvbnQtZmFtaWx5OiBcIkZvbnRBd2Vzb21lXCI7XHJcbiAgbWFyZ2luLXRvcDogLTRweDtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbn1cclxuLmVzcmlCb29rbWFya0VkaXRJbWFnZTpiZWZvcmUge1xyXG4gIGNvbnRlbnQ6IFwiXFxmMDQwXCI7XHJcbn1cclxuLmVzcmlCb29rbWFya1JlbW92ZUltYWdlOmJlZm9yZSB7XHJcbiAgY29udGVudDogXCJcXGYwMGRcIjtcclxuICBjb2xvcjogI2RhNGQxZTtcclxufVxyXG4uZXNyaUJvb2ttYXJrRWRpdEJveCB7XHJcbiAgbGluZS1oZWlnaHQ6IDIwcHg7XHJcbiAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gIHRvcDogLTFweCAhaW1wb3J0YW50O1xyXG4gIGxlZnQ6IDhweCAhaW1wb3J0YW50O1xyXG59XHJcbiJdfQ== */

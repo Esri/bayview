@@ -1,0 +1,39 @@
+/* Legend
+ * 
+ * Styling Legend includes:
+ * 
+ * 1. Containers
+ * 		.esriLegendService
+ *		.esriLegendServiceLabel - title of service
+ *		.esriLegendLayerLabel - title of layer
+ *		.esriLegendLayer
+ *		.esriLegendGroupLayer
+ */
+.esriLegendService {
+  padding-top: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #d0d0d0;
+}
+.esriLegendServiceLabel {
+  display: block;
+  font-weight: bold;
+  position: relative;
+  width: 100%;
+}
+.esriLegendLayerLabel {
+  color: #8d94a1;
+  padding-left: 8px;
+}
+.esriLegendLayer {
+  padding-left: 8px;
+}
+.esriLegendGroupLayer {
+  padding-top: 8px;
+}
+.esriLegendLeft {
+  padding-left: 12px;
+}
+.esriLegendRight {
+  padding-right: 12px;
+}
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkxlZ2VuZC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7Ozs7R0FVRztBQUNIO0VBQ0UsaUJBQWlCO0VBQ2pCLHFCQUFxQjtFQUNyQixpQ0FBaUM7Q0FDbEM7QUFDRDtFQUNFLGVBQWU7RUFDZixrQkFBa0I7RUFDbEIsbUJBQW1CO0VBQ25CLFlBQVk7Q0FDYjtBQUNEO0VBQ0UsZUFBZTtFQUNmLGtCQUFrQjtDQUNuQjtBQUNEO0VBQ0Usa0JBQWtCO0NBQ25CO0FBQ0Q7RUFDRSxpQkFBaUI7Q0FDbEI7QUFDRDtFQUNFLG1CQUFtQjtDQUNwQjtBQUNEO0VBQ0Usb0JBQW9CO0NBQ3JCIiwiZmlsZSI6IkxlZ2VuZC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBMZWdlbmRcclxuICogXHJcbiAqIFN0eWxpbmcgTGVnZW5kIGluY2x1ZGVzOlxyXG4gKiBcclxuICogMS4gQ29udGFpbmVyc1xyXG4gKiBcdFx0LmVzcmlMZWdlbmRTZXJ2aWNlXHJcbiAqXHRcdC5lc3JpTGVnZW5kU2VydmljZUxhYmVsIC0gdGl0bGUgb2Ygc2VydmljZVxyXG4gKlx0XHQuZXNyaUxlZ2VuZExheWVyTGFiZWwgLSB0aXRsZSBvZiBsYXllclxyXG4gKlx0XHQuZXNyaUxlZ2VuZExheWVyXHJcbiAqXHRcdC5lc3JpTGVnZW5kR3JvdXBMYXllclxyXG4gKi9cclxuLmVzcmlMZWdlbmRTZXJ2aWNlIHtcclxuICBwYWRkaW5nLXRvcDogNHB4O1xyXG4gIHBhZGRpbmctYm90dG9tOiAxNnB4O1xyXG4gIGJvcmRlci1ib3R0b206IDFweCBzb2xpZCAjZDBkMGQwO1xyXG59XHJcbi5lc3JpTGVnZW5kU2VydmljZUxhYmVsIHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBmb250LXdlaWdodDogYm9sZDtcclxuICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuLmVzcmlMZWdlbmRMYXllckxhYmVsIHtcclxuICBjb2xvcjogIzhkOTRhMTtcclxuICBwYWRkaW5nLWxlZnQ6IDhweDtcclxufVxyXG4uZXNyaUxlZ2VuZExheWVyIHtcclxuICBwYWRkaW5nLWxlZnQ6IDhweDtcclxufVxyXG4uZXNyaUxlZ2VuZEdyb3VwTGF5ZXIge1xyXG4gIHBhZGRpbmctdG9wOiA4cHg7XHJcbn1cclxuLmVzcmlMZWdlbmRMZWZ0IHtcclxuICBwYWRkaW5nLWxlZnQ6IDEycHg7XHJcbn1cclxuLmVzcmlMZWdlbmRSaWdodCB7XHJcbiAgcGFkZGluZy1yaWdodDogMTJweDtcclxufVxyXG4iXX0= */

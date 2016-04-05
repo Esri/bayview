@@ -1,0 +1,361 @@
+.route-selector__config {
+  background: $gray-lighter;
+
+  .mdl-typography--title,
+  .mdl-button,
+  .mdl-textfield__input {
+    color: #fff;
+  }
+
+  .mdl-typography--title {
+    padding: 10px 15px 0;
+  }
+
+  form {
+    padding: 0 10px;
+  }
+
+  .textfield-button--icon,
+  .textfield-button--icon + .mdl-textfield {
+    display: inline-block;
+  }
+
+  .textfield-button--icon + .mdl-textfield {
+    width: calc(100% - 40px);
+  }
+}
+
+.map-overlay-center-loading {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 30;
+  width: 100%;
+  .splash-loading {
+    text-align: center;
+  }
+  .loading-message {
+    background: white;
+    margin: 20px 50px;
+    color: $brand-primary;
+    line-height: 1.5em;
+    padding: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  }
+}
+
+.map-overlay-center-feedback {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 30;
+  width: 100%;
+  .splash-loading {
+    text-align: center;
+  }
+  .feedback-message {
+    background: white;
+    margin: 0 20px;
+    color: $brand-primary;
+    text-align: center;
+    line-height: 1.5em;
+    padding: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  }
+}
+
+.route-selector__clear__button {
+  float: right;
+  color: $gray-lighter;
+}
+
+.route-selector-overview {
+  .route-selector__map {
+    height: calc(100% - 140px);
+  }
+  .route-selector__guide {
+    display: none;
+  }
+  .route-selector__turnbyturn {
+    display: none;
+  }
+  .map-overlay-center-loading {
+    display: none;
+  }
+  .map-overlay-center-feedback {
+    display: block;
+  }
+  .route-selector__clear__button {
+    display: none;
+  }
+}
+
+.route-selector-overview.route-selected {
+  .route-selector__map {
+    display: block;
+    height: calc(100% - 200px);
+  }
+  .route-selector__guide {
+    display: block;
+    height: 60px;
+    position: relative;
+    box-shadow: $drop-shadow-base;
+  }
+  .route-selector__turnbyturn {
+    display: none;
+  }
+  .map-overlay-center-loading {
+    display: none;
+  }
+  .map-overlay-center-feedback {
+    display: none;
+  }
+  .route-selector__clear__button {
+    display: block;
+  }
+}
+
+.route-selector-overview.turnbyturn-selected {
+  .route-selector__map {
+    display: none;
+  }
+  .route-selector__guide {
+    display: none;
+  }
+  .route-selector__turnbyturn {
+    height: calc(100%);
+    display: block;
+  }
+  .route-task-turnbyturn__content {
+    height: calc(100% - 220px);
+    padding: 10px;
+    overflow: auto;
+  }
+  .map-overlay-center-loading {
+    display: none;
+  }
+  .map-overlay-center-feedback {
+    display: none;
+  }
+  .route-selector__clear__button {
+    display: none;
+  }
+}
+
+.route-selector-overview.loading {
+  .route-selector__map {
+    height: calc(100% - 140px);
+  }
+  .route-selector__guide {
+    display: none;
+  }
+  .route-selector__turnbyturn {
+    display: none;
+  }
+  .map-overlay-center-loading {
+    display: block;
+  }
+  .map-overlay-center-feedback {
+    display: none;
+  }
+  .route-selector__clear__button {
+    display: none;
+  }
+}
+
+.route-selector-overview.feedback {
+  .route-selector__map {
+    height: calc(100% - 140px);
+  }
+  .route-selector__guide {
+    display: none;
+  }
+  .route-selector__turnbyturn {
+    display: none;
+  }
+  .map-overlay-center-loading {
+    display: none;
+  }
+  .map-overlay-center-feedback {
+    display: block;
+  }
+  .route-selector__clear__button {
+    display: none;
+  }
+}
+
+.route-selector__guide {
+  .route-selector__guide__directions,
+  .route-selector__guide__distance,
+  .route-selector__guide__prev,
+  .route-selector__guide__next {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .route-selector__guide__directions>button {
+    min-width: 32px;
+    color: $brand-primary;
+  }
+
+  .route-selector__guide__distance {
+    width: calc(100% - 110px);
+    margin: 0;
+
+    p {
+      color: $brand-primary;
+      font-size: 1.2em;
+      margin: 0 0 0 10px;
+    }
+  }
+
+  .route-selector__guide__prev{
+    right: 50px;
+  }
+
+  .route-selector__guide__next {
+   right: 5px;
+  }
+}
+
+.route-selector__points {
+  position: relative;
+}
+
+.route-selector__point__button {
+  width: calc(100% - 35px);
+  text-align: left;
+}
+
+.route-selector__point__name {
+  float: left;
+  max-width: calc(100% - 95px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  &--placeholder {
+    opacity: .5;
+  }
+}
+
+.route-selector__point__address {
+  float: right;
+  color: $brand-primary-dark;
+  max-width: 85px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.route-selector__config {
+  background: $brand-primary;
+}
+
+.route-selector__point {
+  padding: 10px 15px;
+}
+
+.route-selector__point__symbol,
+.route-selector__point__button {
+  display: inline-block;
+  vertical-align: center;
+}
+
+.route-selector__point__symbol {
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  color: #fff;
+  opacity: .5;
+  position: relative;
+
+  .route-selector__point--selected & {
+    opacity: 1;
+  }
+
+  > div {
+    text-align: center;
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    height: 15px;
+    border-left: 3px dotted #fff;
+    transform: translateX(-50%);
+
+    .route-selector__point:nth-child(n + 2) & {
+      top: auto;
+      bottom: 100%;
+    }
+  }
+}
+
+.map-disabled-text {
+  display: none;
+
+  p {
+    color: #fff;
+    text-align: center;
+    font-size: 1.4em;
+  }
+}
+
+.route-selector__map--disabled {
+  pointer-events: none;
+  position: relative;
+
+  .map {
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(40,45,50,.5);
+    }
+
+    > .container {
+      .layersDiv {
+        filter: blur(3px);
+      }
+
+      &::before {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgb(40,45,50);
+      }
+    }
+  }
+
+  .map-disabled-text {
+    display: block;
+  }
+}
+
+.btn-splitter {
+  margin: 0;
+  position: absolute;
+  right: 25px;
+  left: 55px;
+  border-top-color: darken($brand-primary, 5%);
+}

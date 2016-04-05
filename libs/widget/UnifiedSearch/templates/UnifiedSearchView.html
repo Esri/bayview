@@ -1,0 +1,32 @@
+<div class="simpleLS">
+    <div class="LayerSearcher" data-dojo-attach-point="containerNode">
+        <!-- <div title="Search" tabindex="0" class="LSSearch LSIcon" data-dojo-attach-point="submitNode">
+            <i class="fa fa-search"></i>
+        </div> -->
+        <!-- <div title="Back" tabindex="0" class="LSBack LSIcon" data-dojo-attach-point="backNode">
+            <i class="fa fa-arrow-left"></i>
+        </div> -->
+        <div class="input-wrapper">
+            <form>
+                <label class="mdl-button mdl-js-button mdl-button--icon textfield-button--icon" for="${id}-input">
+                  <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield mdl-js-textfield">
+                  <input class="mdl-textfield__input" id="${id}-input" tabindex="0" value="${inputValue}" autocomplete="off" type="text" data-dojo-attach-point="inputNode">
+                  <label class="mdl-textfield__label" for="${id}-input">Find people or room...</label>
+                </div>
+            </form>
+            <div tabindex="0" class="LSReset LSIcon" data-dojo-attach-point="clearNode">
+                <i class="fa fa-close"></i>
+            </div>
+            <div tabindex="0" class="LSLoading LSIcon">
+                <i class="fa fa-spin fa-spinner"></i>
+            </div>
+            <div title="Back" tabindex="0" class="LSBack LSIcon" data-dojo-attach-point="backNode">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+        </div>
+    </div>
+    <div class="LSResults" data-dojo-attach-point="resultsNode"></div>
+    <div class="LSResults2" data-dojo-attach-point="resultsNode2"></div>
+</div>

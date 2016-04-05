@@ -1,0 +1,39 @@
+{
+  "name": "boilerplate-app-js",
+  "version": "0.0.1",
+  "description": "Easy starting points for creating an application that is using boilerplate-lib-js",
+  "main": "app/Controller.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArcGIS/boilerplate-app-js.git"
+  },
+  "keywords": [
+    "ArcGIS",
+    "JavaScript",
+    "boilerplate"
+  ],
+  "author": "Michael Gaigg <mgaigg@esri.com> (http://www.michaelgaigg.com/)",
+  "license": "Apache2",
+  "bugs": {
+    "url": "https://github.com/ArcGIS/boilerplate-app-js/issues"
+  },
+  "homepage": "https://github.com/ArcGIS/boilerplate-app-js",
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.1",
+    "cssnano": "^2.1.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-cssnano": "^1.1.0",
+    "grunt-jscs": "^1.8.0",
+    "grunt-postcss": "^0.5.5",
+    "grunt-sass": "^1.0.0",
+    "grunt-shell": "^1.1.2",
+    "jshint-stylish": "^2.0.1",
+    "load-grunt-tasks": "^3.2.0",
+    "grunt-contrib-connect": "^0.10.1"
+  }
+}

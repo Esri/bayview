@@ -1,0 +1,12 @@
+{
+  "preset": "airbnb",
+
+  // Override airbnb presets
+  "disallowQuotedKeysInObjects": null,
+  "requirePaddingNewLinesBeforeLineComments": null,
+  "requirePaddingNewLinesAfterBlocks": {
+    "allExcept": ["inCallExpressions", "inArrayExpressions", "inProperties"]
+  },
+  "requireCamelCaseOrUpperCaseIdentifiers": null,
+  "requireTrailingComma": null
+}

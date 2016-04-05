@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Query State Info without Map</title>
+
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+      require([
+        "dojo/dom", "dojo/on",
+        "esri/tasks/query", "esri/tasks/QueryTask", "dojo/json", "dojo/domReady!"
+      ], function (dom, on, Query, QueryTask, JSON) {
+
+        var queryTask = new QueryTask("http://pros00004:6080/arcgis/rest/services/Network_Routing/Fidelity_Map_Service/MapServer/1");
+
+        var query = new Query();
+        query.returnGeometry = true;
+        query.outFields = ['*'];
+        query.returnZ = true;
+        query.where = "LOCATION = '02L981'";
+
+
+        on(dom.byId("execute"), "click", execute);
+
+        function execute () {
+          //query.text = dom.byId("stateName").value;
+          dom.byId("info").innerHTML = 'Fetching results';
+          queryTask.execute(query, showResults);
+        }
+
+        function showResults (results) {
+          console.log(results);
+          dom.byId("info").innerHTML = 'Geometry has ' + results.features[0].geometry.rings[0][0].length + ' dimensions';
+          dom.byId("theObject").innerHTML = '' + JSON.stringify(results);
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <input id="execute" type="button" value="Get Details">
+
+    <div id="info" style="padding:5px; margin:5px; background-color:#eee;"></div>
+    <div id="theObject" style="padding:5px; margin:5px;"></div>
+  </body>
+</html>

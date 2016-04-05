@@ -1,0 +1,56 @@
+.gis_InfoWindows {}
+
+/* INFO WINDOW */
+.esriPopup .titlePane,
+.esriPopup .actionsPane {
+  display: none;
+}
+.esriPopup .contentPane {
+  padding: 0;
+  margin: 0;
+}
+.sizer.content {
+  margin: 0;
+}
+
+.info-window,
+.esriPopup {
+  font-size: 14px;
+}
+.info-window-loading-wrapper {
+  margin: 10px;
+}
+.info-window-header {
+  background: $brand-primary;
+  padding: 10px;
+  color: #FFF;
+  font-size: 16px;
+}
+.info-window-content-wrapper {
+
+}
+.info-window-content {
+  margin: 10px;
+}
+.info-window-buttons {
+  padding: 5px;
+  background: #F5F5F5;
+}
+.info-window-actions i {
+  float: right;
+  color: #d0d0d0;
+}
+.info-window-actions i:hover {
+    color: #FFF;
+}
+
+.blur-map {
+  filter: blur(3px);
+  transition: 1s -webkit-filter linear;
+}
+
+.blur-out {
+  filter: blur(3px);
+  transition: all 0.25s ease-out;
+  /*-webkit-transform: scale(1.05, 1.05);*/
+}

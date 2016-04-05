@@ -1,0 +1,31 @@
+@import 'Variables';
+
+// MDL
+@import '../../bower_components/material-design-lite/material.min.css';
+
+// MDL Theme
+@import 'mdl/theme';
+
+// FontAwesome
+@import '../../bower_components/fontawesome/scss/font-awesome';
+
+// Application
+@import 'splash';
+@import 'animations';
+@import 'app';
+@import 'fonts';
+@import 'CustomTabs';
+
+// Core
+@import 'core';
+
+// Temporarily include "_legacy.scss" which is a copy of the existing "main.css"
+@import 'legacy';
+
+// Components
+// TODO: Import modularized component styles here (i.e. _infoWindows.scss)
+@import 'RouteSelectorOverview';
+@import 'RouteSelectorSearch';
+@import '../../libs/widget/UnifiedSearch/css/UnifiedSearch';
+@import '../../libs/widget/RouteTask/RouteTask';
+@import 'mapMarkers';

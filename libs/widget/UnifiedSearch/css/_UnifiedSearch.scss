@@ -1,0 +1,137 @@
+.simpleLS {
+  position: relative;
+}
+
+.LSResults,
+.LSResults2 {
+  z-index: 99;
+  width: calc(100% - 60px);
+  max-height: 400px;
+  margin: -1px 0 0;
+  border-radius: $border-radius-small;
+  box-shadow: $drop-shadow-base;
+  border-top: 0;
+  padding: 0;
+  background: $body-bg;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  top: calc(100% - 15px);
+  left: 45px;
+  animation: corner-reveal 300ms ease-out none;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.resultsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+}
+
+.LSResult {
+  padding: 6px;
+  display: block;
+  cursor: pointer;
+  outline: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+}
+
+.search-results-icon {
+  font-size: 1.2em;
+  width: 22px;
+  display: inline-block;
+  text-align: center;
+}
+
+.LSResult {
+  &:hover,
+  &:focus,
+  &:focus {
+    background-color: $gray-lighter;
+  }
+}
+
+.LayerSearcher {
+  .input-wrapper {
+    position: relative;
+  }
+
+  .mdl-textfield__input {
+    width: calc(100% - 15px);
+    text-overflow: ellipsis;
+  }
+
+  .LSIcon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    color: #fff;
+    opacity: .5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .LSReset,
+  .LSLoading,
+  .LSBack {
+    display: none;
+  }
+
+  &.loading .LSSearch {
+    display: none;
+  }
+
+  &.loading .LSLoading {
+    display: block;
+    z-index: 3;
+  }
+
+  &.loading .LSReset,
+  &.loading.has-input .LSReset {
+    display: none;
+  }
+
+  &.has-input .LSReset {
+    display: block;
+    z-index: 2;
+  }
+
+  &.populated {
+    .LSBack {
+      display: block;
+    }
+
+    .LSReset {
+      display: none;
+    }
+  }
+}
+
+@keyframes corner-reveal {
+  0% {
+    top: calc(100% - 25px);
+    opacity: 0;
+    max-height: 0;
+    max-width: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
+  100% {
+    top: calc(100% - 15px);
+    opacity: 1;
+    max-height: 400px;
+    max-width: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

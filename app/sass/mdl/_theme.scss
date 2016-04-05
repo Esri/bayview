@@ -1,0 +1,28 @@
+.map-btn-group {
+  display: inline-block;
+  margin: 0 5px 0 0;
+
+  .mdl-menu__container {
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 2px;
+  }
+}
+
+.map-btn.mdl-button {
+  background: $gray-lighter;
+  min-width: 110px;
+  margin-bottom: 10px;
+
+  .menu-dropdown-icon i {
+    vertical-align: middle;
+    margin: -5px 0 0 5px;
+  }
+}
+
+.mdl-button--colored[disabled][disabled] {
+    box-shadow: none;
+    background-color: initial;
+}
+
+$drop-shadow-base: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);

@@ -1,0 +1,72 @@
+//@font-face {
+//  [font-family: <family-name>;]? //The name that will be used in your stylesheets to reference this font
+//  [src: [ <uri> [format(<string>#)]? | <font-face-name> ]#;]? //Specify resource to be used for the font, can reference the user's local font or a url
+//  [font-weight: <weight>]; //Weight of the font being referenced
+//  [font-style: <style>]; //The style of the associated font ie. Italic, Normal
+//}
+
+/* OPEN SANS */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/open-sans/opensans-regular.woff) format('woff'),
+    url(../fonts/open-sans/opensans-regular.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url(../fonts/open-sans/opensans-bold.woff) format('woff'),
+    url(../fonts/open-sans/opensans-bold.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: url(../fonts/open-sans/opensans-italic.woff) format('woff'),
+    url(../fonts/open-sans/opensans-italic.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../fonts/open-sans/opensans-light.woff) format('woff'),
+    url(../fonts/open-sans/opensans-light.ttf) format('opentype');
+}
+
+/* LATO */
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/lato/lato-regular.woff) format('woff'),
+    url(../fonts/lato/lato-regular.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  src: url(../fonts/lato/lato-bold.woff) format('woff'),
+    url(../fonts/lato/lato-bold.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 300;
+  src: url(../fonts/lato/lato-light.woff) format('woff'),
+    url(../fonts/lato/lato-light.ttf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 200;
+  src: url(../fonts/lato/lato-hairline.woff) format('woff'),
+    url(../fonts/lato/lato-hairline.ttf) format('opentype');
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>Bay County GIS</title>
+  <link rel="stylesheet" href="//js.arcgis.com/3.14/esri/css/esri.css" />
+  <link rel="stylesheet" type="text/css" href="app/css/esri/css/esri_custom.css">
+  <link rel="stylesheet" type="text/css" href="app/css/main.css">
+  <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Include MDL -->
+  <script src="bower_components/material-design-lite/material.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+
+<body class="flat">
+
+  <!-- LOADING SCREEN -->
+  <div id="loadingOuter" class="loading-outer splash-loading">
+    <div class="loading-inner">
+      <div id="loadingWrapper" class="loading-wrapper">
+        <div id="loginContainer" class="login-container"></div>
+      </div>
+      <h3 id="loadingMessage" class="loading-message">Getting ready...</h3>
+    </div>
+    <h1 class="loading-app-title">Bay County GIS</h1>
+    <!--<img src="./app/css/images/logo.png" class="loading-app-logo">-->
+  </div>
+
+  <!-- CONTENT -->
+  <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+    <div class="mdl-layout__drawer">
+      <div id="navigation"></div>
+    </div>
+    <main class="mdl-layout__content">
+      <div id="map"></div>
+    </main>
+  </div>
+
+</body>
+
+<script type="text/javascript">
+  var path = location.pathname.replace(/[^\/]+$/, '');
+  var djConfig = {
+    async: true,
+    parseOnLoad: false,
+    tlmSiblingOfDojo: 0,
+    //locale: "de",
+    isDebug: 1,
+    packages: [{
+      name: "app",
+      location: path + "app"
+    }, {
+      name: "widget",
+      location: path + "libs/widget"
+    }, {
+      name: "core",
+      location: path + "libs/core"
+    }, {
+      name: "utils",
+      location: path + "libs/utils"
+    }, {
+      name: "gis",
+      location: path + "libs/gis"
+    }]
+  };
+</script>
+<script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
+<script type="text/javascript" src="//js.arcgis.com/3.14/"></script>
+<script type="text/javascript">
+  require([
+      "app/Controller",
+      "dojo/parser"
+    ],
+    function(Controller, parser) {
+      parser.parse().then(function() {
+        Controller.startup();
+      });
+    });
+</script>
+
+</html>

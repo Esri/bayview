@@ -1,0 +1,31 @@
+.map-reticle {
+  pointer-events: none;
+
+  circle:first-of-type {
+    stroke: $brand-danger;
+  }
+
+  circle:last-of-type {
+    fill: $brand-danger;
+  }
+}
+
+[id*='UserLocationGlyr_layer'] circle {
+  fill: $brand-primary;
+  stroke: $brand-primary;
+  stroke-width: 2px;
+  stroke-opacity: 1;
+
+  animation: locationPulse 3000ms linear infinite both;
+}
+
+@keyframes locationPulse {
+  0% {
+    stroke-width: 0;
+    stroke-opacity: 1;
+  }
+  100% {
+    stroke-width: 24px;
+    stroke-opacity: 0;
+  }
+}

@@ -1,0 +1,179 @@
+.vertical-nav{
+	height:100%;
+	padding-left:15px;
+	top:60px;
+	bottom: 0px;
+
+	.full-height {
+		width:105px;
+		height:100%;
+		background: $brand-primary;
+		float:left;
+
+		.btn:first-child{
+			border-radius:0;
+		}
+
+		.btn-group-vertical{
+			display:block;			
+		} //For the pin-btm vertical button group
+
+		.btn-block{
+			height:100px;
+			border-radius:0;
+
+			:target{
+				display:block;
+			}
+		}
+
+
+		.pin-btm {
+			height: auto;
+			bottom: 0px;
+			position: absolute;
+			width:100%;
+		}
+	}
+}
+
+.col-tools{
+	height:100%;
+	width:90px;
+
+	.vertical-tool{
+		height:100%;
+	}
+
+	.full-height {
+		height:100%;
+		width:100%;
+		background: $brand-primary;
+
+		.btn-group-vertical{
+			display:block;	
+		}
+
+		.btn-block{
+			height:100px;
+			border-radius:0;
+
+			:target{
+				display:block;
+			}
+		}
+
+
+		.pin-btm {
+			height: auto;
+			bottom: 0px;
+			position: absolute;
+			width:100%;
+		}
+	}
+}
+
+.widget{
+	padding-left:105px;
+
+	.panel-heading:after, .panel-body:after{
+		clear:none;
+	}
+
+	.panel-heading, .panel-body{
+		overflow:auto;
+		.btn-toolbar:after{
+			clear:none;
+		}
+	}
+
+	.panel-footer{
+		position:absolute;
+		bottom:0;
+		width:100%;
+	}
+}
+
+.collapsing {
+	position: relative;
+	height: 0;
+	overflow: hidden;
+	-webkit-transition-property: height, visibility;
+	transition-property: height, visibility;
+	-webkit-transition-duration: 0.35s;
+	transition-duration: 0.35s;
+	-webkit-transition-timing-function: ease;
+	transition-timing-function: ease;
+
+	.width{
+		-webkit-transition-property: width, visibility;
+		transition-property: width, visibility;
+		width: 0;
+		height: auto;
+	}
+}
+
+.tabs-left{
+	.nav-tabs {
+	  float: left;
+	  border-bottom: 0;
+	  background: $brand-primary;
+
+	  li {
+	    float: none;
+	    margin: 0;
+	    
+	    a {
+	      margin-right: 0;
+	      border: 0;
+	      color: $btn-primary-color;
+	      border-radius:0;
+	      border:1px solid $btn-primary-border;
+	      
+	      &:hover {
+	        background-color: darken($btn-primary-bg, 10%);
+	        border-color: darken($btn-primary-border, 12%);
+	      }
+	    }
+	  }
+	  
+	  li + li {
+		a{
+			margin-top: -1px;
+		}
+	  }
+	  
+	  
+	  
+	  .active {
+	  	a{
+	  		color:$btn-default-color;
+
+	  		&:hover {
+	  			background-color: darken($btn-primary-bg, 17%);
+	  			border-color: darken($btn-primary-border, 25%);
+	  			color: $btn-primary-color;
+
+	  		}
+	  	}
+	  	
+	  }
+	}
+
+	.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+	  border:0;
+	}
+
+	.tab-content {
+	  margin-left: 45px;
+	  
+	  .tab-pane {
+	    display: none;
+	    background-color: #fff;
+	    padding: 1.6rem;
+	    overflow-y: auto;
+	  }
+	  
+	  .active { display: block; }
+	}
+}
