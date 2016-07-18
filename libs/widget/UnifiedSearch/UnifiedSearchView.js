@@ -1,28 +1,29 @@
 define([
-    'dojo/_base/declare',
-    'dojo/_base/event',
-    'dojo/_base/lang',
-    'dojo/dom-construct',
-    'dojo/dom-style',
-    'dojo/dom-class',
-    'dojo/dom-attr',
+  'dojo/_base/declare',
+  'dojo/_base/event',
+  'dojo/_base/lang',
+  'dojo/dom-construct',
+  'dojo/dom-class',
+  'dojo/dom-attr',
 
-    'dojo/topic',
-    'dojo/query',
-    'dojo/keys',
-    'dojo/on',
+  'dojo/query',
+  'dojo/keys',
+  'dojo/on',
 
-    'esri/dijit/_EventedWidget',
-    'dijit/_TemplatedMixin',
-    'dijit/focus',
+  'esri/dijit/_EventedWidget',
+  'dijit/_TemplatedMixin',
+  'dijit/focus',
+  'dijit/Tooltip',
 
-    'dojo/text!./templates/UnifiedSearchView.html'
-  ],
+  'dojo/text!./UnifiedSearchView.html'
+],
 
-function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
-    topic, dojoQuery, dojoKeys, dojoOn,
-    _EventedWidget, _TemplatedMixin, focusUtil,
-    template) {
+function(
+  declare, dojoEvent, lang, domConstruct, domClass, domAttr,
+  dojoQuery, dojoKeys, dojoOn,
+  _EventedWidget, _TemplatedMixin, focusUtil, Tooltip,
+  template)
+{
 
   return declare([_EventedWidget, _TemplatedMixin], {
 
@@ -39,18 +40,18 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
 
     postCreate: function() {
       this.inherited(arguments);
-      // this.inputNode.placeholder = this.searchConfig.placeholder;
+      this.inputNode.placeholder = this.searchConfig.placeholder;
     },
 
     startup: function() {
       this.inherited(arguments);
-      this.addEventListeners();
+      this._addEventListeners();
+      this._addTooltips();
     },
 
-    addEventListeners: function() {
+    _addEventListeners: function() {
       // dojoOn(document, 'click', lang.hitch(this, this.clearResults));
 
-      topic.subscribe('map-resize', lang.hitch(this, this.onMapResize));
       //dojoOn(this.viewWidget, 'mappanel-show', lang.hitch(this, this.focus));
 
       dojoOn(this.inputNode, 'keyup', lang.hitch(this, this.onInputKeyUp));
@@ -58,13 +59,43 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
 
       dojoOn(this.backNode, 'click', lang.hitch(this, this.onBackNodeClicked));
 
+      dojoOn(this.submitNode, 'click', lang.hitch(this, this.onInputKeyUp));
       dojoOn(this.clearNode, 'click', lang.hitch(this, this.clear));
+
+      dojoOn(this.locatemeNode, 'click', lang.hitch(this, this.locatmeClicked));
 
       dojoOn(this.resultsNode, 'click', lang.hitch(this, this.resultClickHandler));
       dojoOn(this.resultsNode, 'keydown', lang.hitch(this, this.resultKeydownHandler));
 
       dojoOn(this.resultsNode2, 'click', lang.hitch(this, this.resultClickHandler));
       dojoOn(this.resultsNode2, 'keydown', lang.hitch(this, this.resultKeydownHandler));
+    },
+
+    _addTooltips: function() {
+      new Tooltip({
+        connectId: [this.submitNode],
+        label: 'Search',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this.backNode],
+        label: 'Back',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this.clearNode],
+        label: 'Clear',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this.locatemeNode],
+        label: 'Locate me',
+        position: ['below'],
+        showDelay: 0
+      });
     },
 
     // public methods
@@ -91,14 +122,17 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
       this.clearResults();
     },
 
+    locatmeClicked: function() {
+      this.emit('locateme');
+    },
+
     clear: function() {
       console.debug('clear');
       domAttr.set(this.inputNode, 'value', '');
       this.inputValue = '';
       domClass.remove(this.containerNode, 'has-input');
       domClass.remove(this.containerNode, 'populated');
-      domClass.remove(this.domNode, 'search-error');
-      domClass.remove(this.inputNode.parentNode, 'is-dirty');
+      domClass.remove(this.containerNode, 'search-error');
       this.clearResults();
       this.focus();
       this.emit('clear');
@@ -108,8 +142,6 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
       domConstruct.empty(this.resultsNode);
       domConstruct.empty(this.resultsNode2);
       this.clearSearchError();
-      domClass.add(this.resultsNode, 'hidden');
-      domClass.add(this.resultsNode2, 'hidden');
     },
 
     // is this function being called at all??
@@ -119,18 +151,18 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
 
     onInputKeyUp: function(evt) {
       if (!evt ||
-          evt.ctrlKey ||
-          evt.metaKey ||
-          evt.altKey ||
-          evt.keyCode === dojoKeys.copyKey ||
-          evt.keyCode === dojoKeys.ALT ||
-          evt.keyCode === dojoKeys.CTRL ||
-          evt.keyCode === dojoKeys.META ||
-          evt.keyCode === dojoKeys.SHIFT ||
-          evt.keyCode === dojoKeys.UP_ARROW ||
-          evt.keyCode === dojoKeys.DOWN_ARROW ||
-          evt.keyCode === dojoKeys.LEFT_ARROW ||
-          evt.keyCode === dojoKeys.RIGHT_ARROW) {
+        evt.ctrlKey ||
+        evt.metaKey ||
+        evt.altKey ||
+        evt.keyCode === dojoKeys.copyKey ||
+        evt.keyCode === dojoKeys.ALT ||
+        evt.keyCode === dojoKeys.CTRL ||
+        evt.keyCode === dojoKeys.META ||
+        evt.keyCode === dojoKeys.SHIFT ||
+        evt.keyCode === dojoKeys.UP_ARROW ||
+        evt.keyCode === dojoKeys.DOWN_ARROW ||
+        evt.keyCode === dojoKeys.LEFT_ARROW ||
+        evt.keyCode === dojoKeys.RIGHT_ARROW) {
         return;
       }
 
@@ -160,6 +192,10 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
     handleInput: function() {
       domClass.add(this.containerNode, 'loading has-input');
       this.emit('input-change', this.inputValue);
+    },
+
+    setInputValue: function(value) {
+      domAttr.set(this.inputNode, 'value', value);
     },
 
     // capture keydown for tab and arrow navigation.
@@ -206,7 +242,6 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
         dojoEvent.stop(evt);
         this.adjustResultFocus(evt.keyCode, evt.target);
       }
-
     },
 
     adjustResultFocus: function(keyCode, resultEl) {
@@ -214,13 +249,12 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
       var currentIndex = parseInt(domAttr.get(resultEl, 'data-idx'), 10);
 
       if ((keyCode === dojoKeys.DOWN_ARROW && currentIndex + 1 === resultList.length) ||
-          (keyCode === dojoKeys.UP_ARROW && currentIndex === 0)) {
+        (keyCode === dojoKeys.UP_ARROW && currentIndex === 0)) {
         this.inputNode.focus();
       } else {
         var newIndex = keyCode === dojoKeys.DOWN_ARROW ? currentIndex + 1 : currentIndex - 1;
         resultList[newIndex].focus();
       }
-
     },
 
     tempLi: null,
@@ -229,6 +263,7 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
       domClass.remove(li.children[0]);
       domClass.add(li.children[0], 'search-results-icon fa fa-refresh fa-spin');
     },
+
     restoreLoadingIcon: function() {
       if (this.tempLi !== null) {
         domClass.remove(this.tempLi.children[0]);
@@ -248,12 +283,6 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
       }
 
       labelText = labelText.trim ? labelText.trim() : labelText.replace(/^\s+|\s+$/g, '');
-
-      // TODO: different logic for group results
-      /*
-      domAttr.set(this.inputNode, 'value', labelText);
-      this.clearResults();
-      */
 
       this.emit('select-oid', {
         oid: domAttr.get(li, 'data-oid'),
@@ -298,11 +327,9 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
           'data-obj': resultObj.obj,
           'tabindex': '0',
           innerHTML:  '<span class="search-results-icon ' + resultObj.iconClass + '"></span> ' + formattedLabel + '</li>'
-
         }, resultsUL);
       });
 
-      // TODO: figure out why the phantom resultsNode is being left behind
       domConstruct.empty(this.resultsNode);
       domConstruct.place(resultsUL, this.resultsNode);
       domClass.remove(this.resultsNode, 'hidden');
@@ -339,27 +366,23 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
           'data-obj': resultObj.obj,
           'tabindex': '0',
           innerHTML:  '<span class="search-results-icon ' + resultObj.iconClass + '"></span> ' + formattedLabel + '</li>'
-
         }, resultsUL);
       });
 
-      // TODO: figure out why the phantom resultsNode is being left behind
       domConstruct.empty(this.resultsNode2);
       domConstruct.place(resultsUL, this.resultsNode2);
       domAttr.set(this.inputNode, 'value', strInput);
       domClass.add(this.containerNode, 'populated');
       domClass.add(this.resultsNode, 'hidden');
-      domClass.remove(this.resultsNode2, 'hidden');
     },
 
     clearSearchError: function() {
-      domClass.remove(this.domNode, 'search-error');
+      domClass.remove(this.containerNode, 'search-error');
     },
 
     handleNoResults: function() {
       domConstruct.empty(this.resultsNode);
-      domClass.add(this.domNode, 'search-error');
-      domClass.add(this.resultsNode, 'hidden');
+      domClass.add(this.containerNode, 'search-error');
     },
 
     onBackNodeClicked: function() {
@@ -367,13 +390,7 @@ function(declare, dojoEvent, lang, domConstruct, domStyle, domClass, domAttr,
       domClass.remove(this.containerNode, 'populated');
       domConstruct.empty(this.resultsNode2);
       domClass.remove(this.resultsNode, 'hidden');
-      domClass.add(this.resultsNode2, 'hidden');
       this.inputNode.focus();
-    },
-
-    onMapResize: function(newMapDimensions) {
-      this.searchResultsHeight = _.min([newMapDimensions.h * 0.8 - 50, 450]);
-      domStyle.set(this.resultsNode, 'maxHeight', this.searchResultsHeight + 'px');
     }
 
   });

@@ -1,0 +1,29 @@
+.loginPage {
+	transition: opacity 1s;
+}
+.login-title {
+	font-size: 1.3em;
+	color: #6E6E6E;
+  margin: 0 0 17px 0;
+}
+
+.login-page .login-input-group {
+	margin-bottom: 0;
+}
+
+.login-page .checkbox {
+	text-align: left;
+	color: #6E6E6E;
+	font-size: .9em;
+	margin-bottom: 1.5em;
+	margin-top: .5em;
+}
+
+.login-page .checkbox label {
+	font-weight: 400;
+}
+
+/* TODO: move to bootstrap form overwrite */
+.input-group-addon i {
+	width: 1em;
+}

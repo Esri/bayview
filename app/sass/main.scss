@@ -15,6 +15,7 @@
 @import 'app';
 @import 'fonts';
 @import 'CustomTabs';
+@import 'BasemapToggle';
 
 // Core
 @import 'core';
@@ -26,6 +27,5 @@
 // TODO: Import modularized component styles here (i.e. _infoWindows.scss)
 @import 'RouteSelectorOverview';
 @import 'RouteSelectorSearch';
-@import '../../libs/widget/UnifiedSearch/css/UnifiedSearch';
-@import '../../libs/widget/RouteTask/RouteTask';
+@import '../../libs/widget/UnifiedSearch/UnifiedSearch';
 @import 'mapMarkers';

@@ -1,19 +1,17 @@
 define([
-  'dojo/_base/declare',
-  'dojo/topic',
   'dojo/_base/lang',
   'esri/request'
-], function(declare, topic, lang, esriRequest) {
+], function(lang, esriRequest) {
 
   return {
-    isSync: false,
+    //isSync: false,
     hasProxy: false,
 
     get: function(args) {
       var promise = esriRequest({
         url: args.url,
         handleAs: 'json',
-        sync: this.isSync,
+        //sync: this.isSync,
         content: args.params
       }, {
         usePost: false,
@@ -38,22 +36,16 @@ define([
         },
         rawBody: JSON.stringify(args.params),
         handleAs: 'json',
-        sync: this.isSync,
+        //sync: this.isSync,
         timeout: timeoutValue
       }, {
         usePost: true,
         useProxy: this.hasProxy
       });
-      promise.then(lang.hitch(this, function(data) {
-        console.log('RequestWrapper successfully received POST: ' + data);
-      }), lang.hitch(this, function(error) {
-        console.error('RequestWrapper error: ' + error.message);
+      promise.then(function(result) { }, lang.hitch(this, function(error) {
+        console.error('esriRequest error: ' + error);
       }));
       return promise;
-    },
-
-    setSync: function(isSync) {
-      this.isSync = isSync;
     }
 
   };

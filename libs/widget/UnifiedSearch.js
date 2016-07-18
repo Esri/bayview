@@ -8,15 +8,17 @@ define([
     'esri/tasks/QueryTask',
     'esri/tasks/locator',
     'esri/geometry/Point',
+    'esri/geometry/Extent',
+    'esri/geometry/webMercatorUtils',
 
-    'utils/queryUtil',
+    'core/queryUtils',
 
     './UnifiedSearch/UnifiedSearchView'],
 
 function(
   declare, lang, dojoAll, topic, JSON,
-  QT, Locator, Point,
-  queryUtil,
+  QT, Locator, Point, Extent, webMercatorUtils,
+  queryUtils,
   LSView)
 {
 
@@ -71,7 +73,7 @@ function(
 
     startup: function() {
       this.inherited(arguments);
-      this.attachEventListeners();
+      this._attachEventListeners();
     },
 
     mixinPortalSearchConfig: function(searchObj) {
@@ -116,11 +118,54 @@ function(
       this.searchConfig.tables = tables;
     },
 
+    searchMapPoint: function(mapPoint) {
+      var mp = webMercatorUtils.webMercatorToGeographic(mapPoint);
+      this.lsView.setInputValue(mp.x.toFixed(6) + ', ' + mp.y.toFixed(6));
+      var unifiedResults = [];
+      var loc = new Locator(this.searchConfig.geocode.url);
+      //loc.setOutSpatialReference(this.map.spatialReference);
+      loc.locationToAddress(mp, this.searchConfig.geocode.distance, lang.hitch(this, function(result) {
+        unifiedResults.push({
+          oid: 0,
+          label: this.searchConfig.geocode.addressLabelFunction(result.address),
+          layer: '',
+          extent: JSON.stringify(this._pointToExtent(mapPoint, 10)), //JSON.stringify(mp.getExtent()),
+          iconClass: 'fa fa-map-marker',
+          obj: JSON.stringify(result)
+        });
+        this.lsView.handleFormattedResults(unifiedResults);
+      }), function(error) {
+        console.log('geocode error', error);
+      });
+      /*
+      var executeObj = Object.create(null);
+      _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
+        var loc = new Locator(locator.url);
+        loc.setOutSpatialReference(this.map.spatialReference);
+        executeObj[locator.id] = loc.locationToAddress(mp, this.searchConfig.geocode.distance);
+      }));
+      dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
+      */
+    },
+
+    _pointToExtent: function(point, toleranceInPixel) {
+      //calculate map coords represented per pixel
+      var pixelWidth = this.map.extent.getWidth() / this.map.width;
+      //calculate map coords for tolerance in pixel
+      var toleraceInMapCoords = toleranceInPixel * pixelWidth;
+      //calculate & return computed extent
+      return new Extent(point.x - toleraceInMapCoords,
+        point.y - toleraceInMapCoords,
+        point.x + toleraceInMapCoords,
+        point.y + toleraceInMapCoords,
+        this.map.spatialReference);
+    },
+
     initQueries: function() {
       this.queries.length = 0;
       this.queryTasks.length = 0;
       _.each(this.searchConfig.tables, lang.hitch(this, function(table) {
-        var query = queryUtil.createQuery({
+        var query = queryUtils.createQuery({
           outFields: _.union(table.query.fields, table.query.results.labelFields, [table.idField]),
           outSpatialReference: this.map.spatialReference,
           returnGeometry: table.query.returnGeometry
@@ -130,7 +175,14 @@ function(
       }));
     },
 
-    attachEventListeners: function() {
+    _attachEventListeners: function() {
+      if (this.searchConfig.hasReverseGeocode) {
+        topic.subscribe(this.toolPrefix + '/map/clicked', lang.hitch(this, function(sender, args) {
+          //this.initErrorDialog(args || null);
+          console.log('reverse geocode received', args);
+        }));
+      }
+
       this.lsView.on('input-change', lang.hitch(this, this.handleSearchStr));
       this.lsView.on('select-oid', lang.hitch(this, this.handleResultSelection));
 
@@ -205,7 +257,7 @@ function(
       var whereStr = whereArr.join(' OR ');
 
       // server bug 10.1
-      var dirtyStr = queryUtil.getDirtyStr();
+      var dirtyStr = queryUtils.getDirtyStr();
       if (dirtyStr) {
         whereStr = '(' + whereStr +  ') AND ' + dirtyStr;
       }
@@ -294,7 +346,7 @@ function(
       }));
 
       // execute all queries
-      dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtil.genericErrback);
+      dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
     },
 
     handleQueryResults: function(responsesObj) {
@@ -304,7 +356,7 @@ function(
       var sortedResponsesObj = this.getResultsByPriority(responsesObj);
 
       _.each(sortedResponsesObj, lang.hitch(this, function(response, lyrKey) {
-        if (!queryUtil.checkResponseSuccess(response)) { // || !queryUtil.checkFeatureExistence(response)) {
+        if (!queryUtils.checkResponseSuccess(response)) { // || !queryUtils.checkFeatureExistence(response)) {
           return;
         }
 
@@ -400,7 +452,7 @@ function(
 
     runGroupedQuery: function(resultObj) {
       var table = this.getTableByLayerKey(resultObj.lyr);
-      queryUtil.createAndRun({
+      queryUtils.createAndRun({
         query: {
           outFields: _.union(table.query.fields, table.query.results.labelFields, [table.idField]), //["*"],
           returnGeometry: true,
@@ -439,23 +491,23 @@ function(
       var table = this.getTableByLayerKey(resultObj.lyr);
       var strUrl;
       var strWhere;
-      //var intObjectid = parseInt(resultObj.oid, 10);
-      var objectId = resultObj.oid;
+      var intObjectid = parseInt(resultObj.oid, 10);
       var fieldValArr = [{
         fieldName: table.idField,
-        newValue: objectId
+        newValue: intObjectid
       }];
       if (table.query.relatedQuery != null && table.query.relatedQuery.isRelated) {
         // run the related query
         strUrl = table.query.relatedQuery.url;
-        strWhere = table.query.relatedQuery.foreignKeyField + ' = \'' + objectId + '\'';
+        var val = (isNaN(intObjectid)) ? '\'' + resultObj.oid + '\'' : intObjectid;
+        strWhere = table.query.relatedQuery.foreignKeyField + ' = ' + val;
       } else {
         // get the geometry from the same table
         strUrl = table.url;
-        strWhere = queryUtil.constructWhere(fieldValArr, 'AND');
+        strWhere = queryUtils.constructWhere(fieldValArr, 'AND');
       }
       // construct the query
-      queryUtil.createAndRun({
+      queryUtils.createAndRun({
         query: {
           outFields: ['*'],
           returnGeometry: true,
@@ -475,7 +527,7 @@ function(
 
     runSelectedResponseHandler: function(params, response) {
       console.debug('runSelectedResponseHandler');
-      if (!queryUtil.checkResponseSuccess(response) || !queryUtil.checkFeatureExistence(response) || !queryUtil.checkSingleFeature(response)) {
+      if (!queryUtils.checkResponseSuccess(response) || !queryUtils.checkFeatureExistence(response) || !queryUtils.checkSingleFeature(response)) {
         console.error('not a single feature');
         return;
       }
@@ -495,7 +547,7 @@ function(
       topic.publish('/map/zoom/feature', this,
         {
           feature: selectedFeature,
-          showInfoWindow: params.zoomToFeature,
+          showInfoWindow: params.showInfoWindow,
           refreshLayers: true
         }
       );

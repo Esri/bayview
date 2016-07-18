@@ -10,6 +10,7 @@ define([
 
     'dojo/_base/lang',
     'dojo/_base/connect',
+    'dojo/topic',
     'dojo/parser',
     'dojo/query',
     'dojo/on',
@@ -17,18 +18,13 @@ define([
     'dojo/dom-class',
     'dijit/registry',
 
-    './BasemapToggle',
-    'app/config/WidgetConfig',
-
-    'dojo/text!./templates/Navigation.html'
+    'dojo/text!./templates/BasemapToggle.html'
   ],
 
   function(
     declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
     Evented,
-    lang, connect, parser, query, on, domStyle, domClass, registry,
-    BasemapToggle,
-    widgetConfig,
+    lang, connect, topic, parser, query, on, domStyle, domClass, registry,
     template
   ) {
 
@@ -43,14 +39,21 @@ define([
 
       postCreate: function() {
         this.inherited(arguments);
-        this.basemapToggle = new BasemapToggle({
-          config: widgetConfig.basemapToggle
-        }, this.basemapWidgetContainer);
-        this.basemapToggle.startup();
+        console.log('Basemaps available: ' + this.config.basemaps.length);
+        _.each(this.config.basemaps, lang.hitch(this, function(basemap) {
+          console.log('Basemap: ' + basemap.name);
+        }));
+
+        this.own(on(this.btnTest, 'click', lang.hitch(this, function() {
+          console.log('test clicked');
+        })));
       },
 
       startup: function() {
-        console.log('Navigation started');
+        console.log('BasemapToggle started');
+        topic.publish('/BasemapToggle/changed', this, {
+          newBasemap: this.config.basemaps[0]
+        });
       }
 
     });

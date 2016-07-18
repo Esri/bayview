@@ -1,0 +1,30 @@
+<div class="unifiedsearch-container">
+    <div class="unifiedsearch-wrapper">
+        <div class="unifiedsearch-input-wrapper" data-dojo-attach-point="containerNode">
+            <div title="Search" tabindex="0" class="unifiedsearch-input-button unifiedsearch-input-button-left unifiedsearch-input-button-search" data-dojo-attach-point="submitNode">
+                <i class="fa fa-search"></i>
+            </div>
+            <div title="Back" tabindex="0" class="unifiedsearch-input-button unifiedsearch-input-button-left unifiedsearch-input-button-back" data-dojo-attach-point="backNode">
+                <i class="fa fa-arrow-left"></i>
+            </div>
+            <div class="unifiedsearch-input-searchbox">
+                <input tabindex="0" placeholder="Search..." value="${inputValue}" autocomplete="off" type="text" data-dojo-attach-point="inputNode">
+            </div>
+            <div tabindex="0" class="unifiedsearch-input-button unifiedsearch-input-button-right unifiedsearch-input-button-reset" data-dojo-attach-point="clearNode">
+                <i class="fa fa-close"></i>
+            </div>
+            <div tabindex="0" class="unifiedsearch-input-button unifiedsearch-input-button-right unifiedsearch-input-button-loading">
+                <i class="fa fa-spin fa-spinner"></i>
+            </div>
+            <div class="unifiedsearch-input-button unifiedsearch-input-button-right unifiedsearch-input-button-locateme" data-dojo-attach-point="locatemeNode">
+                <i class="fa fa-crosshairs"></i>
+            </div>
+        </div>
+        <div class="unifiedsearch-results-wrapper">
+            <div class="unifiedsearch-results-suggestions" data-dojo-attach-point="resultsNode"></div>
+        </div>
+        <div class="unifiedsearch-results-wrapper">
+            <div class="unifiedsearch-results-suggestions" data-dojo-attach-point="resultsNode2"></div>
+        </div>
+    </div>
+</div>

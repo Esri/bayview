@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <title>Bay County GIS</title>
-  <link rel="stylesheet" href="//js.arcgis.com/3.14/esri/css/esri.css" />
+  <link rel="stylesheet" href="//js.arcgis.com/3.17/esri/css/esri.css" />
   <link rel="stylesheet" type="text/css" href="app/css/esri/css/esri_custom.css">
   <link rel="stylesheet" type="text/css" href="app/css/main.css">
   <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
@@ -54,40 +53,49 @@
       <div id="navigation"></div>
     </div>
     <main class="mdl-layout__content">
-      <div id="map"></div>
+      <div id="map">
+        <!-- top left -->
+        <div class="map-overlay-top-left">
+          <div class="search-container"><div id="searchContainer"></div></div>
+          <div class="wrapper"><div id="measureContainer"></div></div>
+          <div class="wrapper"><div id="drawContainer"></div></div>
+          <div class="wrapper"><div id="extractContainer"></div></div>
+          <div class="wrapper"><div id="printContainer"></div></div>
+        </div>
+      </div>
     </main>
   </div>
 
 </body>
 
 <script type="text/javascript">
+(function() {
   var path = location.pathname.replace(/[^\/]+$/, '');
-  var djConfig = {
+  window.djConfig = {
     async: true,
     parseOnLoad: false,
     tlmSiblingOfDojo: 0,
     //locale: "de",
     isDebug: 1,
-    packages: [{
-      name: "app",
-      location: path + "app"
-    }, {
-      name: "widget",
-      location: path + "libs/widget"
-    }, {
-      name: "core",
-      location: path + "libs/core"
-    }, {
-      name: "utils",
-      location: path + "libs/utils"
-    }, {
-      name: "gis",
-      location: path + "libs/gis"
-    }]
+    packages: [
+      {
+        name: 'app',
+        location: path + 'app'
+      },
+      {
+        name: 'widget',
+        location: path + 'libs/widget'
+      },
+      {
+        name: 'core',
+        location: path + 'libs/core'
+      }
+    ]
   };
+})(window);
 </script>
 <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
-<script type="text/javascript" src="//js.arcgis.com/3.14/"></script>
+<script type="text/javascript" src="//js.arcgis.com/3.17/"></script>
 <script type="text/javascript">
   require([
       "app/Controller",
