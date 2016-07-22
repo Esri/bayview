@@ -24,20 +24,80 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       groups: [
         {
           name: 'Points of Interest',
-          isSelected: true,
+          isSelected: false,
+          icon: 'fa fa-thumb-tack',
           layers: [
             {
               name: 'Beach Access',
-              isSelected: true,
+              isSelected: false,
               url: ''
             },
             {
               name: 'Boat Ramps',
               isSelected: false,
               url: ''
+            },
+            {
+              name: 'Libraries',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Parks',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Recycling',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Schools',
+              isSelected: false,
+              url: ''
+            }
+          ]
+        },
+
+        {
+          name: 'Parcels and Community',
+          isSelected: false,
+          icon: 'fa fa-home',
+          layers: [
+            {
+              name: 'Parcels',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Addresses',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'AADT',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Municipal Boundaries',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Creeks',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Planned unit Development',
+              isSelected: false,
+              url: ''
             }
           ]
         }
+
       ]
     },
 

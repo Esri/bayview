@@ -1,0 +1,39 @@
+.w-layer-list {
+
+}
+
+.w-layer-list__list {
+
+}
+
+.w-layer-list__group-header {
+    padding: 10px;
+    font-size: 16px;
+
+    &:hover {
+        background: rgba(0,0,0,0.2);
+        cursor: pointer;
+    }
+}
+
+.w-layer-list__icon {
+    padding: 0 10px;
+}
+
+.w-layer-list__group-item {
+    margin: 0 0 10px;
+    padding: 0;
+    list-style: none;
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.w-layer-list__layer-item {
+    padding-left: 25px;
+}
+
+.w-layer-list__check-box {
+    padding: 0 10px 0 0;
+}

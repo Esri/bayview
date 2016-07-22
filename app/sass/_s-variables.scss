@@ -25,3 +25,28 @@ $btn-default-border:      #ccc !default;
 $btn-primary-color:       #fff !default;
 $btn-primary-bg:          $brand-primary !default;
 $btn-primary-border:      darken($btn-primary-bg, 5%) !default;
+
+// Colors
+$white: #fff;
+$black: #000;
+$blue: #5b5cff;
+$blue-green: #7ecfeb;
+$orange: #ef8b5c;
+
+// Breakpoints
+$breakpoints: (
+    md: 1024px
+);
+
+@mixin respond($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}

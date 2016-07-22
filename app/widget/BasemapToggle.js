@@ -39,18 +39,18 @@ define([
 
       postCreate: function() {
         this.inherited(arguments);
-        console.log('Basemaps available: ' + this.config.basemaps.length);
+        //console.log('Basemaps available: ' + this.config.basemaps.length);
         _.each(this.config.basemaps, lang.hitch(this, function(basemap) {
-          console.log('Basemap: ' + basemap.name);
+          //console.log('Basemap: ' + basemap.name);
         }));
 
         this.own(on(this.btnTest, 'click', lang.hitch(this, function() {
-          console.log('test clicked');
+          //console.log('test clicked');
         })));
       },
 
       startup: function() {
-        console.log('BasemapToggle started');
+        //console.log('BasemapToggle started');
         topic.publish('/BasemapToggle/changed', this, {
           newBasemap: this.config.basemaps[0]
         });

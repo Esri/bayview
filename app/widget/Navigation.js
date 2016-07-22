@@ -15,8 +15,10 @@ define([
     'dojo/on',
     'dojo/dom-style',
     'dojo/dom-class',
+    'dojo/NodeList-traverse',
     'dijit/registry',
 
+    './LayerList',
     './BasemapToggle',
     'app/config/WidgetConfig',
 
@@ -26,32 +28,47 @@ define([
   function(
     declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
     Evented,
-    lang, connect, parser, query, on, domStyle, domClass, registry,
-    BasemapToggle,
+    lang, connect, parser, query, on, domStyle, domClass, domNodeList, registry,
+    LayerList, BasemapToggle,
     widgetConfig,
     template
   ) {
 
     return declare([WidgetBase, TemplatedMixin, WidgetsInTemplateMixin, Evented], {
 
-      templateString: template,
-      widgetsInTemplate: true,
+        templateString: template,
+        widgetsInTemplate: true,
 
-      constructor: function() {
+        constructor: function() {
 
-      },
+        },
 
-      postCreate: function() {
+        postCreate: function() {
         this.inherited(arguments);
         this.basemapToggle = new BasemapToggle({
-          config: widgetConfig.basemapToggle
+            config: widgetConfig.basemapToggle
         }, this.basemapWidgetContainer);
         this.basemapToggle.startup();
-      },
 
-      startup: function() {
-        console.log('Navigation started');
-      }
+        this.layerList = new LayerList({
+            config: widgetConfig.layerList
+        }, this.layerWidgetContainer);
+        this.layerList.startup();
+        },
+
+        startup: function() {
+            this._attachEventListeners();
+        },
+
+        handleClose: function(evt) {
+            // Get the nav container from index.html
+            query('.js-nav-close').children('.is-visible').removeClass('is-visible');
+        },
+
+        _attachEventListeners: function() {
+            // Get group click event
+            query('.js-nav-close-btn').on('click', lang.hitch(this, this.handleClose));
+        }
 
     });
   });

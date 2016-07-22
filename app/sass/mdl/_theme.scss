@@ -21,7 +21,17 @@
 }
 
 .mdl-layout__drawer-button {
-  color: #000;
+    height: 43px;
+    width: 43px;
+    margin-right: 10px;
+    background: $blue;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+    color: $white;
+    transition: all ease-in-out 0.2s;
+
+    &:hover {
+        background: lighten($blue, 5%);
+    }
 }
 
 .mdl-button--colored[disabled][disabled] {
@@ -30,3 +40,25 @@
 }
 
 $drop-shadow-base: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+
+.mdl-layout__drawer {
+    border: 0;
+
+    @include respond('md') {
+        width: 350px;
+        transform: translateX(-360px);
+    }
+}
+
+// Icon Overrides
+.material-icons {
+    &.w-navigation__close-btn {
+        font-size: 32px;
+        color: $white;
+        transition: all ease-in-out 0.2s;
+
+        &:hover {
+            background: lighten($blue, 5%);
+        }
+    }
+}
