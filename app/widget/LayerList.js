@@ -35,41 +35,66 @@ define([
         templateString: template,
         widgetsInTemplate: true,
 
-        constructor: function() {
-
-        },
+        constructor: function() {},
 
         postCreate: function() {
             this.inherited(arguments);
-            console.log('Layers available: ' + this.config.groups.length);
-            // _.each(this.config.basemaps, lang.hitch(this, function(basemap) {
-            //   //console.log('Basemap: ' + basemap.name);
-            // }));
-
-            // this.own(on(this.btnTest, 'click', lang.hitch(this, function() {
-            //   //console.log('test clicked');
-            // })));
             this._buildList();
-
         },
 
         startup: function() {
-            //console.log('BasemapToggle started');
-            // topic.publish('/BasemapToggle/changed', this, {
-            //   newBasemap: this.config.basemaps[0]
-            // });
             this._attachEventListeners();
         },
 
         handleGroupToggle: function(evt) {
+            // Highlight group
+            domClass.toggle(evt.srcElement, 'is-selected');
+
             // Get the group index/id to open the correct list
             var groupIndex = domAttr.get(evt.srcElement, 'data-group');
             query('.js-layer-group-' + groupIndex).toggleClass('is-hidden');
         },
 
+        handleLayerSelect: function(evt) {
+            // Highlight layer
+            var groupHeader = evt.srcElement.parentElement.previousElementSibling;
+            var currentLayers = domAttr.get(groupHeader, 'data-set-items');
+
+            _.each(evt.srcElement.children, lang.hitch(this, function(item, index) {
+                // Switch the checkbox icons
+                domClass.toggle(item, 'is-hidden');
+
+                //console.log('current layers selected ' + currentLayers);
+                // Indicate in the group header that there are/are not selected layers
+                // Keep a running count of selected layers
+                if (domClass.contains(item, 'js-layer-uncheck') && domClass.contains(item, 'is-hidden')) {
+                    //console.log('this layer is selected');
+                    domAttr.set(groupHeader, 'data-set-items', currentLayers++);
+                } else {
+                    domAttr.set(groupHeader, 'data-set-items', currentLayers--);
+                }
+            }));
+
+            // Place setting adjustment icon on group if there are selected layers
+            // grab the settings icon node
+            var settingIcon = query('.js-group-set', groupHeader)[0];
+            // update the current layer variable
+            currentLayers = domAttr.get(groupHeader, 'data-set-items');
+            // set class to reveal icon
+            if (currentLayers > 0) {
+                domClass.remove(settingIcon, 'is-hidden');
+            } else {
+                domClass.add(settingIcon, 'is-hidden');
+            }
+
+
+        },
+
         _attachEventListeners: function() {
             // Get group click event
             query('.js-group-list').on('click', lang.hitch(this, this.handleGroupToggle));
+            // Get layer selection click event
+            query('.js-layer-item').on('click', lang.hitch(this, this.handleLayerSelect));
         },
 
         _buildList: function() {
@@ -80,7 +105,8 @@ define([
                 var groupHeader = domConstruct.create('div', {
                     'class': 'w-layer-list__group-header js-group-list',
                     'data-group': index,
-                    innerHTML:  '<span class="w-layer-list__icon ' + group.icon + '"></span> ' + group.name
+                    'data-set-items': 0,
+                    innerHTML:  '<span class="w-layer-list__group-icon ' + group.icon + '"></span> ' + group.name + '<span class="w-layer-list__group-set-icon is-hidden fa fa-sliders js-group-set"></span>'
                 });
 
                 // Create the group list
@@ -91,8 +117,8 @@ define([
                 // Add the layer items to group list
                 _.each(group.layers, lang.hitch(this, function(layer) {
                     domConstruct.create('li', {
-                        'class': 'w-layer-list__layer-item',
-                        innerHTML:  '<span class="w-layer-list__check-box fa fa-square-o"></span> ' + layer.name
+                        'class': 'w-layer-list__layer-item js-layer-item',
+                        innerHTML:  '<span class="w-layer-list__check-box fa fa-square-o js-layer-uncheck"></span><span class="w-layer-list__check is-hidden fa fa-check-square-o js-layer-check"></span> ' + layer.name
                     }, groupItem);
                 }));
 

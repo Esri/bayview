@@ -11,18 +11,32 @@
     font-size: 16px;
 
     &:hover {
-        background: rgba(0,0,0,0.2);
+        background: rgba($blue,0.3);
         cursor: pointer;
+    }
+
+    &.is-selected {
+        background: rgba($blue,0.3);
     }
 }
 
-.w-layer-list__icon {
+.w-layer-list__group-icon {
     padding: 0 10px;
 }
 
+.w-layer-list__group-set-icon {
+    float: right;
+    font-size: 16px;
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
 .w-layer-list__group-item {
-    margin: 0 0 10px;
-    padding: 0;
+    margin: 0;
+    padding: 10px 0;
+    background: rgba($blue,0.2);
     list-style: none;
 
     &.is-hidden {
@@ -32,8 +46,18 @@
 
 .w-layer-list__layer-item {
     padding-left: 25px;
+
+    &:hover {
+        background: rgba($blue,0.1);
+        cursor: pointer;
+    }
 }
 
-.w-layer-list__check-box {
+.w-layer-list__check-box,
+.w-layer-list__check {
     padding: 0 10px 0 0;
+
+    &.is-hidden {
+        display: none;
+    }
 }
