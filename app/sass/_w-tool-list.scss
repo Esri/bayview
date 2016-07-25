@@ -1,0 +1,23 @@
+.w-tool-list__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.w-tool-list__item {
+    padding: 10px;
+    font-size: 16px;
+
+    &:hover {
+        background: rgba($blue,0.3);
+        cursor: pointer;
+    }
+
+    &.is-selected {
+        background: rgba($blue,0.3);
+    }
+}
+
+.w-tool-list__item-icon {
+    padding: 0 10px;
+}

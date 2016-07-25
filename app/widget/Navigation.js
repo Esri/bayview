@@ -20,6 +20,7 @@ define([
 
     './LayerList',
     './BasemapToggle',
+    './ToolList',
     'app/config/WidgetConfig',
 
     'dojo/text!./templates/Navigation.html'
@@ -29,7 +30,7 @@ define([
     declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
     Evented,
     lang, connect, parser, query, on, domStyle, domClass, domNodeList, registry,
-    LayerList, BasemapToggle,
+    LayerList, BasemapToggle, ToolList,
     widgetConfig,
     template
   ) {
@@ -44,16 +45,21 @@ define([
         },
 
         postCreate: function() {
-        this.inherited(arguments);
-        this.basemapToggle = new BasemapToggle({
-            config: widgetConfig.basemapToggle
-        }, this.basemapWidgetContainer);
-        this.basemapToggle.startup();
+            this.inherited(arguments);
+            this.basemapToggle = new BasemapToggle({
+                config: widgetConfig.basemapToggle
+            }, this.basemapWidgetContainer);
+            this.basemapToggle.startup();
 
-        this.layerList = new LayerList({
-            config: widgetConfig.layerList
-        }, this.layerWidgetContainer);
-        this.layerList.startup();
+            this.layerList = new LayerList({
+                config: widgetConfig.layerList
+            }, this.layerWidgetContainer);
+            this.layerList.startup();
+
+            this.toolList = new ToolList({
+                //config: widgetConfig.layerList
+            }, this.toolsWidgetContainer);
+            this.toolList.startup();
         },
 
         startup: function() {
@@ -66,8 +72,13 @@ define([
         },
 
         _attachEventListeners: function() {
-            // Get group click event
-            query('.js-nav-close-btn').on('click', lang.hitch(this, this.handleClose));
+            this.own(
+                // Two cases the nav can be closed
+                // Tool is selected
+                this.toolList.on('close', this.handleClose),
+                // Close button click event
+                query('.js-nav-close-btn').on('click', lang.hitch(this, this.handleClose))
+            );
         }
 
     });
