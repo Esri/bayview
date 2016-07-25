@@ -91,10 +91,12 @@ define([
         },
 
         _attachEventListeners: function() {
-            // Get group click event
-            query('.js-group-list').on('click', lang.hitch(this, this.handleGroupToggle));
-            // Get layer selection click event
-            query('.js-layer-item').on('click', lang.hitch(this, this.handleLayerSelect));
+            this.own(
+                // Get group click event
+                query('.js-group-list').on('click', lang.hitch(this, this.handleGroupToggle)),
+                // Get layer selection click event
+                query('.js-layer-item').on('click', lang.hitch(this, this.handleLayerSelect))
+            );
         },
 
         _buildList: function() {

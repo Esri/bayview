@@ -1,6 +1,22 @@
-.widget-basemapToggle {
-  //background: blue;
-  .__test {
-    //background: green;
-  }
+.w-basemap-toggle {
+    margin: 20px 0;
+    padding: 10px;
+    border: {
+        top: 2px solid #e6e6e6;
+        bottom: 2px solid #e6e6e6;
+    }
+    font-size: 16px;
+
+    &:hover {
+        background: rgba($blue,0.3);
+        cursor: pointer;
+    }
+
+    &.is-selected {
+        background: rgba($blue,0.1);
+    }
+}
+
+.w-basemap-toggle__icon {
+    padding: 0 10px;
 }
