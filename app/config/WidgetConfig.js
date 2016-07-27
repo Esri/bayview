@@ -104,12 +104,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     basemapToggle: {
       basemaps: [
         {
-          name: 'Basemap 1',
-          url: ''
+          name: 'Streets',
+          basemap: 'streets'
         },
         {
-          name: 'Basemap 2',
-          url: ''
+          name: 'Satellite',
+          basemap: ''
         }
       ]
     },
