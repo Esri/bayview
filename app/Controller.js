@@ -133,7 +133,9 @@ define([
     _initWidgets: function(map) {
       console.log('initWidgets called');
 
-      this.navigation = new Navigation({}, 'navigation');
+      this.navigation = new Navigation({
+        map: map
+      }, 'navigation');
       this.navigation.startup();
 
       // Legend

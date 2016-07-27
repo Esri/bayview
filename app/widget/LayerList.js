@@ -17,6 +17,8 @@ define([
   'dojo/dom-construct',
   'dijit/registry',
 
+  './LayerGroup',
+
   'dojo/text!./templates/LayerList.html'
 ],
 
@@ -24,6 +26,7 @@ function(
   declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
   Evented,
   lang, connect, topic, parser, query, on, domStyle, domClass, domAttr, domConstruct, registry,
+  LayerGroup,
   template
 ) {
 
@@ -99,6 +102,12 @@ function(
 
       _.each(this.config.groups, lang.hitch(this, function(group, index) {
 
+        new LayerGroup({
+          map: this.map,
+          group: group
+        }).placeAt(this.parentListNode);
+
+        /*
         // Set layer group header
         var groupHeader = domConstruct.create('div', {
           'class': 'w-layer-list__group-header js-group-list',
@@ -122,6 +131,7 @@ function(
 
         domConstruct.place(groupHeader, this.parentListNode);
         domConstruct.place(groupItem, this.parentListNode);
+        */
 
       }));
     }

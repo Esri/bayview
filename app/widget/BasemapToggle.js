@@ -53,28 +53,30 @@ function(
       this._attachEventListeners();
     },
 
-    handleToggle: function(evt) {
+    _handleToggle: function(evt) {
       // Highlight toggle
       domClass.toggle(evt.srcElement, 'is-selected');
       // Update text
       if (domClass.contains(evt.srcElement, 'is-selected')) {
+        this.map.setBasemap(this.config.basemaps[1].basemap);
         evt.srcElement.innerHTML = '<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[1].name + ' view';
       } else {
+        this.map.setBasemap(this.config.basemaps[0].basemap);
         evt.srcElement.innerHTML = '<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[0].name + ' view';
       }
     },
 
     _attachEventListeners: function() {
-      this.own(
-          query('.js-basemap-toggle').on('click', lang.hitch(this, this.handleToggle))
-      );
+      this.own(on(this.basemapContainer, 'click', lang.hitch(this, this._handleToggle)));
     },
 
     _buildToggle: function() {
       // Grab node
-      var node = query('.js-basemap-toggle')[0];
+      //var node = query('.js-basemap-toggle')[0];
       // Place the dynamic string
-      domConstruct.place('<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[0].name + ' view', node);
+      domConstruct.place('<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to <span data-dojo-attach-point="basemapName">' + this.config.basemaps[1].name + '</span> view', this.basemapContainer);
+      //this.basemapName.innerHTML = '';
+      //this.basemapName = '';
     }
 
   });

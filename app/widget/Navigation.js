@@ -47,11 +47,13 @@ define([
         postCreate: function() {
             this.inherited(arguments);
             this.basemapToggle = new BasemapToggle({
+                map: this.map,
                 config: widgetConfig.basemapToggle
             }, this.basemapWidgetContainer);
             this.basemapToggle.startup();
 
             this.layerList = new LayerList({
+                map: this.map,
                 config: widgetConfig.layerList
             }, this.layerWidgetContainer);
             this.layerList.startup();
