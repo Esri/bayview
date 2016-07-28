@@ -81,11 +81,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       unit: 'dual' // 'english' or 'metric' and starting at version 3.4 'dual'
     },
 
-    drawTool: {
-      isEnabled: false,
-      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'] // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
-    },
-
     homeButton: {
       isEnabled: false
     },
@@ -184,12 +179,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             //contentFunction: function(attrs) {
             //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
             //},
-            iconClass: 'fa fa-coffee',
+            iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
         },
       }
-      
+
     ]
   };
 });

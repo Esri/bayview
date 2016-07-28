@@ -20,6 +20,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       includeLayerIds: ['states', 'farmers_markets', 'fsa_state_offices'] // leave empty if all  // ignored if Portal
     },
 
+    drawTool: {
+      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
+      hasSaveButton: false,
+      hasClearButton: true
+    },
+
     layerList: {
       groups: [
         {
