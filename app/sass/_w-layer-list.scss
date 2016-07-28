@@ -3,12 +3,12 @@
     font-size: 16px;
 
     &:hover {
-        background: rgba($blue,0.3);
+        background: rgba($brand-primary,0.3);
         cursor: pointer;
     }
 
     &.is-selected {
-        background: rgba($blue,0.3);
+        background: rgba($brand-primary,0.3);
     }
 }
 
@@ -28,7 +28,7 @@
 .w-layer-list__group-item {
     margin: 0;
     padding: 10px 0;
-    background: rgba($blue,0.2);
+    background: rgba($brand-primary,0.2);
     list-style: none;
 
     &.is-hidden {
@@ -40,7 +40,7 @@
     padding-left: 25px;
 
     &:hover {
-        background: rgba($blue,0.1);
+        background: rgba($brand-primary,0.1);
         cursor: pointer;
     }
 }

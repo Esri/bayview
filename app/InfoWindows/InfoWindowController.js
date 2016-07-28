@@ -135,6 +135,7 @@ define([
         if (this.infoWindowConfig.blurMapOnHover) {
           domClass.remove(dom.byId('map_container'), 'blur-map');
         }
+
         this.map.infoWindow.hide();
       },
 
