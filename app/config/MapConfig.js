@@ -4,7 +4,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     map: {
       options: {
         // default basemap
-        basemap: 'streets', // 'streets', 'satellite', 'hybrid', 'topo', 'gray', 'oceans', 'national-geographic', 'osm', 'dark-gray'
+        basemap: 'streets',// 'streets', 'satellite', 'hybrid', 'topo', 'gray', 'oceans', 'national-geographic', 'osm', 'dark-gray'
 
         // if center & zoom are not defined then extent as defined in "initialExtent" below is being used
         //center: [-122.45,37.77],

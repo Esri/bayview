@@ -61,9 +61,9 @@ define([
                 domClass.toggle(evt.srcElement, 'is-selected');
                 // Update text
                 if (domClass.contains(evt.srcElement, 'is-selected')) {
-                    evt.srcElement.innerHTML = '<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[1].name + ' view';
+                    evt.srcElement.innerHTML = '<span class="material-icons w-basemap-toggle__icon">map</span> Toggle to ' + this.config.basemaps[1].name + ' view';
                 } else {
-                    evt.srcElement.innerHTML = '<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[0].name + ' view';
+                    evt.srcElement.innerHTML = '<span class="material-icons w-basemap-toggle__icon">map</span> Toggle to ' + this.config.basemaps[0].name + ' view';
                 }
             },
 
@@ -77,7 +77,7 @@ define([
                 // Grab node
                 var node = query('.js-basemap-toggle')[0];
                 // Place the dynamic string
-                domConstruct.place('<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[0].name + ' view', node);
+                domConstruct.place('<span class="material-icons w-basemap-toggle__icon">map</span> Toggle to ' + this.config.basemaps[0].name + ' view', node);
             }
 
         });

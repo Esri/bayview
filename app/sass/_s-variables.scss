@@ -29,13 +29,14 @@ $btn-primary-border:      darken($btn-primary-bg, 5%) !default;
 // Colors
 $white: #fff;
 $black: #000;
-$blue: #5b5cff;
+$blue: #4B65FF;
 $blue-green: #7ecfeb;
 $orange: #ef8b5c;
 
 // Breakpoints
 $breakpoints: (
-    md: 1024px
+    xs: 480px,
+    md: 1025px
 );
 
 @mixin respond($breakpoint) {

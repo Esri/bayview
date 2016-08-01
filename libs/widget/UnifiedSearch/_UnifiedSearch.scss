@@ -1,7 +1,9 @@
 /* $brand-primary */
 .unifiedsearch-container {
   position: relative;
-  top: 0;
+  top: -6px;
+  right: 10px;
+  width: 250px;
   z-index: 4;
 
   .unifiedsearch-wrapper {
@@ -144,5 +146,14 @@
         }
       }
     }
+  }
+
+  @include respond('xs') {
+        width: inherit;;
+  }
+
+  @include respond('md') {
+        top: 0;
+        right: 0;
   }
 }

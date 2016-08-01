@@ -25,7 +25,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         {
           name: 'Points of Interest',
           isSelected: false,
-          icon: 'fa fa-thumb-tack',
+          icon: 'turned_in_not',
           layers: [
             {
               name: 'Beach Access',
@@ -63,7 +63,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         {
           name: 'Parcels and Community',
           isSelected: false,
-          icon: 'fa fa-home',
+          icon: 'store',
           layers: [
             {
               name: 'Parcels',

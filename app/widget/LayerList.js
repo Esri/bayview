@@ -108,7 +108,7 @@ define([
                     'class': 'w-layer-list__group-header js-group-list',
                     'data-group': index,
                     'data-set-items': 0,
-                    innerHTML:  '<span class="w-layer-list__group-icon ' + group.icon + '"></span> ' + group.name + '<span class="w-layer-list__group-set-icon is-hidden fa fa-sliders js-group-set"></span>'
+                    innerHTML:  '<i class="material-icons w-layer-list__group-icon">' + group.icon + '</i> ' + group.name + '<span class="w-layer-list__group-set-icon is-hidden fa fa-sliders js-group-set"></span>'
                 });
 
                 // Create the group list

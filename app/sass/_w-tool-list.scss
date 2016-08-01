@@ -21,3 +21,11 @@
 .w-tool-list__item-icon {
     padding: 0 10px;
 }
+
+.material-icons {
+    &.w-tool-list__icon {
+        padding: 0 10px;
+        vertical-align: text-bottom;
+        font-size: 16px;
+    }
+}

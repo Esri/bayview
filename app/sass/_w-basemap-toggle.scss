@@ -17,6 +17,11 @@
     }
 }
 
-.w-basemap-toggle__icon {
-    padding: 0 10px;
+// Icon Override
+.material-icons {
+    &.w-basemap-toggle__icon {
+        padding: 0 10px;
+        vertical-align: text-bottom;
+        font-size: 16px;
+    }
 }

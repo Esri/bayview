@@ -12,10 +12,6 @@
     }
 }
 
-.w-layer-list__group-icon {
-    padding: 0 10px;
-}
-
 .w-layer-list__group-set-icon {
     float: right;
     font-size: 16px;
@@ -51,5 +47,14 @@
 
     &.is-hidden {
         display: none;
+    }
+}
+
+// Icon Override
+.material-icons {
+    &.w-layer-list__group-icon {
+        padding: 0 10px;
+        vertical-align: text-bottom;
+        font-size: 16px;
     }
 }
