@@ -20,6 +20,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       includeLayerIds: ['states', 'farmers_markets', 'fsa_state_offices'] // leave empty if all  // ignored if Portal
     },
 
+    drawTool: {
+      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
+      hasSaveButton: false,
+      hasClearButton: true
+    },
+
     layerList: {
       groups: [
         {
@@ -27,6 +33,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           isSelected: false,
           icon: 'turned_in_not',
           layers: [
+            {
+              name: 'Hydrants',
+              id: 'hydrants',
+              isSelected: false,
+              url: ''
+            },
             {
               name: 'Beach Access',
               isSelected: false,
@@ -104,24 +116,24 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     basemapToggle: {
       basemaps: [
         {
-          name: 'Basemap 1',
-          url: ''
+          name: 'Streets',
+          basemap: 'streets'
         },
         {
-          name: 'Basemap 2',
-          url: ''
+          name: 'Satellite',
+          basemap: 'satellite'
         }
       ]
     },
 
     unifiedSearch: {
       isEnabled: true,
-      placeholder: 'Find projects...',
+      placeholder: 'Find parcels, addresses, or roads...',
       searchDelay: 400,
       zoomToFeature: true, // zoom to the feature after selecting it
       showInfoWindow: true, // show info window after zooming to feature,
       geocode: {
-        isEnabled: true,
+        isEnabled: false,
         url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
         addressLabelFunction: function(attrs) {
           return attrs.Match_addr;
@@ -129,111 +141,32 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         distance: 500
       },
       tables: [{
-        url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Census_USA/MapServer/5',
-        idField: 'ObjectID', // this is the id field that serves as the unique id and needs to be related to the feature layer
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
+        idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
         query: {
           returnGeometry: true, // if false then relatedQuery is used to determine geometry
-          id: 'states', // unique identifier within the unifiedSearch Config
-          fields: ['STATE_NAME', 'STATE_ABBR'], // field to be queried on (where clause)
+          id: 'addresses', // unique identifier within the unifiedSearch Config
+          fields: ['ADDRESS'], // field to be queried on (where clause)
           group: {
-            isGrouped: false,
-            sectionHeader: 'States',
+            isGrouped: true,
+            sectionHeader: 'Addresses',
             iconClass: 'fa fa-folder'
           },
           results: {
-            labelFields: ['STATE_ABBR'],
+            labelFields: ['ADDRESS'],
             // comment out to use the label field instead (only first field in the array of labelFields will be used)
             /*
             labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
               return attrs.pocname + ' (' + attrs.opsstatus + ')';
             },
-            */
             iconClassFunction: function(attrs) {
               return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
             },
+            */
             iconClass: 'fa fa-map-marker',
             priority: 0
           },
           relatedQuery: null
-        }
-      },
-      {
-        url: 'http://sampleserver5.arcgisonline.com/arcgis/rest/services/PhoneIncidents/FeatureServer/0',
-        idField: 'objectid', // this is the id field that serves as the unique id and needs to be related to the feature layer
-        query: {
-          returnGeometry: true, // if false then relatedQuery is used to determine geometry
-          id: 'phone_incidents', // unique identifier within the unifiedSearch Config
-          fields: ['pocname', 'pocemail', 'opsstatus', 'location'], // field to be queried on (where clause)
-          group: {
-            isGrouped: false,
-            sectionHeader: 'Phone Incidents',
-            iconClass: 'fa fa-phone'
-          },
-          results: {
-            labelFields: ['pocname', 'opsstatus'],
-            labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-              return attrs.pocname + ' (' + attrs.opsstatus + ')';
-            },
-            iconClassFunction: function(attrs) {
-              return 'fa fa-flash';
-            },
-            priority: 3
-          },
-          relatedQuery: null
-        }
-      },
-      {
-        url: 'http://sampleserver5.arcgisonline.com/arcgis/rest/services/PhoneIncidents/FeatureServer/0',
-        idField: 'objectid', // this is the id field that serves as the unique id and needs to be related to the feature layer
-        query: {
-          returnGeometry: true, // if false then relatedQuery is used to determine geometry
-          id: 'phone_incidents_grouped', // unique identifier within the unifiedSearch Config
-          fields: ['pocname', 'pocemail', 'opsstatus', 'location'], // field to be queried on (where clause)
-          group: {
-            isGrouped: true,
-            sectionHeader: 'Phone Incidents',
-            iconClass: 'fa fa-phone'
-          },
-          results: {
-            labelFields: ['pocname', 'opsstatus'],
-            labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-              return attrs.pocname + ' (' + attrs.opsstatus + ')';
-            },
-            iconClassFunction: function(attrs) {
-              return 'fa fa-flash';
-            },
-            priority: 2
-          },
-          relatedQuery: null
-        }
-      },
-      {
-        url: 'http://165.248.35.76/arcgis/rest/services/Dashboard/Hawaii_DOE_Dashboard/MapServer/6',
-        idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-        query: {
-          returnGeometry: true, // if false then relatedQuery is used to determine geometry
-          id: 'schools', // unique identifier within the unifiedSearch Config
-          fields: ['FULLNAME', 'ADDRESS', 'CITY'], // field to be queried on (where clause)
-          group: {
-            isGrouped: true,
-            sectionHeader: 'Schools in Hawaii',
-            iconClass: 'fa fa-users'
-          },
-          results: {
-            labelFields: ['FULLNAME'],
-            labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-              return attrs.FULLNAME;
-            },
-            iconClassFunction: function(attrs) {
-              return 'fa fa-user';
-            },
-            priority: 1
-          },
-          relatedQuery: {
-            isRelated: true,
-            url: 'http://165.248.35.76/arcgis/rest/services/Dashboard/Hawaii_DOE_Dashboard/MapServer/0', // the url of the related layer
-            foreignKeyField: 'OBJECTID' // relate the idField to this foreignKeyField
-          }
         }
       }],
       locators: [

@@ -26,6 +26,7 @@ define([
   'widget/UnifiedSearch',
   'widget/Legend',
   'widget/Coordinates',
+  'widget/DrawTool',
 
   './model/PortalUserModel',
 
@@ -43,7 +44,7 @@ define([
   MapController,
   appConfig, mapConfig, widgetConfig,
   InfoWindowController, Navigation,
-  UnifiedSearch, Legend, Coordinates,
+  UnifiedSearch, Legend, Coordinates, DrawTool,
   PortalUserModel,
   arcgisUtils, arcgisPortal, OAuthInfo, esriId, GeometryService, esriConfig,
   i18n
@@ -133,17 +134,25 @@ define([
     _initWidgets: function(map) {
       console.log('initWidgets called');
 
-      this.navigation = new Navigation({}, 'navigation');
+      this.navigation = new Navigation({
+        map: map
+      }, 'navigation');
       this.navigation.startup();
 
       // Legend
       if (widgetConfig.legend.isEnabled) {
         this.legend = new Legend({
           map: map,
+          id: 'DrawTool',
           legendConfig: widgetConfig.legend
         }, 'legendContainer');
         this.legend.startup();
       }
+
+      this.drawTool = new DrawTool({
+        map: map,
+        drawConfig: widgetConfig.drawTool
+      }, 'drawContainer');
 
       /*
       if (mapConfig.drawTool.isEnabled) {

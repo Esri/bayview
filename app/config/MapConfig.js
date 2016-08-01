@@ -10,7 +10,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         //center: [-122.45,37.77],
         //zoom: 12,
 
-        scrollWheelZoom: false,
+        scrollWheelZoom: true,
 
         // navigation
         slider: true,
@@ -32,23 +32,13 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // initialExtent: extent the the map starts at. Helper tool: http://psstl.esri.com/apps/extenthelper/ or http://davidspriggs.github.io/js-extent-helper/extentHelper/
     initialExtent: {
-      'xmin': -9050144.1489626,
-      'ymin': 4624716.367538713,
-      'xmax': -8083980.11143823,
-      'ymax': 5281463.314564772,
+      'xmin': -9665462.226658236,
+      'ymin': 3486110.3942031497,
+      'xmax': -9386161.325304095,
+      'ymax': 3642194.805961539,
       spatialReference: {
         wkid: 102100
       }
-      /*
-      // US:
-      xmin: -14213618.283681434,
-      ymin: 2090676.0058292607,
-      xmax: -7448024.036105711,
-      ymax: 7525654.465016988,
-      spatialReference: {
-        wkid: 102100
-      }
-       */
     },
 
     agsPortal: {
@@ -89,11 +79,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       position: 'bottom-left', // 'top-right','bottom-right','top-center','bottom-center','bottom-left','top-left'
       style: 'line', // ruler' or 'line' --- When unit is set to dual the scalebar style will be set to line. As of version 3.4
       unit: 'dual' // 'english' or 'metric' and starting at version 3.4 'dual'
-    },
-
-    drawTool: {
-      isEnabled: false,
-      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'] // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
     },
 
     homeButton: {
@@ -153,6 +138,53 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     // operationalLayers: Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
     // 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
     operationalLayers: [
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/1',
+        options: {
+          id: 'roads',
+          title: 'Roads',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Roads',
+            headerFunction: function(attrs) {
+              return '' + attrs.NAME;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-road',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/3',
+        options: {
+          id: 'hydrants',
+          title: 'Hydrants',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Hydrants',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      }
+
     ]
   };
 });

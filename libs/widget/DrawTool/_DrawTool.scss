@@ -1,0 +1,67 @@
+.gis_DrawDijit {
+
+  .title {
+    float: left;
+    margin: 7px;
+  }
+
+  .drawToolsContainer {
+
+    width: 100%;
+
+    button {
+      min-width: 0;
+    }
+
+    .left {
+      float: left;
+    }
+
+    .right {
+      float: right;
+    }
+
+    .polyIcon {
+        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-position: -68px 0;
+        width: 16px;
+        height: 16px;
+    }
+
+    .pointIcon {
+        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-position: 0px 0;
+        width: 16px;
+        height: 16px;
+    }
+
+    .lineIcon {
+        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-position: -34px 0;
+        width: 16px;
+        height: 16px;
+    }
+
+    .clearIcon {
+        background-image: url(/libs/widget/DrawTool/images/clear.png);
+        width: 16px;
+        height: 16px;
+    }
+
+    .lassoIcon {
+        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-position: -102px 0;
+        width: 16px;
+        height: 16px;
+    }
+
+    .rectangleIcon {
+        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-position: -340px 0;
+        width: 16px;
+        height: 16px;
+    }
+
+  }
+
+}

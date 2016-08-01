@@ -27,7 +27,6 @@ define([
     var sampleInfoWindow = declare([_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
       widgetsInTemplate: true,
       templateString: template,
-      infoTemplate: null,
 
       postCreate: function() {
         this.inherited(arguments);
@@ -40,11 +39,10 @@ define([
         this._setContent();
 
         this._attachEventHandlers();
-
       },
 
       startup: function() {
-        console.log('SampleInfoWindow started');
+        console.log('DefaultInfoWindow started');
       },
 
       _initHeader: function(args) {

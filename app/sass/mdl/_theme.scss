@@ -24,13 +24,13 @@
     height: 43px;
     width: 43px;
     margin-right: 10px;
-    background: $blue;
+    background: $brand-primary;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
     color: $white;
     transition: all ease-in-out 0.2s;
 
     &:hover {
-        background: lighten($blue, 5%);
+        background: lighten($brand-primary, 5%);
     }
 }
 
