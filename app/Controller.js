@@ -10,6 +10,7 @@ define([
   'dojo/dom-class',
   'dojo/_base/lang',
   'dojo/sniff',
+  'dojo/on',
 
   // core components
   'core/MapController',
@@ -40,7 +41,7 @@ define([
   'dojo/i18n!./nls/Strings'
 
 ], function(
-  topic, dom, domClass, lang, has,
+  topic, dom, domClass, lang, has, on,
   MapController,
   appConfig, mapConfig, widgetConfig,
   InfoWindowController, Navigation,
@@ -115,7 +116,7 @@ define([
         this.mapController = MapController.createWebMap(mapConfig.agsPortal.webmapId, 'map', mapConfig);
         this.mapController.then(lang.hitch(this, function(mapObj) {
           // attach the map related topics to the mapObject
-          MapController.initTopics(mapObj.map);
+          MapController.initTopics(mapObj);
           // now that the map is loaded we can initialize the widgets that rely on the map
           this._initWidgets(mapObj.map);
         }));
@@ -153,6 +154,10 @@ define([
         map: map,
         drawConfig: widgetConfig.drawTool
       }, 'drawContainer');
+      this.drawTool.startup();
+      on(this.drawTool, 'started', lang.hitch(this, function(args) {
+        console.log('draw started', args);
+      }));
 
       /*
       if (mapConfig.drawTool.isEnabled) {

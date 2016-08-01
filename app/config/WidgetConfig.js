@@ -22,6 +22,38 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     drawTool: {
       tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
+      symbology: { // http://resources.arcgis.com/en/help/rest/apiref/index.html?renderer.html
+        point: {
+          'type': 'esriSMS',
+          'style': 'esriSMSCircle', // esriSMSCircle | esriSMSCross | esriSMSDiamond | esriSMSSquare | esriSMSX | esriSMSTriangle
+          'color': [255, 0, 0, 255],
+          'size': 8,
+          'angle': 0,
+          'xoffset': 0,
+          'yoffset': 0,
+          'outline': {
+            'color': [255, 0, 0, 255],
+            'width': 1
+          }
+        },
+        line: {
+          'type': 'esriSLS',
+          'style': 'esriSLSDash', // esriSLSDash | esriSLSDashDotDot | esriSLSDot | esriSLSNull | esriSLSSolid
+          'color': [255, 0, 0, 255], // blue
+          'width': 2
+        },
+        fill: {
+          'type': 'esriSFS',
+          'style': 'esriSFSSolid', // esriSFSBackwardDiagonal | esriSFSCross | esriSFSDiagonalCross | esriSFSForwardDiagonal | esriSFSHorizontal | esriSFSNull | esriSFSSolid | esriSFSVertical
+          'color': [255, 0, 0, 100],
+          'outline': {
+            'type': 'esriSLS',
+            'style': 'esriSLSDash',
+            'color': [255, 0, 0, 255],
+            'width': 2
+          }
+        }
+      },
       hasSaveButton: false,
       hasClearButton: true
     },
