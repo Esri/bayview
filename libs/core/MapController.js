@@ -82,8 +82,7 @@ define([
           }
         },
 
-        initTopics: function(mapObj) {
-          var map = mapObj;
+        initTopics: function(map) {
           topic.subscribe('Map/AddCursorTooltip', lang.hitch(this, function(text) {
             // create node for the tooltip
             var self = this;
@@ -196,6 +195,20 @@ define([
               console.log('map zoomed to extent geometry');
             }
           }));
+
+          topic.subscribe('/map/click/on', lang.hitch(this, function(sender, args) {
+            if (map) {
+              map.showZoomSlider();
+              map._isClickEventOn = true;
+            }
+          }));
+
+          topic.subscribe('/map/click/off', lang.hitch(this, function(sender, args) {
+            if (map) {
+              map.hideZoomSlider();
+              map._mapObject._isClickEventOn = false;
+            }
+          }));
         },
 
         _zoomToPolygon: function(polygon) {
@@ -233,6 +246,7 @@ define([
             this._options = lang.mixin(options, {});
             // Events
             this._handles = [];
+            this._isClickEventOn = true;
           },
 
           // Create a new map
@@ -413,7 +427,9 @@ define([
                 if (this._map.infoWindow.isShowing) {
                   updatePopup(this);
                 } else {
-                  topic.publish('/map/clicked', this, { event: evt });
+                  if (this._map._mapObject._isClickEventOn) {
+                    topic.publish('/map/clicked', this, { event: evt });
+                  }
                 }
               }));
               // When graphics are clicked
