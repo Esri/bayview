@@ -32,17 +32,10 @@ function(
     widgetsInTemplate: true,
 
     constructor: function() {
-
     },
 
     postCreate: function() {
       this.inherited(arguments);
-      //console.log('Basemaps available: ' + this.config.basemaps.length);
-      //_.each(this.config.basemaps, lang.hitch(this, function(basemap) {
-      //console.log('Basemap: ' + basemap.name);
-      //}));
-
-      this._buildToggle();
     },
 
     startup: function() {
@@ -53,30 +46,25 @@ function(
       this._attachEventListeners();
     },
 
-    _handleToggle: function(evt) {
-      // Highlight toggle
-      domClass.toggle(evt.srcElement, 'is-selected');
-      // Update text
-      if (domClass.contains(evt.srcElement, 'is-selected')) {
-        this.map.setBasemap(this.config.basemaps[1].basemap);
-        evt.srcElement.innerHTML = '<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[1].name + ' view';
-      } else {
-        this.map.setBasemap(this.config.basemaps[0].basemap);
-        evt.srcElement.innerHTML = '<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to ' + this.config.basemaps[0].name + ' view';
-      }
+    _handleToggle: function() {
+        // Highlight toggle
+        domClass.toggle(this.basemapContainer, 'is-selected');
+        // Update text
+        if (domClass.contains(this.basemapContainer, 'is-selected')) {
+            this.map.setBasemap(this.config.basemaps[1].basemap);
+            this.basemapName.innerHTML = 'Satallite View';
+        } else {
+            this.map.setBasemap(this.config.basemaps[0].basemap);
+            this.basemapName.innerHTML = 'Streets View';
+        }
+
+        // Switch thumbnail image
+        domClass.toggle(this.basemapStreetThumb, 'is-hidden');
+        domClass.toggle(this.basemapSatThumb, 'is-hidden');
     },
 
     _attachEventListeners: function() {
       this.own(on(this.basemapContainer, 'click', lang.hitch(this, this._handleToggle)));
-    },
-
-    _buildToggle: function() {
-      // Grab node
-      //var node = query('.js-basemap-toggle')[0];
-      // Place the dynamic string
-      domConstruct.place('<span class="w-basemap-toggle__icon fa fa-globe"></span> Toggle to <span data-dojo-attach-point="basemapName">' + this.config.basemaps[1].name + '</span> view', this.basemapContainer);
-      //this.basemapName.innerHTML = '';
-      //this.basemapName = '';
     }
 
   });

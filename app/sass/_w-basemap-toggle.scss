@@ -17,11 +17,22 @@
     }
 }
 
-// Icon Override
-.material-icons {
-    &.w-basemap-toggle__icon {
-        padding: 0 10px;
-        vertical-align: text-bottom;
-        font-size: 16px;
+.w-basemap-toggle__thumb {
+    width: 50px;
+    margin-right: 30px;
+    border-radius: 100%;
+    border: 2px solid #e6e6e6;
+
+    &.is-hidden {
+        display: none;
     }
 }
+
+// Icon Override
+// .material-icons {
+//     &.w-basemap-toggle__icon {
+//         padding: 0 10px;
+//         vertical-align: text-bottom;
+//         font-size: 16px;
+//     }
+// }
