@@ -75,11 +75,11 @@ define([
 
         _attachEventListeners: function() {
             this.own(
-                // Two cases the nav can be closed
+                // Two cases in which the nav is closed
                 // Tool is selected
                 this.toolList.on('close', this.handleClose),
                 // Close button click event
-                query('.js-nav-close-btn').on('click', lang.hitch(this, this.handleClose))
+                on(this.navCloseBtn, 'click', lang.hitch(this, this.handleClose))
             );
         }
 
