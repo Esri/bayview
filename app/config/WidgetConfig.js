@@ -65,82 +65,95 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           isSelected: false,
           icon: 'turned_in_not',
           layers: [
+              {
+                name: 'Adresses',
+                id: 'addresses',
+                isSelected: false,
+                url: ''
+              },
             {
               name: 'Hydrants',
               id: 'hydrants',
               isSelected: false,
               url: ''
-            },
-            {
-              name: 'Beach Access',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Boat Ramps',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Libraries',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Parks',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Recycling',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Schools',
-              isSelected: false,
-              url: ''
             }
+            // ,
+            // {
+            //   name: 'Beach Access',
+            //   id: 'beach_access',
+            //   isSelected: false,
+            //   url: ''
+            // },
+            // {
+            //   name: 'Boat Ramps',
+            //   id: 'boat_ramps',
+            //   isSelected: false,
+            //   url: ''
+            // },
+            // {
+            //   name: 'Libraries',
+            //   id: 'libraries',
+            //   isSelected: false,
+            //   url: ''
+            // },
+            // {
+            //   name: 'Parks',
+            //   id: 'parks',
+            //   isSelected: false,
+            //   url: ''
+            // },
+            // {
+            //   name: 'Recycling',
+            //   id: 'recycling',
+            //   isSelected: false,
+            //   url: ''
+            // },
+            // {
+            //   name: 'Schools',
+            //   id: 'schools',
+            //   isSelected: false,
+            //   url: ''
+            // }
           ]
-        },
+      }//,
 
-        {
-          name: 'Parcels and Community',
-          isSelected: false,
-          icon: 'store',
-          layers: [
-            {
-              name: 'Parcels',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Addresses',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'AADT',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Municipal Boundaries',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Creeks',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'Planned unit Development',
-              isSelected: false,
-              url: ''
-            }
-          ]
-        }
+        // {
+        //   name: 'Parcels and Community',
+        //   isSelected: false,
+        //   icon: 'store',
+        //   layers: [
+        //     {
+        //       name: 'Parcels',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Addresses',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'AADT',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Municipal Boundaries',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Creeks',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Planned unit Development',
+        //       isSelected: false,
+        //       url: ''
+        //     }
+        //   ]
+        // }
 
       ]
     },

@@ -1,4 +1,9 @@
-<div class="w-layer-list">
-    <div data-dojo-attach-point="headerContainer"></div>
-    <div data-dojo-attach-point="layersContainer"></div>
+<div>
+    <i class="material-icons w-layer-group__icon w-layer-group__icon--tune" data-dojo-attach-point="tuneIcon">tune</i>
+    <i class="material-icons w-layer-group__icon w-layer-group__icon--check is-hidden" data-dojo-attach-point="allIcon">done</i>
+    <div class="w-layer-group__header" data-dojo-attach-point="groupContainer">
+        <i class="material-icons w-layer-group__icon" data-dojo-attach-point="groupIcon"></i>
+        <span data-dojo-attach-point="groupText"></span>
+    </div>
+    <div class="w-layer-group__group-list is-hidden" data-dojo-attach-point="layersContainer"></div>
 </div>

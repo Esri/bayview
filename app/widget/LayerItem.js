@@ -38,7 +38,8 @@ define([
         templateString: template,
         widgetsInTemplate: true,
 
-        constructor: function() {},
+        constructor: function() {
+        },
 
         postCreate: function() {
             this.inherited(arguments);
@@ -46,17 +47,27 @@ define([
             this.label.innerHTML = this.layer.name;
             this.layer = this.map.getLayer(this.layer.id);
 
-            this.own(on(this.checkbox, 'change', lang.hitch(this, function(isChecked) {
-                if (isChecked) {
-                    this.layer.setVisibility(true);
-                } else {
-                    this.layer.setVisibility(false);
-                }
-            })));
+            this.own(
+                on(this.checkbox, 'change', lang.hitch(this, function(isChecked) {
+                    if (isChecked) {
+                        this.layer.setVisibility(true);
+                        this.emit('layer-click', {
+                            active: true
+                        });
+                    } else {
+                        this.layer.setVisibility(false);
+                        this.emit('layer-click', {
+                            active: false
+                        });
+                    }
+                }))
+            );
+
+            this.layer.setVisibility(false);
         },
 
         startup: function() {
-            //this._attachEventListeners();
+
         },
 
         setVisibility: function(isVisible) {

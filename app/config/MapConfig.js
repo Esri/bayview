@@ -183,7 +183,30 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
         },
-      }
+    },
+    {
+      type: 'Feature Layer',
+      url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
+      options: {
+        id: 'addresses',
+        title: 'Addresses',
+        opacity: 1,
+        visible: true,
+        infoWindow: {
+          isEnabled: true,
+          outFields: ['*'],
+          title: 'Addresses',
+          headerFunction: function(attrs) {
+            return '' + attrs.ADDRESS;
+          },
+          //contentFunction: function(attrs) {
+          //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+          //},
+          iconClass: 'fa fa-tint',
+          widget: '' // use 'DefaultInfoWindow' or define your own
+        }
+      },
+    }
 
     ]
   };
