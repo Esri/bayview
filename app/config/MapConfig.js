@@ -138,6 +138,29 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     // operationalLayers: Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
     // 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
     operationalLayers: [
+        {
+          type: 'Feature Layer',
+          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
+          options: {
+            id: 'addresses',
+            title: 'Addresses',
+            opacity: 1,
+            visible: true,
+            infoWindow: {
+              isEnabled: true,
+              outFields: ['*'],
+              title: 'Addresses',
+              headerFunction: function(attrs) {
+                return '' + attrs.ADDRESS;
+              },
+              //contentFunction: function(attrs) {
+              //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+              //},
+              iconClass: 'fa fa-tint',
+              widget: '' // use 'DefaultInfoWindow' or define your own
+            }
+          },
+        },
       {
         type: 'Feature Layer',
         url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/1',
@@ -157,6 +180,29 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
             //},
             iconClass: 'fa fa-road',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
+        options: {
+          id: 'parcels',
+          title: 'Parcels',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Parcels',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
         },
@@ -183,30 +229,421 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
         },
-    },
-    {
-      type: 'Feature Layer',
-      url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
-      options: {
-        id: 'addresses',
-        title: 'Addresses',
-        opacity: 1,
-        visible: true,
-        infoWindow: {
-          isEnabled: true,
-          outFields: ['*'],
-          title: 'Addresses',
-          headerFunction: function(attrs) {
-            return '' + attrs.ADDRESS;
-          },
-          //contentFunction: function(attrs) {
-          //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-          //},
-          iconClass: 'fa fa-tint',
-          widget: '' // use 'DefaultInfoWindow' or define your own
-        }
       },
-    }
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/4',
+        options: {
+          id: 'futurelanduse',
+          title: 'Future Land Use',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Future Land Use',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/5',
+        options: {
+          id: 'zoning',
+          title: 'Zoning',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Zoning',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/6',
+        options: {
+          id: 'municipalboundaries',
+          title: 'Municipal Boundaries',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Municipal Boundaries',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/7',
+        options: {
+          id: 'onefootcontours',
+          title: 'One Foot Contours',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'One Foot Contours',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/8',
+        options: {
+          id: 'easements',
+          title: 'Easements',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Easements',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/9',
+        options: {
+          id: 'femafloodways',
+          title: 'FEMA Floodways',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'FEMA Floodways',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/10',
+        options: {
+          id: 'femacobraopa',
+          title: 'FEMA COBRA & OPA',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'FEMA COBRA & OPA',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/11',
+        options: {
+          id: 'FEMAfloodzones',
+          title: 'FEMA Flood Zones',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'FEMA Flood Zones',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/12',
+        options: {
+          id: 'femafirmindex',
+          title: 'FEMA FIRM Index',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'FEMA FIRM Index',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/13',
+        options: {
+          id: 'wetlands',
+          title: 'Wetlands',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Wetlands',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/14',
+        options: {
+          id: 'soils',
+          title: 'Soils',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Soils',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/15',
+        options: {
+          id: 'evacuationzones',
+          title: 'Evacuation Zones',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Evacuation Zones',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/16',
+        options: {
+          id: 'CoastalHighHazardArea',
+          title: 'Coastal High Hazard Area',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Coastal High Hazard Area',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/17',
+        options: {
+          id: 'StormSurge',
+          title: 'Storm Surge',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Storm Surge',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/18',
+        options: {
+          id: 'EcosystemManagementAreas',
+          title: 'Ecosystem Management Areas',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Ecosystem Management Areas',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/19',
+        options: {
+          id: 'PlannedUnitDevelopments',
+          title: 'Planned Unit Developments',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Planned Unit Developments',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/20',
+        options: {
+          id: 'CommunityRedevAgencies',
+          title: 'Community Redev Agencies',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Community Redev Agencies',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/21',
+        options: {
+          id: 'CountyCommissionerDistricts',
+          title: 'County Commissioner Districts',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'County Commissioner Districts',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
+      },
 
     ]
   };

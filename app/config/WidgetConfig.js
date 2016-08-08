@@ -60,100 +60,229 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     layerList: {
       groups: [
+        // {
+        //   name: 'Points of Interest',
+        //   isSelected: false,
+        //   icon: 'turned_in_not',
+        //   layers: [
+        //       {
+        //         name: 'Adresses',
+        //         id: 'addresses',
+        //         isSelected: false,
+        //         url: ''
+        //       },
+        //     {
+        //       name: 'Hydrants',
+        //       id: 'hydrants',
+        //       isSelected: false,
+        //       url: ''
+        //     }
+        //     ,
+        //     {
+        //       name: 'Beach Access',
+        //       id: 'beach_access',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Boat Ramps',
+        //       id: 'boat_ramps',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Libraries',
+        //       id: 'libraries',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Parks',
+        //       id: 'parks',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Recycling',
+        //       id: 'recycling',
+        //       isSelected: false,
+        //       url: ''
+        //     },
+        //     {
+        //       name: 'Schools',
+        //       id: 'schools',
+        //       isSelected: false,
+        //       url: ''
+        //     }
+        //   ]
+    //   },
         {
-          name: 'Points of Interest',
+          name: 'Parcels & Community',
           isSelected: false,
-          icon: 'turned_in_not',
+          icon: 'store',
           layers: [
               {
-                name: 'Adresses',
-                id: 'addresses',
+                name: 'Addresses',
+                 id: 'addresses',
                 isSelected: false,
                 url: ''
               },
+              {
+                name: 'Community Redev Agencies',
+                id: 'CommunityRedevAgencies',
+                isSelected: false,
+                url: ''
+              },
+              {
+                name: 'County Commissioner Districts',
+                id: 'CountyCommissionerDistricts',
+                isSelected: false,
+                url: ''
+              },
+              {
+                name: 'Municipal Boundaries',
+                id: 'municipalboundaries',
+                isSelected: false,
+                url: ''
+              },
+            {
+              name: 'Parcels',
+              id: 'parcels',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Planned Unit Development',
+              id: 'PlannedUnitDevelopments',
+              isSelected: false,
+              url: ''
+            }
+          ]
+      },
+      {
+        name: 'Roads & Highways',
+        isSelected: false,
+        icon: 'traffic',
+        layers: [
             {
               name: 'Hydrants',
               id: 'hydrants',
               isSelected: false,
               url: ''
+            },
+            {
+              name: 'One Foot Contours',
+              id: 'onefootcontours',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Roads',
+              id: 'roads',
+              isSelected: false,
+              url: ''
             }
-            // ,
-            // {
-            //   name: 'Beach Access',
-            //   id: 'beach_access',
-            //   isSelected: false,
-            //   url: ''
-            // },
-            // {
-            //   name: 'Boat Ramps',
-            //   id: 'boat_ramps',
-            //   isSelected: false,
-            //   url: ''
-            // },
-            // {
-            //   name: 'Libraries',
-            //   id: 'libraries',
-            //   isSelected: false,
-            //   url: ''
-            // },
-            // {
-            //   name: 'Parks',
-            //   id: 'parks',
-            //   isSelected: false,
-            //   url: ''
-            // },
-            // {
-            //   name: 'Recycling',
-            //   id: 'recycling',
-            //   isSelected: false,
-            //   url: ''
-            // },
-            // {
-            //   name: 'Schools',
-            //   id: 'schools',
-            //   isSelected: false,
-            //   url: ''
-            // }
+        ]
+      },
+      {
+        name: 'Land Use & Zoning',
+        isSelected: false,
+        icon: 'terrain',
+        layers: [
+            {
+              name: 'Easements',
+              id: 'easements',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Future Land Use',
+              id: 'futurelanduse',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Soils',
+              id: 'soils',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Zoning',
+              id: 'zoning',
+              isSelected: false,
+              url: ''
+            }
+        ]
+      },
+      {
+          name: 'Flood & Coastal',
+          isSelected: false,
+          icon: 'pool',
+          layers: [
+              {
+                name: 'FEMA COBRA & OPA',
+                id: 'femacobraopa',
+                isSelected: false,
+                url: ''
+              },
+              {
+                name: 'FEMA FIRM Index',
+                id: 'femafirmindex',
+                isSelected: false,
+                url: ''
+              },
+              {
+                name: 'FEMA Floodways',
+                id: 'femafloodways',
+                isSelected: false,
+                url: ''
+              },
+              {
+                name: 'FEMA Flood Zones',
+                id: 'FEMAfloodzones',
+                isSelected: false,
+                url: ''
+              },
+              {
+                name: 'Storm Surge',
+                id: 'StormSurge',
+                isSelected: false,
+                url: ''
+              },
+              {
+                name: 'Wetlands',
+                id: 'wetlands',
+                isSelected: false,
+                url: ''
+              }
           ]
-      }//,
-
-        // {
-        //   name: 'Parcels and Community',
-        //   isSelected: false,
-        //   icon: 'store',
-        //   layers: [
-        //     {
-        //       name: 'Parcels',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Addresses',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'AADT',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Municipal Boundaries',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Creeks',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Planned unit Development',
-        //       isSelected: false,
-        //       url: ''
-        //     }
-        //   ]
-        // }
+      },
+      {
+        name: 'Hazards & Impacts',
+        isSelected: false,
+        icon: 'report',
+        layers: [
+            {
+              name: 'Coastal High Hazard Area',
+              id: 'CoastalHighHazardArea',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Ecosystem Management Areas',
+              id: 'EcosystemManagementAreas',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Evacuation Zones',
+              id: 'evacuationzones',
+              isSelected: false,
+              url: ''
+            }
+        ]
+      },
 
       ]
     },
