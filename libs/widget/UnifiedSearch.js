@@ -551,6 +551,14 @@ function(
           refreshLayers: true
         }
       );
+    },
+
+    hide: function() {
+        this.lsView.hide();
+    },
+
+    show: function() {
+        this.lsView.show();
     }
 
   });

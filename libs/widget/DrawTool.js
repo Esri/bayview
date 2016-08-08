@@ -11,6 +11,7 @@ define([
   'dojo/on',
   'dojo/dom-style',
   'dojo/dom-class',
+  'dojo/query',
   'dojo/topic',
   'dojo/Evented',
 
@@ -25,7 +26,7 @@ define([
 
 function(
   declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
-  Button, lang, Color, connect, on, domStyle, domClass, topic, Evented,
+  Button, lang, Color, connect, on, domStyle, domClass, query, topic, Evented,
   Draw, Graphic, GraphicsLayer, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, drawTemplate) {
 
   // main draw dijit
@@ -42,7 +43,6 @@ function(
     },
 
     startup: function() {
-      console.log('DrawTool started');
     },
 
     _initDrawTool: function() {
@@ -55,6 +55,7 @@ function(
       this.own(on(this.btnClearGraphics, 'click', lang.hitch(this, this._clearGraphics)));
       this.own(on(this.btnSaveGraphics, 'click', lang.hitch(this, this._saveGraphics)));
       this.own(on(this.btnCancel, 'click', lang.hitch(this, this._cancelDrawing)));
+      this.own(on(this.closeBtn, 'click', lang.hitch(this, this._close)));
 
       // show tools that were enabled in the config
       domStyle.set(this.btnDrawPoint, 'display', this._display(this.drawConfig.tools, 'POINT'));
@@ -175,6 +176,19 @@ function(
       this.graphics.clear();
       this.toolbar.deactivate();
       this.btnSaveGraphics.setAttribute('disabled', true);
+    },
+
+    show: function() {
+        query('.js-draw').removeClass('is-hidden');
+    },
+
+    hide: function() {
+        query('.js-draw').addClass('is-hidden');
+    },
+
+    _close: function() {
+        topic.publish('/DrawTool/close', this);
     }
+
   });
 });

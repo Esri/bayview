@@ -6,6 +6,10 @@
   width: 250px;
   z-index: 4;
 
+  &.is-hidden {
+      display: none;
+  }
+
   .unifiedsearch-wrapper {
     /*margin: 8px 0 8px 8px;*/
     position: relative;

@@ -81,6 +81,10 @@ define([
                 // Close button click event
                 on(this.navCloseBtn, 'click', lang.hitch(this, this.handleClose))
             );
+        },
+
+        clearToolList: function() {
+            this.toolList.clearToolSelection();
         }
 
     });

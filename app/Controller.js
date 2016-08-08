@@ -155,9 +155,9 @@ define([
         drawConfig: widgetConfig.drawTool
       }, 'drawContainer');
       this.drawTool.startup();
-      on(this.drawTool, 'started', lang.hitch(this, function(args) {
-        console.log('draw started', args);
-      }));
+    //   on(this.drawTool, 'started', lang.hitch(this, function(args) {
+    //     console.log('draw started', args);
+    //   }));
 
       /*
       if (mapConfig.drawTool.isEnabled) {
@@ -237,6 +237,23 @@ define([
         topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
           this.search.searchMapPoint(args.event.mapPoint);
         }));
+
+        topic.subscribe('/ToolList/selected', lang.hitch(this, function(sender, args) {
+          this.search.hide();
+        }));
+
+        topic.subscribe('/ToolList/unselected', lang.hitch(this, function(sender, args) {
+          this.search.show();
+          if (args.type === 'draw') {
+              this.drawTool.hide();
+          }
+        }));
+
+        topic.subscribe('/DrawTool/close', lang.hitch(this, function(sender, args) {
+          this.search.show();
+          this.drawTool.hide();
+          this.navigation.clearToolList();
+        }));
       }
 
       //-----------------------------------------------------------------------
@@ -288,6 +305,12 @@ define([
         var selectedFeature = args.feature;
         var self = this;
         this.infoWindowController.showFeature(selectedFeature, self);
+      }));
+
+      topic.subscribe('/ToolList/tool', lang.hitch(this, function(sender, args) {
+          if (args.type === 'draw') {
+              this.drawTool.show();
+          }
       }));
 
       /*

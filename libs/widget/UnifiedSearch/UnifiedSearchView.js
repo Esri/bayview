@@ -391,6 +391,14 @@ function(
       domConstruct.empty(this.resultsNode2);
       domClass.remove(this.resultsNode, 'hidden');
       this.inputNode.focus();
+    },
+
+    hide: function() {
+        domClass.add(this.unifiedsearchContainer, 'is-hidden');
+    },
+
+    show: function() {
+        domClass.remove(this.unifiedsearchContainer, 'is-hidden');
     }
 
   });

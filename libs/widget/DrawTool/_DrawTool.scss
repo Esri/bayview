@@ -1,8 +1,26 @@
+.draw-tool {
+    top: 0;
+    padding: 0;
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.draw-tool__title {
+    vertical-align: text-bottom;
+}
+
 .gis_DrawDijit {
 
   .title {
-    float: left;
-    margin: 7px;
+      display: table-cell;
+      width: 25%;
+      vertical-align: middle;
+      background: $brand-primary;
+      color: $white;
+      font-size: 18px;
+      padding: 5px 0;
   }
 
   .messageContainer {
@@ -11,8 +29,10 @@
   }
 
   .drawToolsContainer {
-
-    width: 100%;
+      display: table-cell;
+      width: 60%;
+      padding: 0 10px;
+      vertical-align: middle;
 
     button {
       min-width: 0;
@@ -27,46 +47,61 @@
     }
 
     .polyIcon {
-        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-image: url('/PS-BayCounty/libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -68px 0;
         width: 16px;
         height: 16px;
     }
 
     .pointIcon {
-        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-image: url('/PS-BayCounty/libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: 0px 0;
         width: 16px;
         height: 16px;
     }
 
     .lineIcon {
-        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-image: url('/PS-BayCounty/libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -34px 0;
         width: 16px;
         height: 16px;
     }
 
     .clearIcon {
-        background-image: url(/libs/widget/DrawTool/images/clear.png);
+        background-image: url('/PS-BayCounty/libs/widget/DrawTool/images/clear.png');
         width: 16px;
         height: 16px;
     }
 
     .lassoIcon {
-        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-image: url('/PS-BayCounty/libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -102px 0;
         width: 16px;
         height: 16px;
     }
 
     .rectangleIcon {
-        background-image: url(/libs/widget/DrawTool/images/toolbar_icons.png);
+        background-image: url('/PS-BayCounty/libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -340px 0;
         width: 16px;
         height: 16px;
     }
 
   }
+
+    .material-icons {
+        &.draw-tool__icon {
+            margin: 0 10px;
+            padding-bottom: 2px;
+            vertical-align: middle;
+            font-size: 32px;
+            transition: background ease-in-out 0.3s;
+
+            &:hover {
+                cursor: pointer;
+                background: lighten($blue, 5%);
+            }
+        }
+    }
 
 }

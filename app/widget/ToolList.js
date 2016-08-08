@@ -46,21 +46,36 @@ define([
         },
 
         handleToolSelect: function(evt) {
-            // Clear prvious tool selection
-            query('.js-tool-select').removeClass('is-selected');
+            if (domClass.contains(evt.srcElement, 'is-selected')) {
+                topic.publish('/ToolList/unselected', this, {
+                    type: 'draw'
+                });
+            } else {
+                // Hide Search bar
+                topic.publish('/ToolList/selected', this);
+                // Open tool
+                topic.publish('/ToolList/tool', this, {
+                    type: 'draw'
+                });
+                // Emit close event to the navigation
+                this.emit('close', {});
+            }
 
             // Highlight tool
             domClass.toggle(evt.srcElement, 'is-selected');
-
-            // Emit close event to the navigation
-            this.emit('close', {});
         },
 
         _attachEventListeners: function() {
             this.own(
-                // Get tool selection click event
-                query('.js-tool-select').on('click', lang.hitch(this, this.handleToolSelect))
+                // Tool selection click event
+                on(this.toolSelectDraw, 'click', lang.hitch(this, this.handleToolSelect))
             );
+        },
+
+        clearToolSelection: function() {
+            _.each(this.toolSet.children, lang.hitch(this, function(tool, index) {
+                domClass.remove(tool, 'is-selected');
+            }));
         }
 
     });

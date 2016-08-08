@@ -1,9 +1,12 @@
 <div class="gis_DrawDijit">
-  <div class="title">Draw:</div>
-  <div data-dojo-attach-point="msgContainer" class="messageContainer">
-    <i>Start drawing on the map <a data-dojo-attach-point="btnCancel" href="#">Cancel</a></i>
-  </div>
-  <div data-dojo-attach-point="drawContainer" class="drawToolsContainer">
+    <div class="title">
+        <i class="material-icons draw-tool__icon" data-dojo-attach-point="closeBtn">chevron_left</i>
+        <span class="draw-tool__title">Draw</span>
+    </div>
+    <div data-dojo-attach-point="msgContainer" class="messageContainer">
+        <i>Start drawing on the map <a data-dojo-attach-point="btnCancel" href="#">Cancel</a></i>
+    </div>
+    <div data-dojo-attach-point="drawContainer" class="drawToolsContainer">
 
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect left" data-dojo-attach-point="btnDrawPoint">
       <div class="pointIcon"></div>
