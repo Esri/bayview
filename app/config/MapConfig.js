@@ -32,10 +32,10 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // initialExtent: extent the the map starts at. Helper tool: http://psstl.esri.com/apps/extenthelper/ or http://davidspriggs.github.io/js-extent-helper/extentHelper/
     initialExtent: {
-      'xmin': -9665462.226658236,
-      'ymin': 3486110.3942031497,
-      'xmax': -9386161.325304095,
-      'ymax': 3642194.805961539,
+        'xmin':-9606605.714878388,
+        'ymin':3498798.940898446,
+        'xmax':-9478191.507359464,
+        'ymax':3568509.5106944325,
       spatialReference: {
         wkid: 102100
       }
