@@ -547,8 +547,8 @@ function(
       topic.publish('/map/zoom/feature', this,
         {
           feature: selectedFeature,
-          showInfoWindow: params.showInfoWindow,
-          refreshLayers: true
+          //showInfoWindow: params.showInfoWindow,
+          //refreshLayers: true
         }
       );
     },
