@@ -352,6 +352,9 @@ function(
     handleQueryResults: function(responsesObj) {
       console.debug('handleQueryResults', responsesObj);
 
+      // hide the info panel if open
+      topic.publish(this.toolPrefix + '/clear/clicked', this, {});
+
       var unifiedResults = [];
       var sortedResponsesObj = this.getResultsByPriority(responsesObj);
 
@@ -521,6 +524,7 @@ function(
           showInfoWindow: this.searchConfig.showInfoWindow,
           layer: this.map.getLayer(resultObj.lyr),
           layerId: resultObj.lyr,
+          labelText: resultObj.labelText,
           obj: JSON.parse(resultObj.obj)
         }
       });
@@ -533,7 +537,7 @@ function(
         return;
       }
 
-      this.lsView.clear();
+      this.lsView.openFeatureDetails(params.labelText);
 
       var selectedFeature = lang.mixin(response.features[0], {_layer: params.layer});
       lang.mixin(response.features[0].attributes, params.obj.attributes);

@@ -1,0 +1,31 @@
+.w-info-panel__wrapper {
+    position: absolute;
+    top: 45px;
+    left: 50px;
+    z-index: 5;
+    min-width: 400px;
+    padding: 10px;
+    background: $white;
+
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.w-info-panel__section {
+    margin-bottom: 10px;
+}
+
+.w-info-panel__btn-wrap {
+    border-top: 1px solid $light-grey;
+    text-align: center;
+}
+
+.w-info-panel__btn {
+    margin: 10px 5px;
+
+    &.is-hidden {
+        display: none;
+    }
+}
