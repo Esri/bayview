@@ -55,9 +55,10 @@ function(
         this.legend.startup();
 
       } else {
-
+          console.log('legend is doing AGS load...?')
         // AGS
         var includedLayerInfos = _.map(this.legendConfig.includeLayerIds, lang.hitch(this, function(layerId) {
+            console.debug(layerId);
           return layerUtils.getLayerInfo(this.map, layerId);
         }));
 

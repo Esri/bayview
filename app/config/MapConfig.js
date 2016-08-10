@@ -15,7 +15,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         // navigation
         slider: true,
         sliderStyle: 'small',  // "small" or "large"
-        sliderPosition: 'bottom-right', // "top-left", "top-right", "bottom-left", "bottom-right"
+        sliderPosition: 'bottom-left', // "top-left", "top-right", "bottom-left", "bottom-right"
         sliderOrientation: 'vertical', // "vertical" or "horizontal"
         sliderLabels: ['Street', 'County', 'State', 'Nation', 'World'], // Only valid when the "large" slider style option is true.
 
@@ -37,7 +37,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'xmax':-9478191.507359464,
         'ymax':3568509.5106944325,
       spatialReference: {
-        'wkid': 102660
+        'wkid': 102100
       }
     },
 

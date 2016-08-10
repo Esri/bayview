@@ -147,7 +147,7 @@ define([
       if (widgetConfig.legend.isEnabled) {
         this.legend = new Legend({
           map: map,
-          id: 'DrawTool',
+          id: 'Legend',
           legendConfig: widgetConfig.legend
         }, 'legendContainer');
         this.legend.startup();
