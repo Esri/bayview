@@ -58,6 +58,33 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       hasClearButton: true
     },
 
+    infoPanel: {
+      'addresses': {
+        'hasDetails': true,
+        'hasAnalyzeButton': true,
+        'hasPrint': true,
+        'hasExportData': true,
+        'infos': [
+          {
+            'field': 'ADDRESS',
+            'label': 'Address'
+          }
+        ],
+        'analysis': {
+          'buffer': {
+
+          },
+          'layers': [
+            {
+              'id': 'municipalboundaries',
+              'field': 'NAME',
+              'label': 'Municipal Boundary'
+            }
+          ]
+        }
+      }
+    },
+
     layerList: {
       groups: [
         // {
@@ -123,7 +150,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           layers: [
               {
                 name: 'Addresses',
-                 id: 'addresses',
+                id: 'addresses',
                 isSelected: false,
                 url: ''
               },
@@ -305,7 +332,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       placeholder: 'Find parcels, addresses, or roads...',
       searchDelay: 400,
       zoomToFeature: true, // zoom to the feature after selecting it
-      showInfoWindow: true, // show info window after zooming to feature,
+      showInfoWindow: false, // show info window after zooming to feature,
       geocode: {
         isEnabled: false,
         url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',

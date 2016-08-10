@@ -518,6 +518,7 @@ function(
         callback: this.runSelectedResponseHandler,
         callbackArgs: {
           zoomToFeature: this.searchConfig.zoomToFeature,
+          showInfoWindow: this.searchConfig.showInfoWindow,
           layer: this.map.getLayer(resultObj.lyr),
           layerId: resultObj.lyr,
           obj: JSON.parse(resultObj.obj)
@@ -547,6 +548,7 @@ function(
       topic.publish('/map/zoom/feature', this,
         {
           feature: selectedFeature,
+          zoomToFeature: params.zoomToFeature,
           showInfoWindow: params.showInfoWindow,
           refreshLayers: true
         }

@@ -37,7 +37,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       'xmax': -9386161.325304095,
       'ymax': 3642194.805961539,
       spatialReference: {
-        wkid: 102100
+        'wkid': 102660
       }
     },
 
