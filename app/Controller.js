@@ -23,11 +23,14 @@ define([
   // application dijits
   './InfoWindows/InfoWindowController',
   './widget/Navigation',
+  './widget/InfoPanel',
 
   'widget/UnifiedSearch',
   'widget/Legend',
   'widget/Coordinates',
   'widget/DrawTool',
+  'widget/Measure',
+  'esri/dijit/Measurement',
 
   './model/PortalUserModel',
 
@@ -44,8 +47,8 @@ define([
   topic, dom, domClass, lang, has, on,
   MapController,
   appConfig, mapConfig, widgetConfig,
-  InfoWindowController, Navigation,
-  UnifiedSearch, Legend, Coordinates, DrawTool,
+  InfoWindowController, Navigation, InfoPanel,
+  UnifiedSearch, Legend, Coordinates, DrawTool, Measure, Measurement,
   PortalUserModel,
   arcgisUtils, arcgisPortal, OAuthInfo, esriId, GeometryService, esriConfig,
   i18n
@@ -155,9 +158,30 @@ define([
         drawConfig: widgetConfig.drawTool
       }, 'drawContainer');
       this.drawTool.startup();
+
+      this.infoPanel = new InfoPanel({
+        map: map,
+        config: widgetConfig.infoPanel
+      }, 'infoPanelContainer');
+      topic.subscribe('/UnifiedSearch/result/clicked', lang.hitch(this, function(sender, args) {
+        var layerId = args.layerId;
+        var selectedFeature = args.obj;
+        this.infoPanel.showDetails(layerId, selectedFeature);
+        // TODO: show the panel
+      }));
+
     //   on(this.drawTool, 'started', lang.hitch(this, function(args) {
     //     console.log('draw started', args);
     //   }));
+
+      //this.measure = new Measure({
+      //  map: map
+      //}, 'measureContainer');
+
+      // this.measurement = new Measurement({
+      //   map: map
+      // }, 'measureContainer');
+      // this.measurement.startup();
 
       /*
       if (mapConfig.drawTool.isEnabled) {

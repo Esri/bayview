@@ -131,23 +131,24 @@ define([
 
           topic.subscribe('/map/zoom/feature', lang.hitch(this, function(sender, args) {
             var geom = null;
-            if (args.feature.geometry.spatialReference.wkid === 102100) {
+            if (args.feature.geometry.spatialReference.wkid === map.spatialReference.wkid) {
               geom = args.feature.geometry;
             } else {
-              geom = webMercatorUtils.geographicToWebMercator(args.feature.geometry);
+              //geom = webMercatorUtils.geographicToWebMercator(args.feature.geometry);
+              if (webMercatorUtils.canProject(args.feature.geometry, map)) {
+                geom = webMercatorUtils.project(args.feature.geometry, map);
+              }
             }
 
-            var pt;
-
             if (geom && geom.type === 'polygon') {
-              pt = geom.getCentroid();
-              map.setExtent(geom.getExtent());
+              map.setExtent(geom.getExtent()); // geom.getCentroid();
             } else if (geom && geom.type === 'point') {
-              pt = geom;
               var centerAndZoom = map.centerAndZoom(geom, map.getMaxZoom() - 2);
-              if (args.showInfoWindow) {
+              if (args.zoomToFeature) {
                 centerAndZoom.then(lang.hitch(this, function() {
-                  this._zoomToFeature(args.feature);
+                  if (args.showInfoWindow) {
+                    this._zoomToFeature(args.feature);
+                  }
                 }));
               } else {
                 map.infoWindow.hide();
