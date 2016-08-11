@@ -646,6 +646,29 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/21',
+        options: {
+          id: 'serviceareas',
+          title: 'Service Areas',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Service Areas',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        }
+      },
+      {
+        type: 'Feature Layer',
         url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/23',
         options: {
           id: 'beachaccess',
@@ -669,6 +692,29 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/24',
+        options: {
+          id: 'boatramps',
+          title: 'Boat Ramps',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Boat Ramps',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-sun-o',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        }
+      },
+      {
+        type: 'Feature Layer',
         url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/25',
         options: {
           id: 'libraries',
@@ -679,6 +725,29 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             isEnabled: true,
             outFields: ['*'],
             title: 'Libraries',
+            headerFunction: function(attrs) {
+              return '' + attrs.NAME;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-book',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        }
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/26',
+        options: {
+          id: 'recycling',
+          title: 'Recycling',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Recycling',
             headerFunction: function(attrs) {
               return '' + attrs.NAME;
             },

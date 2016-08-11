@@ -107,62 +107,49 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     layerList: {
       groups: [
-        // {
-        //   name: 'Points of Interest',
-        //   isSelected: false,
-        //   icon: 'turned_in_not',
-        //   layers: [
-        //       {
-        //         name: 'Adresses',
-        //         id: 'addresses',
-        //         isSelected: false,
-        //         url: ''
-        //       },
-        //     {
-        //       name: 'Hydrants',
-        //       id: 'hydrants',
-        //       isSelected: false,
-        //       url: ''
-        //     }
-        //     ,
-        //     {
-        //       name: 'Beach Access',
-        //       id: 'beach_access',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Boat Ramps',
-        //       id: 'boat_ramps',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Libraries',
-        //       id: 'libraries',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Parks',
-        //       id: 'parks',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Recycling',
-        //       id: 'recycling',
-        //       isSelected: false,
-        //       url: ''
-        //     },
-        //     {
-        //       name: 'Schools',
-        //       id: 'schools',
-        //       isSelected: false,
-        //       url: ''
-        //     }
-        //   ]
-    //   },
+        {
+          name: 'Points of Interest',
+          isSelected: false,
+          icon: 'turned_in_not',
+          layers: [
+              {
+                name: 'Beach Access',
+                id: 'beachaccess',
+                isSelected: false,
+                url: ''
+              },
+            {
+              name: 'Boat Ramps',
+              id: 'boatramps',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Libraries',
+              id: 'libraries',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Parks',
+              id: 'parks',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Recycling',
+              id: 'recycling',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Schools',
+              id: 'schools',
+              isSelected: false,
+              url: ''
+            }
+          ]
+      },
         {
           name: 'Parcels & Community',
           isSelected: false,
@@ -187,6 +174,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
                 url: ''
               },
               {
+                name: 'Easements',
+                id: 'easements',
+                isSelected: false,
+                url: ''
+              },
+              {
                 name: 'Municipal Boundaries',
                 id: 'municipalboundaries',
                 isSelected: false,
@@ -197,12 +190,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
               id: 'parcels',
               isSelected: false,
               url: ''
-            },
-            {
-              name: 'Planned Unit Development',
-              id: 'PlannedUnitDevelopments',
-              isSelected: false,
-              url: ''
             }
           ]
       },
@@ -211,18 +198,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         isSelected: false,
         icon: 'traffic',
         layers: [
-            {
-              name: 'Hydrants',
-              id: 'hydrants',
-              isSelected: false,
-              url: ''
-            },
-            {
-              name: 'One Foot Contours',
-              id: 'onefootcontours',
-              isSelected: false,
-              url: ''
-            },
             {
               name: 'Roads',
               id: 'roads',
@@ -236,15 +211,22 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         isSelected: false,
         icon: 'terrain',
         layers: [
+
             {
-              name: 'Easements',
-              id: 'easements',
+              name: 'Future Land Use',
+              id: 'futurelanduse',
               isSelected: false,
               url: ''
             },
             {
-              name: 'Future Land Use',
-              id: 'futurelanduse',
+              name: 'Planned Unit Development',
+              id: 'PlannedUnitDevelopments',
+              isSelected: false,
+              url: ''
+            },
+            {
+              name: 'Service Areas',
+              id: 'serviceareas',
               isSelected: false,
               url: ''
             },
@@ -292,6 +274,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
                 url: ''
               },
               {
+                name: 'One Foot Contours',
+                id: 'onefootcontours',
+                isSelected: false,
+                url: ''
+              },
+              {
                 name: 'Storm Surge',
                 id: 'StormSurge',
                 isSelected: false,
@@ -325,6 +313,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
               name: 'Evacuation Zones',
               id: 'evacuationzones',
+              isSelected: false,
+              url: ''
+          },
+            {
+              name: 'Hydrants',
+              id: 'hydrants',
               isSelected: false,
               url: ''
             }
