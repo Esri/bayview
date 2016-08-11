@@ -11,6 +11,7 @@ define([
   'dojo/dom-class',
   'dojo/string',
   'dojo/aspect',
+  'dojo/on',
 
   'dojo/_base/lang',
 
@@ -28,7 +29,7 @@ define([
 
 function(
   declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
-  topic, dom, domStyle, domConstruct, domClass, string, aspect,
+  topic, dom, domStyle, domConstruct, domClass, string, aspect, on,
   lang,
   layerUtils,
   Legend, arcgisUtils,
@@ -55,10 +56,10 @@ function(
         this.legend.startup();
 
       } else {
-          console.log('legend is doing AGS load...?')
+          //console.log('legend is doing AGS load...?')
         // AGS
         var includedLayerInfos = _.map(this.legendConfig.includeLayerIds, lang.hitch(this, function(layerId) {
-            console.debug(layerId);
+            //console.debug(layerId);
           return layerUtils.getLayerInfo(this.map, layerId);
         }));
 
@@ -78,6 +79,7 @@ function(
 
       switch (this.legendConfig.container) {
         case 'dropdown':
+            //console.log('case dropdown');
           this.dropDownButton.set('label', this.legendConfig.title);
           var legendDropDown = new TooltipDialog({
             'content': this.legend,
@@ -87,19 +89,27 @@ function(
           this.dropDownButton.startup();
           break;
         case 'titlepane':
+        //console.log('case title pane');
           domStyle.set(this.dropDownButton.domNode, 'display', 'none');
           var tp = new TitlePane({
             'title': this.legendConfig.title,
-            'content': this.legend
+            'content': this.legend,
+            'open': false
           });
           this.legendContainer.appendChild(tp.domNode);
           tp.startup();
           break;
         case 'none':
+        //console.log('case none');
           domStyle.set(this.dropDownButton.domNode, 'display', 'none');
           this.legend.startup();
           break;
       }
+
+      on(this.legendContainer, 'click', lang.hitch(this, function() {
+          domClass.toggle(this.mdlDownBtn, 'is-hidden');
+          domClass.toggle(this.mdlUpBtn, 'is-hidden');
+      }));
 
     },
 
