@@ -72,7 +72,27 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         ],
         'analysis': {
           'buffer': {
-
+            'radius': [1, 3, 5],
+            'radiusUnit': 'esriMiles',
+            'radiusUnitLabel': 'miles',
+            'layers': [
+              {
+                'id': 'schools',
+                'label': 'Schools'
+              },
+              {
+                'id': 'libraries',
+                'label': 'Libraries'
+              },
+              {
+                'id': 'beachaccess',
+                'label': 'Beach Access'
+              },
+              {
+                'id': 'parks',
+                'label': 'Parks'
+              }
+            ]
           },
           'layers': [
             {

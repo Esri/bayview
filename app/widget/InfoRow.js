@@ -1,6 +1,3 @@
-/**
- * Esri © 2015
- **/
 define([
     'dojo/_base/declare',
     'dijit/_WidgetBase',

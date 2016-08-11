@@ -56,6 +56,11 @@ function(lang, topic, Deferred,
       return queryTaskExecute;
     },
 
+    createQueryTaskExecuteForCount: function(url, query) {
+      var queryTaskExecute = new QueryTask(url).executeForCount(query);
+      return queryTaskExecute;
+    },
+
     //----------------------------------------------------
     // functions below are being used by UnifiedSearch
 

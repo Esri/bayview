@@ -642,9 +642,100 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
-        },
+        }
       },
-
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/23',
+        options: {
+          id: 'beachaccess',
+          title: 'Beach Access',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Beach Access',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-sun-o',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        }
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/25',
+        options: {
+          id: 'libraries',
+          title: 'Libraries',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Libraries',
+            headerFunction: function(attrs) {
+              return '' + attrs.NAME;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-book',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        }
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/27',
+        options: {
+          id: 'schools',
+          title: 'Schools',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Schools',
+            headerFunction: function(attrs) {
+              return '' + attrs.NAME;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-graduation-cap',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        }
+      },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/28',
+        options: {
+          id: 'parks',
+          title: 'Parks',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Parks',
+            headerFunction: function(attrs) {
+              return '' + attrs.NAME;
+            },
+            //contentFunction: function(attrs) {
+            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
+            //},
+            iconClass: 'fa fa-tree',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        }
+      }
     ]
   };
 });

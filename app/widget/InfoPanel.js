@@ -1,6 +1,3 @@
-/**
- * Esri © 2015
- **/
 define([
     'dojo/_base/declare',
     'dijit/_WidgetBase',
@@ -24,17 +21,21 @@ define([
     'core/queryUtils',
     'core/layerUtils',
 
+    'esri/tasks/query',
+    'esri/geometry/Circle',
+
     './InfoRow',
+    './InfoBox',
 
     'dojo/text!./templates/InfoPanel.html'
   ],
 
   function(
-    declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
-    Evented,
+    declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin, Evented,
     lang, connect, topic, parser, query, on, domStyle, domClass, domAttr, domConstruct, deferredAll, registry,
     queryUtils, layerUtils,
-    InfoRow,
+    Query, Circle,
+    InfoRow, InfoBox,
     template
   ) {
 
@@ -92,7 +93,59 @@ define([
         _btnAnalyzeClicked: function() {
             // TODO: show loading
             console.log('analyze clicked');
-            var executeObj = Object.create(null);
+
+            domConstruct.empty(this.bufferContainer);
+            domConstruct.empty(this.analysisContainer);
+
+            // Buffer
+            var circle = new Circle({
+                center: this.selectedFeature.geometry,
+                radius: this.layerConfig.analysis.buffer.radius[0],
+                radiusUnit: this.layerConfig.analysis.buffer.radiusUnit
+            });
+            var bufferObj = Object.create(null);
+            _.each(this.layerConfig.analysis.buffer.layers, lang.hitch(this, function(layer) {
+                var query = queryUtils.createQuery({
+                  //outFields: [layer.field],
+                  returnGeometry: false,
+                  geometry: circle
+                });
+                var layerInfo = layerUtils.getLayerInfo(this.map, layer.id);
+                bufferObj[layer.id] = queryUtils.createQueryTaskExecuteForCount(layerInfo.url, query);
+            }));
+            deferredAll(bufferObj).then(lang.hitch(this, function(results) {
+                console.log('buffer results', results);
+                // get the config
+                _.each(this.layerConfig.analysis.buffer.layers, lang.hitch(this, function(layer) {
+                    // create the output
+                    InfoBox({
+                        label: layer.label,
+                        value: results[layer.id]
+                    }).placeAt(this.bufferContainer);
+                }));
+            }), function(error) {
+                // TODO: remove the loading & show some sort of error message
+                console.log('error in buffer')
+            });
+            /*
+            // THIS ONLY WORKS IF FEATURELAYER IS VISIBLE
+            var query = new Query();
+            query.geometry = circle.getExtent();
+            var layerInfo = layerUtils.getLayerInfo(this.map, this.layerConfig.analysis.buffer[0].id);
+            layerInfo.layer.queryFeatures(query, lang.hitch(this, function(results) {
+                var inBuffer = [];
+                _.each(results.features, lang.hitch(this, function(feature) {
+                    if (circle.contains(feature.geometry)){
+                      inBuffer.push(feature);
+                    }
+                }));
+                console.log('buffer results', results);
+                console.log('features in circle count: ' + inBuffer.length);
+            }));
+            */
+
+            // Layers
+            var layersObj = Object.create(null);
             _.each(this.layerConfig.analysis.layers, lang.hitch(this, function(layer) {
                 var query = queryUtils.createQuery({
                   outFields: [layer.field],
@@ -101,9 +154,9 @@ define([
                   geometry: this.selectedFeature.geometry
                 });
                 var layerInfo = layerUtils.getLayerInfo(this.map, layer.id);
-                executeObj[layer.id] = queryUtils.createQueryTaskExecute(layerInfo.url, query);
+                layersObj[layer.id] = queryUtils.createQueryTaskExecute(layerInfo.url, query);
             }));
-            deferredAll(executeObj).then(lang.hitch(this, function(results) {
+            deferredAll(layersObj).then(lang.hitch(this, function(results) {
                 // TODO: remove the loading
                 console.log('analysis results', results);
                 // get the config
