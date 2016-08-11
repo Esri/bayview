@@ -12,12 +12,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     },
 
     legend: {
-      isEnabled: false,
+      isEnabled: true,
       title: 'Legend',
       container: 'titlepane', // options are: 'titlepane', 'dropdown', 'none'
       autoUpdate: true, // ignored if Portal
       respectCurrentMapScale: true, // ignored if Portal
-      includeLayerIds: ['states', 'farmers_markets', 'fsa_state_offices'] // leave empty if all  // ignored if Portal
+      includeLayerIds: ['addresses', 'hydrants', 'parcels'] // leave empty if all  // ignored if Portal
     },
 
     drawTool: {

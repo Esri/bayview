@@ -74,8 +74,19 @@ define([
                         value: selectedFeature.attributes[info.field]
                     }).placeAt(this.detailsContainer);
                 }));
-                this._toggleButtons();
+                //this._toggleButtons(this.layerConfig);
             }
+        },
+
+        showPanel: function() {
+            query('#infoPanelWrapper').removeClass('is-hidden');
+        },
+
+        hidePanel: function() {
+            query('#infoPanelWrapper').addClass('is-hidden');
+            dojo.empty(this.detailsContainer);
+            dojo.empty(this.bufferContainer);
+            dojo.empty(this.analysisContainer);
         },
 
         _clear: function() {
@@ -186,10 +197,11 @@ define([
         },
 
         _toggleButtons: function(layerConfig) {
-            (this.layerConfig && this.layerConfig.hasDetails) ? domClass.remove(this.btnDetails, 'hidden') : domClass.add(this.btnDetails, 'hidden');
-            (this.layerConfig && this.layerConfig.hasAnalyzeButton) ? domClass.remove(this.btnAnalyze, 'hidden') : domClass.add(this.btnAnalyze, 'hidden');
-            (this.layerConfig && this.layerConfig.hasPrint) ? domClass.remove(this.btnPrint, 'hidden') : domClass.add(this.btnPrint, 'hidden');
-            (this.layerConfig && this.layerConfig.hasExportData) ? domClass.remove(this.btnExport, 'hidden') : domClass.add(this.btnExport, 'hidden');
+            console.debug('toggle buttons', layerConfig);
+            (this.layerConfig && this.layerConfig.hasDetails) ? domClass.remove(this.btnDetails, 'is-hidden') : domClass.add(this.btnDetails, 'is-hidden');
+            (this.layerConfig && this.layerConfig.hasAnalyzeButton) ? domClass.remove(this.btnAnalyze, 'is-hidden') : domClass.add(this.btnAnalyze, 'is-hidden');
+            (this.layerConfig && this.layerConfig.hasPrint) ? domClass.remove(this.btnPrint, 'is-hidden') : domClass.add(this.btnPrint, 'is-hidden');
+            (this.layerConfig && this.layerConfig.hasExportData) ? domClass.remove(this.btnExport, 'is-hidden') : domClass.add(this.btnExport, 'is-hidden');
         }
 
     });

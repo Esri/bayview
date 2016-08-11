@@ -144,6 +144,17 @@ function(
       this.clearSearchError();
     },
 
+    openFeatureDetails: function(searchString) {
+        var fixedString = searchString.replace(/<(?:.|\n)*?>/gm, '');
+        domAttr.set(this.inputNode, 'value', fixedString);
+        this.inputValue = fixedString;
+        domClass.remove(this.containerNode, 'populated');
+        domClass.remove(this.containerNode, 'search-error');
+        this.clearResults();
+        this.focus();
+        this.emit('clear');
+    },
+
     // is this function being called at all??
     hideResultsNode: function() {
       domClass.add(this.resultsContainer, 'hide');

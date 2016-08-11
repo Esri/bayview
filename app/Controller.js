@@ -29,7 +29,7 @@ define([
   'widget/Legend',
   'widget/Coordinates',
   'widget/DrawTool',
-  'widget/Measure',
+  // 'widget/Measure',
   'esri/dijit/Measurement',
 
   './model/PortalUserModel',
@@ -48,7 +48,7 @@ define([
   MapController,
   appConfig, mapConfig, widgetConfig,
   InfoWindowController, Navigation, InfoPanel,
-  UnifiedSearch, Legend, Coordinates, DrawTool, Measure, Measurement,
+  UnifiedSearch, Legend, Coordinates, DrawTool, Measurement,
   PortalUserModel,
   arcgisUtils, arcgisPortal, OAuthInfo, esriId, GeometryService, esriConfig,
   i18n
@@ -147,7 +147,7 @@ define([
       if (widgetConfig.legend.isEnabled) {
         this.legend = new Legend({
           map: map,
-          id: 'DrawTool',
+          id: 'Legend',
           legendConfig: widgetConfig.legend
         }, 'legendContainer');
         this.legend.startup();
@@ -168,6 +168,11 @@ define([
         var selectedFeature = args.obj;
         this.infoPanel.showDetails(layerId, selectedFeature);
         // TODO: show the panel
+        this.infoPanel.showPanel();
+      }));
+
+      topic.subscribe('/UnifiedSearch/clear/clicked', lang.hitch(this, function(sender, args) {
+        this.infoPanel.hidePanel();
       }));
 
     //   on(this.drawTool, 'started', lang.hitch(this, function(args) {
