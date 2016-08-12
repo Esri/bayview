@@ -39,9 +39,8 @@
     }
 
     &.w-layer-group__icon--tune {
-        &:hover {
-            cursor: pointer;
-            background: rgba($brand-primary,0.3);
+        &.is-hidden {
+            display: none;
         }
     }
 

@@ -1,9 +1,10 @@
 .w-info-row {
     display: flex;
     flex-direction: row;
+    padding: 10px 0;
 }
 
 .w-info-row__field {
-    width: 40%;
+    width: 50%;
     margin-right: 10px;
 }

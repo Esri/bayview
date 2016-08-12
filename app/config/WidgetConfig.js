@@ -91,14 +91,142 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
               {
                 'id': 'parks',
                 'label': 'Parks'
+              },
+              {
+                'id': 'recycling',
+                'label': 'Recycling'
               }
             ]
           },
           'layers': [
             {
+              'id': 'CountyCommissionerDistricts',
+              'field': 'NAME',
+              'label': 'County Commissioner District'
+            },
+            {
+                'id': 'evacuationzones',
+                'field': 'EZONE',
+                'label': 'Evacuation Zone'
+            },
+            {
+                'id': 'FEMAfloodzones',
+                'field': 'OBJECTID',
+                'label': 'FEMA Flood Zone'
+            },
+            {
+                'id': 'futurelanduse',
+                'field': 'SUB_FLU',
+                'label': 'Future Land Use'
+            },
+            {
               'id': 'municipalboundaries',
               'field': 'NAME',
               'label': 'Municipal Boundary'
+            },
+            {
+                'id': 'serviceareas',
+                'field': 'OBJECTID',
+                'label': 'Service Area'
+            },
+            {
+                'id': 'soils',
+                'field': 'SOILTYPE',
+                'label': 'Soil'
+            }
+          ]
+        }
+      },
+      'parcels': {
+        'hasDetails': true,
+        'hasAnalyzeButton': true,
+        'hasPrint': true,
+        'hasExportData': true,
+        'infos': [
+          {
+            'field': 'A1RENUM',
+            'label': 'Parcel ID'
+          },
+          {
+            'field': 'A2OWNNAME',
+            'label': 'Owner'
+          },
+          {
+            'field': 'DSITEADDR',
+            'label': 'Address'
+          },
+          {
+            'field': 'DTAXACRES',
+            'label': 'Acres'
+          },
+          {
+            'field': 'DORAPPDESC',
+            'label': 'Current Use'
+          },
+        ],
+        'analysis': {
+          'buffer': {
+            'radius': [1, 3, 5],
+            'radiusUnit': 'esriMiles',
+            'radiusUnitLabel': 'miles',
+            'layers': [
+              {
+                'id': 'schools',
+                'label': 'Schools'
+              },
+              {
+                'id': 'libraries',
+                'label': 'Libraries'
+              },
+              {
+                'id': 'beachaccess',
+                'label': 'Beach Access'
+              },
+              {
+                'id': 'parks',
+                'label': 'Parks'
+              },
+              {
+                'id': 'recycling',
+                'label': 'Recycling'
+              }
+            ]
+          },
+          'layers': [
+            {
+              'id': 'CountyCommissionerDistricts',
+              'field': 'NAME',
+              'label': 'County Commissioner District'
+            },
+            {
+                'id': 'evacuationzones',
+                'field': 'EZONE',
+                'label': 'Evacuation Zone'
+            },
+            {
+                'id': 'FEMAfloodzones',
+                'field': 'OBJECTID',
+                'label': 'FEMA Flood Zone'
+            },
+            {
+                'id': 'futurelanduse',
+                'field': 'SUB_FLU',
+                'label': 'Future Land Use'
+            },
+            {
+              'id': 'municipalboundaries',
+              'field': 'NAME',
+              'label': 'Municipal Boundary'
+            },
+            {
+                'id': 'serviceareas',
+                'field': 'OBJECTID',
+                'label': 'Service Area'
+            },
+            {
+                'id': 'soils',
+                'field': 'SOILTYPE',
+                'label': 'Soil'
             }
           ]
         }
@@ -345,7 +473,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       isEnabled: true,
       placeholder: 'Find parcels, addresses, or roads...',
       searchDelay: 400,
-      zoomToFeature: true, // zoom to the feature after selecting it
+      zoomToFeature: false, // zoom to the feature after selecting it
       showInfoWindow: false, // show info window after zooming to feature,
       geocode: {
         isEnabled: false,
@@ -355,35 +483,70 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         },
         distance: 500
       },
-      tables: [{
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
-        idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-        query: {
-          returnGeometry: true, // if false then relatedQuery is used to determine geometry
-          id: 'addresses', // unique identifier within the unifiedSearch Config
-          fields: ['ADDRESS'], // field to be queried on (where clause)
-          group: {
-            isGrouped: true,
-            sectionHeader: 'Addresses',
-            iconClass: 'fa fa-folder'
-          },
-          results: {
-            labelFields: ['ADDRESS'],
-            // comment out to use the label field instead (only first field in the array of labelFields will be used)
-            /*
-            labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-              return attrs.pocname + ' (' + attrs.opsstatus + ')';
+      tables: [
+          {
+            url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
+            idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
+            query: {
+              returnGeometry: true, // if false then relatedQuery is used to determine geometry
+              id: 'addresses', // unique identifier within the unifiedSearch Config
+              fields: ['ADDRESS'], // field to be queried on (where clause)
+              group: {
+                isGrouped: true,
+                sectionHeader: 'Addresses',
+                iconClass: 'fa fa-folder'
+              },
+              results: {
+                labelFields: ['ADDRESS'],
+                // comment out to use the label field instead (only first field in the array of labelFields will be used)
+                /*
+                labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
+                  return attrs.pocname + ' (' + attrs.opsstatus + ')';
+                },
+                iconClassFunction: function(attrs) {
+                  return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
+                },
+                */
+                iconClass: 'fa fa-map-marker',
+                priority: 1
+              },
+              relatedQuery: null
+            }
+        },
+        {
+          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
+          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
+          query: {
+            returnGeometry: true, // if false then relatedQuery is used to determine geometry
+            id: 'parcels', // unique identifier within the unifiedSearch Config
+            fields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'], // field to be queried on (where clause)
+            group: {
+              isGrouped: true,
+              sectionHeader: 'Parcels',
+              iconClass: 'fa fa-folder'
             },
-            iconClassFunction: function(attrs) {
-              return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
+            results: {
+              labelFields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'],
+              // comment out to use the label field instead (only first field in the array of labelFields will be used)
+
+              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
+                return attrs.A1RENUM + ' (' + attrs.DSITEADDR + ')';
+              },
+            //   labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
+            //     return attrs.pocname + ' (' + attrs.opsstatus + ')';
+            //   },
+              /*
+              iconClassFunction: function(attrs) {
+                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
+              },
+              */
+              iconClass: 'fa fa-map-marker',
+              priority: 0
             },
-            */
-            iconClass: 'fa fa-map-marker',
-            priority: 0
-          },
-          relatedQuery: null
+            relatedQuery: null
+          }
         }
-      }],
+      ],
       locators: [
         {
           id: 'world_geocoder',

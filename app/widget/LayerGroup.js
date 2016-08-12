@@ -119,10 +119,10 @@ define([
                 this.activeLayers--;
             }
 
-            if (this.activeLayers === this.layerCount) {
-                domClass.remove(this.allIcon, 'is-hidden');
+            if (this.activeLayers > 0) {
+                domClass.remove(this.tuneIcon, 'is-hidden');
             } else {
-                domClass.add(this.allIcon, 'is-hidden');
+                domClass.add(this.tuneIcon, 'is-hidden');
             }
         }
 

@@ -1,8 +1,23 @@
 <div class="w-info-panel">
     <div class="w-info-panel__section" data-dojo-attach-point="detailsContainer"></div>
-    <div class="w-info-panel__section" data-dojo-attach-point="bufferContainer"></div>
+
+    <div class="w-info-panel__loading is-hidden" data-dojo-attach-point="loader">
+        <div class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active w-info-panel__spinner"></div>
+        <div class="">Analyzing surrounding area...</div>
+    </div>
+
+    <div class="w-info-panel__buffer-options is-hidden" data-dojo-attach-point="bufferOptions">
+        <span class="w-info-panel__option-header">Within:</span>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect left w-info-panel__buffer-btn is-selected" data-dojo-attach-point="oneMBufferBtn">1 mile</button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect left w-info-panel__buffer-btn" data-dojo-attach-point="threeMBufferBtn">3 miles</button>
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect left w-info-panel__buffer-btn" data-dojo-attach-point="fiveMBufferBtn">5 miles</button>
+    </div>
+
+    <div class="w-info-panel__section w-info-panel__section--buffer is-hidden" data-dojo-attach-point="bufferContainer"></div>
+
     <div class="w-info-panel__section" data-dojo-attach-point="analysisContainer"></div>
-    <div class="w-info-panel__btn-wrap">
+
+    <div class="w-info-panel__btn-wrap" data-dojo-attach-point="btnContainer">
     	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect left w-info-panel__btn" data-dojo-attach-point="btnDetails">Details</button>
     	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect left w-info-panel__btn" data-dojo-attach-point="btnAnalyze">Analyze surrounding area</button>
     	<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect left w-info-panel__btn is-hidden" data-dojo-attach-point="btnPrint">Print</button>

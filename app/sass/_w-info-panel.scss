@@ -13,13 +13,62 @@
     }
 }
 
+.w-info-panel__loading {
+    padding-top: 10px;
+    border-top: 1px solid $light-grey;
+    text-align: center;
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.w-info-panel__spinner {
+    width: 50px;
+    height: 50px;
+}
+
+.w-info-panel__buffer-options {
+    border-top: 1px solid $light-grey;
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.w-info-panel__option-header {
+    margin-right: 10px;
+}
+
+.w-info-panel__buffer-btn {
+    &.is-selected {
+        background: $light-grey;
+    }
+}
+
 .w-info-panel__section {
     margin-bottom: 10px;
+}
+
+.w-info-panel__section--buffer {
+    display: table;
+    padding: 10px 0;
+    border-collapse: separate;
+    border-spacing: 5px;
+    border-bottom: 1px solid $light-grey;
+
+    &.is-hidden {
+        display: none;
+    }
 }
 
 .w-info-panel__btn-wrap {
     border-top: 1px solid $light-grey;
     text-align: center;
+
+    &.is-hidden {
+        display: none;
+    }
 }
 
 .w-info-panel__btn {

@@ -164,6 +164,7 @@ define([
         config: widgetConfig.infoPanel
       }, 'infoPanelContainer');
       topic.subscribe('/UnifiedSearch/result/clicked', lang.hitch(this, function(sender, args) {
+          console.log('opening info panel');
         var layerId = args.layerId;
         var selectedFeature = args.obj;
         this.infoPanel.showDetails(layerId, selectedFeature);

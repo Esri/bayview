@@ -473,6 +473,7 @@ function(
 
     runGroupedQueryResponseHandler: function(params, response) {
       console.debug('runGroupedQueryResponseHandler');
+      //console.log(response);
 
       var layer = this.getTableByLayerKey(params.lyrKey);
 
