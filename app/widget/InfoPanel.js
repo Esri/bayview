@@ -119,9 +119,16 @@ define([
             domConstruct.empty(this.bufferContainer);
             domConstruct.empty(this.analysisContainer);
 
+            // Check if the geometry is a POLYGON
+            var centerPoint = this.selectedFeature.geometry;
+            if (this.selectedFeature.geometry.type === 'polygon') {
+                centerPoint = centerPoint.getCentroid();
+            }
+
             // Buffer
             var circle = new Circle({
-                center: this.selectedFeature.geometry,
+                //center: this.selectedFeature.geometry,
+                center: centerPoint,
                 //radius: this.layerConfig.analysis.buffer.radius[0],
                 radius: radius,
                 radiusUnit: this.layerConfig.analysis.buffer.radiusUnit
@@ -147,9 +154,10 @@ define([
                     }).placeAt(this.bufferContainer);
                 }));
             }), function(error) {
+
                 // TODO: remove the loading & show some sort of error message
                 //this._stopLoader();
-                console.log('error in buffer')
+                //console.debug('error in buffer', bufferObj)
             });
             /*
             // THIS ONLY WORKS IF FEATURELAYER IS VISIBLE

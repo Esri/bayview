@@ -298,7 +298,9 @@ function(
       this.emit('select-oid', {
         oid: domAttr.get(li, 'data-oid'),
         lyr: domAttr.get(li, 'data-lyr'),
-        extent: domAttr.get(li, 'data-extent'),
+        // TODO the extent is causing issues with the deatails panel
+        //extent: domAttr.get(li, 'data-extent'),
+        extent: null,
         labelText: domAttr.get(li, 'data-label'),
         obj: domAttr.get(li, 'data-obj')
       });
@@ -347,6 +349,7 @@ function(
     },
 
     handleFormattedResults2: function(results, strInput) {
+        //console.log('handleFormattedResults2');
       this.restoreLoadingIcon();
       domClass.remove(this.containerNode, 'loading');
       domClass.add(this.containerNode, 'has-input');

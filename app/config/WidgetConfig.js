@@ -17,7 +17,8 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       container: 'titlepane', // options are: 'titlepane', 'dropdown', 'none'
       autoUpdate: true, // ignored if Portal
       respectCurrentMapScale: true, // ignored if Portal
-      includeLayerIds: ['addresses', 'hydrants', 'parcels'] // leave empty if all  // ignored if Portal
+      includeLayerIds: ['beachaccess', 'boatramps', 'libraries', 'parks', 'recycling', 'schools', 'addresses', 'roads', 'hydrants', 'parcels', 'CommunityRedevAgencies', 'CountyCommissionerDistricts', 'easements', 'municipalboundaries', 'futurelanduse', 'PlannedUnitDevelopments', 'serviceareas', 'soils', 'zoning']
+      // leave empty if all  // ignored if Portal
     },
 
     drawTool: {
@@ -148,7 +149,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'label': 'Parcel ID'
           },
           {
-            'field': 'A2OWNNAME',
+            'field': 'A2OWNAME',
             'label': 'Owner'
           },
           {

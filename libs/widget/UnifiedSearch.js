@@ -472,7 +472,7 @@ function(
     },
 
     runGroupedQueryResponseHandler: function(params, response) {
-      console.debug('runGroupedQueryResponseHandler');
+      console.debug('runGroupedQueryResponseHandler', response);
       //console.log(response);
 
       var layer = this.getTableByLayerKey(params.lyrKey);
@@ -482,7 +482,7 @@ function(
           oid: feat.attributes[layer.idField],
           label: (layer.query.results.labelFunction) ? layer.query.results.labelFunction(feat.attributes) : feat.attributes[layer.query.results.labelFields[0]],
           layer: params.lyrKey,
-          iconClass: (layer.query.results.iconClassFunction) ? layer.query.results.iconClassFunction(feat.attributes) : '',
+          iconClass: (layer.query.results.iconClassFunction) ? layer.query.results.iconClassFunction(feat.attributes) : layer.query.results.iconClass,
           extent: (feat.geometry) ? JSON.stringify(feat.geometry.getExtent()) : '',
           obj: JSON.stringify(feat)
         } : null;
