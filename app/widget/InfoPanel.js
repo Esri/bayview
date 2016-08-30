@@ -48,7 +48,7 @@ define([
 
         postCreate: function() {
             this.inherited(arguments);
-            this._clear();
+            this.clear();
 
             this.own(on(this.btnDetails, 'click', lang.hitch(this, this._btnDetailsClicked)));
             this.own(on(this.btnAnalyze, 'click', lang.hitch(this, this._btnAnalyzeClicked, 1)));
@@ -58,6 +58,7 @@ define([
             this.own(on(this.oneMBufferBtn, 'click', lang.hitch(this, this._btnAnalyzeClicked, 1)));
             this.own(on(this.threeMBufferBtn, 'click', lang.hitch(this, this._btnAnalyzeClicked, 3)));
             this.own(on(this.fiveMBufferBtn, 'click', lang.hitch(this, this._btnAnalyzeClicked, 5)));
+
         },
 
         startup: function() {
@@ -92,13 +93,14 @@ define([
             dojo.empty(this.detailsContainer);
             dojo.empty(this.bufferContainer);
             dojo.empty(this.analysisContainer);
+            domClass.add(this.analysisContainer, 'is-hidden');
             domClass.add(this.bufferContainer, 'is-hidden');
             domClass.add(this.bufferOptions, 'is-hidden');
             domClass.add(this.btnPrint, 'is-hidden');
             domClass.add(this.btnExport, 'is-hidden');
         },
 
-        _clear: function() {
+        clear: function() {
             this.layerConfig = null;
             this.selectedFeature = null;
             domConstruct.empty(this.detailsContainer);
@@ -119,62 +121,70 @@ define([
             domConstruct.empty(this.bufferContainer);
             domConstruct.empty(this.analysisContainer);
 
-            // Check if the geometry is a POLYGON
-            var centerPoint = this.selectedFeature.geometry;
-            if (this.selectedFeature.geometry.type === 'polygon') {
-                centerPoint = centerPoint.getCentroid();
-            }
+            // Check if buffer is valid
+            var bufferStatus = this.layerConfig.analysis.buffer;
+            if (bufferStatus) {
 
-            // Buffer
-            var circle = new Circle({
-                //center: this.selectedFeature.geometry,
-                center: centerPoint,
-                //radius: this.layerConfig.analysis.buffer.radius[0],
-                radius: radius,
-                radiusUnit: this.layerConfig.analysis.buffer.radiusUnit
-            });
-            var bufferObj = Object.create(null);
-            _.each(this.layerConfig.analysis.buffer.layers, lang.hitch(this, function(layer) {
-                var query = queryUtils.createQuery({
-                  //outFields: [layer.field],
-                  returnGeometry: false,
-                  geometry: circle
+                // Check if the geometry is a POLYGON
+                console.debug('Analyzing...', this.selectedFeature);
+                var centerPoint = this.selectedFeature.geometry;
+                if (this.selectedFeature.geometry.type === 'polygon') {
+                    centerPoint = centerPoint.getCentroid();
+                }
+
+                // Buffer
+                var circle = new Circle({
+                    //center: this.selectedFeature.geometry,
+                    center: centerPoint,
+                    //radius: this.layerConfig.analysis.buffer.radius[0],
+                    radius: radius,
+                    radiusUnit: this.layerConfig.analysis.buffer.radiusUnit
                 });
-                var layerInfo = layerUtils.getLayerInfo(this.map, layer.id);
-                bufferObj[layer.id] = queryUtils.createQueryTaskExecuteForCount(layerInfo.url, query);
-            }));
-            deferredAll(bufferObj).then(lang.hitch(this, function(results) {
-                //console.log('buffer results', results);
-                // get the config
+                var bufferObj = Object.create(null);
                 _.each(this.layerConfig.analysis.buffer.layers, lang.hitch(this, function(layer) {
-                    // create the output
-                    InfoBox({
-                        label: layer.label,
-                        value: results[layer.id]
-                    }).placeAt(this.bufferContainer);
+                    var query = queryUtils.createQuery({
+                      //outFields: [layer.field],
+                      returnGeometry: false,
+                      geometry: circle
+                    });
+                    var layerInfo = layerUtils.getLayerInfo(this.map, layer.id);
+                    bufferObj[layer.id] = queryUtils.createQueryTaskExecuteForCount(layerInfo.url, query);
                 }));
-            }), function(error) {
+                deferredAll(bufferObj).then(lang.hitch(this, function(results) {
+                    //console.log('buffer results', results);
+                    // get the config
+                    _.each(this.layerConfig.analysis.buffer.layers, lang.hitch(this, function(layer) {
+                        // create the output
+                        InfoBox({
+                            label: layer.label,
+                            value: results[layer.id]
+                        }).placeAt(this.bufferContainer);
+                    }));
+                }), function(error) {
 
-                // TODO: remove the loading & show some sort of error message
-                //this._stopLoader();
-                //console.debug('error in buffer', bufferObj)
-            });
-            /*
-            // THIS ONLY WORKS IF FEATURELAYER IS VISIBLE
-            var query = new Query();
-            query.geometry = circle.getExtent();
-            var layerInfo = layerUtils.getLayerInfo(this.map, this.layerConfig.analysis.buffer[0].id);
-            layerInfo.layer.queryFeatures(query, lang.hitch(this, function(results) {
-                var inBuffer = [];
-                _.each(results.features, lang.hitch(this, function(feature) {
-                    if (circle.contains(feature.geometry)){
-                      inBuffer.push(feature);
-                    }
+                    // TODO: remove the loading & show some sort of error message
+                    //this._stopLoader();
+                    //console.debug('error in buffer', bufferObj)
+                });
+                /*
+                // THIS ONLY WORKS IF FEATURELAYER IS VISIBLE
+                var query = new Query();
+                query.geometry = circle.getExtent();
+                var layerInfo = layerUtils.getLayerInfo(this.map, this.layerConfig.analysis.buffer[0].id);
+                layerInfo.layer.queryFeatures(query, lang.hitch(this, function(results) {
+                    var inBuffer = [];
+                    _.each(results.features, lang.hitch(this, function(feature) {
+                        if (circle.contains(feature.geometry)){
+                          inBuffer.push(feature);
+                        }
+                    }));
+                    console.log('buffer results', results);
+                    console.log('features in circle count: ' + inBuffer.length);
                 }));
-                console.log('buffer results', results);
-                console.log('features in circle count: ' + inBuffer.length);
-            }));
-            */
+                */
+            } else {
+                console.debug('buffer is false');
+            }
 
             // Layers
             var layersObj = Object.create(null);
@@ -190,11 +200,11 @@ define([
             }));
             deferredAll(layersObj).then(lang.hitch(this, function(results) {
                 // TODO: remove the loading
-                console.log('analysis results', results);
-                this._stopLoader();
+                //console.log('analysis results', results);
+                this._stopLoader(bufferStatus);
                 // Show buffer options and buffer results panel
-                domClass.remove(this.bufferContainer, 'is-hidden');
-                domClass.remove(this.bufferOptions, 'is-hidden');
+                //domClass.remove(this.bufferContainer, 'is-hidden');
+                //domClass.remove(this.bufferOptions, 'is-hidden');
                 // get the config
                 _.each(this.layerConfig.analysis.layers, lang.hitch(this, function(layer) {
                     var result = results[layer.id];
@@ -245,16 +255,23 @@ define([
 
         _startLoader: function() {
             domClass.remove(this.loader, 'is-hidden');
+            domClass.add(this.analysisContainer, 'is-hidden');
             domClass.add(this.btnContainer, 'is-hidden');
+            domClass.add(this.bufferContainer, 'is-hidden');
             domClass.add(this.bufferOptions, 'is-hidden');
         },
 
-        _stopLoader: function() {
+        _stopLoader: function(bufferIsActive) {
             domClass.add(this.loader, 'is-hidden');
+            domClass.remove(this.analysisContainer, 'is-hidden');
             domClass.remove(this.btnContainer, 'is-hidden');
-            domClass.remove(this.bufferOptions, 'is-hidden');
-        }
 
+            if (bufferIsActive) {
+                console.debug('buffer is active', this.btnContainer);
+                domClass.remove(this.bufferContainer, 'is-hidden');
+                domClass.remove(this.bufferOptions, 'is-hidden');
+            }
+        }
 
     });
   });

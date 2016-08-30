@@ -6,6 +6,7 @@ define([
     'dojo/json',
 
     'esri/tasks/QueryTask',
+    'esri/tasks/query',
     'esri/tasks/locator',
     'esri/geometry/Point',
     'esri/geometry/Extent',
@@ -17,7 +18,7 @@ define([
 
 function(
   declare, lang, dojoAll, topic, JSON,
-  QT, Locator, Point, Extent, webMercatorUtils,
+  QT, Query, Locator, Point, Extent, webMercatorUtils,
   queryUtils,
   LSView)
 {
@@ -422,26 +423,71 @@ function(
       this.lsView.handleFormattedResults(unifiedResults);
     },
 
+    mapClickEvent: function(target) {
+        if (target.e_graphic) {
+            target = target.e_graphic;
+
+            var resultObj = {
+                oid: target.attributes.OBJECTID,
+                lyr: target._layer.id
+            }
+            console.debug('map click intercept', resultObj);
+
+            topic.publish('/InfoPanel/clear', this);
+            this.handleResultSelection(resultObj, false);
+        }
+    },
+
     /**
      * Handles clicking a result
      * @param  {Object} resultObj from UnifiedSearchView (oid, lyr, extent, labelText)
      * @return {[type]}           [description]
      */
-    handleResultSelection: function(resultObj) {
-      console.debug('handleResultSelection', resultObj);
+    handleResultSelection: function(resultObj, zoomTo) {
+        //var thisIsGeom = JSON.parse(resultObj.obj);
+      console.debug('handleResultSelection', resultObj, zoomTo);
       //topic.publish('search-select-oid', _.omit(resultObj, 'target'));
       //topic.publish('function-finished');
 
-      if (resultObj.extent && resultObj.extent !== '' && resultObj.extent !== 'null') {
+      //if (resultObj.extent && resultObj.extent !== '' && resultObj.extent !== 'null') {
+      if (resultObj.oid && resultObj.oid !== '' && resultObj.oid !== 'null') {
         // we have the extent, no further queries needed
-        topic.publish('/map/zoom/extent', this, JSON.parse(resultObj.extent));
-        topic.publish(this.toolPrefix + '/result/clicked', this,
-          {
-            layerId: resultObj.lyr,
-            obj: JSON.parse(resultObj.obj)
-          }
-        );
-        this.lsView.clear();
+        this.lsView.clearResults();
+        console.log(resultObj.lyr);
+        console.log(parseInt(resultObj.oid));
+        console.log(this.map._layers[resultObj.lyr]);
+        var query = new Query();
+        query.objectIds = [parseInt(resultObj.oid)];
+        query.outFields = [ "*" ];
+        var selectedFeatureLyr = this.map._layers[resultObj.lyr];
+        selectedFeatureLyr.queryFeatures(query, function(featureSet) {
+            console.debug('returned feature', featureSet);
+            var featureObj = {
+                feature: featureSet.features[0]
+            }
+            // TODO need to show the layer as selected in the layer list
+            // TODO or maybe if the user wants the layer symbology they can turn it on via the layer list (?)
+            //selectedFeatureLyr.setVisibility(true);
+            if (zoomTo !== false) {
+                topic.publish('/map/zoom/feature', this, featureObj);
+            }
+            topic.publish('/map/add/simplemarker', this, featureObj.feature);
+
+            //topic.publish('/map/zoom/extent', this, JSON.parse(resultObj.extent));
+
+            topic.publish('/UnifiedSearch/result/clicked', this,
+              {
+                layerId: resultObj.lyr,
+                //obj: JSON.parse(resultObj.obj)
+                obj: featureObj.feature
+              }
+            );
+
+        });
+
+
+
+
       } else {
         if (resultObj.oid !== '') {
           // when oid is populated we can run the related query
@@ -487,6 +533,8 @@ function(
           obj: JSON.stringify(feat)
         } : null;
       }));
+
+      //console.debug('reutruning formatted results', formattedResults);
 
       this.lsView.handleFormattedResults2(formattedResults, params.label);
     },
@@ -541,6 +589,7 @@ function(
       this.lsView.openFeatureDetails(params.labelText);
 
       var selectedFeature = lang.mixin(response.features[0], {_layer: params.layer});
+      console.debug('zooming to feature - prelim', response);
       lang.mixin(response.features[0].attributes, params.obj.attributes);
 
       topic.publish(this.toolPrefix + '/result/clicked', this,
@@ -550,10 +599,11 @@ function(
         }
       );
 
+      console.debug('zooming to feature', selectedFeature);
       topic.publish('/map/zoom/feature', this,
         {
           feature: selectedFeature,
-          zoomToFeature: params.zoomToFeature,
+          zoomToFeature: true,
           showInfoWindow: params.showInfoWindow,
           refreshLayers: true
         }

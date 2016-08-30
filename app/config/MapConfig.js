@@ -41,6 +41,16 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       }
     },
 
+    // initialExtent: {
+    //     'xmin':1515958.125430211,
+    //     'ymin':420810.3591215486,
+    //     'xmax':1630194.236541322,
+    //     'ymax':467598.553565993,
+    //   spatialReference: {
+    //     'wkid': 102660
+    //   }
+    // },
+
     agsPortal: {
       isEnabled: false,
       appId: 'GVI6HH3sKAutXQuG',
@@ -86,7 +96,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     },
 
     placemarksTool: {
-      isEnabled: true,
+      isEnabled: false,
       useStateFaceIcons: true,
       placemarks: [{
         label: 'US',

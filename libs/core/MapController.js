@@ -4,11 +4,13 @@ define([
     'esri/SpatialReference',
     'esri/arcgis/utils',
     'esri/geometry/webMercatorUtils',
+    'esri/geometry/Geometry',
     'esri/geometry/Point',
     'esri/geometry/Extent',
     'esri/graphic',
     'esri/symbols/SimpleLineSymbol',
     'esri/symbols/SimpleMarkerSymbol',
+    'esri/symbols/SimpleFillSymbol',
 
     'esri/dijit/Scalebar',
     'esri/dijit/OverviewMap',
@@ -32,7 +34,7 @@ define([
     'dojo/Deferred',
     'dojo/NodeList-traverse'],
     function(Map, SpatialReference, EsriUtils,
-        webMercatorUtils, Point, Extent, Graphic, SimpleLineSymbol, SimpleMarkerSymbol,
+        webMercatorUtils, Geometry, Point, Extent, Graphic, SimpleLineSymbol, SimpleMarkerSymbol, SimpleFillSymbol,
         Scalebar, OverviewMap,
         layerUtils,
         dom, domStyle, domConstruct, domClass,
@@ -43,6 +45,7 @@ define([
       return {
         // BootstrapMap Class Public Functions
         createMap: function(divId, config) {
+            console.debug('creating new map');
           var mapObject,
               mapOut,
               deferredOut;
@@ -57,6 +60,7 @@ define([
           }
         },
         createWebMap: function(webMapId, divId, config) {
+            console.debug('creating new webmap');
           var mapObject,
               deferredOut;
           if (divId && config) {
@@ -124,6 +128,7 @@ define([
           }));
 
           topic.subscribe('/map/zoom/extent', lang.hitch(this, function(sender, args) {
+              console.debug('map zoom extent', args);
             var wkid = (args.wkid) ? parseInt(args.wkid, 10) : map.spatialReference.wkid;
             var extent = new Extent(parseFloat(args.xmin), parseFloat(args.ymin), parseFloat(args.xmax), parseFloat(args.ymax), new SpatialReference({ wkid: wkid }));
             map.setExtent(extent);
@@ -131,13 +136,31 @@ define([
 
           topic.subscribe('/map/zoom/feature', lang.hitch(this, function(sender, args) {
             var geom = null;
+            // if ("geometry" in args) {
+            //     var convert = args.geometry;
+            //     geom = new Geometry();
+            //     geom.setSpatialReference(convert.spatialReference);
+            //     geom.type = convert.type;
+            //     geom.cache = convert.cache;
+            //     // console.log(geom);
+            //     // geom = webMercatorUtils.geographicToWebMercator(geom);
+            //     // console.log(geom);
+            //     // if (webMercatorUtils.canProject(geom, map)) {
+            //     //     console.log('it can be projected web mecator');
+            //     //    geom = webMercatorUtils.project(geom, map);
+            //     //
+            //     // }
+            //     console.debug('converting geom', geom);
+            // }
             if (args.feature.geometry.spatialReference.wkid === map.spatialReference.wkid) {
               geom = args.feature.geometry;
+              console.debug('/map/zoom/feature', geom);
             } else {
               //geom = webMercatorUtils.geographicToWebMercator(args.feature.geometry);
-              if (webMercatorUtils.canProject(args.feature.geometry, map)) {
-                geom = webMercatorUtils.project(args.feature.geometry, map);
-              }
+              //geom = webMercatorUtils.webMercatorToGeographic(args.feature.geometry);
+              //if (webMercatorUtils.canProject(args.feature.geometry, map)) {
+                //geom = webMercatorUtils.project(args.feature.geometry, map);
+              //}
             }
 
             if (geom && geom.type === 'polygon') {
@@ -171,15 +194,25 @@ define([
           topic.subscribe('/map/add/simplemarker', lang.hitch(this, function(sender, args) {
             map.graphics.clear();
             if (args.geometry) {
-              var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 20,
-                  new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                  new Color([255, 0, 0]), 1),
-                  new Color([0, 255, 0, 0.25]));
+                // TODO use this for point style geometry
+                if(args.geometry.type === 'point') {
+                      var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 20,
+                          new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                          new Color([255, 0, 0]), 1),
+                          new Color([255, 255, 255, 0.25]));
+                } else if (args.geometry.type === 'polygon') {
+                    var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                          new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                          new Color([255,0,0]), 2),new Color([255,255,255,0.25])
+                        );
+                }
+
               map.graphics.add(new Graphic(args.geometry, symbol));
             }
           }));
 
           topic.subscribe('/map/zoom/geometry', lang.hitch(this, function(sender, geometry) {
+              console.debug('map zoom geom');
             var geom = null;
             if (geometry.spatialReference.wkid === 102100) {
               geom = geometry;
@@ -263,20 +296,34 @@ define([
             }
 
             if (!this._options.center && !this._options.zoom) {
+                console.debug('mixin the extent', this._config.initialExtent);
               lang.mixin(this._options, {
                 extent: new Extent(this._config.initialExtent)
               });
             }
 
+            console.debug('making new map', this._options);
             this._map = new Map(this._mapDivId, this._options);
+            //this._map.removeAllLayers();
+            //this._map.setExtent(this._options.extent);
+            // this._map.spatialReference.wkid = 102660;
+            this._map.setInfoWindowOnClick(false);
+            console.debug('brand new map', this._map);
             //this._setPopup();
             this._bindEvents();
             this._mapDiv.__map = this._map;
 
             // get the layers from the mapConfig
+
             this._addLayers(this._config.operationalLayers);
 
             this._initMapWidgets();
+
+            // this._map.on('click', lang.hitch(this, function(e) {
+            //     console.debug('the map was clicked yo!', e);
+            // }));
+
+            console.debug('new map', this._map);
             return this._map;
           },
           // Create the webmap for client

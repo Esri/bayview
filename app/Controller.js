@@ -163,6 +163,7 @@ define([
         map: map,
         config: widgetConfig.infoPanel
       }, 'infoPanelContainer');
+
       topic.subscribe('/UnifiedSearch/result/clicked', lang.hitch(this, function(sender, args) {
           console.log('opening info panel');
         var layerId = args.layerId;
@@ -174,6 +175,11 @@ define([
 
       topic.subscribe('/UnifiedSearch/clear/clicked', lang.hitch(this, function(sender, args) {
         this.infoPanel.hidePanel();
+      }));
+
+      topic.subscribe('/InfoPanel/clear', lang.hitch(this, function(sender, args) {
+          console.debug('clear info panel');
+        this.infoPanel.clear();
       }));
 
     //   on(this.drawTool, 'started', lang.hitch(this, function(args) {
@@ -265,6 +271,8 @@ define([
         });
         this.search.startup();
         topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
+            console.debug('the map was clicked yo!', args);
+            this.search.mapClickEvent(args.event.target);
           this.search.searchMapPoint(args.event.mapPoint);
         }));
 
@@ -272,6 +280,7 @@ define([
           this.search.hide();
         }));
 
+        //TODO this may be misplaced as it doesnt rely on map?
         topic.subscribe('/ToolList/unselected', lang.hitch(this, function(sender, args) {
           this.search.show();
           if (args.type === 'draw') {
@@ -279,11 +288,19 @@ define([
           }
         }));
 
+        //TODO this may be misplaced as it doesnt rely on map?
         topic.subscribe('/DrawTool/close', lang.hitch(this, function(sender, args) {
           this.search.show();
           this.drawTool.hide();
           this.navigation.clearToolList();
         }));
+
+        // topic.subscribe('/map/zoom/feature', lang.hitch(this, function(sender, args) {
+        //     console.debug('zoom to feature - sender', sender);
+        //     console.debug('zoom to feature - args', args);
+        //     console.debug('feature extent', args.feature.geometry.getExtent());
+        //     map.setExtent(args.feature.geometry.getExtent());
+        // }));
       }
 
       //-----------------------------------------------------------------------

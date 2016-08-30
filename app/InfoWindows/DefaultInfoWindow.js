@@ -78,6 +78,7 @@ define([
       },
 
       _btnZoomToClicked: function() {
+          console.debug('zooming to the feature from window', this.selectedFeature);
         console.log('zoom to clicked');
         topic.publish('/map/zoom/feature', this, {
           feature: this.selectedFeature,

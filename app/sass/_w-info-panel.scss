@@ -55,7 +55,14 @@
     padding: 10px 0;
     border-collapse: separate;
     border-spacing: 5px;
-    border-bottom: 1px solid $light-grey;
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.w-info-panel__section--layers {
+    border-top: 1px solid $light-grey;
 
     &.is-hidden {
         display: none;

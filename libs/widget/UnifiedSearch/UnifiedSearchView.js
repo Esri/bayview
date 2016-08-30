@@ -295,12 +295,13 @@ function(
 
       labelText = labelText.trim ? labelText.trim() : labelText.replace(/^\s+|\s+$/g, '');
 
+      console.debug('the extent that is being emitted', domAttr.get(li, 'data-extent'));
       this.emit('select-oid', {
         oid: domAttr.get(li, 'data-oid'),
         lyr: domAttr.get(li, 'data-lyr'),
         // TODO the extent is causing issues with the deatails panel
-        //extent: domAttr.get(li, 'data-extent'),
-        extent: null,
+        extent: domAttr.get(li, 'data-extent'),
+        //extent: null,
         labelText: domAttr.get(li, 'data-label'),
         obj: domAttr.get(li, 'data-obj')
       });

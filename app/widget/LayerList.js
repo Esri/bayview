@@ -49,10 +49,10 @@ function(
 
         _.each(this.config.groups, lang.hitch(this, function(group, index) {
 
-        new LayerGroup({
-            map: this.map,
-            group: group
-        }).placeAt(this.parentListNode);
+            new LayerGroup({
+                map: this.map,
+                group: group
+            }).placeAt(this.parentListNode);
 
         }));
     }

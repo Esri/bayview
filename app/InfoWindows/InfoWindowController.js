@@ -58,7 +58,7 @@ define([
           console.log(target.features.length + ' features');
           var selectedFeature = target.getSelectedFeature();
           var allFeatures = target.features;
-          this.showFeature(selectedFeature, controller, allFeatures);
+          //this.showFeature(selectedFeature, controller, allFeatures);
         } else {
           console.log('No features');
         }
