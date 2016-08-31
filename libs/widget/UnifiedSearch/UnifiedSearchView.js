@@ -295,7 +295,7 @@ function(
 
       labelText = labelText.trim ? labelText.trim() : labelText.replace(/^\s+|\s+$/g, '');
 
-      console.debug('the extent that is being emitted', domAttr.get(li, 'data-extent'));
+      //console.debug('the extent that is being emitted', domAttr.get(li, 'data-extent'));
       this.emit('select-oid', {
         oid: domAttr.get(li, 'data-oid'),
         lyr: domAttr.get(li, 'data-lyr'),

@@ -68,7 +68,7 @@ define([
             // from the layerId get the infos
             this.layerConfig = this.config[layerId];
             this.selectedFeature = selectedFeature;
-            console.debug('selected feature info',this.selectedFeature);
+            //console.debug('selected feature info',this.selectedFeature);
             if (this.layerConfig) {
                 _.each(this.layerConfig.infos, lang.hitch(this, function(info) {
                     // create a new row
@@ -126,7 +126,7 @@ define([
             if (bufferStatus) {
 
                 // Check if the geometry is a POLYGON
-                console.debug('Analyzing...', this.selectedFeature);
+                //console.debug('Analyzing...', this.selectedFeature);
                 var centerPoint = this.selectedFeature.geometry;
                 if (this.selectedFeature.geometry.type === 'polygon') {
                     centerPoint = centerPoint.getCentroid();

@@ -1029,6 +1029,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             results: {
               labelFields: ['ZONING'],
               // comment out to use the label field instead (only first field in the array of labelFields will be used)
+              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
+                return attrs.OBJECTID + ' (' + attrs.ZONING + ')';
+              },
               /*
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.pocname + ' (' + attrs.opsstatus + ')';
@@ -1049,7 +1052,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
             id: 'easements', // unique identifier within the unifiedSearch Config
-            fields: ['OWNER', 'SOURCE_TYP'], // field to be queried on (where clause)
+            fields: ['OWNER', 'SOURCE_TYP', 'CATEGORY'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
               sectionHeader: 'Easements',
@@ -1058,6 +1061,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             results: {
               labelFields: ['OWNER'],
               // comment out to use the label field instead (only first field in the array of labelFields will be used)
+              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
+                return attrs.OBJECTID + ' (' + attrs.OWNER + ')';
+              },
               /*
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.pocname + ' (' + attrs.opsstatus + ')';
@@ -1087,6 +1093,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             results: {
               labelFields: ['FLD_ZONE'],
               // comment out to use the label field instead (only first field in the array of labelFields will be used)
+              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
+                return attrs.OBJECTID + ' (' + attrs.FLD_ZONE + ')';
+              },
               /*
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.pocname + ' (' + attrs.opsstatus + ')';

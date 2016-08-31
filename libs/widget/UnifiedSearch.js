@@ -202,6 +202,9 @@ function(
     _clearClicked: function() {
       console.log('clear button clicked');
       topic.publish(this.toolPrefix + '/clear/clicked', this, {});
+      // TODO is there a better place for this?
+      // Clear the map marker as well
+      topic.publish('/map/clear/simplemarker', this, {});
     },
 
     zoomToLocation: function(location) {
@@ -444,49 +447,45 @@ function(
      * @return {[type]}           [description]
      */
     handleResultSelection: function(resultObj, zoomTo) {
-        //var thisIsGeom = JSON.parse(resultObj.obj);
-      console.debug('handleResultSelection', resultObj, zoomTo);
-      //topic.publish('search-select-oid', _.omit(resultObj, 'target'));
-      //topic.publish('function-finished');
+      //console.debug('handleResultSelection', resultObj, zoomTo);
+      //console.debug('handleResultSelection');
 
-      //if (resultObj.extent && resultObj.extent !== '' && resultObj.extent !== 'null') {
+      // Check if there is an oid
       if (resultObj.oid && resultObj.oid !== '' && resultObj.oid !== 'null') {
-        // we have the extent, no further queries needed
+        // if there is an oid then we have a feature
+        // clear the search panel to make room for the info panel
         this.lsView.clearResults();
-        console.log(resultObj.lyr);
-        console.log(parseInt(resultObj.oid));
-        console.log(this.map._layers[resultObj.lyr]);
+
+        // Run a query on the features OID and LayerID to get the feature data
         var query = new Query();
         query.objectIds = [parseInt(resultObj.oid)];
         query.outFields = [ "*" ];
         var selectedFeatureLyr = this.map._layers[resultObj.lyr];
-        selectedFeatureLyr.queryFeatures(query, function(featureSet) {
-            console.debug('returned feature', featureSet);
+        var someOtherThing = selectedFeatureLyr.queryFeatures(query, function(featureSet) {
+            // Format the feature data a little
+            //console.debug('handleResultSelection query', featureSet, query);
             var featureObj = {
                 feature: featureSet.features[0]
             }
-            // TODO need to show the layer as selected in the layer list
-            // TODO or maybe if the user wants the layer symbology they can turn it on via the layer list (?)
+            // TODO Should the layer be made visibile?
             //selectedFeatureLyr.setVisibility(true);
+
+            // If zoomTo is true then this is a USearch event else this is a Map click event
             if (zoomTo !== false) {
                 topic.publish('/map/zoom/feature', this, featureObj);
             }
+            // Add marker graphics to show the feature location
             topic.publish('/map/add/simplemarker', this, featureObj.feature);
 
-            //topic.publish('/map/zoom/extent', this, JSON.parse(resultObj.extent));
-
+            // Send the signal to open the info panel for the selected feature
             topic.publish('/UnifiedSearch/result/clicked', this,
               {
                 layerId: resultObj.lyr,
-                //obj: JSON.parse(resultObj.obj)
                 obj: featureObj.feature
               }
             );
 
         });
-
-
-
 
       } else {
         if (resultObj.oid !== '') {
@@ -497,6 +496,10 @@ function(
           this.runGroupedQuery(resultObj);
         }
       }
+    },
+
+    _zoomToFeatureDeferred: function() {
+        console.log('the deferred has resolved');
     },
 
     runGroupedQuery: function(resultObj) {

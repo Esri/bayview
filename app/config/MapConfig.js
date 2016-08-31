@@ -10,7 +10,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         //center: [-122.45,37.77],
         //zoom: 12,
 
-        scrollWheelZoom: true,
+        scrollWheelZoom: false,
 
         // navigation
         slider: true,

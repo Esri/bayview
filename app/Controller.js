@@ -165,7 +165,7 @@ define([
       }, 'infoPanelContainer');
 
       topic.subscribe('/UnifiedSearch/result/clicked', lang.hitch(this, function(sender, args) {
-          console.log('opening info panel');
+          //console.log('opening info panel');
         var layerId = args.layerId;
         var selectedFeature = args.obj;
         this.infoPanel.showDetails(layerId, selectedFeature);
@@ -174,11 +174,12 @@ define([
       }));
 
       topic.subscribe('/UnifiedSearch/clear/clicked', lang.hitch(this, function(sender, args) {
+          //console.debug('hiding info panel');
         this.infoPanel.hidePanel();
       }));
 
       topic.subscribe('/InfoPanel/clear', lang.hitch(this, function(sender, args) {
-          console.debug('clear info panel');
+          //console.debug('clear info panel');
         this.infoPanel.clear();
       }));
 
