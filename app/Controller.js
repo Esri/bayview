@@ -29,7 +29,7 @@ define([
   'widget/Legend',
   'widget/Coordinates',
   'widget/DrawTool',
-  // 'widget/Measure',
+  'widget/Measure',
   'esri/dijit/Measurement',
 
   './model/PortalUserModel',
@@ -48,7 +48,7 @@ define([
   MapController,
   appConfig, mapConfig, widgetConfig,
   InfoWindowController, Navigation, InfoPanel,
-  UnifiedSearch, Legend, Coordinates, DrawTool, Measurement,
+  UnifiedSearch, Legend, Coordinates, DrawTool, Measure, Measurement,
   PortalUserModel,
   arcgisUtils, arcgisPortal, OAuthInfo, esriId, GeometryService, esriConfig,
   i18n
@@ -187,14 +187,15 @@ define([
     //     console.log('draw started', args);
     //   }));
 
-      //this.measure = new Measure({
-      //  map: map
-      //}, 'measureContainer');
+        this.measure = new Measure({
+         map: map
+        }, 'measureContainer');
+        this.measure.startup();
 
-      // this.measurement = new Measurement({
-      //   map: map
-      // }, 'measureContainer');
-      // this.measurement.startup();
+    //   this.measurement = new Measurement({
+    //     map: map
+    //   }, 'measureContainer');
+    //   this.measurement.startup();
 
       /*
       if (mapConfig.drawTool.isEnabled) {
