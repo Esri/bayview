@@ -48,6 +48,7 @@ define([
         },
 
         handleToolSelect: function(tool, evt) {
+            console.debug('selecting tool', tool, this.activeTool);
             topic.publish('/ToolList/unselectTool', this, {
                 type: this.activeTool
             });

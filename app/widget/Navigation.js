@@ -85,6 +85,7 @@ define([
 
         clearToolList: function() {
             this.toolList.clearToolSelection();
+            this.toolList.activeTool = null;
         }
 
     });
