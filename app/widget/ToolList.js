@@ -35,6 +35,8 @@ define([
         templateString: template,
         widgetsInTemplate: true,
 
+        activeTool: null,
+
         constructor: function() {},
 
         postCreate: function() {
@@ -45,30 +47,37 @@ define([
             this._attachEventListeners();
         },
 
-        handleToolSelect: function(evt) {
-            if (domClass.contains(evt.srcElement, 'is-selected')) {
-                topic.publish('/ToolList/unselected', this, {
-                    type: 'draw'
-                });
+        handleToolSelect: function(tool, evt) {
+            topic.publish('/ToolList/unselectTool', this, {
+                type: this.activeTool
+            });
+            this.clearToolSelection();
+
+            if (this.activeTool === tool) {
+                this.activeTool = null;
             } else {
                 // Hide Search bar
                 topic.publish('/ToolList/selected', this);
                 // Open tool
                 topic.publish('/ToolList/tool', this, {
-                    type: 'draw'
+                    type: tool
                 });
                 // Emit close event to the navigation
                 this.emit('close', {});
+
+                this.activeTool = tool;
+
+                // Highlight tool
+                domClass.add(evt.srcElement, 'is-selected');
             }
 
-            // Highlight tool
-            domClass.toggle(evt.srcElement, 'is-selected');
         },
 
         _attachEventListeners: function() {
             this.own(
                 // Tool selection click event
-                on(this.toolSelectDraw, 'click', lang.hitch(this, this.handleToolSelect))
+                on(this.toolSelectDraw, 'click', lang.hitch(this, this.handleToolSelect, 'draw')),
+                on(this.toolSelectMeasure, 'click', lang.hitch(this, this.handleToolSelect, 'measure'))
             );
         },
 

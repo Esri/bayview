@@ -1,13 +1,29 @@
-<div class="esriMeasurement">
+<div class="esriMeasurement measure-tool">
 
-  <!-- <button class="mdl-button mdl-js-button mdl-js-ripple-effect left" data-dojo-attach-point="_areaButton" dojoAttachEvent='onClick:_areaButtonToggle'>
-    <div class="pointIcon"></div><i>area</i>
+    <div class="measure-tool__title">
+        <i class="material-icons draw-tool__icon" data-dojo-attach-point="closeBtn">chevron_left</i>
+        <span class="measure-tool__sub-title">Measure</span>
+    </div>
+
+  <!-- <button class="mdl-button mdl-js-button mdl-js-ripple-effect left" dojoAttachPoint='_areaButton' dojoAttachEvent='onClick:_areaButtonToggle'>
+    <div iconClass="areaIcon"></div><i>area</i>
   </button> -->
 
+  <div class="measure-tool__btn-container">
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect left" dojoAttachPoint='_areaButton' dojoAttachEvent='onClick:_areaButtonToggle'>
+          <div class="measure-tool__icon areaIcon"></div>
+      </button>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect left" dojoAttachPoint='_distanceButton' dojoAttachEvent='onClick:_distanceButtonToggle'>
+          <div class="measure-tool__icon distanceIcon"></div>
+      </button>
+      <button class="mdl-button mdl-js-button mdl-js-ripple-effect left" dojoAttachPoint='_locationButton' dojoAttachEvent='onClick:_locationButtonToggle'>
+          <div class="measure-tool__icon locationIcon"></div>
+      </button>
+  </div>
+
   <div dojoType='dijit.layout.ContentPane' class='esriMeasurementButtonContainer'>
-    <div dojoType='dijit.form.ToggleButton' baseClass='esriButton' dojoAttachPoint='_areaButton' iconClass='areaIcon' showLabel='false' dojoAttachEvent='onClick:_areaButtonToggle'></div>
-    <div dojoType='dijit.form.ToggleButton' baseClass='esriButton' dojoAttachPoint='_distanceButton' iconClass='distanceIcon' showLabel='false' dojoAttachEvent='onClick:_distanceButtonToggle'></div>
-    <div dojoType='dijit.form.ToggleButton' baseClass='esriButton' dojoAttachPoint='_locationButton' iconClass='locationIcon' showLabel='false' dojoAttachEvent='onClick:_locationButtonToggle'></div>
+
+    <!-- <div dojoType='dijit.form.ToggleButton' baseClass='esriButton' dojoAttachPoint='_locationButton' iconClass='locationIcon' showLabel='false' dojoAttachEvent='onClick:_locationButtonToggle'></div> -->
     <div class="esriMeasurementSeparator">|</div>
     <button dojoType='dijit.form.DropDownButton' baseClass='esriToggleButton' dojoAttachPoint='_unitDropDown' label='unit' value='unit' style='visibility:hidden;'></button>
   </div>

@@ -30,7 +30,8 @@ define([
   'widget/Coordinates',
   'widget/DrawTool',
   'widget/Measure',
-  'esri/dijit/Measurement',
+  //'widget/Measure',
+  // 'esri/dijit/Measurement',
 
   './model/PortalUserModel',
 
@@ -48,7 +49,7 @@ define([
   MapController,
   appConfig, mapConfig, widgetConfig,
   InfoWindowController, Navigation, InfoPanel,
-  UnifiedSearch, Legend, Coordinates, DrawTool, Measure, Measurement,
+  UnifiedSearch, Legend, Coordinates, DrawTool, Measure,
   PortalUserModel,
   arcgisUtils, arcgisPortal, OAuthInfo, esriId, GeometryService, esriConfig,
   i18n
@@ -187,15 +188,15 @@ define([
     //     console.log('draw started', args);
     //   }));
 
-        this.measure = new Measure({
-         map: map
-        }, 'measureContainer');
-        this.measure.startup();
+        // this.measure = new Measure({
+        //   map: map
+        // }, 'measureContainer');
+        // this.measure.startup();
 
-    //   this.measurement = new Measurement({
-    //     map: map
-    //   }, 'measureContainer');
-    //   this.measurement.startup();
+      this.measurement = new Measure({
+        map: map
+      }, 'measureContainer');
+      this.measurement.startup();
 
       /*
       if (mapConfig.drawTool.isEnabled) {
@@ -274,22 +275,34 @@ define([
         this.search.startup();
         topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
             console.debug('the map was clicked yo!', args);
-            this.search.mapClickEvent(args.event.target);
-          this.search.searchMapPoint(args.event.mapPoint);
+
+            if (!this.measurement.isActiveTool()) {
+                //console.debug('no measure tool detected');
+                this.search.mapClickEvent(args.event.target);
+                this.search.searchMapPoint(args.event.mapPoint);
+            }
         }));
 
         topic.subscribe('/ToolList/selected', lang.hitch(this, function(sender, args) {
           this.search.hide();
         }));
 
-        //TODO this may be misplaced as it doesnt rely on map?
         topic.subscribe('/ToolList/unselected', lang.hitch(this, function(sender, args) {
+          this.search.show();
+          this.navigation.clearToolList();
+        }));
+
+        //TODO this may be misplaced as it doesnt rely on map?
+        topic.subscribe('/ToolList/unselectTool', lang.hitch(this, function(sender, args) {
           this.search.show();
           if (args.type === 'draw') {
               this.drawTool.hide();
+          } else if (args.type === 'measure') {
+              this.measurement.hide();
           }
         }));
 
+        // TODO the show/hide methods of draw need to be made like Measurements show/hide methods
         //TODO this may be misplaced as it doesnt rely on map?
         topic.subscribe('/DrawTool/close', lang.hitch(this, function(sender, args) {
           this.search.show();
@@ -359,6 +372,9 @@ define([
       topic.subscribe('/ToolList/tool', lang.hitch(this, function(sender, args) {
           if (args.type === 'draw') {
               this.drawTool.show();
+          } else if (args.type === 'measure') {
+              //console.debug('the measure tool was clicked');
+              this.measurement.show();
           }
       }));
 
