@@ -4,12 +4,12 @@
       <table cellspacing="5" style="width:100%;">
         <tr>
           <td style="text-align:right;">
-            ${nls.title}:
+            <!-- ${nls.title}: -->
           </td>
           <td>
-            <!--input id="titleInput" type="text" data-dojo-type="dijit/form/ValidationTextBox" 
+            <!--input id="titleInput" type="text" data-dojo-type="dijit/form/ValidationTextBox"
                    data-dojo-props="name:'title',trim:true,required:true,style:'width:100%;',value:'${defaultTitle}'"/-->
-            <input type="text" data-dojo-attach-point="titleNode" data-dojo-type="dijit/form/ValidationTextBox" 
+            <input type="text" data-dojo-attach-point="titleNode" data-dojo-type="dijit/form/ValidationTextBox"
                    data-dojo-props="name:'title',trim:true,required:true,style:'width:100%;'" />
           </td>
         </tr>
@@ -66,7 +66,7 @@
           </td>
           <td>
             <div id="scaleSlider">
-              <div class="unselectable" type="slider" data-dojo-type="dijit.form.HorizontalSlider" 
+              <div class="unselectable" type="slider" data-dojo-type="dijit.form.HorizontalSlider"
                    data-dojo-props="name:'scaleSlider',style:'width:100%;',intermediateChanges:true,showButtons:false"
                    data-dojo-attach-point="scaleSliderDijit" data-dojo-attach-event="onChange:_onScaleSliderChange"/>
             </div>
@@ -120,9 +120,9 @@
                     ${nls.forceScale}:
                   </td>
                   <td>
-                    <input type="radio" data-dojo-type="dijit/form/RadioButton" data-dojo-props="name:'preserveScale',value:'force',checked:false"/> 
-                    <input type="text" data-dojo-type="dijit/form/NumberTextBox" 
-                           data-dojo-props="name:'forcedScale',required:false,style:'width:100px;'" data-dojo-attach-point="forceScaleNTB"/> 
+                    <input type="radio" data-dojo-type="dijit/form/RadioButton" data-dojo-props="name:'preserveScale',value:'force',checked:false"/>
+                    <input type="text" data-dojo-type="dijit/form/NumberTextBox"
+                           data-dojo-props="name:'forcedScale',required:false,style:'width:100px;'" data-dojo-attach-point="forceScaleNTB"/>
                     <a href="#" data-dojo-attach-event="click:getCurrentMapScale">${nls.getCurrentScale}</a>
                   </td>
                 </tr>
@@ -139,9 +139,9 @@
                   ${nls.author}:
                 </td>
                 <td>
-                  <!--input type="text" data-dojo-type="dijit/form/ValidationTextBox" 
+                  <!--input type="text" data-dojo-type="dijit/form/ValidationTextBox"
                          data-dojo-props="name:'author',trim:true,required:false,style:'width:100%;',value:'${defaultAuthor}'" data-dojo-attach-point="authorTB"/-->
-                  <input type="text" data-dojo-attach-point="authorNode" data-dojo-type="dijit/form/ValidationTextBox" 
+                  <input type="text" data-dojo-attach-point="authorNode" data-dojo-type="dijit/form/ValidationTextBox"
                          data-dojo-props="name:'author',trim:true,required:false,style:'width:100%;'" data-dojo-attach-point="authorTB"/>
                 </td>
               </tr>
@@ -150,9 +150,9 @@
                   ${nls.copyright}:
                 </td>
                 <td>
-                  <!--input type="text" data-dojo-type="dijit/form/ValidationTextBox" 
+                  <!--input type="text" data-dojo-type="dijit/form/ValidationTextBox"
                          data-dojo-props="name:'copyright',trim:true,required:false,style:'width:100%;',value:'${defaultCopyright}'"/-->
-                  <input type="text" data-dojo-attach-point="copyrightNode" data-dojo-type="dijit/form/ValidationTextBox" 
+                  <input type="text" data-dojo-attach-point="copyrightNode" data-dojo-type="dijit/form/ValidationTextBox"
                          data-dojo-props="name:'copyright',trim:true,required:false,style:'width:100%;'" />
                 </td>
               </tr>

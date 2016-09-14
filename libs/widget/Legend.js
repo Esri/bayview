@@ -12,6 +12,7 @@ define([
   'dojo/string',
   'dojo/aspect',
   'dojo/on',
+  'dojo/query',
 
   'dojo/_base/lang',
 
@@ -29,7 +30,7 @@ define([
 
 function(
   declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
-  topic, dom, domStyle, domConstruct, domClass, string, aspect, on,
+  topic, dom, domStyle, domConstruct, domClass, string, aspect, on, query,
   lang,
   layerUtils,
   Legend, arcgisUtils,
@@ -80,17 +81,17 @@ function(
       switch (this.legendConfig.container) {
         case 'dropdown':
             //console.log('case dropdown');
-          this.dropDownButton.set('label', this.legendConfig.title);
+        //   this.dropDownButton.set('label', this.legendConfig.title);
           var legendDropDown = new TooltipDialog({
             'content': this.legend,
             'class': 'legend-dropdown-dialog'
           });
-          this.dropDownButton.set('dropDown', legendDropDown);
-          this.dropDownButton.startup();
+        //   this.dropDownButton.set('dropDown', legendDropDown);
+        //   this.dropDownButton.startup();
           break;
         case 'titlepane':
         //console.log('case title pane');
-          domStyle.set(this.dropDownButton.domNode, 'display', 'none');
+        //   domStyle.set(this.dropDownButton.domNode, 'display', 'none');
           var tp = new TitlePane({
             'title': this.legendConfig.title,
             'content': this.legend,
@@ -101,7 +102,7 @@ function(
           break;
         case 'none':
         //console.log('case none');
-          domStyle.set(this.dropDownButton.domNode, 'display', 'none');
+        //   domStyle.set(this.dropDownButton.domNode, 'display', 'none');
           this.legend.startup();
           break;
       }
@@ -109,6 +110,10 @@ function(
       on(this.legendContainer, 'click', lang.hitch(this, function() {
           domClass.toggle(this.mdlDownBtn, 'is-hidden');
           domClass.toggle(this.mdlUpBtn, 'is-hidden');
+
+
+          console.debug('from the layer panel', this.map);
+          query('.dijitTitlePaneContentOuter', this.domNode).style('height', (this.map.height - 100) + 'px');
       }));
 
     },

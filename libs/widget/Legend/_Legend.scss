@@ -14,7 +14,7 @@
 
 .legend__down-btn {
     position: absolute;
-    top: 2px;
+    top: 9px;
     right: 5px;
 
     &.is-hidden {
@@ -23,17 +23,31 @@
 }
 
 // Overrides
-.dijitArrowNodeInner {
+.dijitArrowNodeInner,
+.dijitInline.dijitArrowNode {
     display: none;
 }
 
-.dijitTitlePaneTitleFocus {
-    padding-left: 5px;
+.dijitTitlePaneTitle *:focus {
+    outline: none;
+}
 
-    &:hover {
-        cursor: pointer;
-        background: rgba($black, 0.1);
-    }
+.dijitTitlePaneTitle {
+    background: none;
+    border: 0;
+}
+
+.dijitTitlePaneTitle:hover {
+    background: rgba(0,0,0,0.1);
+}
+
+.dijitTitlePaneContentOuter {
+    border-top: 1px solid #d0d0d0;
+    border-bottom: 1px solid #d0d0d0;
+    border-left: 0;
+    border-right: 0;
+
+    overflow-y: auto;
 }
 
 .esriLegendMsg {
@@ -41,7 +55,7 @@
     text-align: center;
 }
 
-.esriLegendService {
-    max-height: 1000px;
-    overflow-y: auto;
-}
+// .esriLegendService {
+//     max-height: 1000px;
+//     overflow-y: auto;
+// }

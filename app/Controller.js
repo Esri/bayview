@@ -24,14 +24,17 @@ define([
   './InfoWindows/InfoWindowController',
   './widget/Navigation',
   './widget/InfoPanel',
+  './widget/PrintController',
 
   'widget/UnifiedSearch',
   'widget/Legend',
   'widget/Coordinates',
   'widget/DrawTool',
   'widget/Measure',
+  // 'widget/PrintController',
   //'widget/Measure',
   // 'esri/dijit/Measurement',
+  'esri/dijit/analysis/ExtractData',
 
   './model/PortalUserModel',
 
@@ -41,6 +44,8 @@ define([
   'esri/IdentityManager',
   'esri/tasks/GeometryService',
   'esri/config',
+  // 'esri/dijit/Print',
+  // 'esri/tasks/PrintTemplate',
 
   'dojo/i18n!./nls/Strings'
 
@@ -48,10 +53,11 @@ define([
   topic, dom, domClass, lang, has, on,
   MapController,
   appConfig, mapConfig, widgetConfig,
-  InfoWindowController, Navigation, InfoPanel,
-  UnifiedSearch, Legend, Coordinates, DrawTool, Measure,
+  InfoWindowController, Navigation, InfoPanel, PrintController,
+  UnifiedSearch, Legend, Coordinates, DrawTool, Measure, ExtractData,
   PortalUserModel,
   arcgisUtils, arcgisPortal, OAuthInfo, esriId, GeometryService, esriConfig,
+  // Print, PrintTemplate,
   i18n
 ) {
 
@@ -160,6 +166,17 @@ define([
       }, 'drawContainer');
       this.drawTool.startup();
 
+    //   this.extract = new ExtractData({
+    //     featureLayers: [parcels, futurelanduse],
+    //     map: map
+    //   }, "extractContainer");
+    //   this.extract.startup();
+
+    //   this.printer = new PrintController({
+    //     map: map
+    //   }, 'printContainer');
+    //   this.printer.startup();
+
       this.infoPanel = new InfoPanel({
         map: map,
         config: widgetConfig.infoPanel
@@ -197,6 +214,12 @@ define([
         map: map
       }, 'measureContainer');
       this.measurement.startup();
+
+    //   this.print = new Print({
+    //     map: map,
+    //     config: widgetConfig.print
+    //   }, 'printContainer');
+    //   this.print.startup();
 
       /*
       if (mapConfig.drawTool.isEnabled) {

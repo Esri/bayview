@@ -20,7 +20,7 @@ define([
   'dojo/_base/lang',
   'dojo/aspect',
   'dojo/dom-attr',
-  'dojo/dom-construct', 
+  'dojo/dom-construct',
   'dojo/dom-style',
   'dojo/json',
   'dojo/on',
@@ -40,7 +40,7 @@ define([
   domConstruct,
   domStyle,
   JSON,
-  on, 
+  on,
   query,
   popup,
   registry,
@@ -52,23 +52,24 @@ define([
     _womConfig: JSON.parse(_womConfig),
     _womTemplateString: _womTemplate,
     _womHandlers: [],
-    
+
     postCreate: function() {
       this.inherited(arguments);
-      
+
       aspect.after(this, 'startup', lang.hitch(this, '_womStartup'));
-      
+
       aspect.after(this, 'destroy', lang.hitch(this, '_womDestroy'));
-      
+
        // Set these variables in using this priority: host widget config; _WidgetOpacityMixin config; default value
       this._womOpacityOver = this.config.widgetOpacityOver || this._womConfig.widgetOpacityOver || 1.0;
       this._womOpacityOut = this.config.widgetOpacityOut || this._womConfig.widgetOpacityOut || 0.9;
-        
-      var nlsPath = this.folderUrl.split('/').slice(0, -3).join('/') + '/' + this._WidgetOpacityMixinPath + '/nls/strings.js';
-      
+
+      //var nlsPath = this.folderUrl.split('/').slice(0, -3).join('/') + '/' + this._WidgetOpacityMixinPath + '/nls/strings.js';
+      var nlsPath = 'libs/widget/PrintPlus/_WidgetOpacityMixin/nls/strings.js';
+
       require(['dojo/i18n!' + nlsPath], lang.hitch(this, function(nls) {
         this._womNls = nls;
-        
+
         // Give the template tags unique IDs for each widget that uses this module.
         this._womTemplateString = lang.replace(this._womTemplateString, {
           _womParentWidget: {
@@ -82,15 +83,15 @@ define([
         });
       }));
     },
-    
+
     _womStartup: function() {
       // We can skip this function if any of the following are true:
       //    1. "showOpacitySlider": false in this widget's config.json file.
       //    2. The widget is not in a panel.
-      if (this.config.showOpacitySlider === false || !this.inPanel) { 
-        return; 
+      if (this.config.showOpacitySlider === false || !this.inPanel) {
+        return;
       }
-      
+
       // Get the widget panel and content node
       this._womWidgetPanel = registry.byId(this.id + '_panel');
       if (this._womWidgetPanel) {
@@ -110,14 +111,14 @@ define([
         }
       }
     },
-    
+
     _womDestroy: function() {
       // If the widget is destroyed, destroy the _womTooltipDialog.
       if (this._womTooltipDialog) {
         this._womTooltipDialog.destroyRecursive();
       }
     },
-    
+
     _womClose: function() {
       // Close the tooltip dialog when the widget panel is closed.
       if (this._womTooltipDialog) {
@@ -125,17 +126,17 @@ define([
         popup.close(this._womTooltipDialog);
       }
     },
-    
+
     _womInitialize: function() {
       var titleBar = query('div.title', this._womWidgetPanel.domNode);
       if (titleBar.length > 0) {
         this.widgetOpacityBtn = domConstruct.place(
-          '<div class="opacity-btn jimu-vcenter jimu-float-trailing" style="margin-top: 0px;"></div>', 
+          '<div class="opacity-btn jimu-vcenter jimu-float-trailing" style="margin-top: 0px;"></div>',
           titleBar[0],
           'last'
         );
         on(this._womWidgetContentNode, 'mouseenter, mouseleave', lang.hitch(this, '_womSetWidgetOpacity'));
-        
+
         // Give things time to initialize
         setTimeout(lang.hitch(this, function() {
           this._womTooltipDialog = new TooltipDialog({
@@ -158,10 +159,10 @@ define([
               this._womFadeOut(this._womTooltipDialog.domNode, 2000);
             })
           });
-        
+
           // Give the slider up to 1000 milliseconds to initialize.
           this._womInitializeSlider(10);
-          
+
           // Open the tooltip dialog when the mouse clicks on the opacity button.
           on(this.widgetOpacityBtn, 'click', lang.hitch(this, function(evt) {
             evt.stopImmediatePropagation();  //This keeps the widget from minimizing when the opacity button is clicked.
@@ -170,7 +171,7 @@ define([
                 this._womFadeOut(this._womTooltipDialog.domNode, 0);
               } else {
                 popup.open({
-                  parent: this, 
+                  parent: this,
                   popup: this._womTooltipDialog,
                   around: this.widgetOpacityBtn,
                   orient: ['below', 'below-alt', 'above', 'above-alt'],
@@ -179,17 +180,17 @@ define([
                     popup.close(this._womTooltipDialog);
                   })
                 });
-                
+
                 fx.fadeIn({
                   node: this._womTooltipDialog.domNode,
                   duration: 350
                 }).play();
-                
+
                 this._womOpen = true;
               }
             }
           }));
-          
+
           // This is for when the widget is folded or unfolded.
           if (this._womWidgetPanel.foldableNode) {
             aspect.after(this._womWidgetPanel, 'onFoldStateChanged', lang.hitch(this, '_womOnFoldStateChanged'));
@@ -197,19 +198,19 @@ define([
         }), 500);
       }
     },
-    
+
     _womInitializeSlider: function(count) {
       this._womSlider = registry.byId('opacitySlider/' + this.id);
       if (this._womSlider) {
         // Set the opacity button tooltip
         domAttr.set(this.widgetOpacityBtn, 'title', this._womNls.sliderTooltip);
-        
+
         // Set the opacity of the widget's content node when the slider value changes.
         this._womSlider.set('value', this._womOpacityOut || 1.0);
         this._womSlider.on('change', lang.hitch(this, '_womSliderChange'));
       } else if (count > 0) {
         setTimeout(lang.hitch(this, '_womInitializeSlider', count - 1), 100);
-      } 
+      }
     },
 
     _womSliderChange: function(value) {
@@ -231,7 +232,7 @@ define([
         domStyle.set(this._womWidgetContentNode, 'opacity', opacity);
       }
     },
-    
+
     _womOnFoldStateChanged: function() {
       if (this._womWidgetPanel.folded) {
         domStyle.set(this._womTooltipDialog.domNode, 'opacity', 0.0);
@@ -239,7 +240,7 @@ define([
         this._womOpen = false;
       }
     },
-    
+
     _womFadeOut: function(node, delay) {
       var fadeArgs = {
         node: node,

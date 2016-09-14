@@ -19,21 +19,22 @@ define([
   'dojo/_base/lang',
   'dojo/on',
   'dijit/registry',
-  'jimu/dijit/Message'
+  // 'jimu/dijit/Message'
 ], function(
   declare,
   lang,
-  on, 
-  registry,
-  Message
+  on,
+  registry
+  // Message
 ) {
   var clazz = declare([], {
-    
+
     postCreate: function() {
       this.inherited(arguments);
-      
-      var nlsPath = this.folderUrl.split('/').slice(0, -3).join('/') + '/' + this._WidgetMetadataMixinPath + '/nls/strings.js';
-      
+
+    //   var nlsPath = this.folderUrl.split('/').slice(0, -3).join('/') + '/' + this._WidgetMetadataMixinPath + '/nls/strings.js';
+    var nlsPath = 'libs/widget/PrintPlus/_WidgetMetadataMixin/nls/strings.js';
+
       require(['dojo/i18n!' + nlsPath], lang.hitch(this, function(nls) {
         var _wmmNode;
         if (this.inPanel) {
@@ -48,10 +49,10 @@ define([
               var _wmmMsgStr = nls.widgetVersionLabel + ': ' + this.manifest.version;
               _wmmMsgStr += '\n\n' + nls.wabVersionLabel + ': ' + this.manifest.wabVersion;
               _wmmMsgStr += '\n\n' + this.manifest.description;
-              new Message({
-                titleLabel: (nls._widgetLabel || this.params.label) + ' ' + (nls.titleSuffix || 'Version Info'),
-                message: _wmmMsgStr
-              });
+            //   new Message({
+            //     titleLabel: (nls._widgetLabel || this.params.label) + ' ' + (nls.titleSuffix || 'Version Info'),
+            //     message: _wmmMsgStr
+            //   });
             }
           }));
         }
@@ -59,6 +60,6 @@ define([
     }
 
   });
-  
+
   return clazz;
 });
