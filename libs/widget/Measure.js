@@ -14,6 +14,7 @@
   "dojo/debounce",
   "dojo/sniff",
   "dojo/dom-style",
+  "dojo/dom-class",
   "dojo/dom-construct",
   "dojo/topic",
   "dojo/on",
@@ -64,7 +65,7 @@
   "dijit/layout/ContentPane"
 ], function (
   require, declare, lang, array, connect, Color,
-  debounce, has, domStyle, domConstruct, topic, on, gfx,
+  debounce, has, domStyle, domClass, domConstruct, topic, on, gfx,
   _Widget, registry, Menu, MenuItem,
   PictureMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, symbolJsonUtils,
   geodesicUtils, webMercatorUtils, Point, Polyline, Polygon, Graphic,
@@ -398,7 +399,11 @@
 
       // Start the tool hidden
       this.hide();
-      this.own(on(this.closeBtn, 'click', lang.hitch(this, this.hide)));
+      this.own(on(this.closeBtn, 'click', lang.hitch(this, function() {
+          this.clearResult();
+          this.setTool(null);
+          this.hide();
+      })));
     },
 
     // Purpose:
@@ -428,7 +433,7 @@
         this._polygonGraphic = null;
       }
       //var toggled = registry.byNode(this._buttonDijits[toolName].domNode).checked;
-      var toggled = true;
+      //var toggled = true;
       domStyle.set(this._unitDropDown.domNode, "visibility", "visible");
       // Hide by Default
       // _buttonDijits is an Object
@@ -437,9 +442,15 @@
       //registry.byNode(this._buttonDijits.location.domNode).set("checked", false);
 
       // Get Update State for Tool
-      if (checked === true || checked === false) {
-        toggled = checked;
-      }
+    //   if (checked === true || checked === false) {
+    //     toggled = checked;
+    //   }
+        var toggled;
+        if (toolName === this.activeTool && domClass.contains(this._areaButton, 'is-active')) {
+            toggled = false;
+        } else {
+            toggled = true;
+        }
       // Update Tool State
       //registry.byNode(this._buttonDijits[toolName].domNode).set("checked", toggled);
       // Hide Location Results Table by default
@@ -474,6 +485,9 @@
         this.activeTool = null;
         // Hide the Drop-down Menu
         domStyle.set(this._unitDropDown.domNode, "visibility", "hidden");
+        this._clearActiveTool();
+
+        // this._clearSelectedTool();
       }
       // Emit tool-change event with applicable data
       if (this.activeTool !==  this.previousTool) {
@@ -490,6 +504,12 @@
       this._userGeometry = geometry;
       this._measureCustomGeometry();
     },
+
+    // _clearSelectedTool: function() {
+    //     this.activeTool = null;
+    //     this.setTool(null);
+    //     domClass.remove(this._areaButton, 'is-active');
+    // },
 
     // Purpose:
     // -- Clears application state variables relating to measurement result
@@ -616,8 +636,24 @@
     // Purpose:
     // -- onClick event for Location Tool Button in Template
     _locationButtonToggle: function () {
+    //   this.clearResult();
+    //   this.setTool("location");
+
       this.clearResult();
-      this.setTool("location");
+      if (this.activeTool === "location") {
+          domClass.remove(this._locationButton, 'is-active');
+          this.setTool(null);
+      } else {
+          this._clearActiveTool();
+          domClass.add(this._locationButton, 'is-active');
+          this.setTool("location");
+      }
+    },
+
+    _clearActiveTool: function() {
+        domClass.remove(this._areaButton, 'is-active');
+        domClass.remove(this._locationButton, 'is-active');
+        domClass.remove(this._distanceButton, 'is-active');
     },
 
     // Purpose:
@@ -893,8 +929,18 @@
     // Purpose:
     //  -- onClick event for Distance Tool Button in Template
     _distanceButtonToggle: function () {
+    //   this.clearResult();
+    //   this.setTool("distance");
+
       this.clearResult();
-      this.setTool("distance");
+      if (this.activeTool === "distance") {
+          domClass.remove(this._distanceButton, 'is-active');
+          this.setTool(null);
+      } else {
+          this._clearActiveTool();
+          domClass.add(this._distanceButton, 'is-active');
+          this.setTool("distance");
+      }
     },
 
     // Purpose:
@@ -976,9 +1022,17 @@
     // Purpose:
     // -- onClick event for Area Tool Button in Template
     _areaButtonToggle: function () {
-        console.debug('Measure: Area Button - CLICK');
+        //console.debug('Measure: Area Button - CLICK', this._buttonDijits.area);
+
       this.clearResult();
-      this.setTool("area");
+      if (this.activeTool === "area") {
+          domClass.remove(this._areaButton, 'is-active');
+          this.setTool(null);
+      } else {
+          this._clearActiveTool();
+          domClass.add(this._areaButton, 'is-active');
+          this.setTool("area");
+      }
     },
 
     // Purpose:
@@ -1987,6 +2041,7 @@
       currentMapPt = snappingPoint || evt.mapPoint;
 
       // Keep the Tool Active (3.10 Enhancement)
+      this._locationButtonToggle();
       this._locationButtonToggle();
 
       // Create the graphic where the user clicked
