@@ -119,8 +119,12 @@ function(
         tool: tool
       });
       topic.publish('/map/click/off');
-      domClass.remove(this.msgContainer, 'hidden');
-      domClass.add(this.drawContainer, 'hidden');
+
+      if (tool === 'POINT') {
+          domClass.add(this.btnDrawPoint, 'is-active');
+      }
+      //domClass.remove(this.msgContainer, 'hidden');
+      //domClass.add(this.drawContainer, 'hidden');
     },
 
     _stopDrawing: function(geometry) {
@@ -129,8 +133,10 @@ function(
       });
       topic.publish('/map/click/on');
       this._toolbarDrawEnd(geometry);
-      domClass.add(this.msgContainer, 'hidden');
-      domClass.remove(this.drawContainer, 'hidden');
+
+      domClass.remove(this.btnDrawPoint, 'is-active');
+      //domClass.add(this.msgContainer, 'hidden');
+      //domClass.remove(this.drawContainer, 'hidden');
     },
 
     _toolbarDrawEnd: function(geometry) {
