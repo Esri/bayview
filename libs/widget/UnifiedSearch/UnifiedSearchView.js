@@ -32,7 +32,7 @@ function(
     id: 'layerSearch',
     inputTimeout: setTimeout(function() {}, 100),
     inputValue: '',
-    minChars: 3,
+    minChars: 2,
 
     constructor: function() {
       this.inherited(arguments);
@@ -173,7 +173,8 @@ function(
         evt.keyCode === dojoKeys.UP_ARROW ||
         evt.keyCode === dojoKeys.DOWN_ARROW ||
         evt.keyCode === dojoKeys.LEFT_ARROW ||
-        evt.keyCode === dojoKeys.RIGHT_ARROW) {
+        evt.keyCode === dojoKeys.RIGHT_ARROW ||
+        evt.keyCode === dojoKeys.ENTER) {
         return;
       }
 
@@ -190,7 +191,7 @@ function(
       } else if (evt.keyCode === dojoKeys.ESCAPE || evt.keyCode === dojoKeys.TAB) {
         this.clearResults();
         this.emit('search-cancel');
-      } else if (this.inputValue.length < this.minChars && evt.keyCode && evt.keyCode !== dojoKeys.ENTER) {
+      } else if (this.inputValue.length < this.minChars) {
         this.clearResults();
         domClass.add(this.containerNode, 'has-input');
         console.debug('input too short', this.inputValue);
