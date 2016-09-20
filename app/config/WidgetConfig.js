@@ -895,7 +895,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
             idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
             query: {
-              returnGeometry: true, // if false then relatedQuery is used to determine geometry
+              returnGeometry: false, // if false then relatedQuery is used to determine geometry
               id: 'addresses', // unique identifier within the unifiedSearch Config
               fields: ['ADDRESS'], // field to be queried on (where clause)
               group: {
@@ -924,7 +924,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/1',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
+            returnGeometry: false, // if false then relatedQuery is used to determine geometry
             id: 'roads', // unique identifier within the unifiedSearch Config
             fields: ['OWNER', 'FULL_NAME'], // field to be queried on (where clause)
             group: {
@@ -953,7 +953,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
+            returnGeometry: false, // if false then relatedQuery is used to determine geometry
             id: 'parcels', // unique identifier within the unifiedSearch Config
             fields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'], // field to be queried on (where clause)
             group: {
@@ -986,7 +986,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/4',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
+            returnGeometry: false, // if false then relatedQuery is used to determine geometry
             id: 'futurelanduse', // unique identifier within the unifiedSearch Config
             fields: ['SUB_FLU', 'FLU_CODE', 'ORD_NUM'], // field to be queried on (where clause)
             group: {
@@ -1018,7 +1018,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/5',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
+            returnGeometry: false, // if false then relatedQuery is used to determine geometry
             id: 'zoning', // unique identifier within the unifiedSearch Config
             fields: ['SUB_ZONING', 'ZONING', 'ORD_NUM'], // field to be queried on (where clause)
             group: {
@@ -1050,7 +1050,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/8',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
+            returnGeometry: false, // if false then relatedQuery is used to determine geometry
             id: 'easements', // unique identifier within the unifiedSearch Config
             fields: ['OWNER', 'SOURCE_TYP', 'CATEGORY'], // field to be queried on (where clause)
             group: {
@@ -1082,7 +1082,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/11',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
+            returnGeometry: false, // if false then relatedQuery is used to determine geometry
             id: 'FEMAfloodzones', // unique identifier within the unifiedSearch Config
             fields: ['FLD_ZONE'], // field to be queried on (where clause)
             group: {

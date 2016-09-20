@@ -44,7 +44,13 @@ define([
         templateString: template,
         widgetsInTemplate: true,
 
-        constructor: function() {},
+        constructor: function() {
+            this.resultsObject = null;
+            this.delimiter = ','; // Delimiter between fields; default is a comma.
+            this.newline = '\r\n'; // Character sequence to consider a newline. Defaults to "\r\n" (CRLF) as per RFC 4180.
+            this.trim = false; // If true, leading/trailing space will be trimmed from any unquoted values.
+            this.fieldNames = null; //["Name"], // If specified, indicates names of fields in the order they appear in CSV records.  If unspecified, the first line of the CSV will be treated as a header row, and field names will be populated from there.
+        },
 
         postCreate: function() {
             this.inherited(arguments);
@@ -200,6 +206,7 @@ define([
             }));
             deferredAll(layersObj).then(lang.hitch(this, function(results) {
                 // TODO: remove the loading
+                this.resultsObject = results;
                 //console.log('analysis results', results);
                 this._stopLoader(bufferStatus);
                 // Show buffer options and buffer results panel
@@ -217,14 +224,13 @@ define([
                         }).placeAt(this.analysisContainer);
                     }
                 }));
+                this._toggleButtons(this.layerConfig, radius);
             }), function(error) {
                 // TODO: remove the loading & show some sort of error message
-                console.log('error in analysis')
+                console.log('error in analysis');
+                this.resultsObject = null;
+                this._toggleButtons(this.layerConfig, radius);
             });
-
-            // Switch the button visability
-            this._toggleButtons(this.layerConfig, radius);
-
         },
 
         _btnPrintClicked: function() {
@@ -233,6 +239,31 @@ define([
 
         _btnExportClicked: function() {
             //console.log('export clicked');
+            if (this.resultsObject !== null) {
+                var csv = this.exportToCsv({
+                    alwaysQuote: false,
+                    trailingNewline: false
+                });
+
+                if (window.navigator.msSaveBlob) { 
+                    //Download in IE.
+                    var blob = new Blob([csv], { type: "application/csv;charset=utf-8;"}); 
+                    navigator.msSaveBlob(blob, "export.csv"); 
+                } else {
+                    //Download in anything else.
+                    var downloadCsvLink = document.createElement("a");
+                    var csvBlob = new Blob(["\ufeff", csv]);
+                    var url = URL.createObjectURL(csvBlob);
+                    downloadCsvLink.href = url;
+                    downloadCsvLink.download = "export.csv";
+                    document.body.appendChild(downloadCsvLink);
+                    downloadCsvLink.click();
+                    document.body.removeChild(downloadCsvLink);             
+                }
+            } else {
+                // TODO: show some sort of error message
+                console.log('no results defined');
+            }
         },
 
         _initButtons: function(layerConfig) {
@@ -246,6 +277,7 @@ define([
             domClass.add(this.btnAnalyze, 'is-hidden');
             (this.layerConfig && this.layerConfig.hasPrint) ? domClass.remove(this.btnPrint, 'is-hidden') : domClass.add(this.btnPrint, 'is-hidden');
             (this.layerConfig && this.layerConfig.hasExportData) ? domClass.remove(this.btnExport, 'is-hidden') : domClass.add(this.btnExport, 'is-hidden');
+            domAttr.set(this.btnExport, 'disabled', (this.resultsObject === null));
 
             (radius === 1) ? domClass.add(this.oneMBufferBtn, 'is-selected') : domClass.remove(this.oneMBufferBtn, 'is-selected');
             (radius === 3) ? domClass.add(this.threeMBufferBtn, 'is-selected') : domClass.remove(this.threeMBufferBtn, 'is-selected');
@@ -271,6 +303,51 @@ define([
                 domClass.remove(this.bufferContainer, 'is-hidden');
                 domClass.remove(this.bufferOptions, 'is-hidden');
             }
+        },
+
+        exportToCsv: function (options) {
+            options = options || {};
+
+            var alwaysQuote = options.alwaysQuote;
+            var delimiter = this.delimiter;
+            var newline = this.newline;
+            var output = "";
+
+            var quoteRx = /^\s*"([\S\s]*)"\s*$/;
+            var doubleQuoteRx = /""/g;
+            var singleQuoteRx = /"/g;
+
+            _.each(this.layerConfig.infos, lang.hitch(this, function(info, index) {
+                output +=   this.getOutputString(info.label, alwaysQuote, delimiter, singleQuoteRx) + 
+                            delimiter + 
+                            this.getOutputString(this.selectedFeature.attributes[info.field], alwaysQuote, delimiter, singleQuoteRx) +
+                            newline;
+            }));
+
+            _.each(this.layerConfig.analysis.layers, lang.hitch(this, function(layer, index) {
+                var result = this.resultsObject[layer.id];
+
+                if (result && result.features && result.features.length > 0) {
+                    // create the output
+                    output +=   this.getOutputString(layer.label, alwaysQuote, delimiter, singleQuoteRx) + 
+                                delimiter + 
+                                this.getOutputString(result.features[0].attributes[layer.field], alwaysQuote, delimiter, singleQuoteRx) +
+                                newline;
+                }
+            }));
+            return output;
+        },
+
+        getOutputString: function(value, alwaysQuote, delimiter, singleQuoteRx) {
+            if (value === null) {
+                return "";
+            }
+            var needsQuotes = this.isString(value) && (alwaysQuote || value.indexOf('"') >= 0 || value.indexOf(delimiter) >= 0);
+            return (needsQuotes ? '"' + value.replace(singleQuoteRx, '""') + '"' : value);
+        },
+
+        isString: function(value) {
+            return (typeof value == 'string' || value instanceof String);
         }
 
     });
