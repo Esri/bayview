@@ -807,7 +807,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     infoPanel: {
       'addresses': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -885,7 +885,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'roads': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1039,7 +1039,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'futurelanduse': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1125,7 +1125,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'zoning': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1211,7 +1211,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'easements': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1305,7 +1305,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'FEMAfloodzones': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1383,7 +1383,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'beachaccess': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1461,7 +1461,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'femafirmindex': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1539,7 +1539,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'boatramps': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1621,7 +1621,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'libraries': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1699,7 +1699,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'recycling': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1785,7 +1785,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'schools': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1863,7 +1863,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'parks': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
@@ -1945,7 +1945,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         }
       },
       'soils': {
-        'hasDetails': true,
+        'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,

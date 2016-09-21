@@ -18,6 +18,14 @@
     }
 }
 
+.w-tool-list__mobile-item {
+    display: block;
+
+    @include respond('sm') {
+        display: none;
+    }
+}
+
 .w-tool-list__item-icon {
     padding: 0 10px;
 }

@@ -13,6 +13,7 @@ define([
   'dojo/aspect',
   'dojo/on',
   'dojo/query',
+  'dojo/window',
 
   'dojo/_base/lang',
 
@@ -30,7 +31,7 @@ define([
 
 function(
   declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
-  topic, dom, domStyle, domConstruct, domClass, string, aspect, on, query,
+  topic, dom, domStyle, domConstruct, domClass, string, aspect, on, query, window,
   lang,
   layerUtils,
   Legend, arcgisUtils,
@@ -41,6 +42,7 @@ function(
   return declare('', [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin], {
     templateString: template,
     widgetsInTemplate: true,
+    mobileBreak: 768,
 
     postCreate: function() {
       this.inherited(arguments);
@@ -92,13 +94,13 @@ function(
         case 'titlepane':
         //console.log('case title pane');
         //   domStyle.set(this.dropDownButton.domNode, 'display', 'none');
-          var tp = new TitlePane({
+          this.tp = new TitlePane({
             'title': this.legendConfig.title,
             'content': this.legend,
             'open': false
           });
-          this.legendContainer.appendChild(tp.domNode);
-          tp.startup();
+          this.legendContainer.appendChild(this.tp.domNode);
+          this.tp.startup();
           break;
         case 'none':
         //console.log('case none');
@@ -108,9 +110,12 @@ function(
       }
 
       on(this.legendContainer, 'click', lang.hitch(this, function() {
+          if (window.getBox().w <= this.mobileBreak) {
+              query('.js-legend-wrap').style('display', 'none');
+          }
+
           domClass.toggle(this.mdlDownBtn, 'is-hidden');
           domClass.toggle(this.mdlUpBtn, 'is-hidden');
-
 
           console.debug('from the layer panel', this.map);
           query('.dijitTitlePaneContentOuter', this.domNode).style('height', (this.map.height - 100) + 'px');
@@ -153,6 +158,16 @@ function(
       if (legendLayersArray.length > 0) {
         this.legend.refresh(legendLayersArray);
       }
+    },
+
+    showAndOpen: function() {
+        console.debug(this.tp);
+        if (this.tp.open === false) {
+            this.tp.toggle();
+        }
+        //domStyle.set(this.legendWrapper, 'display', 'block');
+        query('.js-legend-wrap').style('display', 'block');
+        query('.dijitTitlePaneContentOuter', this.domNode).style('height', (this.map.height - 100) + 'px');
     }
 
   });

@@ -85,3 +85,13 @@
         display: none;
     }
 }
+
+.w-info-panel__detail-link {
+    text-decoration: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+    }
+}

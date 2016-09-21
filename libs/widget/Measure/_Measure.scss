@@ -1,6 +1,17 @@
 .measure-tool__container {
-    top: 0;
+    top: -6px;
+    left: 46px;
+    min-width: 246px;
     padding: 0;
+
+    @include respond('xs') {
+        min-width: 400px;
+    }
+
+    @include respond('sm') {
+        top: 0;
+        left: 50px;
+    }
 
     &.is-hidden {
         display: none;
@@ -17,13 +28,18 @@
 }
 
 .measure-tool__title {
-    display: table-cell;
-    width: 40%;
+    display: block;
+    width: 100%;
     vertical-align: middle;
     background: $brand-primary;
     color: $white;
     font-size: 18px;
     padding: 5px 0;
+
+    @include respond('xs') {
+        display: table-cell;
+        width: 40%;
+    }
 }
 
 .measure-tool__sub-title {

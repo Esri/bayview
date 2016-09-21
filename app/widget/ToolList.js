@@ -74,11 +74,16 @@ define([
 
         },
 
+        handleLegend: function() {
+            topic.publish('/Legend/show', this);
+        },
+
         _attachEventListeners: function() {
             this.own(
                 // Tool selection click event
                 on(this.toolSelectDraw, 'click', lang.hitch(this, this.handleToolSelect, 'draw')),
-                on(this.toolSelectMeasure, 'click', lang.hitch(this, this.handleToolSelect, 'measure'))
+                on(this.toolSelectMeasure, 'click', lang.hitch(this, this.handleToolSelect, 'measure')),
+                on(this.toolSelectLegend, 'click', lang.hitch(this, this.handleLegend))
             );
         },
 

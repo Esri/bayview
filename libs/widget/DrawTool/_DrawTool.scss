@@ -1,6 +1,17 @@
 .draw-tool {
-    top: 0;
+    top: -6px;
+    left: 46px;
+    min-width: 246px;
     padding: 0;
+
+    @include respond('xs') {
+        min-width: 400px;
+    }
+
+    @include respond('sm') {
+        top: 0;
+        left: 50px;
+    }
 
     &.is-hidden {
         display: none;
@@ -20,13 +31,18 @@
 .gis_DrawDijit {
 
   .title {
-      display: table-cell;
-      width: 25%;
+      display: block;
+      width: 100%;
       vertical-align: middle;
       background: $brand-primary;
       color: $white;
       font-size: 18px;
       padding: 5px 0;
+
+      @include respond('xs') {
+          display: table-cell;
+          width: 25%;
+      }
   }
 
   .messageContainer {
@@ -35,10 +51,15 @@
   }
 
   .drawToolsContainer {
-      display: table-cell;
-      width: 60%;
+      display: block;
+      width: 100%;
       padding: 0 10px;
       vertical-align: middle;
+
+      @include respond('xs') {
+          display: table-cell;
+          width: 60%;
+      }
 
     button {
       min-width: 0;

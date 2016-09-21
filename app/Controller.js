@@ -401,6 +401,10 @@ define([
           }
       }));
 
+      topic.subscribe('/Legend/show', lang.hitch(this, function(sender, args) {
+          this.legend.showAndOpen();
+      }));
+
       /*
       // loading indicator disabled for now since it is almost not needed, map is too fast
       topic.subscribe('/MapLoading/show', lang.hitch(this, function() {
