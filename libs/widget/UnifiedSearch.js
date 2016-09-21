@@ -457,15 +457,27 @@ function(
         this.lsView.clearResults();
 
         // Run a query on the features OID and LayerID to get the feature data
+        var hasValidFeature = false;
+
+
+            console.debug('entering query loop');
         var query = new Query();
         query.objectIds = [parseInt(resultObj.oid)];
         query.outFields = [ "*" ];
         var selectedFeatureLyr = this.map._layers[resultObj.lyr];
-        var someOtherThing = selectedFeatureLyr.queryFeatures(query, function(featureSet) {
+
+        var featureQuery = selectedFeatureLyr.queryFeatures(query, lang.hitch(this, function(featureSet) {
             // Format the feature data a little
             //console.debug('handleResultSelection query', featureSet, query);
             var featureObj = {
                 feature: featureSet.features[0]
+            }
+            console.debug('Preping to zoom', featureObj);
+            if (typeof featureObj.feature === 'undefined') {
+                //hasValidFeature = true;
+                console.debug('Re-running query');
+                this.handleResultSelection(resultObj, zoomTo);
+                return;
             }
             // TODO Should the layer be made visibile?
             //selectedFeatureLyr.setVisibility(true);
@@ -485,7 +497,7 @@ function(
               }
             );
 
-        });
+        }));
 
       } else {
         if (resultObj.oid !== '') {
