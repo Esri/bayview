@@ -1,0 +1,49 @@
+.print-tool__container {
+    top: -6px;
+    left: 46px;
+    min-width: 200px;
+    padding: 0;
+
+    // @include respond('xs') {
+    //     min-width: 400px;
+    // }
+
+    @include respond('sm') {
+        top: 0;
+        left: 50px;
+    }
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.print-tool {
+    padding: 0;
+    border: 0;
+
+    .dijitContentPane {
+        background: none;
+    }
+}
+
+.print-tool__title {
+    display: block;
+    width: 100%;
+    vertical-align: middle;
+    background: $brand-primary;
+    color: $white;
+    font-size: 18px;
+    padding: 5px 0;
+
+    @include respond('xs') {
+        display: table-cell;
+        width: 60%;
+    }
+}
+
+.esriPrint {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 15px;
+}

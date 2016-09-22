@@ -167,15 +167,15 @@ define([
       this.drawTool.startup();
 
     //   this.extract = new ExtractData({
-    //     featureLayers: [parcels, futurelanduse],
+    //     featureLayers: widgetConfig.operationalLayers,
     //     map: map
     //   }, "extractContainer");
     //   this.extract.startup();
 
-    //   this.printer = new PrintController({
-    //     map: map
-    //   }, 'printContainer');
-    //   this.printer.startup();
+      this.printer = new PrintController({
+        map: map
+      }, 'printContainer');
+      this.printer.startup();
 
       this.infoPanel = new InfoPanel({
         map: map,
@@ -297,12 +297,13 @@ define([
         });
         this.search.startup();
         topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
-            console.debug('the map was clicked yo!', args);
+            //console.debug('the map was clicked yo!', args);
 
             if (!this.measurement.isActiveTool()) {
                 //console.debug('no measure tool detected');
                 this.search.mapClickEvent(args.event.target);
-                this.search.searchMapPoint(args.event.mapPoint);
+                // TODO turning this off for now (Reverse Geocode Search)
+                //this.search.searchMapPoint(args.event.mapPoint);
             }
         }));
 
@@ -322,6 +323,8 @@ define([
               this.drawTool.hide();
           } else if (args.type === 'measure') {
               this.measurement.hide();
+          } else if (args.type === 'print') {
+              this.printer.hide();
           }
         }));
 
@@ -393,12 +396,20 @@ define([
       }));
 
       topic.subscribe('/ToolList/tool', lang.hitch(this, function(sender, args) {
+          this.infoPanel.hidePanel();
           if (args.type === 'draw') {
               this.drawTool.show();
           } else if (args.type === 'measure') {
               //console.debug('the measure tool was clicked');
               this.measurement.show();
+          } else if (args.type === 'print') {
+              this.printer.show();
           }
+      }));
+
+      topic.subscribe('/InfoPanel/print', lang.hitch(this, function(sender, args) {
+          this.infoPanel.hidePanel();
+          this.navigation.toolList.handleToolSelect(args.type);
       }));
 
       topic.subscribe('/Legend/show', lang.hitch(this, function(sender, args) {

@@ -13,12 +13,14 @@ define([
     'dojo/parser',
     'dojo/query',
     'dojo/on',
+    'dojo/topic',
     'dojo/dom-style',
     'dojo/dom-class',
     'dijit/registry',
     'esri/dijit/Print',
     'esri/tasks/PrintTemplate',
     'esri/tasks/LegendLayer',
+    "esri/domUtils",
 
     'app/config/WidgetConfig',
 
@@ -28,7 +30,7 @@ define([
   function(
     declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
     Evented,
-    lang, connect, parser, query, on, domStyle, domClass, registry, Print, PrintTemplate, LegendLayer,
+    lang, connect, parser, query, on, topic, domStyle, domClass, registry, Print, PrintTemplate, LegendLayer, domUtils,
     widgetConfig,
     template
   ) {
@@ -62,18 +64,20 @@ define([
                 templates: [
                     {
                       label: "Landscape",
-                      format: "png32",
+                      format: "PDF",
                       layout: "Letter ANSI A Landscape",
                       layoutOptions: {
-                        legendLayers: [legendLayer]
+                          titleText: "Bay County GIS"
+                        //legendLayers: [legendLayer]
                       }
                     },
                     {
                       label: "Portrait",
-                      format: "png32",
+                      format: "PDF",
                       layout: "Letter ANSI A Portrait",
                       layoutOptions: {
-                        legendLayers: [legendLayer]
+                          titleText: "Bay County GIS"
+                        //legendLayers: [legendLayer]
                       }
                     }
                 ]
@@ -82,8 +86,23 @@ define([
         },
 
         startup: function() {
-            console.debug('Print started')
+            //console.debug('Print started');
+            // Start the tool hidden
+            this.hide();
+            this.own(on(this.closeBtn, 'click', lang.hitch(this, function() {
+                this.hide();
+            })));
+        },
 
+        show: function () {
+            domUtils.show(this.domNode);
+        },
+
+        hide: function () {
+            domUtils.hide(this.domNode);
+            topic.publish('/ToolList/unselected', this, {
+                type: null
+            });
         }
     });
   });

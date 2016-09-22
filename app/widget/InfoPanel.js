@@ -242,6 +242,9 @@ define([
 
         _btnPrintClicked: function() {
             //console.log('print clicked');
+            topic.publish('/InfoPanel/print', this, {
+                type: 'print'
+            });
         },
 
         _btnExportClicked: function() {

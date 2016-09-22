@@ -33,6 +33,8 @@ function(
 
     toolPrefix: null,
 
+    currentSearch: null,
+
     constructor: function(options) {
       this.inherited(arguments);
       this.postCreate(options);
@@ -313,6 +315,9 @@ function(
 
     handleSearchStr: function(str) {
       console.debug('handleSearchStr', str);
+      if (this.currentSearch !== null) {
+          this.currentSearch.cancel('new search incoming');
+      }
       this.currentSearchString = str;
       if (!this.lsView.inputValue || this.lsView.inputValue !== this.currentSearchString) {
         console.debug('why bother querying?', this.lsView.inputValue, this.currentSearchString);
@@ -350,7 +355,7 @@ function(
       }));
 
       // execute all queries
-      dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
+      this.currentSearch = dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
     },
 
     handleQueryResults: function(responsesObj) {

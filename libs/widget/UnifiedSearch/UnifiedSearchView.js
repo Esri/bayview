@@ -173,10 +173,13 @@ function(
         evt.keyCode === dojoKeys.UP_ARROW ||
         evt.keyCode === dojoKeys.DOWN_ARROW ||
         evt.keyCode === dojoKeys.LEFT_ARROW ||
-        evt.keyCode === dojoKeys.RIGHT_ARROW ||
-        evt.keyCode === dojoKeys.ENTER) {
+        evt.keyCode === dojoKeys.RIGHT_ARROW) {
         return;
       }
+
+    //   if (evt.keyCode === dojoKeys.ENTER) {
+    //       this.handleInput();
+    //   }
 
       this.clearInputTimeout();
 
