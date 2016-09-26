@@ -62,6 +62,19 @@ define([
                 //config: widgetConfig.layerList
             }, this.toolsWidgetContainer);
             this.toolList.startup();
+
+            var dialogButton = document.querySelector('.mdl-dialog-button');
+            var dialog = document.querySelector('#dialog');
+            if (! dialog.showModal) {
+              dialogPolyfill.registerDialog(dialog);
+            }
+            dialogButton.addEventListener('click', function() {
+               dialog.showModal();
+            });
+            dialog.querySelector('button:not([disabled])')
+            .addEventListener('click', function() {
+              dialog.close();
+            });
         },
 
         startup: function() {

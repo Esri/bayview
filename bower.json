@@ -6,7 +6,8 @@
     "bootstrap-sass": "~3.3.5",
     "fontawesome": "~4.4.0",
     "underscore": "~1.8.3",
-    "material-design-lite": "~1.0.5"
+    "material-design-lite": "~1.0.5",
+    "dialog-polyfill": "^0.4.4"
   },
   "resolutions": {
     "fontawesome": "~4.4.0"

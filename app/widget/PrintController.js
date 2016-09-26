@@ -46,11 +46,11 @@ define([
 
         postCreate: function() {
             this.inherited(arguments);
-            console.debug('Print post create', this);
+            // console.debug('Print post create', this);
 
-            var legendLayer = new LegendLayer();
-            legendLayer.layerId = "futurelanduse";
-            legendLayer.subLayerIds = [0, 5];
+            // var legendLayer = new LegendLayer();
+            // legendLayer.layerId = "futurelanduse";
+            // legendLayer.subLayerIds = [0, 5];
 
             // var template = new PrintTemplate();
             // template.layout = 'Letter ANSI A Landscape';
