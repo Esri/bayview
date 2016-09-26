@@ -166,11 +166,12 @@ define([
       }, 'drawContainer');
       this.drawTool.startup();
 
-    //   this.extract = new ExtractData({
-    //     featureLayers: widgetConfig.operationalLayers,
-    //     map: map
-    //   }, "extractContainer");
-    //   this.extract.startup();
+      this.extract = new ExtractData({
+        featureLayers: widgetConfig.operationalLayers,
+        map: map,
+        analysisGpServer: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/ExtractDataTask/GPServer/Extract%20Data%20Task</dataextractionservice>'
+      }, "extractContainer");
+      this.extract.startup();
 
       this.printer = new PrintController({
         map: map
