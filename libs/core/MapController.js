@@ -1,14 +1,16 @@
-define(
-  [
+
+define([
     'esri/map',
     'esri/SpatialReference',
     'esri/arcgis/utils',
     'esri/geometry/webMercatorUtils',
+    'esri/geometry/Geometry',
     'esri/geometry/Point',
     'esri/geometry/Extent',
     'esri/graphic',
     'esri/symbols/SimpleLineSymbol',
     'esri/symbols/SimpleMarkerSymbol',
+    'esri/symbols/SimpleFillSymbol',
 
     'esri/dijit/Scalebar',
     'esri/dijit/OverviewMap',
@@ -30,211 +32,241 @@ define(
     'dojo/touch',
     'dojo/query',
     'dojo/Deferred',
-    'dojo/NodeList-traverse'
-  ],
-  function(Map, SpatialReference, EsriUtils,
-    webMercatorUtils, Point, Extent, Graphic, SimpleLineSymbol, SimpleMarkerSymbol,
-    Scalebar, OverviewMap,
-    layerUtils,
-    dom, domStyle, domConstruct, domClass,
-    declare, win, lang, Color,
-    on, topic, touch, query, Deferred,
-    nodecols) { // eslint-disable-line no-unused-vars
-    'use strict';
+    'dojo/NodeList-traverse'],
+    function(Map, SpatialReference, EsriUtils,
+        webMercatorUtils, Geometry, Point, Extent, Graphic, SimpleLineSymbol, SimpleMarkerSymbol, SimpleFillSymbol,
+        Scalebar, OverviewMap,
+        layerUtils,
+        dom, domStyle, domConstruct, domClass,
+        declare, win, lang, Color,
+        on, topic, touch, query, Deferred, nodecols) {
+      'use strict';
 
-    return {
-      // BootstrapMap Class Public Functions
-      createMap: function(divId, config) {
-        var mapObject,
-          mapOut,
-          deferredOut;
-        if (divId && config) {
-          deferredOut = new Deferred();
-          var options = config.map.options || {};
-          mapObject = new this._mapObject(divId, options, config);
-          mapOut = mapObject.createMap();
-          mapOut._mapObject = mapObject;
-          deferredOut.resolve(mapOut);
-          return deferredOut;
-        }
-      },
-      createWebMap: function(webMapId, divId, config) {
-        var mapObject,
-          deferredOut;
-        if (divId && config) {
-          var options = config.agsPortal.options || {};
-          mapObject = new this._mapObject(divId, options, config);
-          deferredOut = mapObject.createWebMap(webMapId);
-          return deferredOut;
-        }
-      },
-      destroy: function(map) {
-        function _disconnect(resizer) {
-          if (resizer._handles) {
-            var i = resizer._handles.length;
-            while (i--) {
-              resizer._handles[i].remove();
-              resizer._handles.splice(i, 1);
+      return {
+        // BootstrapMap Class Public Functions
+        createMap: function(divId, config) {
+            //console.debug('creating new map');
+          var mapObject,
+              mapOut,
+              deferredOut;
+          if (divId && config) {
+            deferredOut = new Deferred();
+            var options = config.map.options || {};
+            mapObject = new this._mapObject(divId, options, config);
+            mapOut = mapObject.createMap();
+            mapOut._mapObject = mapObject;
+            deferredOut.resolve(mapOut);
+            return deferredOut;
+          }
+        },
+        createWebMap: function(webMapId, divId, config) {
+            //console.debug('creating new webmap');
+          var mapObject,
+              deferredOut;
+          if (divId && config) {
+            var options = config.agsPortal.options || {};
+            mapObject = new this._mapObject(divId, options, config);
+            deferredOut = mapObject.createWebMap(webMapId);
+            return deferredOut;
+          }
+        },
+        destroy: function(map) {
+          function _disconnect(resizer) {
+            if (resizer._handles) {
+              var i = resizer._handles.length;
+              while (i--) {
+                resizer._handles[i].remove();
+                resizer._handles.splice(i, 1);
+              }
             }
           }
-        }
 
-        if (map && map._mapObject) {
-          _disconnect(map._mapObject);
-        }
-      },
+          if (map && map._mapObject) {
+            _disconnect(map._mapObject);
+          }
+        },
 
-      initTopics: function(map) {
-        topic.subscribe('Map/AddCursorTooltip', lang.hitch(this, function(text) {
-          // create node for the tooltip
-          var self = this;
-          var tip = text || 'Click to view location';
-          this.tooltip = domConstruct.create('div', {
-            'class': 'tooltip',
-            'innerHTML': tip
-          }, map.container);
-          domStyle.set(this.tooltip, 'position', 'fixed');
+        initTopics: function(map) {
+          topic.subscribe('Map/AddCursorTooltip', lang.hitch(this, function(text) {
+            // create node for the tooltip
+            var self = this;
+            var tip = text || 'Click to view location';
+            this.tooltip = domConstruct.create('div', { 'class': 'tooltip', 'innerHTML': tip }, map.container);
+            domStyle.set(this.tooltip, 'position', 'fixed');
 
-          // update the tooltip as the mouse moves over the map
-          this.tooltipMouseMoveEvt = on(map.root, 'mousemove', function(evt) {
-            var px,
-              py;
-            if (evt.clientX || evt.pageY) {
-              px = evt.clientX;
-              py = evt.clientY;
-            } else {
-              px = evt.clientX + win.body().scrollLeft - win.body().clientLeft;
-              py = evt.clientY + win.body().scrollTop - win.body().clientTop;
-            }
+            // update the tooltip as the mouse moves over the map
+            this.tooltipMouseMoveEvt = on(map.root, 'mousemove', function(evt) {
+              var px,
+                  py;
+              if (evt.clientX || evt.pageY) {
+                px = evt.clientX;
+                py = evt.clientY;
+              } else {
+                px = evt.clientX + win.body().scrollLeft - win.body().clientLeft;
+                py = evt.clientY + win.body().scrollTop - win.body().clientTop;
+              }
 
-            domStyle.set(self.tooltip, {
-              left: (px + 15) + 'px',
-              top: (py) + 'px'
+              domStyle.set(self.tooltip, { left: (px + 15) + 'px', top: (py) + 'px' });
+              domClass.remove(self.tooltip, 'hidden');
             });
-            domClass.remove(self.tooltip, 'hidden');
-          });
 
-          // hide the tooltip the cursor isn't over the map
-          this.tooltipMouseOutEvt = on(map.root, 'mouseout', function() {
-            domStyle.add(self.tooltip, 'hidden');
-          });
-        }));
-
-        topic.subscribe('Map/RemoveCursorTooltip', lang.hitch(this, function() {
-          domConstruct.destroy(this.tooltip);
-          if (this.tooltipMouseMoveEvt) {
-            this.tooltipMouseMoveEvt.remove();
-          }
-
-          if (this.tooltipMouseOutEvt) {
-            this.tooltipMouseOutEvt.remove();
-          }
-        }));
-
-        topic.subscribe('/map/zoom/extent', lang.hitch(this, function(sender, args) {
-          var wkid = (args.wkid) ? parseInt(args.wkid, 10) : (args.spatialReference && args.spatialReference.wkid) ? args.spatialReference.wkid : map.spatialReference.wkid;
-          var extent = new Extent(parseFloat(args.xmin), parseFloat(args.ymin), parseFloat(args.xmax), parseFloat(args.ymax), new SpatialReference({
-            wkid: wkid
+            // hide the tooltip the cursor isn't over the map
+            this.tooltipMouseOutEvt = on(map.root, 'mouseout', function(evt) {
+              domStyle.add(self.tooltip, 'hidden');
+            });
           }));
-          map.setExtent(extent);
-        }));
 
-        topic.subscribe('/map/zoom/feature', lang.hitch(this, function(sender, args) {
-          var geom = null;
-          if (args.feature.geometry.spatialReference.wkid === 102100) {
-            geom = args.feature.geometry;
-          } else {
-            geom = webMercatorUtils.geographicToWebMercator(args.feature.geometry);
-          }
-
-          if (geom && geom.type === 'polygon') {
-            map.setExtent(geom.getExtent());
-          } else if (geom && geom.type === 'point') {
-            var centerAndZoom = map.centerAndZoom(geom, map.getMaxZoom() - 2);
-            if (args.showInfoWindow) {
-              centerAndZoom.then(lang.hitch(this, function() {
-                this._zoomToFeature(args.feature);
-              }));
-            } else {
-              map.infoWindow.hide();
+          topic.subscribe('Map/RemoveCursorTooltip', lang.hitch(this, function() {
+            domConstruct.destroy(this.tooltip);
+            if (this.tooltipMouseMoveEvt) {
+              this.tooltipMouseMoveEvt.remove();
             }
-          }
 
-          if (args.refreshLayers) {
-            _.each(map.getLayersVisibleAtScale(), function(layer) {
-              layer.refresh();
-            });
-          }
-        }));
+            if (this.tooltipMouseOutEvt) {
+              this.tooltipMouseOutEvt.remove();
+            }
+          }));
 
-        topic.subscribe('/map/zoom/latlong', lang.hitch(this, function(sender, args) {
-          var pt = new Point(args.longitude, args.latitude);
-          //addGraphic(pt);
-          map.centerAndZoom(pt, 12);
-        }));
+          topic.subscribe('/map/zoom/extent', lang.hitch(this, function(sender, args) {
+              //console.debug('map zoom extent', args);
+            var wkid = (args.wkid) ? parseInt(args.wkid, 10) : map.spatialReference.wkid;
+            var extent = new Extent(parseFloat(args.xmin), parseFloat(args.ymin), parseFloat(args.xmax), parseFloat(args.ymax), new SpatialReference({ wkid: wkid }));
+            map.setExtent(extent);
+          }));
 
-        topic.subscribe('/map/add/simplemarker', lang.hitch(this, function(sender, args) {
-          map.graphics.clear();
-          if (args.geometry) {
-            var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 20,
-              new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-                new Color([255, 0, 0]), 1),
-              new Color([0, 255, 0, 0.25]));
-            map.graphics.add(new Graphic(args.geometry, symbol));
-          }
-        }));
+          topic.subscribe('/map/zoom/feature', lang.hitch(this, function(sender, args) {
+            var geom = null;
+            // if ("geometry" in args) {
+            //     var convert = args.geometry;
+            //     geom = new Geometry();
+            //     geom.setSpatialReference(convert.spatialReference);
+            //     geom.type = convert.type;
+            //     geom.cache = convert.cache;
+            //     // console.log(geom);
+            //     // geom = webMercatorUtils.geographicToWebMercator(geom);
+            //     // console.log(geom);
+            //     // if (webMercatorUtils.canProject(geom, map)) {
+            //     //     console.log('it can be projected web mecator');
+            //     //    geom = webMercatorUtils.project(geom, map);
+            //     //
+            //     // }
+            //     console.debug('converting geom', geom);
+            // }
+            console.debug('map/feature/zoom', args);
+            if (args.feature.geometry.spatialReference.wkid === map.spatialReference.wkid) {
+              geom = args.feature.geometry;
+              //console.debug('/map/zoom/feature', geom);
+            } else {
+              //geom = webMercatorUtils.geographicToWebMercator(args.feature.geometry);
+              //geom = webMercatorUtils.webMercatorToGeographic(args.feature.geometry);
+              //if (webMercatorUtils.canProject(args.feature.geometry, map)) {
+                //geom = webMercatorUtils.project(args.feature.geometry, map);
+              //}
+            }
 
-        topic.subscribe('/map/zoom/geometry', lang.hitch(this, function(sender, geometry) {
-          var geom = null;
-          if (geometry.spatialReference.wkid === 102100) {
-            geom = geometry;
-          } else {
-            geom = webMercatorUtils.geographicToWebMercator(geometry);
-          }
+            if (geom && geom.type === 'polygon') {
+              map.setExtent(geom.getExtent().expand(1.5));
+            } else if (geom && geom.type === 'point') {
+              var centerAndZoom = map.centerAndZoom(geom, map.getMaxZoom() - 2);
+              if (args.zoomToFeature) {
+                centerAndZoom.then(lang.hitch(this, function() {
+                  if (args.showInfoWindow) {
+                    this._zoomToFeature(args.feature);
+                  }
+                }));
+              } else {
+                map.infoWindow.hide();
+              }
+            }
 
-          if (geom.type === 'point') {
-            map.centerAndZoom(geom, map.getMaxZoom() - 2);
-            console.log('map zoomed to point geometry');
-          } else {
-            //var extent = new Extent(parseFloat(geom.xmin), parseFloat(geom.ymin), parseFloat(geom.xmax), parseFloat(geom.ymax), new SpatialReference({ wkid: geom.spatialReference.wkid }));
-            map.setExtent(geom.getExtent());
-            console.log('map zoomed to extent geometry');
-          }
-        }));
+            if (args.refreshLayers) {
+              _.each(map.getLayersVisibleAtScale(), function(layer) {
+                layer.refresh();
+              });
+            }
+          }));
 
-        topic.subscribe('/map/click/on', lang.hitch(this, function(sender, args) { // eslint-disable-line no-unused-vars
-          if (map) {
-            map.showZoomSlider();
-            map._isClickEventOn = true;
-          }
-        }));
+          topic.subscribe('/map/zoom/latlong', lang.hitch(this, function(sender, args) {
+            var pt = new Point(args.longitude, args.latitude);
+            //addGraphic(pt);
+            map.centerAndZoom(pt, 12);
+          }));
 
-        topic.subscribe('/map/click/off', lang.hitch(this, function(sender, args) { // eslint-disable-line no-unused-vars
-          if (map) {
-            map.hideZoomSlider();
-            map._mapObject._isClickEventOn = false;
-          }
-        }));
-      },
+          topic.subscribe('/map/add/simplemarker', lang.hitch(this, function(sender, args) {
+            map.graphics.clear();
+            if (args.geometry) {
+                //TODO is there a marker for lines? (roads)
+                if(args.geometry.type === 'point') {
+                      var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 20,
+                          new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                          new Color([255, 0, 0]), 1),
+                          new Color([255, 255, 255, 0.25]));
+                } else if (args.geometry.type === 'polygon') {
+                    var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                          new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                          new Color([255,0,0]), 2),new Color([255,255,255,0.25])
+                        );
+                }
 
-      _zoomToPolygon: function(polygon) {
-        this.addBoundaryGraphic(polygon, true);
-        this.map.setExtent(polygon.getExtent().expand(1.5));
-      },
+              map.graphics.add(new Graphic(args.geometry, symbol));
+            }
+          }));
 
-      _zoomToFeature: function(feature) {
-        topic.publish('/InfoWindow/Feature/show', this, {
-          feature: feature
-        });
-      },
+          topic.subscribe('/map/clear/simplemarker', lang.hitch(this, function(sender, args) {
+            map.graphics.clear();
+          }));
 
-      // mapObject Class Functions
-      _mapObject: declare(null,
-        {
+          topic.subscribe('/map/zoom/geometry', lang.hitch(this, function(sender, geometry) {
+              //console.debug('map zoom geom');
+            var geom = null;
+            if (geometry.spatialReference.wkid === 102100) {
+              geom = geometry;
+            } else {
+              geom = webMercatorUtils.geographicToWebMercator(geometry);
+            }
+
+            if (geom.type === 'point') {
+              map.centerAndZoom(geom, map.getMaxZoom() - 2);
+              //console.log('map zoomed to point geometry');
+            } else {
+              //var extent = new Extent(parseFloat(geom.xmin), parseFloat(geom.ymin), parseFloat(geom.xmax), parseFloat(geom.ymax), new SpatialReference({ wkid: geom.spatialReference.wkid }));
+              map.setExtent(geom.getExtent());
+              //console.log('map zoomed to extent geometry');
+            }
+          }));
+
+          topic.subscribe('/map/click/on', lang.hitch(this, function(sender, args) {
+            if (map) {
+              map.showZoomSlider();
+              map._isClickEventOn = true;
+            }
+          }));
+
+          topic.subscribe('/map/click/off', lang.hitch(this, function(sender, args) {
+            if (map) {
+              map.hideZoomSlider();
+              map._mapObject._isClickEventOn = false;
+            }
+          }));
+        },
+
+        _zoomToPolygon: function(polygon) {
+          this.addBoundaryGraphic(polygon, true);
+          this.map.setExtent(polygon.getExtent().expand(1.5));
+        },
+
+        _zoomToFeature: function(feature) {
+          topic.publish('/InfoWindow/Feature/show', this, {
+            feature: feature
+          });
+        },
+
+        // mapObject Class Functions
+        _mapObject: declare(null, {
           constructor: function(mapDivId, options, config) {
             this._map = null;
             this._agsResponse = null;
-            this._autoRecenterDelay = 50;
+            this._autoRecenterDelay =  50;
             this._popupRecenterDelayer = 150;
             this._popupPosition = 'top';
             this._popupBlocked = false;
@@ -261,34 +293,41 @@ define(
             this._setMapDiv(false);
             // Need to be false in responsive mode
             if (this._responsiveResize) {
-              lang.mixin(this._options, {
-                smartNavigation: false,
-                autoResize: false
-              });
+              lang.mixin(this._options,
+                            {
+                              smartNavigation: false,
+                              autoResize: false
+                            });
             }
 
             if (!this._options.center && !this._options.zoom) {
+                //console.debug('mixin the extent', this._config.initialExtent);
               lang.mixin(this._options, {
                 extent: new Extent(this._config.initialExtent)
               });
             }
 
+            //console.debug('making new map', this._options);
             this._map = new Map(this._mapDivId, this._options);
+            // turning off the default info window so that map clicks are sent to USearch info panel
+            this._map.setInfoWindowOnClick(false);
             //this._setPopup();
             this._bindEvents();
             this._mapDiv.__map = this._map;
 
             // get the layers from the mapConfig
+
             this._addLayers(this._config.operationalLayers);
 
             this._initMapWidgets();
+
             return this._map;
           },
           // Create the webmap for client
           createWebMap: function(webMapId) {
             var deferred,
-              self,
-              getDeferred;
+                self,
+                getDeferred;
             // Get DIV
             this._setMapDiv(false);
             // Get options and pass them on
@@ -358,6 +397,7 @@ define(
             }
 
             console.log(this._mapDivId + ': /map/loaded');
+
             topic.publish('/map/loaded', this, {});
           },
 
@@ -372,7 +412,7 @@ define(
               if (this._options.scrollWheelZoom) {
                 this._map.enableScrollWheelZoom();
               } else {
-                this._map.disableScrollWheelZoom(); // Prevent slippy map on scroll
+                this._map.disableScrollWheelZoom();  // Prevent slippy map on scroll
               }
             } else {
               // Default
@@ -380,23 +420,23 @@ define(
             }
             // Remove 300ms delay to close infoWindow on touch devices
             on(query('.esriPopup .titleButton.close'), touch.press, lang.hitch(this,
-              function() {
-                this._map.infoWindow.hide();
-              }));
+                        function() {
+                          this._map.infoWindow.hide();
+                        }));
           },
 
           // Set up listeners
           _bindEvents: function() {
             var setTouch,
-              setInfoWin,
-              debounce,
-              timeout,
-              resizeWin,
-              recenter,
-              showLoading,
-              hideLoading,
-              selectionChange,
-              timer;
+                setInfoWin,
+                debounce,
+                timeout,
+                resizeWin,
+                recenter,
+                showLoading,
+                hideLoading,
+                selectionChange,
+                timer;
             if (!this._map) {
               console.error('BootstrapMap: Invalid map object. Please check map reference.');
               return;
@@ -433,9 +473,7 @@ define(
                   updatePopup(this);
                 } else {
                   if (this._map._mapObject._isClickEventOn) {
-                    topic.publish('/map/clicked', this, {
-                      event: evt
-                    });
+                    topic.publish('/map/clicked', this, { event: evt });
                   }
                 }
               }));
@@ -462,8 +500,7 @@ define(
             debounce = function(func, threshold, execAsap) {
               return function debounced() {
                 var self = this,
-                  args = arguments;
-
+                    args = arguments;
                 function delayed() {
                   if (!execAsap) {
                     func.apply(self, args);
@@ -504,13 +541,11 @@ define(
             };
 
             hideLoading = function() {
-              //topic.publish('/MapLoading/hide');
+              topic.publish('/MapLoading/hide');
             };
 
             selectionChange = function(e) {
-              topic.publish('/InfoWindow/selectionChanged', {
-                target: e.target
-              });
+              topic.publish('/InfoWindow/selectionChanged', { target: e.target });
             };
 
             if (this._map.loaded) {
@@ -559,14 +594,14 @@ define(
             }
 
             var visible,
-              windowH,
-              bodyH,
-              room,
-              mapH,
-              colH,
-              mh1,
-              mh2,
-              inCol; // eslint-disable-line no-unused-vars
+                windowH,
+                bodyH,
+                room,
+                mapH,
+                colH,
+                mh1,
+                mh2,
+                inCol;
             // Get map visibility
             visible = this._getMapDivVisibility();
             if (this._visible !== visible) {
@@ -616,10 +651,10 @@ define(
           _calcMapHeight: function() {
             //var s = domStyle.get(e);
             var s = this._mapStyle,
-              p = parseInt(s.paddingTop, 10) + parseInt(s.paddingBottom, 10) || 0,
-              g = parseInt(s.marginTop, 10) + parseInt(s.marginBottom, 10) || 0,
-              bodyH = parseInt(s.borderTopWidth, 10) + parseInt(s.borderBottomWidth, 10) || 0,
-              mapH = this._mapDiv.clientHeight;
+                p = parseInt(s.paddingTop, 10) + parseInt(s.paddingBottom, 10) || 0,
+                g = parseInt(s.marginTop, 10) + parseInt(s.marginBottom, 10) || 0,
+                bodyH = parseInt(s.borderTopWidth, 10) + parseInt(s.borderBottomWidth, 10) || 0,
+                mapH = this._mapDiv.clientHeight;
             // Use map container if clientheight == 0
             if (mapH === 0) {
               mapH = this._mapDiv.parentNode.clientHeight;
@@ -630,16 +665,18 @@ define(
           },
 
           // Get the column height around the map
-          _calcColumnHeight: function() {
+          _calcColumnHeight: function(mapH) {
             var i,
-              col,
-              colH = 0,
-              cols = query(this._mapDiv).closest('.row').children('[class*="col"]');
+                col,
+                colH = 0,
+                cols = query(this._mapDiv).closest('.row').children('[class*="col"]'),
+                containsMap;
             if (cols.length) {
               for (i = 0; i < cols.length; i++) {
                 col = cols[i];
                 // Avoid the map in column calculations
-                if (col.clientHeight > colH) {
+                containsMap = query('#' + this._mapDivId, col).length > 0;
+                if ((col.clientHeight > colH) && !containsMap) {
                   colH = col.clientHeight;
                 }
               }
@@ -651,26 +688,26 @@ define(
           _repositionMapForInfoWin: function(graphicCenterPt) {
             // Determine the upper right, and center, coordinates of the map
             var maxPoint = new Point(this._map.extent.xmax, this._map.extent.ymax, this._map.spatialReference),
-              centerPoint = new Point(this._map.extent.getCenter()),
-              // Convert to screen coordinates
-              maxPointScreen = this._map.toScreen(maxPoint),
-              centerPointScreen = this._map.toScreen(centerPoint),
-              graphicPointScreen = this._map.toScreen(graphicCenterPt), // Points only
-              // Buffer
-              marginLR = 10,
-              marginTop = 3,
-              infoWin = this._map.infoWindow.domNode.childNodes[0],
-              infoWidth = infoWin.clientWidth,
-              infoHeight = infoWin.clientHeight + this._map.infoWindow.marginTop,
-              // X
-              lOff = graphicPointScreen.x - infoWidth / 2,
-              rOff = graphicPointScreen.x + infoWidth / 2,
-              l = lOff - marginLR < 0,
-              r = rOff > maxPointScreen.x - marginLR,
-              // Y
-              yOff = this._map.infoWindow.offsetY,
-              tOff = graphicPointScreen.y - infoHeight - yOff,
-              t = tOff - marginTop < 0;
+                centerPoint = new Point(this._map.extent.getCenter()),
+                // Convert to screen coordinates
+                maxPointScreen = this._map.toScreen(maxPoint),
+                centerPointScreen = this._map.toScreen(centerPoint),
+                graphicPointScreen = this._map.toScreen(graphicCenterPt), // Points only
+                // Buffer
+                marginLR = 10,
+                marginTop = 3,
+                infoWin = this._map.infoWindow.domNode.childNodes[0],
+                infoWidth = infoWin.clientWidth,
+                infoHeight = infoWin.clientHeight + this._map.infoWindow.marginTop,
+                // X
+                lOff = graphicPointScreen.x - infoWidth / 2,
+                rOff = graphicPointScreen.x + infoWidth / 2,
+                l = lOff - marginLR < 0,
+                r = rOff > maxPointScreen.x - marginLR,
+                // Y
+                yOff = this._map.infoWindow.offsetY,
+                tOff = graphicPointScreen.y - infoHeight - yOff,
+                t = tOff - marginTop < 0;
             // X
             if (l) {
               centerPointScreen.x -= (Math.abs(lOff) + marginLR) < marginLR ? marginLR : Math.abs(lOff) + marginLR;
@@ -689,5 +726,5 @@ define(
             }
           }
         }) // _mapObject
-    }; // return
-  }); // define function
+      }; // return
+    }); // define function

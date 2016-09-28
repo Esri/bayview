@@ -130,10 +130,6 @@ define([
         this.infoPanel.hidePanel();
       }));
 
-      topic.subscribe('/InfoPanel/clear', lang.hitch(this, function(sender, args) {
-        this.infoPanel.clear();
-      }));
-
       this.measurement = new Measure({
         map: map
       }, 'measureContainer');
@@ -271,6 +267,11 @@ define([
 
       topic.subscribe('/Legend/show', lang.hitch(this, function(sender, args) {
           this.legend.showAndOpen();
+      }));
+
+      topic.subscribe('/InfoPanel/clear', lang.hitch(this, function(sender, args) {
+        this.infoPanel.clear();
+        this.search.handleFeatureClick();
       }));
 
     }

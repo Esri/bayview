@@ -636,6 +636,10 @@ function(
 
     show: function() {
         this.lsView.show();
+    },
+
+    handleFeatureClick: function() {
+        this.lsView.showClearBtn();
     }
 
   });
