@@ -1,0 +1,59 @@
+.extract-data {
+    top: 0;
+    left: 50px;
+    min-width: 340px;
+    padding: 0;
+    background: #FFF;
+    z-index: 50;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    .info-panel {
+        margin: 5px;
+        margin: 10px;
+        font-size: 16px;
+    }
+
+    .message-panel {
+        font-size: 16px;
+        padding: 10px;
+        background: lighten($brand-primary, 60%);
+    }
+
+    .results-panel {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .layers-panel {
+        font-size: 16px;
+        padding: 10px;
+        overflow-y: auto;
+        height: 300px;
+    }
+
+    .item {
+      display: flex;
+    }
+
+    .label {
+        font-size: 15px;
+        margin: 2px 5px;
+    }
+}
+
+.extract-data__title {
+    display: block;
+    width: 100%;
+    vertical-align: middle;
+    background: $brand-primary;
+    color: $white;
+    font-size: 18px;
+    padding: 5px 0;
+
+    @include respond('xs') {
+        display: table-cell;
+        width: 60%;
+    }
+}

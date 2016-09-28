@@ -61,6 +61,80 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       hasClearButton: true
     },
 
+    'extractData': {
+      'taskUrl': 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/ExtractDataTask/GPServer/Extract%20Data%20Task',
+      'parameters': {
+        'layersToClip': {
+          'name': 'Layers_to_Clip'
+        },
+        'areaOfInterest': {
+          'name': 'Area_of_Interest',
+          'drawOptions': {
+            'tools': ['POLYGON', 'FREEHAND_POLYGON'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
+            'symbology': { // http://resources.arcgis.com/en/help/rest/apiref/index.html?renderer.html
+              'point': {
+                'type': 'esriSMS',
+                'style': 'esriSMSCircle', // esriSMSCircle | esriSMSCross | esriSMSDiamond | esriSMSSquare | esriSMSX | esriSMSTriangle
+                'color': [255, 0, 0, 255],
+                'size': 8,
+                'angle': 0,
+                'xoffset': 0,
+                'yoffset': 0,
+                'outline': {
+                  'color': [255, 0, 0, 255],
+                  'width': 1
+                }
+              },
+              'line': {
+                'type': 'esriSLS',
+                'style': 'esriSLSDash', // esriSLSDash | esriSLSDashDotDot | esriSLSDot | esriSLSNull | esriSLSSolid
+                'color': [255, 0, 0, 255], // blue
+                'width': 2
+              },
+              'fill': {
+                'type': 'esriSFS',
+                'style': 'esriSFSSolid', // esriSFSBackwardDiagonal | esriSFSCross | esriSFSDiagonalCross | esriSFSForwardDiagonal | esriSFSHorizontal | esriSFSNull | esriSFSSolid | esriSFSVertical
+                'color': [255, 0, 0, 100],
+                'outline': {
+                  'type': 'esriSLS',
+                  'style': 'esriSLSDash',
+                  'color': [255, 0, 0, 255],
+                  'width': 2
+                }
+              }
+            },
+            'hasSaveButton': false,
+            'hasClearButton': false
+          }
+        },
+        'featureFormat': {
+          'name': 'Feature_Format',
+          'options': [
+            {
+              'label': '.gdb',
+              'value': 'File Geodatabase - GDB - .gdb'
+            },
+            {
+              'label': '.shp',
+              'value': 'Shapefile - SHP - .shp'
+            },
+            {
+              'label': '.dxf',
+              'value': 'Autodesk AutoCAD - DXF_R2007 - .dxf'
+            },
+            {
+              'label': '.dwg',
+              'value': 'Autodesk AutoCAD - DWG_R2007 - .dwg'
+            },
+            {
+              'label': '.dgn',
+              'value': 'Bentley Microstation Design (V8) - DGN_V8 - .dgn'
+            }
+          ]
+        }
+      }
+    },
+
     layerList: {
       groups: [
         {
