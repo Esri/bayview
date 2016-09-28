@@ -1,0 +1,28 @@
+.extract-data {
+    top: -6px;
+    left: 46px;
+    min-width: 246px;
+    padding: 0;
+    background: #FFF;
+    z-index: 50;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    @include respond('xs') {
+        min-width: 400px;
+    }
+
+    @include respond('sm') {
+        top: 0;
+        left: 50px;
+    }
+
+    &.is-hidden {
+        display: none;
+    }
+}
+
+.extract-data__title {
+    vertical-align: text-bottom;
+}

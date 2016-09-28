@@ -1,27 +1,26 @@
 define([
+  'dojo/_base/lang',
+  'dojo/_base/Color',
 
-    'dojo/_base/lang',
-    'dojo/_base/Color',
+  'dojo/Deferred',
+  'dojo/dom-construct',
+  'dojo/topic',
 
-    'dojo/Deferred',
-    'dojo/dom-construct',
-    'dojo/topic',
+  'esri/symbols/SimpleLineSymbol',
+  'esri/symbols/SimpleFillSymbol',
+  'esri/renderers/SimpleRenderer',
 
-    'esri/symbols/SimpleLineSymbol',
-    'esri/symbols/SimpleFillSymbol',
-    'esri/renderers/SimpleRenderer',
+  'esri/layers/FeatureLayer',
+  'esri/layers/ArcGISDynamicMapServiceLayer',
+  'esri/layers/ArcGISTiledMapServiceLayer',
+  'esri/layers/ArcGISImageServiceLayer',
+  'esri/layers/WebTiledLayer',
+  'esri/layers/WMSLayer',
 
-    'esri/layers/FeatureLayer',
-    'esri/layers/ArcGISDynamicMapServiceLayer',
-    'esri/layers/ArcGISTiledMapServiceLayer',
-    'esri/layers/ArcGISImageServiceLayer',
-    'esri/layers/WebTiledLayer',
-    'esri/layers/WMSLayer',
-
-    'esri/InfoTemplate',
-    'esri/request',
-    'esri/arcgis/utils'
-  ],
+  'esri/InfoTemplate',
+  'esri/request',
+  'esri/arcgis/utils'
+],
 
   function(
     lang, Color,
@@ -40,7 +39,7 @@ define([
       },
 
       // TODO: update InfoWindowController to retrieve the needed info somehow differently
-      getInfoWindowInfoByLayerId: function(layerId) {
+      getInfoWindowInfoByLayerId: function(/* layerId */) {
         console.error('layerUtils::getInfoWindowInfoByLayerId returns null, has an open TODO');
         return null;
         /*
@@ -62,20 +61,26 @@ define([
           return;
         }
 
-        _.forEach(layerDefs, lang.hitch(this, function(layerDef) {
+        var layerObjects = [];
+
+        _.each(layerDefs, lang.hitch(this, function(layerDef) {
           if (layerDef.layerObject) {
-            this.addLayer(map, layerDef.layerObject);
+            //this.addLayer(map, layerDef.layerObject);
+            layerObjects.push(layerDef.layerObject);
           } else {
             var layerObject = null;
             if (layerDef.type === 'dynamic') {
               layerObject = this._getDynamicLayerObject(layerDef);
-              this.addLayer(map, layerObject, layerDef.options);
+              //this.addLayer(map, layerObject, layerDef.options);
+              layerObjects.push(layerObject);
             } else if (layerDef.type === 'tiled') {
               layerObject = this._getTiledLayerObject(layerDef);
-              this.addLayer(map, layerObject, layerDef.options);
+              //this.addLayer(map, layerObject, layerDef.options);
+              layerObjects.push(layerObject);
             } else if (layerDef.type === 'Feature Layer') {
               layerObject = this._getFeatureLayerObject(layerDef);
-              this.addLayer(map, layerObject, layerDef.options);
+              //this.addLayer(map, layerObject, layerDef.options);
+              layerObjects.push(layerObject);
             } else if (layerDef.layerType === 'ArcGISMapServiceLayer') {
               //var layerInfos = this.esriMap.getFieldInfosByLayerId(layer.id);
               //var outFields = this.esriMap.getOutFieldsFromLayerId(layer.id);
@@ -85,7 +90,8 @@ define([
                 //lang.mixin(oLayerDef, layerDef);
                 layerObject = this._getFeatureLayerObject(tempLayerDef);
                 // TODO: define the options instead of the layerDef
-                this.addLayer(map, layerObject, tempLayerDef);
+                //this.addLayer(map, layerObject, tempLayerDef);
+                layerObjects.push(layerObject);
               } else {
                 // grouped
                 var baseUrl = layerDef.url;
@@ -104,6 +110,7 @@ define([
             }
           }
         }));
+        map.addLayers(layerObjects);
       },
 
       addLayersFromWebMap: function(map, webMapId, portalUrl) {
@@ -123,7 +130,7 @@ define([
         }
 
         //get Web Map JSON
-        arcgisUtils.arcgisUrl = portalUrl + 'content/items';   // portalUrl already contains 'sharing/rest/'
+        arcgisUtils.arcgisUrl = portalUrl + 'content/items'; // portalUrl already contains 'sharing/rest/'
 
         // create a temporary (hidden) node
         domConstruct.place('<div id=\'tempMapDiv\' style=\'display: none;\' ></div>', 'map', 'after');
@@ -140,10 +147,10 @@ define([
           // loop through all the layers, clone them and keep them in the layers array
           _.forEach(response.itemInfo.itemData.operationalLayers, lang.hitch(this, function(oLayer) {
             var layer = oLayer.layerObject;
-            var selectable = false;
-            if (layer.declaredClass === 'esri.layers.FeatureLayer') {
-              selectable = (layer.geometryType === 'esriGeometryPolygon');
-            }
+            // var selectable = false;
+            // if (layer.declaredClass === 'esri.layers.FeatureLayer') {
+            //   selectable = (layer.geometryType === 'esriGeometryPolygon');
+            // }
 
             if (layer) {
               tempMap.removeLayer(layer);
@@ -206,7 +213,7 @@ define([
         }
 
         //get Web Map JSON
-        arcgisUtils.arcgisUrl = portalUrl + 'content/items';   // portalUrl already contains 'sharing/rest/'
+        arcgisUtils.arcgisUrl = portalUrl + 'content/items'; // portalUrl already contains 'sharing/rest/'
 
         // create a temporary (hidden) node
         domConstruct.place('<div id=\'tempMapDiv\' style=\'display: none;\' ></div>', 'map', 'after');
@@ -267,7 +274,7 @@ define([
 
       // TODO: fix this
       // currently used in LayerList
-      addFeatureLayer: function(url, options) {
+      addFeatureLayer: function(/* url , options */) {
         // used by LayerList after adding a shape file
         // TODO: _getFeatureLayerObject has changed, it requires now an operationalLayerDefinition
         console.error('LayerController::addFeatureLayer not implemented');
@@ -292,12 +299,12 @@ define([
             var layerObject;
             if (response.type === 'Feature Layer') { // layer (feature layer)
               options = {
-                  id: response.id,
-                  title: response.name,
-                  mode: FeatureLayer.MODE_ONDEMAND,
-                  opacity: 1,
-                  visible: response.visible
-                };
+                id: response.id,
+                title: response.name,
+                mode: FeatureLayer.MODE_ONDEMAND,
+                opacity: 1,
+                visible: response.visible
+              };
               layerDef = {
                 type: 'Feature Layer',
                 url: url,
@@ -307,8 +314,8 @@ define([
                   isEnabled: true,
                   outFields: ['*'],
                   title: response.name
-                  // TODO: this is important for WebMaps (currently missing)
-                  //fieldInfos: this.esriMap.getFieldInfos(layer),
+                    // TODO: this is important for WebMaps (currently missing)
+                    //fieldInfos: this.esriMap.getFieldInfos(layer),
                 }
               };
               layerObject = this._getFeatureLayerObject(layerDef);
@@ -345,9 +352,9 @@ define([
             deferred.resolve(layerObject);
             return deferred.promise;
           }), function(error) {
-              console.error(error);
-              //exceptionDialog.show('SpotOn!ine could not add the online layer to the map. \'<span class='bold italic'>' + layer.name + '</span>\': Service may be stopped or ArcGIS Server may not be running. Please contact the SPOT office for assistance.');
-            });
+            console.error(error);
+            //exceptionDialog.show('SpotOn!ine could not add the online layer to the map. \'<span class='bold italic'>' + layer.name + '</span>\': Service may be stopped or ArcGIS Server may not be running. Please contact the SPOT office for assistance.');
+          });
         } else {
           //exceptionDialog.show('Failed to add Layer \'<span class='bold italic'>' + layer.name + '</span>\': URL is missing.');
           console.error('Failed to add Layer: URL is missing.');
@@ -390,12 +397,25 @@ define([
             layer: layerObject,
             url: layerObject.url,
             id: layerObject.id
-            //title: layerObject.options.title || null,
-            //options: layerObject.options
+              //title: layerObject.options.title || null,
+              //options: layerObject.options
           };
         }
 
         return layerInfo;
+      },
+
+      getLayerInfosVisibleAtScale: function(map) {
+        var layerInfos = [];
+        if (map.loaded) {
+          _.each(map.getLayersVisibleAtScale(), lang.hitch(this, function(layer) {
+            var layerInfo = this.getLayerInfo(map, layer.id);
+            if (layerInfo) {
+              layerInfos.push(layerInfo);
+            }
+          }));
+        }
+        return layerInfos;
       },
 
       // TODO: getOutFields & getFieldInfos require agsResponse;
@@ -456,7 +476,9 @@ define([
 
         var layerObject = new FeatureLayer(layerDef.url, layerDef.options);
         layerObject.on('click', function(evt) {
-          topic.publish('FeatureLayer/Clicked', { evt: evt });
+          topic.publish('FeatureLayer/Clicked', {
+            evt: evt
+          });
         });
         return layerObject;
       },

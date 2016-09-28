@@ -39,6 +39,7 @@ function(
     postCreate: function() {
       this.inherited(arguments);
 
+      this.container = this.drawConfig.container || 'none';
       this._initDrawTool();
     },
 
@@ -66,12 +67,16 @@ function(
       domStyle.set(this.btnClearGraphics, 'display', (this.drawConfig.hasClearButton) ? 'block' : 'none');
       domStyle.set(this.btnSaveGraphics, 'display', (this.drawConfig.hasSaveButton) ? 'block' : 'none');
 
+      if (this.container === 'none') {
+        domClass.add(this.titleContainer, 'hidden');
+        domClass.add(this.msgContainer, 'hidden');
+      }
+
       // add draw widget
       this.toolbar = new Draw(this.map);
 
       // add graphics layer
       this.graphics = new GraphicsLayer({
-        id: 'drawGraphics',
         title:'Draw Graphics'
       });
       this.map.addLayer(this.graphics);
@@ -121,7 +126,7 @@ function(
       topic.publish('/map/click/off');
 
       if (tool === 'POINT') {
-          domClass.add(this.btnDrawPoint, 'is-active');
+        domClass.add(this.btnDrawPoint, 'is-active');
       }
       //domClass.remove(this.msgContainer, 'hidden');
       //domClass.add(this.drawContainer, 'hidden');
@@ -185,15 +190,15 @@ function(
     },
 
     show: function() {
-        query('.js-draw').removeClass('is-hidden');
+      query('.js-draw').removeClass('is-hidden');
     },
 
     hide: function() {
-        query('.js-draw').addClass('is-hidden');
+      query('.js-draw').addClass('is-hidden');
     },
 
     _close: function() {
-        topic.publish('/DrawTool/close', this);
+      topic.publish('/DrawTool/close', this);
     }
 
   });
