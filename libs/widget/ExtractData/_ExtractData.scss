@@ -1,13 +1,21 @@
-.extract-data {
-    top: 0;
-    left: 50px;
-    min-width: 340px;
+.exract-tool__container {
+    top: -6px;
+    left: 46px;
+    min-width: 246px;
     padding: 0;
-    background: #FFF;
-    z-index: 50;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
+
+    @include respond('xs') {
+        min-width: 400px;
+    }
+
+    @include respond('sm') {
+        top: 0;
+        left: 50px;
+    }
+}
+
+.extract-data {
+
 
     .info-panel {
         margin: 5px;
@@ -51,9 +59,24 @@
     color: $white;
     font-size: 18px;
     padding: 5px 0;
+}
 
-    @include respond('xs') {
+.extract-data__options {
+    display: table;
+    width: 100%;
+    padding: 10px;
+
+    .gis_DrawDijit {
         display: table-cell;
-        width: 60%;
+        vertical-align: middle;
     }
+}
+
+.extract-data__options-item {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.extract-data__layer-toggle {
+    float: right;
 }

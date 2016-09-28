@@ -1,3 +1,4 @@
+
 define([
 
   // core dojo packages
@@ -37,8 +38,6 @@ define([
   'esri/IdentityManager',
   'esri/tasks/GeometryService',
   'esri/config',
-  // 'esri/dijit/Print',
-  // 'esri/tasks/PrintTemplate',
 
   'dojo/i18n!./nls/Strings'
 
@@ -60,28 +59,33 @@ define([
       // instantiate the Geometry Service
       esriConfig.defaults.geometryService = new GeometryService(appConfig.services.geometry);
 
-      // If app has loading screen then
+      // Or just load the app (using ArcGIS Server config)
       this._startMap();
       this._attachTopics();
     },
 
+    _initLogin: function() {
+      this.loginPage = new Login({
+        controller: this
+      }, 'loginContainer');
+
+      domClass.replace(dom.byId('loadingOuter'), 'splash-login', 'splash-loading');
+      this.loginPage.startup();
+    },
+
     _startMap: function() {
-      // initialize the map
-      this.mapController = MapController.createMap('map', mapConfig);
-      this.mapController.then(lang.hitch(this, function(mapObj) {
-        // attach the map related topics to the mapObject
-        MapController.initTopics(mapObj);
-        // now that the map is loaded we can initialize the widgets that rely on the map
-        this._initWidgets(mapObj);
-      }));
+        // initialize the map
+        this.mapController = MapController.createMap('map', mapConfig);
+        this.mapController.then(lang.hitch(this, function(mapObj) {
+          // attach the map related topics to the mapObject
+          MapController.initTopics(mapObj);
+          // now that the map is loaded we can initialize the widgets that rely on the map
+          this._initWidgets(mapObj);
+        }));
     },
 
     _initWidgets: function(map) {
       console.log('initWidgets called');
-
-      on(map, 'layers-add-result', function() {
-        //topic.publish('/map/zoom/extent', this, map.extent);
-      });
 
       this.navigation = new Navigation({
         map: map
@@ -115,7 +119,6 @@ define([
       }, 'infoPanelContainer');
 
       topic.subscribe('/UnifiedSearch/result/clicked', lang.hitch(this, function(sender, args) {
-        //console.log('opening info panel');
         var layerId = args.layerId;
         var selectedFeature = args.obj;
         this.infoPanel.showDetails(layerId, selectedFeature);
@@ -124,12 +127,10 @@ define([
       }));
 
       topic.subscribe('/UnifiedSearch/clear/clicked', lang.hitch(this, function(sender, args) {
-        //console.debug('hiding info panel');
         this.infoPanel.hidePanel();
       }));
 
       topic.subscribe('/InfoPanel/clear', lang.hitch(this, function(sender, args) {
-        //console.debug('clear info panel');
         this.infoPanel.clear();
       }));
 
@@ -139,9 +140,10 @@ define([
       this.measurement.startup();
 
       this.extractData = new ExtractData({
-        map: map,
-        config: widgetConfig.extractData
+         map: map,
+         config: widgetConfig.extractData
       }, 'extractContainer');
+      this.extractData.startup();
 
       // InfoWindow Controller
       this.infoWindowController = new InfoWindowController({
@@ -168,12 +170,14 @@ define([
         });
         this.search.startup();
         topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
-          if (!this.measurement.isActiveTool()) {
-            //console.debug('no measure tool detected');
-            this.search.mapClickEvent(args.event.target);
-            // TODO turning this off for now (Reverse Geocode Search)
-            //this.search.searchMapPoint(args.event.mapPoint);
-          }
+            //console.debug('the map was clicked yo!', args);
+
+            if (!this.measurement.isActiveTool()) {
+                //console.debug('no measure tool detected');
+                this.search.mapClickEvent(args.event.target);
+                // TODO turning this off for now (Reverse Geocode Search)
+                //this.search.searchMapPoint(args.event.mapPoint);
+            }
         }));
 
         topic.subscribe('/ToolList/selected', lang.hitch(this, function(sender, args) {
@@ -189,11 +193,13 @@ define([
         topic.subscribe('/ToolList/unselectTool', lang.hitch(this, function(sender, args) {
           this.search.show();
           if (args.type === 'draw') {
-            this.drawTool.hide();
+              this.drawTool.hide();
           } else if (args.type === 'measure') {
-            this.measurement.hide();
+              this.measurement.hide();
           } else if (args.type === 'print') {
-            this.printer.hide();
+              this.printer.hide();
+          } else if (args.type === 'extract') {
+              this.extractData.hide();
           }
         }));
 
@@ -204,7 +210,7 @@ define([
           this.drawTool.hide();
           this.navigation.clearToolList();
         }));
-        
+
       }
 
       // finally remove the loading screen
@@ -246,33 +252,25 @@ define([
       }));
 
       topic.subscribe('/ToolList/tool', lang.hitch(this, function(sender, args) {
-        this.infoPanel.hidePanel();
-        if (args.type === 'draw') {
-          this.drawTool.show();
-        } else if (args.type === 'measure') {
-          //console.debug('the measure tool was clicked');
-          this.measurement.show();
-        } else if (args.type === 'print') {
-          this.printer.show();
-        }
+          this.infoPanel.hidePanel();
+          if (args.type === 'draw') {
+              this.drawTool.show();
+          } else if (args.type === 'measure') {
+              this.measurement.show();
+          } else if (args.type === 'print') {
+              this.printer.show();
+          } else if (args.type === 'extract') {
+              this.extractData.show();
+          }
       }));
 
       topic.subscribe('/InfoPanel/print', lang.hitch(this, function(sender, args) {
-        this.infoPanel.hidePanel();
-        this.navigation.toolList.handleToolSelect(args.type);
+          this.infoPanel.hidePanel();
+          this.navigation.toolList.handleToolSelect(args.type);
       }));
 
       topic.subscribe('/Legend/show', lang.hitch(this, function(sender, args) {
-        this.legend.showAndOpen();
-      }));
-
-      // loading indicator disabled for now since it is almost not needed, map is too fast
-      topic.subscribe('/MapLoading/show', lang.hitch(this, function() {
-        domClass.remove(dom.byId('mapLoadingIndicator'), 'hidden');
-      }));
-
-      topic.subscribe('/MapLoading/hide', lang.hitch(this, function() {
-        domClass.add(dom.byId('mapLoadingIndicator'), 'hidden');
+          this.legend.showAndOpen();
       }));
 
     }

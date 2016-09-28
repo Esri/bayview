@@ -25,6 +25,7 @@ define([
   'esri/tasks/Geoprocessor',
   'esri/tasks/FeatureSet',
   'esri/graphic',
+  'esri/domUtils',
 
   'dojo/text!./ExtractData/ExtractData.html'
 ],
@@ -35,7 +36,7 @@ function(
   lang, connect, topic, parser, query, on, domStyle, domClass, domAttr, domConstruct, registry,
   DrawTool, LayerItem,
   layerUtils,
-  Geoprocessor, FeatureSet, Graphic,
+  Geoprocessor, FeatureSet, Graphic, domUtils,
   template
 ) {
 
@@ -57,7 +58,7 @@ function(
       if (this.map) {
         // hookup the draw tools
         var drawConfig = lang.mixin(this.config.parameters.areaOfInterest.drawOptions, {
-            container: 'none'
+            container: 'extract'
           });
         this.drawTool = new DrawTool({
           map: this.map,
@@ -87,7 +88,16 @@ function(
     },
 
     startup: function() {
-      console.log('ExtractData tool loaded.');
+      //console.log('ExtractData tool loaded.');
+
+      // Start the tool hidden
+      this.hide();
+
+      this.own(on(this.closeBtn, 'click', lang.hitch(this, function() {
+          //this.clearResult();
+          //this.setTool(null);
+          this.hide();
+      })));
     },
 
     _populateLayers: function(results) {
@@ -237,6 +247,18 @@ function(
       var isLayersOpen = false;
       this._toggleLayers(isLayersOpen);
       this.AOI = null;
+    },
+
+    show: function () {
+      domUtils.show(this.domNode);
+    },
+
+    hide: function () {
+      domUtils.hide(this.domNode);
+      this.drawTool._clearGraphics();
+      topic.publish('/ToolList/unselected', this, {
+          type: null
+      });
     }
 
   });

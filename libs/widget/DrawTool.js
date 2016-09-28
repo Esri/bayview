@@ -67,7 +67,7 @@ function(
       domStyle.set(this.btnClearGraphics, 'display', (this.drawConfig.hasClearButton) ? 'block' : 'none');
       domStyle.set(this.btnSaveGraphics, 'display', (this.drawConfig.hasSaveButton) ? 'block' : 'none');
 
-      if (this.container === 'none') {
+      if (this.container === 'extract') {
         domClass.add(this.titleContainer, 'hidden');
         domClass.add(this.msgContainer, 'hidden');
       }

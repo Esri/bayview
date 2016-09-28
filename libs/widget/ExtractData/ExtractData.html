@@ -1,20 +1,19 @@
-<div class="extract-data mdl-shadow--2dp">
+<div class="extract-data">
 
     <div class="extract-data__title">
         <i class="material-icons draw-tool__icon" data-dojo-attach-point="closeBtn">chevron_left</i>
         <span class="print-tool__sub-title">Extract Data</span>
     </div>
 
-    <div>
-        <span>Select area: </span><div data-dojo-attach-point="drawToolContainer"></div>
+    <div class="extract-data__options">
+        <span class="extract-data__options-item">Select area: </span><div class="extract-data__options-item" data-dojo-attach-point="drawToolContainer"></div>
 
-        <!-- Raised button with ripple -->
-        <button data-dojo-attach-point="btnExtract" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Extract</button>
+        <button data-dojo-attach-point="btnExtract" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect extract-data__options-item">Extract</button>
     </div>
 
     <div data-dojo-attach-point="infoPanelContainer" class="info-panel">
       <span data-dojo-attach-point="countLayers">-</span> layers selected
-      <a data-dojo-attach-point="layersToggle" href="#"></a>
+      <a data-dojo-attach-point="layersToggle" class="extract-data__layer-toggle" href="#"></a>
     </div>
 
     <div data-dojo-attach-point="messagePanelContainer" class="message-panel">
