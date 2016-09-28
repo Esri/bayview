@@ -132,7 +132,7 @@ define(
         }));
 
         topic.subscribe('/map/zoom/extent', lang.hitch(this, function(sender, args) {
-          var wkid = (args.wkid) ? parseInt(args.wkid, 10) : map.spatialReference.wkid;
+          var wkid = (args.wkid) ? parseInt(args.wkid, 10) : (args.spatialReference && args.spatialReference.wkid) ? args.spatialReference.wkid : map.spatialReference.wkid;
           var extent = new Extent(parseFloat(args.xmin), parseFloat(args.ymin), parseFloat(args.xmax), parseFloat(args.ymax), new SpatialReference({
             wkid: wkid
           }));
@@ -358,7 +358,6 @@ define(
             }
 
             console.log(this._mapDivId + ': /map/loaded');
-
             topic.publish('/map/loaded', this, {});
           },
 
@@ -505,7 +504,7 @@ define(
             };
 
             hideLoading = function() {
-              topic.publish('/MapLoading/hide');
+              //topic.publish('/MapLoading/hide');
             };
 
             selectionChange = function(e) {

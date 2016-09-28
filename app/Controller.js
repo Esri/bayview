@@ -79,6 +79,10 @@ define([
     _initWidgets: function(map) {
       console.log('initWidgets called');
 
+      on(map, 'layers-add-result', function() {
+        //topic.publish('/map/zoom/extent', this, map.extent);
+      });
+
       this.navigation = new Navigation({
         map: map
       }, 'navigation');
@@ -200,6 +204,7 @@ define([
           this.drawTool.hide();
           this.navigation.clearToolList();
         }));
+        
       }
 
       // finally remove the loading screen

@@ -50,8 +50,8 @@ function(
       return this.checkbox.checked;
     },
 
-    getName: function() {
-      return this.layer.name;
+    getLayerId: function() {
+      return this.layer.id;
     }
 
   });

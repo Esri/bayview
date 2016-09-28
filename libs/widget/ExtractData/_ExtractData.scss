@@ -1,7 +1,7 @@
 .extract-data {
-    top: -6px;
-    left: 46px;
-    min-width: 246px;
+    top: 0;
+    left: 50px;
+    min-width: 340px;
     padding: 0;
     background: #FFF;
     z-index: 50;
@@ -9,20 +9,51 @@
     display: flex;
     flex-direction: column;
 
-    @include respond('xs') {
-        min-width: 400px;
+    .info-panel {
+        margin: 5px;
+        margin: 10px;
+        font-size: 16px;
     }
 
-    @include respond('sm') {
-        top: 0;
-        left: 50px;
+    .message-panel {
+        font-size: 16px;
+        padding: 10px;
+        background: lighten($brand-primary, 60%);
     }
 
-    &.is-hidden {
-        display: none;
+    .results-panel {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .layers-panel {
+        font-size: 16px;
+        padding: 10px;
+        overflow-y: auto;
+        height: 300px;
+    }
+
+    .item {
+      display: flex;
+    }
+
+    .label {
+        font-size: 15px;
+        margin: 2px 5px;
     }
 }
 
 .extract-data__title {
-    vertical-align: text-bottom;
+    display: block;
+    width: 100%;
+    vertical-align: middle;
+    background: $brand-primary;
+    color: $white;
+    font-size: 18px;
+    padding: 5px 0;
+
+    @include respond('xs') {
+        display: table-cell;
+        width: 60%;
+    }
 }
