@@ -1,7 +1,15 @@
 .w-navigation__title {
-    padding: 20px;
+    padding: 20px 20px 20px 75px;
     background: $brand-primary;
     color: $white;
+}
+
+.w-navigation__logo {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    height: 100%;
+    width: 50px;
 }
 
 .w-navigation__close-wrap {
