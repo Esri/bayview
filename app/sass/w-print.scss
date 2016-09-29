@@ -47,3 +47,8 @@
     vertical-align: middle;
     padding: 0 15px;
 }
+
+.dijitMenuItemSelected td,
+.dijitMenuItemSelected {
+    background: $blue;
+}

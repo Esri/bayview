@@ -118,18 +118,6 @@ define([
         config: widgetConfig.infoPanel
       }, 'infoPanelContainer');
 
-      topic.subscribe('/UnifiedSearch/result/clicked', lang.hitch(this, function(sender, args) {
-        var layerId = args.layerId;
-        var selectedFeature = args.obj;
-        this.infoPanel.showDetails(layerId, selectedFeature);
-        // TODO: show the panel
-        this.infoPanel.showPanel();
-      }));
-
-      topic.subscribe('/UnifiedSearch/clear/clicked', lang.hitch(this, function(sender, args) {
-        this.infoPanel.hidePanel();
-      }));
-
       this.measurement = new Measure({
         map: map
       }, 'measureContainer');
@@ -165,11 +153,37 @@ define([
           map: map
         });
         this.search.startup();
-        topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
-            //console.debug('the map was clicked yo!', args);
 
+      }
+
+      // finally remove the loading screen
+      this._clearLoadingScreen();
+    },
+
+    _clearLoadingScreen: function() {
+      domClass.replace(dom.byId('loadingOuter'), 'splash-finished', ['splash-loading', 'splash-login']);
+      setTimeout(function() {
+        domClass.add(dom.byId('loadingOuter'), 'hidden');
+      }, (has('ie') <= '9' ? 0 : 1000));
+
+      console.log('+++ all started +++');
+    },
+
+    _attachTopics: function() {
+
+        topic.subscribe('/UnifiedSearch/result/clicked', lang.hitch(this, function(sender, args) {
+          var layerId = args.layerId;
+          var selectedFeature = args.obj;
+          this.infoPanel.showDetails(layerId, selectedFeature);
+          this.infoPanel.showPanel();
+        }));
+
+        topic.subscribe('/UnifiedSearch/clear/clicked', lang.hitch(this, function(sender, args) {
+          this.infoPanel.hidePanel();
+        }));
+
+        topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
             if (!this.measurement.isActiveTool()) {
-                //console.debug('no measure tool detected');
                 this.search.mapClickEvent(args.event.target);
                 // TODO turning this off for now (Reverse Geocode Search)
                 //this.search.searchMapPoint(args.event.mapPoint);
@@ -192,6 +206,8 @@ define([
               this.drawTool.hide();
           } else if (args.type === 'measure') {
               this.measurement.hide();
+              this.measurement.clearResult();
+              this.measurement.setTool(null);
           } else if (args.type === 'print') {
               this.printer.hide();
           } else if (args.type === 'extract') {
@@ -207,22 +223,6 @@ define([
           this.navigation.clearToolList();
         }));
 
-      }
-
-      // finally remove the loading screen
-      this._clearLoadingScreen();
-    },
-
-    _clearLoadingScreen: function() {
-      domClass.replace(dom.byId('loadingOuter'), 'splash-finished', ['splash-loading', 'splash-login']);
-      setTimeout(function() {
-        domClass.add(dom.byId('loadingOuter'), 'hidden');
-      }, (has('ie') <= '9' ? 0 : 1000));
-
-      console.log('+++ all started +++');
-    },
-
-    _attachTopics: function() {
       topic.subscribe('/BasemapToggle/changed', lang.hitch(this, function(sender, args) {
         console.log('toggled to basemap: ', args.newBasemap);
       }));

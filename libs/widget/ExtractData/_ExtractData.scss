@@ -62,9 +62,13 @@
 }
 
 .extract-data__options {
-    display: table;
-    width: 100%;
+    display: block;
+    width: 92%;
     padding: 10px;
+
+    @include respond('xs') {
+        display: table;
+    }
 
     .gis_DrawDijit {
         display: table-cell;
@@ -72,9 +76,18 @@
     }
 }
 
-.extract-data__options-item {
+.extract-data__options-item,
+.extract-data__options-btn {
     display: table-cell;
     vertical-align: middle;
+}
+
+.extract-data__options-btn {
+    width: 100%;
+
+    @include respond('xs') {
+        width: auto;
+    }
 }
 
 .extract-data__layer-toggle {

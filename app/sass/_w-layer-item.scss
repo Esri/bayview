@@ -9,3 +9,8 @@
 .w-layer-item__label {
     padding-left: 5px;
 }
+
+.dijitCheckBoxChecked {
+    background-color: $blue;
+    border: 1px solid lighten($blue, 5%);
+}
