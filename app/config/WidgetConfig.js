@@ -864,17 +864,10 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       ],
       locators: [
         {
-          id: 'world_geocoder',
-          url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer', // http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Locators
+          id: 'bc_geocoder',
+          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
           minScore: 80,
-          countryCode: 'US',
-          maxLocations: 3
-        },
-        {
-          id: 'us_geocoder',
-          url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Locators/ESRI_Geocode_USA/GeocodeServer',
-          minScore: 80,
-          maxLocations: 3
+          maxLocations: 5
         }
       ]
     },

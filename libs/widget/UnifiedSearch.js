@@ -37,6 +37,7 @@ function(
 
     constructor: function(options) {
       this.inherited(arguments);
+      this.selectedLayerId = '';
       this.postCreate(options);
     },
 
@@ -191,6 +192,7 @@ function(
 
       this.lsView.on('locateme', lang.hitch(this, this._locateMeClicked));
       this.lsView.on('clear', lang.hitch(this, this._clearClicked));
+      this.lsView.on('back', lang.hitch(this, this._backClicked));
     },
 
     _locateMeClicked: function() {
@@ -207,6 +209,11 @@ function(
       // TODO is there a better place for this?
       // Clear the map marker as well
       topic.publish('/map/clear/simplemarker', this, {});
+    },
+
+    _backClicked: function() {
+      console.log('back button clicked');
+      topic.publish(this.toolPrefix + '/back/clicked', this, {});
     },
 
     zoomToLocation: function(location) {
@@ -432,18 +439,27 @@ function(
     },
 
     mapClickEvent: function(target) {
-        if (target.e_graphic) {
-            target = target.e_graphic;
+      if (target.e_graphic) {
+        target = target.e_graphic;
 
-            var resultObj = {
-                oid: target.attributes.OBJECTID,
-                lyr: target._layer.id
-            }
-            console.debug('map click intercept', resultObj);
-
-            topic.publish('/InfoPanel/clear', this);
-            this.handleResultSelection(resultObj, false);
+        var resultObj = {
+          oid: target.attributes.OBJECTID,
+          lyr: target._layer.id
         }
+        console.debug('map click intercept', resultObj);
+
+        var label = target._layer.name || 'Map Feature'
+        label += ' info';
+        this.handleFeatureClick(label);
+        topic.publish('/InfoPanel/clear', this);
+        this.handleResultSelection(resultObj, false);
+      }
+    },
+
+    layerVisibilityChanged: function(args) {
+      if (!args.isChecked && args.layerId === this.selectedLayerId) {
+        this.lsView.clear();
+      }
     },
 
     /**
@@ -459,19 +475,19 @@ function(
       if (resultObj.oid && resultObj.oid !== '' && resultObj.oid !== 'null') {
         // if there is an oid then we have a feature
         // clear the search panel to make room for the info panel
-        this.lsView.clearResults();
+        //this.lsView.clearResults();
+        this.lsView.hideResultsNode();
+        this.lsView.restoreLoadingIcon();
 
         // Run a query on the features OID and LayerID to get the feature data
         var hasValidFeature = false;
-
-
-            console.debug('entering query loop');
         var query = new Query();
         query.objectIds = [parseInt(resultObj.oid)];
         query.outFields = [ "*" ];
         var selectedFeatureLyr = this.map._layers[resultObj.lyr];
 
-        var featureQuery = selectedFeatureLyr.queryFeatures(query, lang.hitch(this, function(featureSet) {
+        if (!_.isUndefined(selectedFeatureLyr)) {
+          var featureQuery = selectedFeatureLyr.queryFeatures(query, lang.hitch(this, function(featureSet) {
             // Format the feature data a little
             //console.debug('handleResultSelection query', featureSet, query);
             var featureObj = {
@@ -494,6 +510,8 @@ function(
             // Add marker graphics to show the feature location
             topic.publish('/map/add/simplemarker', this, featureObj.feature);
 
+            this.selectedLayerId = resultObj.lyr;
+
             // Send the signal to open the info panel for the selected feature
             topic.publish('/UnifiedSearch/result/clicked', this,
               {
@@ -502,7 +520,12 @@ function(
               }
             );
 
-        }));
+          }));
+        } else if (resultObj.extent) {
+          topic.publish('/map/zoom/extent', this, resultObj.extent);
+        } else {
+          console.log('UnifiedSearch result clicked but didn\'t know how to handle.');
+        }
 
       } else {
         if (resultObj.oid !== '') {
@@ -638,8 +661,9 @@ function(
         this.lsView.show();
     },
 
-    handleFeatureClick: function() {
-        this.lsView.showClearBtn();
+    handleFeatureClick: function(label) {
+      this.lsView.setInputValue(label);
+      this.lsView.showClearBtn();
     }
 
   });

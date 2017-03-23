@@ -46,15 +46,12 @@ function(
     },
 
     _buildList: function() {
-
-        _.each(this.config.groups, lang.hitch(this, function(group, index) {
-
-            new LayerGroup({
-                map: this.map,
-                group: group
-            }).placeAt(this.parentListNode);
-
-        }));
+      _.each(this.config.groups, lang.hitch(this, function(group, index) {
+        new LayerGroup({
+          map: this.map,
+          group: group
+        }).placeAt(this.parentListNode);
+      }));
     }
 
   });

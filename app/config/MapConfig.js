@@ -3,28 +3,18 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     map: {
       options: {
-        // default basemap
-        basemap: 'streets',// 'streets', 'satellite', 'hybrid', 'topo', 'gray', 'oceans', 'national-geographic', 'osm', 'dark-gray'
-
-        // if center & zoom are not defined then extent as defined in "initialExtent" below is being used
-        //center: [-122.45,37.77],
-        //zoom: 12,
-
-        scrollWheelZoom: false,
-
-        // navigation
+        basemap: 'streets',
+        scrollWheelZoom: true,
         slider: true,
         sliderStyle: 'small',  // "small" or "large"
         sliderPosition: 'bottom-left', // "top-left", "top-right", "bottom-left", "bottom-right"
         sliderOrientation: 'vertical', // "vertical" or "horizontal"
         sliderLabels: ['Street', 'County', 'State', 'Nation', 'World'], // Only valid when the "large" slider style option is true.
-
         nav: false, // hasPanControls
         fadeOnZoom: true,
         showLabels: true,
         showAttribution: false,
         logo: true,
-
         smartNavigation: false, // needs to be false in responsive mode
         autoResize: false // needs to be false in responsive mode
       }
@@ -32,24 +22,14 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // initialExtent: extent the the map starts at. Helper tool: http://psstl.esri.com/apps/extenthelper/ or http://davidspriggs.github.io/js-extent-helper/extentHelper/
     initialExtent: {
-        'xmin':-9606605.714878388,
-        'ymin':3498798.940898446,
-        'xmax':-9478191.507359464,
-        'ymax':3568509.5106944325,
+      'xmin':-9606605.714878388,
+      'ymin':3498798.940898446,
+      'xmax':-9478191.507359464,
+      'ymax':3568509.5106944325,
       spatialReference: {
         'wkid': 102100
       }
     },
-
-    // initialExtent: {
-    //     'xmin':1515958.125430211,
-    //     'ymin':420810.3591215486,
-    //     'xmax':1630194.236541322,
-    //     'ymax':467598.553565993,
-    //   spatialReference: {
-    //     'wkid': 102660
-    //   }
-    // },
 
     agsPortal: {
       isEnabled: false,
@@ -89,43 +69,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       position: 'bottom-left', // 'top-right','bottom-right','top-center','bottom-center','bottom-left','top-left'
       style: 'line', // ruler' or 'line' --- When unit is set to dual the scalebar style will be set to line. As of version 3.4
       unit: 'dual' // 'english' or 'metric' and starting at version 3.4 'dual'
-    },
-
-    homeButton: {
-      isEnabled: false
-    },
-
-    placemarksTool: {
-      isEnabled: false,
-      useStateFaceIcons: true,
-      placemarks: [{
-        label: 'US',
-        icon: '',
-        extent: {
-          xmin: -14213618.283681434,
-          ymin: 2090676.0058292607,
-          xmax: -7448024.036105711,
-          ymax: 7525654.465016988
-        }
-      }, {
-        label: 'HI',
-        icon: '',
-        extent: {
-          xmin: -17878620.915898174,
-          ymin: 2064381.6680991163,
-          xmax: -17190687.661331624,
-          ymax: 2614728.271752358
-        }
-      }, {
-        label: 'AK',
-        icon: '',
-        extent: {
-          xmin: -20722384.116219025,
-          ymin: 6520354.66901062,
-          xmax: -13956789.868643302,
-          ymax: 11955333.128198348
-        }
-      }]
     },
 
     layerList: {
@@ -251,6 +194,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           infoWindow: {
             isEnabled: true,
             outFields: ['*'],
+            showLabels: true,
             title: 'Future Land Use',
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;

@@ -164,7 +164,7 @@ define([
               //}
             }
 
-            if (geom && geom.type === 'polygon') {
+            if (geom && (geom.type === 'polygon' || geom.type === 'polyline')) {
               map.setExtent(geom.getExtent().expand(1.5));
             } else if (geom && geom.type === 'point') {
               var centerAndZoom = map.centerAndZoom(geom, map.getMaxZoom() - 2);
