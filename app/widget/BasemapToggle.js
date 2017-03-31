@@ -51,10 +51,10 @@ function(
         domClass.toggle(this.basemapContainer, 'is-selected');
         // Update text
         if (domClass.contains(this.basemapContainer, 'is-selected')) {
-            this.map.setBasemap(this.config.basemaps[1].basemap);
-            this.basemapName.innerHTML = 'Satallite View';
-        } else {
             this.map.setBasemap(this.config.basemaps[0].basemap);
+            this.basemapName.innerHTML = 'Satellite View';
+        } else {
+            this.map.setBasemap(this.config.basemaps[1].basemap);
             this.basemapName.innerHTML = 'Streets View';
         }
 

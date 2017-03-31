@@ -14,13 +14,16 @@ define([
 
     'core/queryUtils',
 
-    './UnifiedSearch/UnifiedSearchView'],
+    './UnifiedSearch/UnifiedSearchView',
+
+    '.././app/config/WidgetConfig'],
 
 function(
   declare, lang, dojoAll, topic, JSON,
   QT, Query, Locator, Point, Extent, webMercatorUtils,
   queryUtils,
-  LSView)
+  LSView,
+  WidgetConfig)
 {
 
   return declare([], {
@@ -34,6 +37,8 @@ function(
     toolPrefix: null,
 
     currentSearch: null,
+
+    searchExtent: null,
 
     constructor: function(options) {
       this.inherited(arguments);
@@ -57,10 +62,14 @@ function(
       this.toolPrefix = '/' + options.toolPrefix || '/UnifiedSearch';
 
       this.searchConfig = options.searchConfig;
+      this.infoConfig = WidgetConfig.infoPanel;
 
       if (_.isObject(options.portalSearchConfig)) {
         this.mixinPortalSearchConfig(options.portalSearchConfig);
       }
+
+      // Set the initial search extent
+      this.searchExtent = this.map.extent;
 
       // initialize the view object
       this.lsView = new LSView({
@@ -334,7 +343,7 @@ function(
       var executeObj = Object.create(null);
 
       // first add the locators
-      if (this.searchConfig.locators && this.searchConfig.locators.length > 0) {
+      if (this.searchConfig.geocode.isEnabled && this.searchConfig.locators && this.searchConfig.locators.length > 0) {
         _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
           var loc = new Locator(locator.url);
           loc.setOutSpatialReference(this.map.spatialReference);
@@ -344,7 +353,9 @@ function(
           var params = {
             address: address,
             outFields: ['*'],
-            maxLocations: locator.maxLocations
+            maxLocations: locator.maxLocations,
+            //TODO experiments
+            searchExtent: this.searchExtent
           };
           if (locator.countryCode) {
             params.countryCode = locator.countryCode;
@@ -439,9 +450,22 @@ function(
     },
 
     mapClickEvent: function(target) {
+      function titleCase (str) {  
+        if ((str===null) || (str===''))
+             return false;
+        else
+         str = str.toString();
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      }
       if (target.e_graphic) {
         target = target.e_graphic;
-
+        layer = target._layer.id
+        this.infoConfig[layer].infos.forEach( function(field, index) {
+            console.log(field);
+            if (field.hasOwnProperty('substitutions')) {
+                target.attributes[field.field] = titleCase(field.substitutions[target.attributes[field.field]])
+            }
+        });
         var resultObj = {
           oid: target.attributes.OBJECTID,
           lyr: target._layer.id
@@ -471,8 +495,20 @@ function(
       //console.debug('handleResultSelection', resultObj, zoomTo);
       //console.debug('handleResultSelection');
 
+      var geocoder = this.searchConfig.locators[0].id;
+
+      if (resultObj.lyr === geocoder) {
+          topic.publish('/map/zoom/extent', this, JSON.parse(resultObj.extent));
+          topic.publish(this.toolPrefix + '/result/clicked', this,
+          {
+            layerId: resultObj.lyr,
+            obj: JSON.parse(resultObj.obj)
+          }
+        );
+        this.lsView.clear();
+      }
       // Check if there is an oid
-      if (resultObj.oid && resultObj.oid !== '' && resultObj.oid !== 'null') {
+      else if (resultObj.oid && resultObj.oid !== '' && resultObj.oid !== 'null') {
         // if there is an oid then we have a feature
         // clear the search panel to make room for the info panel
         //this.lsView.clearResults();

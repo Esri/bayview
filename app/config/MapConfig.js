@@ -129,33 +129,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.NAME;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-road',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
-        options: {
-          id: 'parcels',
-          title: 'Parcels',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Parcels',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
-            iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
         },
@@ -175,9 +149,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -199,9 +170,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -222,9 +190,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -245,9 +210,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -268,9 +230,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -291,9 +250,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -314,9 +270,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -337,9 +290,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -360,9 +310,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -383,9 +330,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -406,9 +350,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -429,9 +370,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -452,9 +390,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -475,9 +410,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -498,9 +430,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -521,9 +450,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -544,9 +470,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -567,9 +490,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -590,9 +510,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -600,7 +517,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/21',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/22',
         options: {
           id: 'serviceareas',
           title: 'Service Areas',
@@ -613,9 +530,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tint',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -636,9 +550,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-sun-o',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -659,9 +570,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-sun-o',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -682,9 +590,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.NAME;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-book',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -705,9 +610,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.NAME;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-book',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -728,9 +630,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.NAME;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-graduation-cap',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
@@ -751,13 +650,30 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             headerFunction: function(attrs) {
               return '' + attrs.NAME;
             },
-            //contentFunction: function(attrs) {
-            //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-            //},
             iconClass: 'fa fa-tree',
             widget: '' // use 'DefaultInfoWindow' or define your own
           }
         }
+    },
+      {
+        type: 'Feature Layer',
+        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
+        options: {
+          id: 'parcels',
+          title: 'Parcels',
+          opacity: 1,
+          visible: true,
+          infoWindow: {
+            isEnabled: true,
+            outFields: ['*'],
+            title: 'Parcels',
+            headerFunction: function(attrs) {
+              return '' + attrs.ADDRESS;
+            },
+            iconClass: 'fa fa-tint',
+            widget: '' // use 'DefaultInfoWindow' or define your own
+          }
+        },
       }
     ]
   };

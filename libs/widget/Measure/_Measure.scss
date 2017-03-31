@@ -5,7 +5,8 @@
     padding: 0;
 
     @include respond('xs') {
-        min-width: 400px;
+        min-width: 300px;
+        // min-width: 430px;
     }
 
     @include respond('sm') {
@@ -15,6 +16,13 @@
 
     &.is-hidden {
         display: none;
+    }
+
+    .clearIcon {
+        background-image: url('../../libs/widget/DrawTool/images/clear.png');
+        width: 16px;
+        height: 16px;
+        margin: auto;
     }
 }
 
@@ -30,20 +38,24 @@
 .measure-tool__title {
     display: block;
     width: 100%;
-    vertical-align: middle;
+    height: 33px;
+    // vertical-align: middle;
     background: $brand-primary;
     color: $white;
     font-size: 18px;
     padding: 5px 0;
 
-    @include respond('xs') {
-        display: table-cell;
-        width: 40%;
-    }
+    // @include respond('xs') {
+    //     display: table-cell;
+    //     width: 40%;
+    //     // width: 25%;
+    // }
 }
 
 .measure-tool__sub-title {
-    vertical-align: text-bottom;
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+    padding: 0 20px;
 }
 
 .measure-tool__btn-container {
@@ -51,6 +63,7 @@
     width: 60%;
     padding: 0 10px;
     vertical-align: middle;
+    text-align: center;
 }
 
 
@@ -80,6 +93,7 @@
 
 .material-icons {
     &.draw-tool__icon {
+        float: right;
         margin: 0 10px;
         padding-bottom: 2px;
         vertical-align: middle;

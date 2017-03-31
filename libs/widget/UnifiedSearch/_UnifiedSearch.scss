@@ -153,7 +153,7 @@
   }
 
   @include respond('xs') {
-        width: inherit;;
+        width: 422px;
   }
 
   @include respond('md') {

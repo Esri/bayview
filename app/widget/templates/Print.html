@@ -1,8 +1,52 @@
 <div class="print-tool">
 
     <div class="print-tool__title">
-        <i class="material-icons draw-tool__icon" data-dojo-attach-point="closeBtn">chevron_left</i>
         <span class="print-tool__sub-title">Print</span>
+        <i class="material-icons draw-tool__icon" data-dojo-attach-point="closeBtn">clear</i>
+    </div>
+
+    <form class="print-tool__form">
+        <div class="mdl-textfield mdl-js-textfield" data-dojo-attach-point="printTitleLabel">
+            <input class="mdl-textfield__input" type="text" id="printTitle" data-dojo-attach-point="printTitle">
+            <label class="mdl-textfield__label" for="printTitle">Title</label>
+        </div>
+
+        <div class="print-tool__layout-label">
+            Page Layout
+        </div>
+
+        <div class="print-tool__layout-label">
+            <!-- Left aligned menu below button -->
+            <div id="pageLayout" class="mdl-button mdl-js-button mdl-js-ripple-effect">
+                <span data-dojo-attach-point="layoutLabel">Landscape</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </div>
+
+            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="pageLayout">
+                <li class="mdl-menu__item" data-dojo-attach-point="portrait">Portrait</li>
+                <li class="mdl-menu__item" data-dojo-attach-point="landscape">Landscape</li>
+            </ul>
+        </div>
+
+        <div class="print-tool__loading is-hidden" data-dojo-attach-point="printLoading">
+            <span class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></span>
+            <span class="print-tool__loading-label">loading printout</span>
+        </div>
+
+        <div class="print-tool__submit">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dojo-attach-point="printSubmit">
+                Print
+            </button>
+        </div>
+    </form>
+
+    <div class="print-tool__result is-hidden" data-dojo-attach-point="printResultContainer">
+        <a href="#" target="_blank" data-dojo-attach-point="printResult">View Printout</a>
+    </div>
+
+    <div class="print-tool__error is-hidden" data-dojo-attach-point="printErrorContainer">
+        <i class="material-icons">report_problem</i>
+        <span>An error occurred, please try again.</span>
     </div>
 
 </div>

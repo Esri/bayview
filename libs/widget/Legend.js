@@ -117,18 +117,18 @@ function(
           domClass.toggle(this.mdlDownBtn, 'is-hidden');
           domClass.toggle(this.mdlUpBtn, 'is-hidden');
 
-          console.debug('from the layer panel', this.map);
+        //   console.debug('from the layer panel', this.map);
           query('.dijitTitlePaneContentOuter', this.domNode).style('height', (this.map.height - 100) + 'px');
       }));
 
     },
 
     startup: function() {
-      console.log('EsriLegend started');
+    //   console.log('EsriLegend started');
     },
 
     updateLegend: function() {
-      console.log('updateLegend');
+    //   console.log('updateLegend');
       //Get the map layers
       var mapLayers = this.esriMap.map.getLayersVisibleAtScale();
 
