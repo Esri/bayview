@@ -24,6 +24,7 @@
   "dijit/registry",
   "dijit/Menu",
   "dijit/MenuItem",
+  'dijit/Tooltip',
 
   "esri/symbols/PictureMarkerSymbol",
   "esri/symbols/SimpleLineSymbol",
@@ -66,7 +67,7 @@
 ], function (
   require, declare, lang, array, connect, Color,
   debounce, has, domStyle, domClass, domConstruct, topic, on, gfx,
-  _Widget, registry, Menu, MenuItem,
+  _Widget, registry, Menu, MenuItem, Tooltip,
   PictureMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, symbolJsonUtils,
   geodesicUtils, webMercatorUtils, Point, Polyline, Polygon, Graphic,
   AreasAndLengthsParameters, LengthsParameters, GeometryService,
@@ -397,6 +398,8 @@
         }
       }
 
+      this._addTooltips();
+
       // Start the tool hidden
       this.hide();
       this.own(on(this.closeBtn, 'click', lang.hitch(this, function() {
@@ -592,6 +595,26 @@
     //  Private Methods
     //
     //--------------------------------------------------------------------------
+    _addTooltips: function() {
+      new Tooltip({
+        connectId: [this._areaButton],
+        label: 'Area',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this._distanceButton],
+        label: 'Distance',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this._locationButton],
+        label: 'Location',
+        position: ['below'],
+        showDelay: 0
+      });
+    },
 
     //--------------------------------------------------------------------------
     //

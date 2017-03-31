@@ -74,6 +74,8 @@ define([
         showDetails: function(layerId, selectedFeature) {
             // from the layerId get the infos
             this.layerConfig = this.config[layerId];
+            this.analysisConfig = this.config.analysis;
+            // console.debug('analysis config', this.analysisConfig);
             this.selectedFeature = selectedFeature;
             //console.debug('selected feature info', this.layerConfig.infos);
             if (this.layerConfig) {
@@ -135,7 +137,7 @@ define([
             domConstruct.empty(this.analysisContainer);
 
             // Check if buffer is valid
-            var bufferStatus = this.layerConfig.analysis.buffer;
+            var bufferStatus = this.analysisConfig.buffer;
             if (bufferStatus) {
 
                 // Check if the geometry is a POLYGON
@@ -149,12 +151,12 @@ define([
                 var circle = new Circle({
                     //center: this.selectedFeature.geometry,
                     center: centerPoint,
-                    //radius: this.layerConfig.analysis.buffer.radius[0],
+                    //radius: this.analysisConfig.buffer.radius[0],
                     radius: radius,
-                    radiusUnit: this.layerConfig.analysis.buffer.radiusUnit
+                    radiusUnit: this.analysisConfig.buffer.radiusUnit
                 });
                 var bufferObj = Object.create(null);
-                _.each(this.layerConfig.analysis.buffer.layers, lang.hitch(this, function(layer) {
+                _.each(this.analysisConfig.buffer.layers, lang.hitch(this, function(layer) {
                     var query = queryUtils.createQuery({
                       //outFields: [layer.field],
                       returnGeometry: false,
@@ -166,7 +168,7 @@ define([
                 deferredAll(bufferObj).then(lang.hitch(this, function(results) {
                     //console.log('buffer results', results);
                     // get the config
-                    _.each(this.layerConfig.analysis.buffer.layers, lang.hitch(this, function(layer) {
+                    _.each(this.analysisConfig.buffer.layers, lang.hitch(this, function(layer) {
                         // create the output
                         InfoBox({
                             label: layer.label,
@@ -183,7 +185,7 @@ define([
                 // THIS ONLY WORKS IF FEATURELAYER IS VISIBLE
                 var query = new Query();
                 query.geometry = circle.getExtent();
-                var layerInfo = layerUtils.getLayerInfo(this.map, this.layerConfig.analysis.buffer[0].id);
+                var layerInfo = layerUtils.getLayerInfo(this.map, this.analysisConfig.buffer[0].id);
                 layerInfo.layer.queryFeatures(query, lang.hitch(this, function(results) {
                     var inBuffer = [];
                     _.each(results.features, lang.hitch(this, function(feature) {
@@ -201,16 +203,19 @@ define([
 
             // Layers
             var layersObj = Object.create(null);
-            _.each(this.layerConfig.analysis.layers, lang.hitch(this, function(layer) {
+            _.each(this.analysisConfig.layers, lang.hitch(this, function(layer) {
                 var query = queryUtils.createQuery({
+                  where: '1=1',
                   outFields: [layer.field],
                   outSpatialReference: this.map.spatialReference,
                   returnGeometry: false,
                   geometry: this.selectedFeature.geometry
                 });
                 var layerInfo = layerUtils.getLayerInfo(this.map, layer.id);
+                //console.debug('layer query id', layer.id, query);
                 layersObj[layer.id] = queryUtils.createQueryTaskExecute(layerInfo.url, query);
             }));
+            //console.debug('layer query obj', layersObj);
             deferredAll(layersObj).then(lang.hitch(this, function(results) {
                 // TODO: remove the loading
                 this.resultsObject = results;
@@ -220,7 +225,7 @@ define([
                 //domClass.remove(this.bufferContainer, 'is-hidden');
                 //domClass.remove(this.bufferOptions, 'is-hidden');
                 // get the config
-                _.each(this.layerConfig.analysis.layers, lang.hitch(this, function(layer) {
+                _.each(this.analysisConfig.layers, lang.hitch(this, function(layer) {
                     var result = results[layer.id];
 
                     if (result && result.features && result.features.length > 0) {
@@ -232,12 +237,13 @@ define([
                     }
                 }));
                 this._toggleButtons(this.layerConfig, radius);
-            }), function(error) {
+            }), lang.hitch(this, function(results) {
                 // TODO: remove the loading & show some sort of error message
-                console.log('error in analysis');
-                this.resultsObject = null;
-                this._toggleButtons(this.layerConfig, radius);
-            });
+                //console.log('error in analysis');
+                this._stopLoader(bufferStatus);
+                // this.resultsObject = null;
+                // this._toggleButtons(this.layerConfig, radius);
+            }));
         },
 
         _btnPrintClicked: function() {
@@ -334,7 +340,7 @@ define([
                             newline;
             }));
 
-            _.each(this.layerConfig.analysis.layers, lang.hitch(this, function(layer, index) {
+            _.each(this.analysisConfig.layers, lang.hitch(this, function(layer, index) {
                 var result = this.resultsObject[layer.id];
 
                 if (result && result.features && result.features.length > 0) {

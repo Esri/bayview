@@ -5,7 +5,7 @@
     padding: 0;
 
     @include respond('xs') {
-        min-width: 400px;
+        min-width: 267px;
     }
 
     @include respond('sm') {
@@ -19,7 +19,9 @@
 }
 
 .draw-tool__title {
-    vertical-align: text-bottom;
+    vertical-align: middle;
+    vertical-align: -webkit-baseline-middle;
+    padding: 0 20px;
 }
 
 .draw__point {
@@ -33,16 +35,17 @@
   .title {
       display: block;
       width: 100%;
-      vertical-align: middle;
+      height: 33px;
+    //   vertical-align: middle;
       background: $brand-primary;
       color: $white;
       font-size: 18px;
       padding: 5px 0;
 
-      @include respond('xs') {
-          display: table-cell;
-          width: 25%;
-      }
+    //   @include respond('xs') {
+    //       display: table-cell;
+    //       width: 25%;
+    //   }
   }
 
   .messageContainer {
@@ -51,16 +54,11 @@
   }
 
   .drawToolsContainer {
-      display: block;
+      display: table-cell;
       width: 100%;
-      padding: 0 10px;
+      padding: 10px;
       vertical-align: middle;
-
-      @include respond('xs') {
-          display: table-cell;
-          width: 60%;
-      }
-
+      
     button {
       min-width: 0;
     }
@@ -74,41 +72,41 @@
     }
 
     .polyIcon {
-        background-image: url('/libs/widget/DrawTool/images/toolbar_icons.png');
+        background-image: url('../../libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -68px 0;
         width: 16px;
         height: 16px;
     }
 
     .pointIcon {
-        background-image: url('/libs/widget/DrawTool/images/toolbar_icons.png');
+        background-image: url('../../libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: 0px 0;
         width: 16px;
         height: 16px;
     }
 
     .lineIcon {
-        background-image: url('/libs/widget/DrawTool/images/toolbar_icons.png');
+        background-image: url('../../libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -34px 0;
         width: 16px;
         height: 16px;
     }
 
     .clearIcon {
-        background-image: url('/libs/widget/DrawTool/images/clear.png');
+        background-image: url('../../libs/widget/DrawTool/images/clear.png');
         width: 16px;
         height: 16px;
     }
 
     .lassoIcon {
-        background-image: url('/libs/widget/DrawTool/images/toolbar_icons.png');
+        background-image: url('../../libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -102px 0;
         width: 16px;
         height: 16px;
     }
 
     .rectangleIcon {
-        background-image: url('/libs/widget/DrawTool/images/toolbar_icons.png');
+        background-image: url('../../libs/widget/DrawTool/images/toolbar_icons.png');
         background-position: -340px 0;
         width: 16px;
         height: 16px;
@@ -118,8 +116,9 @@
 
     .material-icons {
         &.draw-tool__icon {
+            float: right;
             margin: 0 10px;
-            padding-bottom: 2px;
+            // padding-bottom: 2px;
             vertical-align: middle;
             font-size: 32px;
             transition: background ease-in-out 0.3s;

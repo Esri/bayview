@@ -5,6 +5,7 @@ define([
   'dijit/_WidgetsInTemplateMixin',
 
   'dijit/form/Button',
+  'dijit/Tooltip',
   'dojo/_base/lang',
   'dojo/_base/Color',
   'dojo/_base/connect',
@@ -26,7 +27,7 @@ define([
 
 function(
   declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin,
-  Button, lang, Color, connect, on, domStyle, domClass, query, topic, Evented,
+  Button, Tooltip, lang, Color, connect, on, domStyle, domClass, query, topic, Evented,
   Draw, Graphic, GraphicsLayer, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, drawTemplate) {
 
   // main draw dijit
@@ -44,6 +45,7 @@ function(
     },
 
     startup: function() {
+        this._addTooltips();
     },
 
     _initDrawTool: function() {
@@ -199,7 +201,40 @@ function(
 
     _close: function() {
       topic.publish('/DrawTool/close', this);
-    }
+    },
+
+    _addTooltips: function() {
+      new Tooltip({
+        connectId: [this.btnDrawPoint],
+        label: 'Point',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this.btnDrawLine],
+        label: 'Line',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this.btnDrawPolygon],
+        label: 'Polygon',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this.btnDrawFreehandPolygon],
+        label: 'Freehand Polygon',
+        position: ['below'],
+        showDelay: 0
+      });
+      new Tooltip({
+        connectId: [this.btnClearGraphics],
+        label: 'Clear',
+        position: ['below'],
+        showDelay: 0
+      });
+    },
 
   });
 });

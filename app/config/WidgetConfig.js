@@ -1,16 +1,11 @@
 define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
   return {
 
-    basemapGallery: {
-      isEnabled: true,
-      useCustomBasemaps: true,
-      customBasemaps: ['streets', 'satellite', 'hybrid', 'gray', 'dark']
-    },
-
     coordinates: {
       isEnabled: true
     },
 
+    // LEGEND //
     legend: {
       isEnabled: true,
       title: 'Legend',
@@ -20,12 +15,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       includeLayerIds: ['beachaccess', 'boatramps', 'libraries', 'parks', 'recycling', 'schools', 'addresses', 'roads', 'hydrants', 'parcels', 'CommunityRedevAgencies',
        'CountyCommissionerDistricts', 'easements', 'municipalboundaries', 'futurelanduse', 'PlannedUnitDevelopments', 'serviceareas', 'soils', 'zoning', 'femacobraopa',
        'femafirmindex', 'femafloodways', 'FEMAfloodzones', 'onefootcontours', 'StormSurge', 'wetlands', 'CoastalHighHazardArea', 'EcosystemManagementAreas', 'evacuationzones']
-      // leave empty if all  // ignored if Portal
     },
 
+    // DRAW TOOL //
     drawTool: {
       tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
-      symbology: { // http://resources.arcgis.com/en/help/rest/apiref/index.html?renderer.html
+      symbology: {
         point: {
           'type': 'esriSMS',
           'style': 'esriSMSCircle', // esriSMSCircle | esriSMSCross | esriSMSDiamond | esriSMSSquare | esriSMSX | esriSMSTriangle
@@ -61,6 +56,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       hasClearButton: true
     },
 
+    // EXTRACT DATA TOOL //
     'extractData': {
       'taskUrl': 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/ExtractDataTask/GPServer/Extract%20Data%20Task',
       'parameters': {
@@ -135,222 +131,195 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       }
     },
 
+    // LAYER LIST //
+    // part of the Navigation side panel
     layerList: {
       groups: [
         {
+          // Layer List Group
           name: 'Points of Interest',
-          isSelected: false,
           icon: 'turned_in_not',
           layers: [
               {
+                // Layer
                 name: 'Beach Access',
                 id: 'beachaccess',
-                isSelected: false,
-                url: ''
+                isSelected: false, // this will determine if the layer is on by default
               },
             {
               name: 'Boat Ramps',
               id: 'boatramps',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Libraries',
               id: 'libraries',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Parks',
               id: 'parks',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Recycling',
               id: 'recycling',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Schools',
               id: 'schools',
               isSelected: false,
-              url: ''
             }
           ]
       },
         {
           name: 'Parcels & Community',
-          isSelected: false,
           icon: 'store',
           layers: [
               {
                 name: 'Addresses',
                 id: 'addresses',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'Community Redev Agencies',
                 id: 'CommunityRedevAgencies',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'County Commissioner Districts',
                 id: 'CountyCommissionerDistricts',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'Easements',
                 id: 'easements',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'Municipal Boundaries',
                 id: 'municipalboundaries',
                 isSelected: false,
-                url: ''
               },
             {
               name: 'Parcels',
               id: 'parcels',
-              isSelected: false,
-              url: ''
+              isSelected: true,
             }
           ]
       },
       {
         name: 'Roads & Highways',
         isSelected: false,
-        icon: 'traffic',
+        icon: 'directions_car',
         layers: [
             {
               name: 'Roads',
               id: 'roads',
               isSelected: false,
-              url: ''
             }
         ]
       },
       {
         name: 'Land Use & Zoning',
-        isSelected: false,
         icon: 'terrain',
         layers: [
-
             {
               name: 'Future Land Use',
               id: 'futurelanduse',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Planned Unit Development',
               id: 'PlannedUnitDevelopments',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Service Areas',
               id: 'serviceareas',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Soils',
               id: 'soils',
               isSelected: false,
-              url: ''
             },
             {
               name: 'Zoning',
               id: 'zoning',
               isSelected: false,
-              url: ''
             }
         ]
       },
       {
           name: 'Flood & Coastal',
-          isSelected: false,
           icon: 'pool',
           layers: [
               {
                 name: 'FEMA COBRA & OPA',
                 id: 'femacobraopa',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'FEMA FIRM Index',
                 id: 'femafirmindex',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'FEMA Floodways',
                 id: 'femafloodways',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'FEMA Flood Zones',
                 id: 'FEMAfloodzones',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'One Foot Contours',
                 id: 'onefootcontours',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'Storm Surge',
                 id: 'StormSurge',
                 isSelected: false,
-                url: ''
               },
               {
                 name: 'Wetlands',
                 id: 'wetlands',
                 isSelected: false,
-                url: ''
               }
           ]
       },
       {
         name: 'Hazards & Impacts',
-        isSelected: false,
         icon: 'report',
         layers: [
             {
               name: 'Coastal High Hazard Area',
               id: 'CoastalHighHazardArea',
               isSelected: false,
-              url: ''
+
             },
             {
               name: 'Ecosystem Management Areas',
               id: 'EcosystemManagementAreas',
               isSelected: false,
-              url: ''
+
             },
             {
               name: 'Evacuation Zones',
               id: 'evacuationzones',
               isSelected: false,
-              url: ''
+
           },
             {
               name: 'Hydrants',
               id: 'hydrants',
               isSelected: false,
-              url: ''
+
             }
         ]
       },
@@ -358,6 +327,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       ]
     },
 
+    // BASEMAP TOGGLE //
     basemapToggle: {
       basemaps: [
         {
@@ -371,9 +341,11 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       ]
     },
 
+    // SEARCH BAR //
+    // this section will configure the search output
     unifiedSearch: {
       isEnabled: true,
-      placeholder: 'Find parcels, addresses, or roads...',
+      placeholder: 'Search for parcels, addresses, or roads...',
       searchDelay: 400,
       zoomToFeature: true, // zoom to the feature after selecting it
       showInfoWindow: true, // show info window after zooming to feature,
@@ -385,7 +357,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         },
         distance: 500
       },
-      tables: [
+      tables: [ // Search results table
           {
             url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
             idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
@@ -429,15 +401,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['FULL_NAME'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-road',
               priority: 2
             },
@@ -458,19 +421,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
-
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.A1RENUM + ' (' + attrs.DSITEADDR + ')';
               },
-            //   labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-            //     return attrs.pocname + ' (' + attrs.opsstatus + ')';
-            //   },
-              /*
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-map-marker',
               priority: 0
             },
@@ -491,18 +444,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['FLU_CODE'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.OBJECTID + ' (' + attrs.FLU_CODE + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-pencil-square-o',
               priority: 3
             },
@@ -523,18 +467,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['ZONING'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.OBJECTID + ' (' + attrs.ZONING + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-flag-o',
               priority: 4
             },
@@ -555,18 +490,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['OWNER'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.OBJECTID + ' (' + attrs.OWNER + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-balance-scale',
               priority: 5
             },
@@ -587,18 +513,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['FLD_ZONE'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.OBJECTID + ' (' + attrs.FLD_ZONE + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-tint',
               priority: 6
             },
@@ -619,18 +536,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['FIRM_PAN'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
-            //   labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-            //     return attrs.OBJECTID + ' (' + attrs.FIRM_PAN + ')';
-            //   },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-tint',
               priority: 7
             },
@@ -651,18 +556,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['NUM'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
-            //   labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-            //     return attrs.OBJECTID + ' (' + attrs.FIRM_PAN + ')';
-            //   },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-life-ring',
               priority: 8
             },
@@ -683,18 +576,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['NAME'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.NAME + ' (' + attrs.ADDRESS + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-ship',
               priority: 9
             },
@@ -715,18 +599,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['NAME'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.NAME + ' (' + attrs.ADDRESS + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-book',
               priority: 10
             },
@@ -747,18 +622,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['Name'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.Name + ' (' + attrs.Address + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-recycle',
               priority: 11
             },
@@ -779,18 +645,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['NAME'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.NAME + ' (' + attrs.FULLADDR + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-school',
               priority: 12
             },
@@ -811,18 +668,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['NAME'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.NAME + ' (' + attrs.ADDRESS + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-tree',
               priority: 13
             },
@@ -843,18 +691,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             results: {
               labelFields: ['SOILDESC'],
-              // comment out to use the label field instead (only first field in the array of labelFields will be used)
               labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.OBJECTID + ' (' + attrs.SOILDESC + ')';
               },
-              /*
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.pocname + ' (' + attrs.opsstatus + ')';
-              },
-              iconClassFunction: function(attrs) {
-                return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-              },
-              */
               iconClass: 'fa fa-bullseye',
               priority: 14
             },
@@ -862,40 +701,37 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           }
         }
       ],
-      locators: [
+      locators: [  // geocode locators is enabled at the begining of this section - geocode: { isEnabled: true }
         {
-          id: 'world_geocoder',
-          url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer', // http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Locators
+          id: 'global_geocoder',
+          url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
           minScore: 80,
           countryCode: 'US',
-          maxLocations: 3
-        },
-        {
-          id: 'us_geocoder',
-          url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Locators/ESRI_Geocode_USA/GeocodeServer',
-          minScore: 80,
-          maxLocations: 3
+          maxLocations: 3,
+          extent: {
+              'xmin':-9606605.714878388,
+              'ymin':3498798.940898446,
+              'xmax':-9478191.507359464,
+              'ymax':3568509.5106944325,
+            spatialReference: {
+              'wkid': 102100
+            }
+          }
         }
       ]
     },
 
+    // SEARCH INFO PANEL //
+    // this section will configure the displayed data on a selected search result
     infoPanel: {
-      'addresses': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'ADDRESS',
-            'label': 'Address'
-          }
-        ],
+        // Area Analysis config
         'analysis': {
+            // Buffer config
           'buffer': {
             'radius': [1, 3, 5],
             'radiusUnit': 'esriMiles',
             'radiusUnitLabel': 'miles',
+            // layers that are search within buffer
             'layers': [
               {
                 'id': 'schools',
@@ -919,6 +755,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
               }
             ]
           },
+          // related layers
           'layers': [
             {
               'id': 'CountyCommissionerDistricts',
@@ -947,16 +784,28 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             {
                 'id': 'serviceareas',
-                'field': 'OBJECTID',
+                'field': 'SERVICE',
                 'label': 'Service Area'
             },
             {
                 'id': 'soils',
-                'field': 'SOILTYPE',
+                'field': 'SOILDESC',
                 'label': 'Soil'
             }
           ]
-        }
+      },
+      // Configure each layers output details here
+      'addresses': { // layer ID
+        'hasDetails': false, // Enables the details button
+        'hasAnalyzeButton': true, // Enables the Analyze Surrounding Area button
+        'hasPrint': true, // Enables the Print button
+        'hasExportData': true, // Enables the Export Data button
+        'infos': [
+          {
+            'field': 'ADDRESS', // The data field from the map server
+            'label': 'Address' //the desired label for the data field
+          }
+        ]
       },
       'roads': {
         'hasDetails': false,
@@ -976,47 +825,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'SURFACE',
             'label': 'Surface Type'
           }
-        ],
-        'analysis': {
-          'buffer': false,
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'FLD_ZONE',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'FLU_CODE',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'parcels': {
         'hasDetails': true,
@@ -1044,73 +853,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'DORAPPDESC',
             'label': 'Current Use'
           },
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'FLD_ZONE',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'FLU_CODE',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'futurelanduse': {
         'hasDetails': false,
@@ -1120,7 +863,17 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'infos': [
           {
             'field': 'SUB_FLU',
-            'label': 'Government'
+            'label': 'Government',
+            'substitutions': {
+                1: 'Bay County',
+                2: 'Callaway',
+                3: 'Lynn Haven',
+                4: 'Mexico Beach',
+                5: 'Panama City',
+                6: 'Panama City Beach',
+                7: 'Parker',
+                8: 'Springfield'
+            }
           },
           {
             'field': 'FLU_CODE',
@@ -1130,73 +883,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'ORD_NUM',
             'label': 'Ordinance'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'FLD_ZONE',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'zoning': {
         'hasDetails': false,
@@ -1206,7 +893,17 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'infos': [
           {
             'field': 'SUB_ZONING',
-            'label': 'Government'
+            'label': 'Government',
+            'substitutions': {
+                1: 'Bay County',
+                2: 'Callaway',
+                3: 'Lynn Haven',
+                4: 'Mexico Beach',
+                5: 'Panama City',
+                6: 'Panama City Beach',
+                7: 'Parker',
+                8: 'Springfield'
+            }
           },
           {
             'field': 'ZONING',
@@ -1216,73 +913,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'ORD_NUM',
             'label': 'Ordinance'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'FLD_ZONE',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'easements': {
         'hasDetails': false,
@@ -1292,11 +923,38 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'infos': [
           {
             'field': 'OWNER',
-            'label': 'Owner'
+            'label': 'Owner',
+            'substitutions': {
+            	'BAY': 'Bay County',
+            	'BCSB': 'Bay County School Board',
+            	'CAL': 'Callaway',
+            	'FDEP': 'Florida Dept of Env Protection',
+            	'FDOT': 'Florida Dept of Transportation',
+            	'FL': 'State of Florida',
+            	'HOA': "Home Owner's Association",
+            	'LYN': 'Lynn Haven',
+            	'MEX': 'Mexico Beach',
+            	'OTH': 'Other',
+            	'PC': 'Panama City',
+            	'PCB': 'Panama City Beach',
+            	'PKR': 'Parker',
+            	'PRV': 'Private',
+            	'SPR': 'Springfield',
+            	'UTLCO': 'Private Utility Company'
+            }
           },
           {
             'field': 'SOURCE_TYP',
-            'label': 'Source'
+            'label': 'Source',
+            'substitutions': {
+                'CON': 'CONTRACT',
+                'DB': 'DEED BOOK',
+                'FD': 'FDOT MAPS',
+                'ON': 'ORDINANCE',
+                'OR': 'OFFICIAL RECORDS BOOK',
+                'PB': 'PLAT BOOK',
+                'RB': 'RESOLUTION BOOK'
+            }
           },
           {
             'field': 'BOOK',
@@ -1308,75 +966,27 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           },
           {
             'field': 'CATEGORY',
-            'label': 'Category'
-          }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'FLD_ZONE',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
+            'label': 'Category',
+            'substitutions': {
+            	'ABD': 'ABANDONMENT',
+            	'ACS': 'ACCESS',
+            	'CON': 'CONSERVATION',
+            	'DRG': 'DRAINAGE',
+            	'EST': 'EASEMENT',
+            	'ETC': 'ELECTIRC',
+            	'GAS': 'GAS',
+            	'LSE': 'LEASE',
+            	'MTC': 'MAINTENANCE CLAIM',
+            	'OTH': 'OTHER',
+            	'ROW': 'ROAD RIGHT OF WAY',
+            	'RRD': 'RAILROAD',
+            	'SAR': 'ST ANDREWS BAY ROW',
+            	'SWR': 'SEWER',
+            	'UTL': 'UTILITY',
+            	'WTR': 'WATER'
             }
-          ]
-        }
+          }
+        ]
       },
       'FEMAfloodzones': {
         'hasDetails': false,
@@ -1388,73 +998,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'FLD_ZONE',
             'label': 'Flood Zone'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'beachaccess': {
         'hasDetails': false,
@@ -1466,73 +1010,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'NUM',
             'label': 'Access Number'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'femafirmindex': {
         'hasDetails': false,
@@ -1544,73 +1022,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'FIRM_PAN',
             'label': 'Map Panel'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'boatramps': {
         'hasDetails': false,
@@ -1626,73 +1038,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'ADMINISTRA',
             'label': 'Manager'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'libraries': {
         'hasDetails': false,
@@ -1704,73 +1050,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'NAME',
             'label': 'Name'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'recycling': {
         'hasDetails': false,
@@ -1790,73 +1070,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'OperatingH',
             'label': 'Hours'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'schools': {
         'hasDetails': false,
@@ -1868,73 +1082,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'NAME',
             'label': 'Name'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'parks': {
         'hasDetails': false,
@@ -1950,73 +1098,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'ADMINISTRA',
             'label': 'Owner'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       },
       'soils': {
         'hasDetails': false,
@@ -2028,73 +1110,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'field': 'SOILDESC',
             'label': 'Description'
           }
-        ],
-        'analysis': {
-          'buffer': {
-            'radius': [1, 3, 5],
-            'radiusUnit': 'esriMiles',
-            'radiusUnitLabel': 'miles',
-            'layers': [
-              {
-                'id': 'schools',
-                'label': 'Schools'
-              },
-              {
-                'id': 'libraries',
-                'label': 'Libraries'
-              },
-              {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
-                'id': 'parks',
-                'label': 'Parks'
-              },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
-            ]
-          },
-          'layers': [
-            {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
-            },
-            {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
-            },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'OBJECTID',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'SUB_FLU',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'OBJECTID',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILTYPE',
-                'label': 'Soil'
-            }
-          ]
-        }
+        ]
       }
 
     }

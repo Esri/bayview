@@ -62,8 +62,12 @@ define([
                     }
                 }))
             );
-
-            this.layer.setVisibility(false);
+            // Check if the layer should be on by default
+            if (!this.params.layer.isSelected) {
+                this.layer.setVisibility(false);
+            } else {
+                this.checkbox.set('checked', true);
+            }
         },
 
         startup: function() {

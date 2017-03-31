@@ -25,6 +25,7 @@
         position: absolute;
         top: 9px;
         right: 5px;
+        pointer-events: none;
 
         &.is-hidden {
             display: none;

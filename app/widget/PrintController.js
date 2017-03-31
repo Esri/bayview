@@ -16,9 +16,13 @@ define([
     'dojo/topic',
     'dojo/dom-style',
     'dojo/dom-class',
+    'dojo/dom-attr',
     'dijit/registry',
     'esri/dijit/Print',
     'esri/tasks/PrintTemplate',
+    'esri/tasks/PrintParameters',
+    'esri/tasks/PrintTask',
+
     'esri/tasks/LegendLayer',
     "esri/domUtils",
 
@@ -30,7 +34,7 @@ define([
   function(
     declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
     Evented,
-    lang, connect, parser, query, on, topic, domStyle, domClass, registry, Print, PrintTemplate, LegendLayer, domUtils,
+    lang, connect, parser, query, on, topic, domStyle, domClass, domAttr, registry, Print, PrintTemplate, PrintParameters, PrintTask, LegendLayer, domUtils,
     widgetConfig,
     template
   ) {
@@ -46,43 +50,48 @@ define([
 
         postCreate: function() {
             this.inherited(arguments);
-            // console.debug('Print post create', this);
 
-            // var legendLayer = new LegendLayer();
-            // legendLayer.layerId = "futurelanduse";
-            // legendLayer.subLayerIds = [0, 5];
+            var template = new PrintTemplate();
+            template.format = "PDF";
+            template.layout = "Letter ANSI A Landscape";
+            template.layoutOptions = {
+                titleText: ""
+            }
 
-            // var template = new PrintTemplate();
-            // template.layout = 'Letter ANSI A Landscape';
-            // template.layoutOptions = {
-            //     legendLayers: [legendLayer]
-            // };
+            var url = 'http://gis.baycountyfl.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task';
+            this.printTask = new PrintTask(url);
+            this.printParams = new PrintParameters();
+            this.printParams.map = this.map;
+            this.printParams.template = template;
 
-            this.print = new Print({
-                map: this.map,
-                url: "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export Web Map Task",
-                templates: [
-                    {
-                      label: "Landscape",
-                      format: "PDF",
-                      layout: "Letter ANSI A Landscape",
-                      layoutOptions: {
-                          titleText: "Bay County GIS"
-                        //legendLayers: [legendLayer]
-                      }
-                    },
-                    {
-                      label: "Portrait",
-                      format: "PDF",
-                      layout: "Letter ANSI A Portrait",
-                      layoutOptions: {
-                          titleText: "Bay County GIS"
-                        //legendLayers: [legendLayer]
-                      }
-                    }
-                ]
-            }, 'printContainer');
-            this.print.startup();
+            this.own(
+                on(this.printSubmit, 'click', lang.hitch(this, function(e) {
+                    e.preventDefault();
+                    domClass.add(this.printErrorContainer, 'is-hidden');
+                    domClass.remove(this.printLoading, 'is-hidden');
+                    this.printParams.template.layoutOptions.titleText = this.printTitle.value;
+                    domClass.add(this.printResultContainer, 'is-hidden');
+
+                    this.printTask.execute(this.printParams, lang.hitch(this, function(evt) {
+                        domClass.add(this.printLoading, 'is-hidden');
+                        domClass.remove(this.printResultContainer, 'is-hidden');
+                        // console.debug(this, evt);
+                        domAttr.set(this.printResult, 'href', evt.url);
+                    }), lang.hitch(this, function(evt) {
+                        domClass.add(this.printLoading, 'is-hidden');
+                        domClass.remove(this.printErrorContainer, 'is-hidden');
+                        console.error('Print ERROR');
+                    }));
+                })),
+                on(this.portrait, 'click', lang.hitch(this, function() {
+                    this.layoutLabel.innerHTML = "Portrait";
+                    this.printParams.template.layout = "Letter ANSI A Portrait";
+                })),
+                on(this.landscape, 'click', lang.hitch(this, function() {
+                    this.layoutLabel.innerHTML = "Landscape";
+                    this.printParams.template.layout = "Letter ANSI A Landscape";
+                }))
+            );
         },
 
         startup: function() {
@@ -100,6 +109,9 @@ define([
 
         hide: function () {
             domUtils.hide(this.domNode);
+            domClass.add(this.printResultContainer, 'is-hidden');
+            this.printTitle.value = "";
+            domClass.remove(this.printTitleLabel, 'is-dirty');
             topic.publish('/ToolList/unselected', this, {
                 type: null
             });
