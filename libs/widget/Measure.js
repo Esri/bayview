@@ -403,9 +403,12 @@
       // Start the tool hidden
       this.hide();
       this.own(on(this.closeBtn, 'click', lang.hitch(this, function() {
-          this.clearResult();
           this.setTool(null);
           this.hide();
+      })));
+
+      this.own(on(this.btnClear, 'click', lang.hitch(this, function() {
+        this.clearResult();
       })));
     },
 

@@ -397,9 +397,10 @@ define([
             layer: layerObject,
             url: layerObject.url,
             id: layerObject.id
-              //title: layerObject.options.title || null,
-              //options: layerObject.options
           };
+          if (!_.isUndefined(layerObject._params.title)) {
+            layerInfo.title = layerObject._params.title;
+          }
         }
 
         return layerInfo;

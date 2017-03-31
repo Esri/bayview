@@ -60,8 +60,8 @@
 
 .measure-tool__btn-container {
     display: table-cell;
-    width: 50%;
-    padding: 10px;
+    width: 60%;
+    padding: 0 10px;
     vertical-align: middle;
     text-align: center;
 }
@@ -73,9 +73,19 @@
     height: 16px;
 }
 
+.clearIcon {
+    background-image: url('/libs/widget/DrawTool/images/clear.png');
+    width: 16px;
+    height: 16px;
+        margin: 0 8px;
+}
+
 .measure__areaBtn,
 .measure__distBtn,
-.measure__locBtn {
+.measure__locBtn,
+.measure__clearBtn {
+  padding:  0 8px;
+  min-width: 48px;
     &.is-active {
         background-color: rgba(158,158,158,.2);
     }

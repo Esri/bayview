@@ -35,49 +35,46 @@ define([
 
     return declare([WidgetBase, TemplatedMixin, WidgetsInTemplateMixin, Evented], {
 
-        templateString: template,
-        widgetsInTemplate: true,
+      templateString: template,
+      widgetsInTemplate: true,
 
-        constructor: function() {
-        },
+      constructor: function() {},
 
-        postCreate: function() {
-            this.inherited(arguments);
+      postCreate: function() {
+        this.inherited(arguments);
 
-            this.label.innerHTML = this.layer.name;
-            this.layer = this.map.getLayer(this.layer.id);
+        this.label.innerHTML = this.layer.name;
+        this.layer = this.map.getLayer(this.layer.id);
 
-            this.own(
-                on(this.checkbox, 'change', lang.hitch(this, function(isChecked) {
-                    if (isChecked) {
-                        this.layer.setVisibility(true);
-                        this.emit('layer-click', {
-                            active: true
-                        });
-                    } else {
-                        this.layer.setVisibility(false);
-                        this.emit('layer-click', {
-                            active: false
-                        });
-                    }
-                }))
-            );
-            // Check if the layer should be on by default
-            if (!this.params.layer.isSelected) {
-                this.layer.setVisibility(false);
+        this.own(
+          on(this.checkbox, 'change', lang.hitch(this, function(isChecked) {
+            topic.publish('/layerlist/layer/clicked', this, {
+              layerId: this.layer.id,
+              isChecked: isChecked
+            });
+            if (isChecked) {
+              this.layer.setVisibility(true);
+              this.emit('layer-click', {
+                active: true
+              });
             } else {
-                this.checkbox.set('checked', true);
+              this.layer.setVisibility(false);
+              this.emit('layer-click', {
+                active: false
+              });
             }
-        },
+          }))
+        );
 
-        startup: function() {
+        this.layer.setVisibility(false);
+      },
 
-        },
+      startup: function() {},
 
-        setVisibility: function(isVisible) {
-            // TODO: only turn on when checkbox is checked
-            this.layer.setVisibility(isVisible);
-        }
+      setVisibility: function(isVisible) {
+        // TODO: only turn on when checkbox is checked
+        this.layer.setVisibility(isVisible);
+      }
 
     });
   });

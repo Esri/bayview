@@ -3,24 +3,18 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     map: {
       options: {
-        // default basemap
-        basemap: 'streets',// 'streets', 'satellite', 'hybrid', 'topo', 'gray', 'oceans', 'national-geographic', 'osm', 'dark-gray'
-
+        basemap: 'streets',
         scrollWheelZoom: true,
-
-        // navigation
         slider: true,
         sliderStyle: 'small',  // "small" or "large"
         sliderPosition: 'bottom-left', // "top-left", "top-right", "bottom-left", "bottom-right"
         sliderOrientation: 'vertical', // "vertical" or "horizontal"
         sliderLabels: ['Street', 'County', 'State', 'Nation', 'World'], // Only valid when the "large" slider style option is true.
-
         nav: false, // hasPanControls
         fadeOnZoom: true,
         showLabels: true,
         showAttribution: false,
         logo: true,
-
         smartNavigation: false, // needs to be false in responsive mode
         autoResize: false // needs to be false in responsive mode
       }
@@ -28,12 +22,24 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // initialExtent: extent the the map starts at. Helper tool: http://psstl.esri.com/apps/extenthelper/ or http://davidspriggs.github.io/js-extent-helper/extentHelper/
     initialExtent: {
-        'xmin':-9606605.714878388,
-        'ymin':3498798.940898446,
-        'xmax':-9478191.507359464,
-        'ymax':3568509.5106944325,
+      'xmin':-9606605.714878388,
+      'ymin':3498798.940898446,
+      'xmax':-9478191.507359464,
+      'ymax':3568509.5106944325,
       spatialReference: {
         'wkid': 102100
+      }
+    },
+
+    agsPortal: {
+      isEnabled: false,
+      appId: 'GVI6HH3sKAutXQuG',
+      portalUrl: 'http://prof-services.maps.arcgis.com/',
+      popup: false,
+      webmapId: 'cb5efa6f0ef242369b3bc3e2d1f0d32f',
+      options: {
+        autoRecenter: false, // needs to be false in responsive mode
+        responsiveResize: false // needs to be false in responsive mode
       }
     },
 
@@ -65,8 +71,17 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       unit: 'dual' // 'english' or 'metric' and starting at version 3.4 'dual'
     },
 
-    homeButton: {
-      isEnabled: false
+    layerList: {
+      isEnabled: false,
+      canToggleOpacity: true,
+      canAddOnlineLayer: false,
+      canAddShapefile: false,
+      canShowLayerInfo: true,
+      structure: {
+        title: '', // if title is empty, no title is shown; otherwise show the title
+        hasDynamicList: false, // if true then the layer list is generated based on operational layers, if false then use the structure below
+        layers: ['tribal', 'districts', 'counties', 'states', 'zipcodes'] // for now just use a list of layer id's / later we can create a true hierarchy
+      }
     },
 
     infoWindowConfig: {
@@ -150,6 +165,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           infoWindow: {
             isEnabled: true,
             outFields: ['*'],
+            showLabels: true,
             title: 'Future Land Use',
             headerFunction: function(attrs) {
               return '' + attrs.ADDRESS;

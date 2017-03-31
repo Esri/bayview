@@ -703,20 +703,10 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       ],
       locators: [  // geocode locators is enabled at the begining of this section - geocode: { isEnabled: true }
         {
-          id: 'global_geocoder',
-          url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
-          minScore: 80,
-          countryCode: 'US',
-          maxLocations: 3,
-          extent: {
-              'xmin':-9606605.714878388,
-              'ymin':3498798.940898446,
-              'xmax':-9478191.507359464,
-              'ymax':3568509.5106944325,
-            spatialReference: {
-              'wkid': 102100
-            }
-          }
+          id: 'bc_geocoder',
+          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
+          minScore: 50,
+          maxLocations: 5
         }
       ]
     },

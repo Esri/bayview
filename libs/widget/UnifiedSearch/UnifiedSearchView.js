@@ -141,7 +141,16 @@ function(
     clearResults: function() {
       domConstruct.empty(this.resultsNode);
       domConstruct.empty(this.resultsNode2);
+      this.showResultsNode();
       this.clearSearchError();
+    },
+
+    showResultsNode: function() {
+      domClass.remove(this.resultsContainer, 'hidden');
+    },
+
+    hideResultsNode: function() {
+      domClass.add(this.resultsContainer, 'hidden');
     },
 
     openFeatureDetails: function(searchString) {
@@ -150,14 +159,9 @@ function(
         this.inputValue = fixedString;
         domClass.remove(this.containerNode, 'populated');
         domClass.remove(this.containerNode, 'search-error');
-        this.clearResults();
+        //this.clearResults();
         this.focus();
-        this.emit('clear');
-    },
-
-    // is this function being called at all??
-    hideResultsNode: function() {
-      domClass.add(this.resultsContainer, 'hide');
+        //this.emit('clear');
     },
 
     onInputKeyUp: function(evt) {
@@ -400,20 +404,31 @@ function(
     },
 
     clearSearchError: function() {
-      domClass.remove(this.containerNode, 'search-error');
+      //domClass.remove(this.containerNode, 'search-error');
+      domConstruct.empty(this.resultsNode);
+      domClass.add(this.resultsNode, 'hidden');
     },
 
     handleNoResults: function() {
       domConstruct.empty(this.resultsNode);
-      domClass.add(this.containerNode, 'search-error');
+      //domClass.add(this.containerNode, 'search-error');
+      domConstruct.empty(this.resultsNode);
+      var content = '<div style="margin: 1rem;"><p>Your search didn\'t return results.<br/><i>Search only shows results within Bay County.</i></p>';
+      domConstruct.place(content, this.resultsNode);
+      domClass.remove(this.resultsNode, 'hidden');
     },
 
     onBackNodeClicked: function() {
+      if (domClass.contains(this.resultsContainer, 'hidden')) {
+        this.showResultsNode();
+      } else {
+        domClass.remove(this.containerNode, 'populated');
+        domConstruct.empty(this.resultsNode2);
+        domClass.remove(this.resultsNode, 'hidden');
+      }
       domAttr.set(this.inputNode, 'value', this.inputValue);
-      domClass.remove(this.containerNode, 'populated');
-      domConstruct.empty(this.resultsNode2);
-      domClass.remove(this.resultsNode, 'hidden');
       this.inputNode.focus();
+      this.emit('back');
     },
 
     hide: function() {

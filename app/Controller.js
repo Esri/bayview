@@ -182,6 +182,10 @@ define([
           this.infoPanel.hidePanel();
         }));
 
+        topic.subscribe('/UnifiedSearch/back/clicked', lang.hitch(this, function(sender, args) {
+          this.infoPanel.hidePanel();
+        }));
+
         topic.subscribe('/map/clicked', lang.hitch(this, function(sender, args) {
             if (!this.measurement.isActiveTool()) {
                 this.search.mapClickEvent(args.event.target);
@@ -271,7 +275,11 @@ define([
 
       topic.subscribe('/InfoPanel/clear', lang.hitch(this, function(sender, args) {
         this.infoPanel.clear();
-        this.search.handleFeatureClick();
+        //this.search.handleFeatureClick();
+      }));
+
+      topic.subscribe('/layerlist/layer/clicked', lang.hitch(this, function(sender, args) {
+        this.search.layerVisibilityChanged(args);
       }));
 
     }
