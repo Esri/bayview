@@ -30,6 +30,8 @@
   "esri/symbols/SimpleLineSymbol",
   "esri/symbols/SimpleFillSymbol",
   "esri/symbols/jsonUtils",
+  "esri/symbols/TextSymbol",
+  "esri/symbols/Font",
 
   "esri/geometry/geodesicUtils",
   "esri/geometry/webMercatorUtils",
@@ -68,7 +70,7 @@
   require, declare, lang, array, connect, Color,
   debounce, has, domStyle, domClass, domConstruct, topic, on, gfx,
   _Widget, registry, Menu, MenuItem, Tooltip,
-  PictureMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, symbolJsonUtils,
+  PictureMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, symbolJsonUtils, TextSymbol, Font,
   geodesicUtils, webMercatorUtils, Point, Polyline, Polygon, Graphic,
   AreasAndLengthsParameters, LengthsParameters, GeometryService,
   esriNS, esriConfig, domUtils, numberUtils, esriLang, esriUnits, wkidConverter,SpatialReference,
@@ -733,7 +735,7 @@
       }
       // Update the Point
       mapPoint = this._getGCSLocation(mapPoint);
-      this._advancedLocationDisplayHandler(mapPoint, isAdvUnit, showClick);
+      return this._advancedLocationDisplayHandler(mapPoint, isAdvUnit, showClick);
     },
 
     // Purpose:
@@ -780,6 +782,7 @@
           conversionType: this._unitStrings[this.currentLocationUnit]
         }, point);
       }
+      return displayValues;
     },
 
     // Purpose:
@@ -1864,6 +1867,10 @@
 
       this._getArea(polygon);
 
+      var location = polygon.getExtent().getCenter();
+      var outputLabel = this._getMeasurementLabel(this.result, this.getUnit());
+      this._placeSymbol(outputLabel, location);
+
       //for android devices, dbl click triggers single click after this event
       //this is a workaround
       /*if (this._map.navigationManager.eventModel === "touch" || this._map.navigationManager.eventModel === "pointer") {
@@ -2024,7 +2031,11 @@
       }else{
         // End Measurement Operation
         this._inputPoints = [];
-        this.onMeasureEnd(this.activeTool, measurementGeometry, this._outputResult(this.result, this.getUnit()), this.getUnit());
+        var location = measurementGeometry.getExtent().getCenter();
+        var unit = this.getUnit();
+        var outputLabel = this._getMeasurementLabel(this.result, unit);
+        this._placeSymbol(outputLabel, location);
+        this.onMeasureEnd(this.activeTool, measurementGeometry, this._outputResult(this.result, unit), unit);
       }
     },
 
@@ -2048,9 +2059,30 @@
           this.result = segmentLength; // Miles
           this._showDistance(this.result);
           this._inputPoints = [];
-          this.onMeasureEnd(this.activeTool, geometry, this._outputResult(this.result, this.getUnit()), this.getUnit());
+          var unit = this.getUnit();
+          var measurement = this._outputResult(this.result, unit);
+          this.onMeasureEnd(this.activeTool, geometry, measurement, unit);
         }
       }));
+    },
+
+    _placeSymbol: function(outputLabel, point, isPoint) {
+      var isPoint = isPoint || false;
+      var font  = new Font();
+      font.setSize('14pt');
+      font.setWeight(Font.WEIGHT_BOLD);
+      font.setFamily('Lato');
+      var textSymbol = new TextSymbol(outputLabel, font, new Color([0, 0, 0, 255]));
+      textSymbol.setHaloColor(new Color([255, 255, 255, 255]));
+      textSymbol.setHaloSize(1);
+      if (isPoint) {
+        textSymbol.setAlign(TextSymbol.ALIGN_START);
+      }
+      var textGraphic = new Graphic();
+      textGraphic.setSymbol(textSymbol);
+      textGraphic.setGeometry(point);
+      this._measureGraphics.push(textGraphic);
+      this._map.graphics.add(textGraphic);
     },
 
     // Purpose:
@@ -2078,7 +2110,10 @@
       this._measureGraphics.push(this._locationGraphic);
 
       // Start Measuring Process
-      this._calculateLocation(currentMapPt, true);
+      var displayValues = this._calculateLocation(currentMapPt, true);
+      var outputLabel = displayValues[0] + ' / ' + displayValues[1];
+      var isPoint = true;
+      this._placeSymbol(outputLabel, currentMapPt, isPoint);
 
     },
 
@@ -2128,6 +2163,24 @@
       }
       // Added in 3.11 for Events
       return finalResult;
+    },
+
+    _getMeasurementLabel: function(result, unit) {
+      var measurementLabel = '';
+      var finalResult = result / this._unitDictionary[unit];
+      if (finalResult === 0) {
+        measurementLabel = '&nbsp';
+      }
+      else if (finalResult > 1000000) {
+        measurementLabel = numberUtils.format(finalResult.toPrecision(9), { pattern: this.numberPattern }) + " " + unit;
+      }
+      else if (finalResult < 10) {
+        measurementLabel = numberUtils.format(finalResult.toFixed(2), { pattern: this.numberPattern + "0" }) + " " + unit;
+      }
+      else {
+        measurementLabel = numberUtils.format(finalResult.toFixed(2), { pattern: this.numberPattern }) + " " + unit;
+      }
+      return measurementLabel;
     },
 
     // Purpose:
