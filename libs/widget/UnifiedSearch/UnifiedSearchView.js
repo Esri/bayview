@@ -331,7 +331,7 @@ function(
         return;
       }
 
-      this.clearSearchError();
+      //this.clearSearchError();
 
       var regex = new RegExp('(' + this.inputValue + ')', 'gi');
 
@@ -371,7 +371,7 @@ function(
         return;
       }
 
-      this.clearSearchError();
+      //this.clearSearchError();
 
       var regex = new RegExp('(' + this.inputValue + ')', 'gi');
 
@@ -401,32 +401,41 @@ function(
       domAttr.set(this.inputNode, 'value', strInput);
       domClass.add(this.containerNode, 'populated');
       domClass.add(this.resultsNode, 'hidden');
+      domClass.remove(this.resultsNode2, 'hidden');
     },
 
     clearSearchError: function() {
-      //domClass.remove(this.containerNode, 'search-error');
-      domConstruct.empty(this.resultsNode);
-      domClass.add(this.resultsNode, 'hidden');
+      domClass.remove(this.containerNode, 'search-error');
+      //domConstruct.empty(this.resultsNode);
+      //domClass.add(this.resultsNode, 'hidden');
     },
 
     handleNoResults: function() {
       domConstruct.empty(this.resultsNode);
       //domClass.add(this.containerNode, 'search-error');
       domConstruct.empty(this.resultsNode);
-      var content = '<div style="margin: 1rem;"><p>Your search didn\'t return results.<br/><i>Search only shows results within Bay County.</i></p>';
+      var content = '<div style="margin: 1rem;"><p><span>' + this.searchConfig.noResultsMsg.primary + '</span>';
+      if (this.searchConfig.noResultsMsg.secondary !== '') {
+        content += '<br/><i>' + this.searchConfig.noResultsMsg.secondary + '</i>';
+      }
+      content += '</p></div>';
       domConstruct.place(content, this.resultsNode);
       domClass.remove(this.resultsNode, 'hidden');
     },
 
     onBackNodeClicked: function() {
+      // from 3rd level
       if (domClass.contains(this.resultsContainer, 'hidden')) {
+        domClass.add(this.resultsNode, 'hidden');
+        domClass.remove(this.resultsNode2, 'hidden');
         this.showResultsNode();
-      } else {
+      } else if (domClass.contains(this.resultsNode, 'hidden')) {
+        domClass.remove(this.resultsNode, 'hidden');
+        domClass.add(this.resultsNode2, 'hidden');
         domClass.remove(this.containerNode, 'populated');
         domConstruct.empty(this.resultsNode2);
-        domClass.remove(this.resultsNode, 'hidden');
+        domAttr.set(this.inputNode, 'value', this.inputValue);
       }
-      domAttr.set(this.inputNode, 'value', this.inputValue);
       this.inputNode.focus();
       this.emit('back');
     },

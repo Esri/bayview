@@ -343,12 +343,16 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // SEARCH BAR //
     // this section will configure the search output
-    unifiedSearch: {
-      isEnabled: true,
-      placeholder: 'Search for parcels, addresses, or roads...',
-      searchDelay: 400,
-      zoomToFeature: true, // zoom to the feature after selecting it
-      showInfoWindow: true, // show info window after zooming to feature,
+    'unifiedSearch': {
+      'isEnabled': true,
+      'placeholder': 'Search for parcels, addresses, or roads...',
+      'searchDelay': 400,
+      'zoomToFeature': true, // zoom to the feature after selecting it
+      'showInfoWindow': true, // show info window after zooming to feature,
+      'noResultsMsg': {
+        'primary': 'Your search didn\'t return results.',
+        'secondary': 'Search only shows results within Bay County.' // optional
+      },
       geocode: {
         isEnabled: false,
         url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
@@ -705,8 +709,8 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         {
           id: 'bc_geocoder',
           url: 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
-          minScore: 50,
-          maxLocations: 5
+          minScore: 80,
+          maxLocations: 3
         }
       ]
     },

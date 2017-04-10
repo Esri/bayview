@@ -343,7 +343,7 @@ function(
       var executeObj = Object.create(null);
 
       // first add the locators
-      if (this.searchConfig.geocode.isEnabled && this.searchConfig.locators && this.searchConfig.locators.length > 0) {
+      if (this.searchConfig.locators && this.searchConfig.locators.length > 0) {
         _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
           var loc = new Locator(locator.url);
           loc.setOutSpatialReference(this.map.spatialReference);
@@ -450,7 +450,7 @@ function(
     },
 
     mapClickEvent: function(target) {
-      function titleCase (str) {  
+      function titleCase (str) {
         if ((str===null) || (str===''))
              return false;
         else
