@@ -210,7 +210,7 @@ define([
               this.drawTool.hide();
           } else if (args.type === 'measure') {
               this.measurement.hide();
-              this.measurement.clearResult();
+              //this.measurement.clearResult();
               this.measurement.setTool(null);
           } else if (args.type === 'print') {
               this.printer.hide();

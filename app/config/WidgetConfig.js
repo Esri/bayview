@@ -19,7 +19,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // DRAW TOOL //
     drawTool: {
-      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
+      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON', 'TEXT'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
       symbology: {
         point: {
           'type': 'esriSMS',
