@@ -34,6 +34,10 @@ Please run [jshint](http://jshint.com/) on the application code before checking 
 grunt jshint
 ```
 
+### Supported Browsers
+
+IE >= 9
+
 ### Contributing
 
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/Esri/contributing/blob/master/CONTRIBUTING.md).
