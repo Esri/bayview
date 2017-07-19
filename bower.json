@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-app-js",
+  "name": "Bayview",
   "version": "0.0.1",
-  "homepage": "https://github.com/ArcGIS/boilerplate-app-js",
+  "homepage": "https://github.com/Esri/Bayview",
   "dependencies": {
     "bootstrap-sass": "~3.3.5",
     "fontawesome": "~4.4.0",

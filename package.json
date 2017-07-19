@@ -1,14 +1,15 @@
 {
-  "name": "boilerplate-app-js",
+  "name": "bayview",
   "version": "0.0.1",
-  "description": "Easy starting points for creating an application that is using boilerplate-lib-js",
+  "private": true,
+  "description": "Template app deployed by Bayview, Florida to analyze local surrounds",
   "main": "app/Controller.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ArcGIS/boilerplate-app-js.git"
+    "url": "https://github.com/Esri/Bayview.git"
   },
   "keywords": [
     "ArcGIS",
@@ -16,11 +17,11 @@
     "boilerplate"
   ],
   "author": "Michael Gaigg <mgaigg@esri.com> (http://www.michaelgaigg.com/)",
-  "license": "Apache2",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/ArcGIS/boilerplate-app-js/issues"
+    "url": "https://github.com/Esri/Bayview/issues"
   },
-  "homepage": "https://github.com/ArcGIS/boilerplate-app-js",
+  "homepage": "https://github.com/Esri/Bayview",
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
     "cssnano": "^2.1.0",
