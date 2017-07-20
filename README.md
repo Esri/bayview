@@ -4,11 +4,7 @@ Intuitive, interactive online map deployed by Bay County, Florida. After searchi
 
 ## Development Instructions
 
-<!--
-how much of the doc below needs to be ported for this app to be helpful to the public?
-
-[wiki](https://github.com/ArcGIS/boilerplate-app-js/wiki) for details.
--->
+[coming soon]
 
 ### Install
 
