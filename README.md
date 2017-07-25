@@ -2,9 +2,9 @@
 
 Intuitive, interactive online map deployed by Bay County, Florida. After searching for a parcel, address or point of interest users can quickly learn about nearby schools, parks and other ammenities.
 
-## Development Instructions
+[View it live](http://gis.baycountyfl.gov/beta)
 
-[coming soon]
+## Development Instructions
 
 ### Install
 
@@ -24,7 +24,7 @@ Configure your web server to include the above directory as virtual directory an
 
 ### Checking Code for Syntax Errors
 
-Please run [jshint](http://jshint.com/) on the application code before checking in:
+Please run [jshint](http://jshint.com/) on the application code before committing your changes:
 
 ```bash
 grunt jshint
@@ -33,6 +33,16 @@ grunt jshint
 ### Supported Browsers
 
 IE >= 9
+
+## Resources
+
+* [ArcGIS for JavaScript API Resource Center](https://developers.arcgis.com/javascript/3/)
+* [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
+* [twitter@esri](http://twitter.com/esri)
+
+## Issues
+
+Find a bug or want to request a new feature?  Please let us know by submitting an issue.
 
 ### Contributing
 
