@@ -103,10 +103,39 @@ define([
                         //console.debug('found Parecel ID', this.selectedFeature.attributes[info.field]);
                         domAttr.set(this.btnDetailsLink, 'href', this.detailsLink + this.selectedFeature.attributes[info.field]);
                     }
+                    //value for InfoRow defaults to attribute value
+                    value = this.selectedFeature.attributes[info.field]
+                    var fieldDef = this.selectedFeature._layer.fields.filter(function(obj){
+                        return obj.name == info.field;
+                    })[0];
+                    //check if field has a domain and use coded values
+                    if (fieldDef.hasOwnProperty('domain')){
+                        var domain = fieldDef.domain.codedValues.filter(lang.hitch(this, function(obj){
+                            return obj.code == this.selectedFeature.attributes[info.field];
+                        }))[0];
+                        value = domain.name;
+                    };
+                    //check if layer has subtype
+                    if (this.selectedFeature._layer.typeIdField !== null) {
+                        var subtype = this.selectedFeature._layer.types.filter(lang.hitch(this, function(obj){
+                            return obj.id == this.selectedFeature.attributes[this.selectedFeature._layer.typeIdField];
+                        }))[0];
+                        //use subtype value if this is subtype field
+                        if (this.selectedFeature._layer.typeIdField == info.field){
+                            value = subtype.name;
+                        }
+                        //use domain values for subtype is this field has a corresponding domain
+                        if (subtype.domains.hasOwnProperty(info.field)) {
+                            var domain = subtype.domains[info.field].codedValues.filter(lang.hitch(this, function(obj){
+                                return obj.code == this.selectedFeature.attributes[info.field];
+                            }))[0];
+                            value = domain.name;
+                        }
+                    };
 
                     InfoRow({
                         label: info.label,
-                        value: this.selectedFeature.attributes[info.field]
+                        value: value
                     }).placeAt(this.detailsContainer);
                 }));
                 this._initButtons(this.layerConfig);
