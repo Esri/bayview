@@ -11,7 +11,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License. */
-    
+
 define([
   'dojo/_base/declare',
   'dijit/_WidgetBase',
@@ -89,6 +89,7 @@ function(
 
         // attach event listeners
         this.own(on(this.btnExtract, 'click', lang.hitch(this, this._btnExtractClicked)));
+        this.own(on(this.btnClear, 'click', lang.hitch(this, this._btnClearClicked)));
 
         // populate the layers
         this.own(on(this.map, 'layers-add-result', lang.hitch(this, this._populateLayers)));
@@ -116,7 +117,8 @@ function(
 
     _populateLayers: function(results) {
       this.layerItems = [];
-      _.each(results.layers, lang.hitch(this, function(result) {
+      var layers = _.sortBy(results.layers, function(layer) { return layer.layer.name; });
+      _.each(layers, lang.hitch(this, function(result) {
         var layerDef = layerUtils.getLayerInfo(this.map, result.layer.id);
         var lt = new LayerItem({
           map: this.map,
@@ -182,6 +184,10 @@ function(
       // close the layer list
       var isOpen = false;
       this._toggleLayers(isOpen);
+    },
+
+    _btnClearClicked: function() {
+      this.drawTool._clearGraphics();
     },
 
     _submitJobCompleted: function(jobInfo) {
