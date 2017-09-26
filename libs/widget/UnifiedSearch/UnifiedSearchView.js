@@ -288,7 +288,7 @@ function(
     },
 
     restoreLoadingIcon: function() {
-      if (this.tempLi !== null) {
+      if (this.tempLi !== null && this.tempLi.children.length > 0) {
         domClass.remove(this.tempLi.children[0]);
         domClass.add(this.tempLi.children[0], domAttr.get(this.tempLi, 'data-iconclass'));
         domClass.add(this.tempLi.children[0], 'search-results-icon');

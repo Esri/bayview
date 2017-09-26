@@ -362,7 +362,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       zoomToFeature: true, // zoom to the feature after selecting it
       showInfoWindow: true, // show info window after zooming to feature,
       geocode: {
-        isEnabled: false,
+        isEnabled: true,
         url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
         addressLabelFunction: function(attrs) {
           return attrs.Match_addr;
@@ -716,9 +716,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       locators: [  // geocode locators is enabled at the begining of this section - geocode: { isEnabled: true }
         {
           'id': 'bc_geocoder',
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
-          minScore: 50,
-          maxLocations: 5
+          'url': 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
+          'minScore': 50,
+          'maxLocations': 5
         }
       ]
     },
