@@ -58,7 +58,7 @@
       width: 100%;
       padding: 10px;
       vertical-align: middle;
-      
+
     button {
       min-width: 0;
     }
@@ -110,6 +110,13 @@
         background-position: -340px 0;
         width: 16px;
         height: 16px;
+    }
+
+    .textIcon {
+      background-image: url('../../libs/widget/DrawTool/images/toolbar_icons.png');
+      background-position: -306px 0;
+      width: 18px;
+      height: 16px;
     }
 
   }
