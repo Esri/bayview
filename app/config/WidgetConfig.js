@@ -32,7 +32,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // DRAW TOOL //
     drawTool: {
-      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
+      tools: ['POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON', 'TEXT'], // 'POINT', 'POLYLINE', 'POLYGON', 'FREEHAND_POLYGON'
       symbology: {
         point: {
           'type': 'esriSMS',
@@ -71,7 +71,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // EXTRACT DATA TOOL //
     'extractData': {
-      'taskUrl': 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/ExtractDataTask/GPServer/Extract%20Data%20Task',
+      'taskUrl': 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayViewExtractDataTask/GPServer/Extract%20Data%20Task',
       'parameters': {
         'layersToClip': {
           'name': 'Layers_to_Clip'
@@ -344,7 +344,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       basemaps: [
         {
           'name': 'Streets',
-          basemap: 'streets'
+          basemap: 'topo-vector'
         },
         {
           'name': 'Satellite',
@@ -371,7 +371,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       tables: [ // Search results table
           {
-            url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
+            url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/0',
             idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
             query: {
               returnGeometry: true, // if false then relatedQuery is used to determine geometry
@@ -400,7 +400,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             }
         },
         {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/1',
+          url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/1',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
@@ -420,7 +420,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           }
         },
         {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
+          url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/2',
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
@@ -438,276 +438,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
               },
               iconClass: 'fa fa-map-marker',
               priority: 0
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/4',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'futurelanduse', // unique identifier within the unifiedSearch Config
-            fields: ['SUB_FLU', 'FLU_CODE', 'ORD_NUM'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Future Land Use',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['FLU_CODE'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.OBJECTID + ' (' + attrs.FLU_CODE + ')';
-              },
-              iconClass: 'fa fa-pencil-square-o',
-              priority: 3
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/5',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'zoning', // unique identifier within the unifiedSearch Config
-            fields: ['SUB_ZONING', 'ZONING', 'ORD_NUM'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Zoning',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['ZONING'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.OBJECTID + ' (' + attrs.ZONING + ')';
-              },
-              iconClass: 'fa fa-flag-o',
-              priority: 4
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/8',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'easements', // unique identifier within the unifiedSearch Config
-            fields: ['OWNER', 'SOURCE_TYP', 'CATEGORY'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Easements',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['OWNER'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.OBJECTID + ' (' + attrs.OWNER + ')';
-              },
-              iconClass: 'fa fa-balance-scale',
-              priority: 5
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/11',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'FEMAfloodzones', // unique identifier within the unifiedSearch Config
-            fields: ['FLD_ZONE'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'FEMA Flood Zones',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['FLD_ZONE'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.OBJECTID + ' (' + attrs.FLD_ZONE + ')';
-              },
-              iconClass: 'fa fa-tint',
-              priority: 6
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/12',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'femafirmindex', // unique identifier within the unifiedSearch Config
-            fields: ['FIRM_PAN', 'FIRM_ID'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'FEMA FIRM Index',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['FIRM_PAN'],
-              iconClass: 'fa fa-tint',
-              priority: 7
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/23',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'beachaccess', // unique identifier within the unifiedSearch Config
-            fields: ['ADDRESS', 'NUM', 'ACCESS'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Beach Access',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['NUM'],
-              iconClass: 'fa fa-life-ring',
-              priority: 8
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/24',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'beachaccess', // unique identifier within the unifiedSearch Config
-            fields: ['ADDRESS', 'NAME', 'WATERBODY'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Boat Ramps',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['NAME'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.NAME + ' (' + attrs.ADDRESS + ')';
-              },
-              iconClass: 'fa fa-ship',
-              priority: 9
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/25',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'libraries', // unique identifier within the unifiedSearch Config
-            fields: ['ADDRESS', 'NAME'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Libraries',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['NAME'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.NAME + ' (' + attrs.ADDRESS + ')';
-              },
-              iconClass: 'fa fa-book',
-              priority: 10
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/26',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'recycling', // unique identifier within the unifiedSearch Config
-            fields: ['Address', 'Name'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Recycle Sites',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['Name'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.Name + ' (' + attrs.Address + ')';
-              },
-              iconClass: 'fa fa-recycle',
-              priority: 11
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/27',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'schools', // unique identifier within the unifiedSearch Config
-            fields: ['FULLADDR', 'NAME'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Schools',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['NAME'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.NAME + ' (' + attrs.FULLADDR + ')';
-              },
-              iconClass: 'fa fa-school',
-              priority: 12
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/28',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'parks', // unique identifier within the unifiedSearch Config
-            fields: ['ADDRESS', 'NAME'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Parks',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['NAME'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.NAME + ' (' + attrs.ADDRESS + ')';
-              },
-              iconClass: 'fa fa-tree',
-              priority: 13
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/14',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'soils', // unique identifier within the unifiedSearch Config
-            fields: ['SOILDESC', 'SOILTYPE'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Soils',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['SOILDESC'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.OBJECTID + ' (' + attrs.SOILDESC + ')';
-              },
-              iconClass: 'fa fa-bullseye',
-              priority: 14
             },
             relatedQuery: null
           }
@@ -865,17 +595,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'infos': [
           {
             'field': 'SUB_FLU',
-            'label': 'Government',
-            'substitutions': {
-                1: 'Bay County',
-                2: 'Callaway',
-                3: 'Lynn Haven',
-                4: 'Mexico Beach',
-                5: 'Panama City',
-                6: 'Panama City Beach',
-                7: 'Parker',
-                8: 'Springfield'
-            }
+            'label': 'Government'
           },
           {
             'field': 'FLU_CODE',
@@ -895,17 +615,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'infos': [
           {
             'field': 'SUB_ZONING',
-            'label': 'Government',
-            'substitutions': {
-                1: 'Bay County',
-                2: 'Callaway',
-                3: 'Lynn Haven',
-                4: 'Mexico Beach',
-                5: 'Panama City',
-                6: 'Panama City Beach',
-                7: 'Parker',
-                8: 'Springfield'
-            }
+            'label': 'Government'
           },
           {
             'field': 'ZONING',
@@ -925,38 +635,11 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'infos': [
           {
             'field': 'OWNER',
-            'label': 'Owner',
-            'substitutions': {
-            	'BAY': 'Bay County',
-            	'BCSB': 'Bay County School Board',
-            	'CAL': 'Callaway',
-            	'FDEP': 'Florida Dept of Env Protection',
-            	'FDOT': 'Florida Dept of Transportation',
-            	'FL': 'State of Florida',
-            	'HOA': "Home Owner's Association",
-            	'LYN': 'Lynn Haven',
-            	'MEX': 'Mexico Beach',
-            	'OTH': 'Other',
-            	'PC': 'Panama City',
-            	'PCB': 'Panama City Beach',
-            	'PKR': 'Parker',
-            	'PRV': 'Private',
-            	'SPR': 'Springfield',
-            	'UTLCO': 'Private Utility Company'
-            }
+            'label': 'Owner'
           },
           {
             'field': 'SOURCE_TYP',
-            'label': 'Source',
-            'substitutions': {
-                'CON': 'CONTRACT',
-                'DB': 'DEED BOOK',
-                'FD': 'FDOT MAPS',
-                'ON': 'ORDINANCE',
-                'OR': 'OFFICIAL RECORDS BOOK',
-                'PB': 'PLAT BOOK',
-                'RB': 'RESOLUTION BOOK'
-            }
+            'label': 'Source'
           },
           {
             'field': 'BOOK',
@@ -968,25 +651,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           },
           {
             'field': 'CATEGORY',
-            'label': 'Category',
-            'substitutions': {
-            	'ABD': 'ABANDONMENT',
-            	'ACS': 'ACCESS',
-            	'CON': 'CONSERVATION',
-            	'DRG': 'DRAINAGE',
-            	'EST': 'EASEMENT',
-            	'ETC': 'ELECTIRC',
-            	'GAS': 'GAS',
-            	'LSE': 'LEASE',
-            	'MTC': 'MAINTENANCE CLAIM',
-            	'OTH': 'OTHER',
-            	'ROW': 'ROAD RIGHT OF WAY',
-            	'RRD': 'RAILROAD',
-            	'SAR': 'ST ANDREWS BAY ROW',
-            	'SWR': 'SEWER',
-            	'UTL': 'UTILITY',
-            	'WTR': 'WATER'
-            }
+            'label': 'Category'
           }
         ]
       },
@@ -1113,8 +778,62 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'label': 'Description'
           }
         ]
-      }
-
-    }
+      },
+	  'CountyCommissionerDistricts': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': true,
+        'hasExportData': true,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'District'
+          },
+		  {
+            'field': 'REPNAME',
+            'label': 'Commissioner'
+          }
+        ]
+      },
+	  'femacobraopa': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': true,
+        'hasExportData': true,
+        'infos': [
+          {
+            'field': 'CBRS_TYP',
+            'label': 'Type'
+          }
+        ]
+      },
+	  'wetlands': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': true,
+        'hasExportData': true,
+        'infos': [
+          {
+            'field': 'WETLAND_TYPE',
+            'label': 'Type'
+          },
+		  {
+            'field': 'ATTRIBUTE',
+            'label': 'Attribute'
+          }
+        ]
+      },
+	  'evacuationzones': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': true,
+        'hasExportData': true,
+        'infos': [
+          {
+            'field': 'EZONE',
+            'label': 'Zone'
+          }
+        ]
+      }    }
   };
 });
