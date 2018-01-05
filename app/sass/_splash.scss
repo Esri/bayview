@@ -60,9 +60,9 @@
 .loading-wrapper {
   max-width: 300px;
   padding: 20px;
-  background: #FFF url(../../favicon-96x96.png) no-repeat;
-  box-shadow: 0px -1px 1px 0px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.30);
-  border-radius: 3px;
+  background: transparent url(../../favicon-96x96.png) no-repeat;
+  // box-shadow: 0px -1px 1px 0px rgba(0,0,0,0.20), 0px 2px 2px 0px rgba(0,0,0,0.30);
+  // border-radius: 3px;
   display: inline-block;
 
   .splash-loading & {

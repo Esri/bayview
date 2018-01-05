@@ -30,6 +30,7 @@
 .print-tool__title {
     display: block;
     width: 100%;
+    height: 33px;
     vertical-align: middle;
     background: $brand-primary;
     color: $white;
@@ -37,11 +38,9 @@
     padding: 5px 0;
 
     @include respond('xs') {
-        display: table-cell;
-        width: 60%;
     }
 }
-
+/*
 .esriPrint {
     display: table-cell;
     vertical-align: middle;
@@ -51,4 +50,73 @@
 .dijitMenuItemSelected td,
 .dijitMenuItemSelected {
     background: $blue;
+}
+*/
+
+.print-tool__form {
+  padding: 10px;
+}
+
+.print-tool__layout-label,
+.print-tool__layout-label {
+  display: table-cell;
+  width: 50%;
+  vertical-align: bottom;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.print-tool__sub-title {
+  vertical-align: middle;
+  vertical-align: -webkit-baseline-middle;
+  padding: 0 20px;
+}
+
+.print-tool__submit {
+  display: inline-block;
+  width: 40%;
+  margin-top: 25px;
+  text-align: right;
+}
+
+.print-tool__loading {
+  display: inline-block;
+  width: 57%;
+  margin-top: 25px;
+  text-align: left;
+}
+
+.print-tool__loading.is-hidden {
+  visibility: hidden;
+}
+
+.print-tool__result {
+  padding: 20px;
+  text-align: center;
+}
+
+.print-tool__result.is-hidden {
+  display: none;
+}
+
+.print-tool__error {
+  padding: 20px;
+  text-align: center;
+  color: #e84444;
+}
+
+.print-tool__error.is-hidden {
+  display: none;
+}
+
+.print-tool__error i {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.print-tool__error span {
+  vertical-align: middle;
+}
+
+.print-tool__loading-label {
+  margin-left: 10px;
 }
