@@ -150,188 +150,187 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       groups: [
         {
           // Layer List Group
-          name: 'Points of Interest',
+          'name': 'Points of Interest',
           icon: 'turned_in_not',
           layers: [
-              {
-                // Layer
-                name: 'Beach Access',
-                id: 'beachaccess',
-                isSelected: false, // this will determine if the layer is on by default
-              },
             {
-              name: 'Boat Ramps',
-              id: 'boatramps',
-              isSelected: false,
+              'name': 'Beach Access',
+              'id': 'beachaccess',
+              'isSelected': false, // this will determine if the layer is on by default
             },
             {
-              name: 'Libraries',
-              id: 'libraries',
-              isSelected: false,
+              'name': 'Boat Ramps',
+              'id': 'boatramps',
+              'isSelected': false,
             },
             {
-              name: 'Parks',
-              id: 'parks',
-              isSelected: false,
+              'name': 'Libraries',
+              'id': 'libraries',
+              'isSelected': false,
             },
             {
-              name: 'Recycling',
-              id: 'recycling',
-              isSelected: false,
+              'name': 'Parks',
+              'id': 'parks',
+              'isSelected': false,
             },
             {
-              name: 'Schools',
-              id: 'schools',
-              isSelected: false,
+              'name': 'Recycling',
+              'id': 'recycling',
+              'isSelected': false,
+            },
+            {
+              'name': 'Schools',
+              'id': 'schools',
+              'isSelected': false,
             }
           ]
-      },
+        },
         {
-          name: 'Parcels & Community',
+          'name': 'Parcels & Community',
           icon: 'store',
           layers: [
-              {
-                name: 'Addresses',
-                id: 'addresses',
-                isSelected: false,
-              },
-              {
-                name: 'Community Redev Agencies',
-                id: 'CommunityRedevAgencies',
-                isSelected: false,
-              },
-              {
-                name: 'County Commissioner Districts',
-                id: 'CountyCommissionerDistricts',
-                isSelected: false,
-              },
-              {
-                name: 'Easements',
-                id: 'easements',
-                isSelected: false,
-              },
-              {
-                name: 'Municipal Boundaries',
-                id: 'municipalboundaries',
-                isSelected: false,
-              },
             {
-              name: 'Parcels',
-              id: 'parcels',
-              isSelected: true,
+              'name': 'Addresses',
+              'id': 'addresses',
+              'isSelected': false,
+            },
+            {
+              'name': 'Community Redev Agencies',
+              'id': 'CommunityRedevAgencies',
+              'isSelected': false,
+            },
+            {
+              'name': 'County Commissioner Districts',
+              'id': 'CountyCommissionerDistricts',
+              'isSelected': false,
+            },
+            {
+              'name': 'Easements',
+              'id': 'easements',
+              'isSelected': false,
+            },
+            {
+              'name': 'Municipal Boundaries',
+              'id': 'municipalboundaries',
+              'isSelected': false,
+            },
+            {
+              'name': 'Parcels',
+              'id': 'parcels',
+              'isSelected': true,
             }
           ]
       },
       {
-        name: 'Roads & Highways',
-        isSelected: false,
+        'name': 'Roads & Highways',
+        'isSelected': false,
         icon: 'directions_car',
         layers: [
             {
-              name: 'Roads',
-              id: 'roads',
-              isSelected: false,
+              'name': 'Roads',
+              'id': 'roads',
+              'isSelected': false,
             }
         ]
       },
       {
-        name: 'Land Use & Zoning',
+        'name': 'Land Use & Zoning',
         icon: 'terrain',
         layers: [
             {
-              name: 'Future Land Use',
-              id: 'futurelanduse',
-              isSelected: false,
+              'name': 'Future Land Use',
+              'id': 'futurelanduse',
+              'isSelected': false,
             },
             {
-              name: 'Planned Unit Development',
-              id: 'PlannedUnitDevelopments',
-              isSelected: false,
+              'name': 'Planned Unit Development',
+              'id': 'PlannedUnitDevelopments',
+              'isSelected': false,
             },
             {
-              name: 'Service Areas',
-              id: 'serviceareas',
-              isSelected: false,
+              'name': 'Service Areas',
+              'id': 'serviceareas',
+              'isSelected': false,
             },
             {
-              name: 'Soils',
-              id: 'soils',
-              isSelected: false,
+              'name': 'Soils',
+              'id': 'soils',
+              'isSelected': false,
             },
             {
-              name: 'Zoning',
-              id: 'zoning',
-              isSelected: false,
+              'name': 'Zoning',
+              'id': 'zoning',
+              'isSelected': false,
             }
         ]
       },
       {
-          name: 'Flood & Coastal',
+          'name': 'Flood & Coastal',
           icon: 'pool',
           layers: [
               {
-                name: 'FEMA COBRA & OPA',
-                id: 'femacobraopa',
-                isSelected: false,
+                'name': 'FEMA COBRA & OPA',
+                'id': 'femacobraopa',
+                'isSelected': false,
               },
               {
-                name: 'FEMA FIRM Index',
-                id: 'femafirmindex',
-                isSelected: false,
+                'name': 'FEMA FIRM Index',
+                'id': 'femafirmindex',
+                'isSelected': false,
               },
               {
-                name: 'FEMA Floodways',
-                id: 'femafloodways',
-                isSelected: false,
+                'name': 'FEMA Floodways',
+                'id': 'femafloodways',
+                'isSelected': false,
               },
               {
-                name: 'FEMA Flood Zones',
-                id: 'FEMAfloodzones',
-                isSelected: false,
+                'name': 'FEMA Flood Zones',
+                'id': 'FEMAfloodzones',
+                'isSelected': false,
               },
               {
-                name: 'One Foot Contours',
-                id: 'onefootcontours',
-                isSelected: false,
+                'name': 'One Foot Contours',
+                'id': 'onefootcontours',
+                'isSelected': false,
               },
               {
-                name: 'Storm Surge',
-                id: 'StormSurge',
-                isSelected: false,
+                'name': 'Storm Surge',
+                'id': 'StormSurge',
+                'isSelected': false,
               },
               {
-                name: 'Wetlands',
-                id: 'wetlands',
-                isSelected: false,
+                'name': 'Wetlands',
+                'id': 'wetlands',
+                'isSelected': false,
               }
           ]
       },
       {
-        name: 'Hazards & Impacts',
+        'name': 'Hazards & Impacts',
         icon: 'report',
         layers: [
             {
-              name: 'Coastal High Hazard Area',
-              id: 'CoastalHighHazardArea',
-              isSelected: false,
+              'name': 'Coastal High Hazard Area',
+              'id': 'CoastalHighHazardArea',
+              'isSelected': false,
 
             },
             {
-              name: 'Ecosystem Management Areas',
-              id: 'EcosystemManagementAreas',
-              isSelected: false,
+              'name': 'Ecosystem Management Areas',
+              'id': 'EcosystemManagementAreas',
+              'isSelected': false,
 
             },
             {
-              name: 'Evacuation Zones',
-              id: 'evacuationzones',
-              isSelected: false,
+              'name': 'Evacuation Zones',
+              'id': 'evacuationzones',
+              'isSelected': false,
 
           },
             {
-              name: 'Hydrants',
-              id: 'hydrants',
-              isSelected: false,
+              'name': 'Hydrants',
+              'id': 'hydrants',
+              'isSelected': false,
 
             }
         ]
@@ -344,11 +343,11 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     basemapToggle: {
       basemaps: [
         {
-          name: 'Streets',
+          'name': 'Streets',
           basemap: 'streets'
         },
         {
-          name: 'Satellite',
+          'name': 'Satellite',
           basemap: 'satellite'
         }
       ]
@@ -363,7 +362,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       zoomToFeature: true, // zoom to the feature after selecting it
       showInfoWindow: true, // show info window after zooming to feature,
       geocode: {
-        isEnabled: false,
+        isEnabled: true,
         url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
         addressLabelFunction: function(attrs) {
           return attrs.Match_addr;
@@ -376,7 +375,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
             query: {
               returnGeometry: true, // if false then relatedQuery is used to determine geometry
-              id: 'addresses', // unique identifier within the unifiedSearch Config
+              'id': 'addresses', // unique identifier within the unifiedSearch Config
               fields: ['ADDRESS'], // field to be queried on (where clause)
               group: {
                 isGrouped: true,
@@ -405,7 +404,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'roads', // unique identifier within the unifiedSearch Config
+            'id': 'roads', // unique identifier within the unifiedSearch Config
             fields: ['OWNER', 'FULL_NAME'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -425,7 +424,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'parcels', // unique identifier within the unifiedSearch Config
+            'id': 'parcels', // unique identifier within the unifiedSearch Config
             fields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -448,7 +447,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'futurelanduse', // unique identifier within the unifiedSearch Config
+            'id': 'futurelanduse', // unique identifier within the unifiedSearch Config
             fields: ['SUB_FLU', 'FLU_CODE', 'ORD_NUM'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -471,7 +470,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'zoning', // unique identifier within the unifiedSearch Config
+            'id': 'zoning', // unique identifier within the unifiedSearch Config
             fields: ['SUB_ZONING', 'ZONING', 'ORD_NUM'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -494,7 +493,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'easements', // unique identifier within the unifiedSearch Config
+            'id': 'easements', // unique identifier within the unifiedSearch Config
             fields: ['OWNER', 'SOURCE_TYP', 'CATEGORY'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -517,7 +516,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'FEMAfloodzones', // unique identifier within the unifiedSearch Config
+            'id': 'FEMAfloodzones', // unique identifier within the unifiedSearch Config
             fields: ['FLD_ZONE'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -540,7 +539,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'femafirmindex', // unique identifier within the unifiedSearch Config
+            'id': 'femafirmindex', // unique identifier within the unifiedSearch Config
             fields: ['FIRM_PAN', 'FIRM_ID'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -560,7 +559,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'beachaccess', // unique identifier within the unifiedSearch Config
+            'id': 'beachaccess', // unique identifier within the unifiedSearch Config
             fields: ['ADDRESS', 'NUM', 'ACCESS'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -580,7 +579,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'beachaccess', // unique identifier within the unifiedSearch Config
+            'id': 'beachaccess', // unique identifier within the unifiedSearch Config
             fields: ['ADDRESS', 'NAME', 'WATERBODY'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -603,7 +602,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'libraries', // unique identifier within the unifiedSearch Config
+            'id': 'libraries', // unique identifier within the unifiedSearch Config
             fields: ['ADDRESS', 'NAME'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -626,7 +625,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'recycling', // unique identifier within the unifiedSearch Config
+            'id': 'recycling', // unique identifier within the unifiedSearch Config
             fields: ['Address', 'Name'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -649,7 +648,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'schools', // unique identifier within the unifiedSearch Config
+            'id': 'schools', // unique identifier within the unifiedSearch Config
             fields: ['FULLADDR', 'NAME'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -672,7 +671,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'parks', // unique identifier within the unifiedSearch Config
+            'id': 'parks', // unique identifier within the unifiedSearch Config
             fields: ['ADDRESS', 'NAME'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -695,7 +694,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
           query: {
             returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            id: 'soils', // unique identifier within the unifiedSearch Config
+            'id': 'soils', // unique identifier within the unifiedSearch Config
             fields: ['SOILDESC', 'SOILTYPE'], // field to be queried on (where clause)
             group: {
               isGrouped: true,
@@ -716,10 +715,10 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       ],
       locators: [  // geocode locators is enabled at the begining of this section - geocode: { isEnabled: true }
         {
-          id: 'bc_geocoder',
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
-          minScore: 50,
-          maxLocations: 5
+          'id': 'bc_geocoder',
+          'url': 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
+          'minScore': 50,
+          'maxLocations': 5
         }
       ]
     },

@@ -11,7 +11,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License. */
-    
+
 define([
   'dojo/_base/declare',
   'dijit/_WidgetBase',
@@ -62,8 +62,8 @@ function(
     _buildList: function() {
       _.each(this.config.groups, lang.hitch(this, function(group, index) {
         new LayerGroup({
-          map: this.map,
-          group: group
+          'map': this.map,
+          'group': group
         }).placeAt(this.parentListNode);
       }));
     }

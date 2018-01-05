@@ -11,7 +11,7 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License. */
-    
+
 define([
     'dojo/_base/declare',
     'dojo/_base/lang',
@@ -50,13 +50,12 @@ function(
 
     toolPrefix: null,
 
-    currentSearch: null,
-
     searchExtent: null,
 
     constructor: function(options) {
       this.inherited(arguments);
       this.selectedLayerId = '';
+      this.currentSearch = null;
       this.postCreate(options);
     },
 
@@ -464,7 +463,7 @@ function(
     },
 
     mapClickEvent: function(target) {
-      function titleCase (str) {  
+      function titleCase (str) {
         if ((str===null) || (str===''))
              return false;
         else
