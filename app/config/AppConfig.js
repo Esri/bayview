@@ -20,7 +20,7 @@ define(function() {
     },
 
     services: {
-      geometry: 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer',
+      geometry: 'http://gis.baycountyfl.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer',
       layers: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer'
     }
 

@@ -174,7 +174,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'futurelanduse',
           title: 'Future Land Use',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -195,7 +195,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'zoning',
           title: 'Zoning',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -215,7 +215,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'municipalboundaries',
           title: 'Municipal Boundaries',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -257,7 +257,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           title: 'Easements',
           opacity: 1,
           visible: true,
-          infoWindow: {
+         infoWindow: {
             isEnabled: true,
             outFields: ['*'],
             title: 'Easements',
@@ -315,7 +315,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'FEMAfloodzones',
           title: 'FEMA Flood Zones',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -355,7 +355,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'wetlands',
           title: 'Wetlands',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -375,7 +375,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'soils',
           title: 'Soils',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -395,7 +395,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'evacuationzones',
           title: 'Evacuation Zones',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -415,7 +415,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'CoastalHighHazardArea',
           title: 'Coastal High Hazard Area',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -435,7 +435,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'StormSurge',
           title: 'Storm Surge',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -455,7 +455,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'EcosystemManagementAreas',
           title: 'Ecosystem Management Areas',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -475,7 +475,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'PlannedUnitDevelopments',
           title: 'Planned Unit Developments',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -495,7 +495,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'CommunityRedevAgencies',
           title: 'Community Redev Agencies',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -515,7 +515,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'CountyCommissionerDistricts',
           title: 'County Commissioner Districts',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
@@ -535,7 +535,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'serviceareas',
           title: 'Service Areas',
-          opacity: 1,
+          opacity: .5,
           visible: true,
           infoWindow: {
             isEnabled: true,
