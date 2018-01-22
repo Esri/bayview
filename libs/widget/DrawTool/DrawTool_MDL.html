@@ -28,8 +28,19 @@
       <div class="lassoIcon"></div>
     </button>
 
+    <button class="mdl-button mdl-js-button mdl-js-ripple-effect left" data-dojo-attach-point="btnDrawText">
+      <div class="textIcon"></div>
+    </button>
+
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect right" data-dojo-attach-point="btnSaveGraphics">Save</button>
 
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect right" data-dojo-attach-point="btnClearGraphics"><div class="clearIcon"></div></button>
   </div>
+
+  <div data-dojo-attach-point="textContainer" style="width: auto;">
+    <input data-dojo-type="dijit/form/TextBox" data-dojo-attach-point="inputText">
+    <button data-dojo-attach-point="btnTextAdd" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Add</button>
+    <button data-dojo-attach-point="btnTextDismiss" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect">Dismiss</button>
+  </div>
+
 </div>
