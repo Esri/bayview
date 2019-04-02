@@ -2,7 +2,7 @@
 
 Intuitive, interactive online map deployed by Bay County, Florida. After searching for a parcel, address or point of interest users can quickly learn about nearby schools, parks and other ammenities.
 
-[View it live](http://gis.baycountyfl.gov/beta)
+[View it live](http://gis.baycountyfl.gov/bayview/)
 
 ## Development Instructions
 
@@ -50,7 +50,7 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 
 ### License
 
-Copyright 2017 Esri
+Copyright &copy; 2017 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
