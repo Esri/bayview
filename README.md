@@ -30,6 +30,9 @@ Please run [jshint](http://jshint.com/) on the application code before committin
 grunt jshint
 ```
 
+### Node
+Definitely runs on node 10.14.0 and npm 6.4.1 - use [nvm](https://github.com/coreybutler/nvm-windows/releases) to switch between node versions
+
 ### Supported Browsers
 
 IE >= 9
