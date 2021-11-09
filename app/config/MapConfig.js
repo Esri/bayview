@@ -36,10 +36,10 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
 
     // initialExtent: extent the the map starts at. Helper tool: http://psstl.esri.com/apps/extenthelper/ or http://davidspriggs.github.io/js-extent-helper/extentHelper/
     initialExtent: {
-      'xmin':-9606605.714878388,
-      'ymin':3498798.940898446,
-      'xmax':-9478191.507359464,
-      'ymax':3568509.5106944325,
+      'xmin':-11373141.87557667,
+      'ymin':3952682.9427963775,
+      'xmax':-11302131.876299838,
+      'ymax':3991245.423566197,
       spatialReference: {
         'wkid': 102100
       }
@@ -107,7 +107,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     operationalLayers: [
         {
           type: 'Feature Layer',
-          url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/0',
+          url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/0',
           options: {
             id: 'addresses',
             title: 'Addresses',
@@ -118,7 +118,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
               outFields: ['*'],
               title: 'Addresses',
               headerFunction: function(attrs) {
-                return '' + attrs.ADDRESS;
+                return '' + attrs.FULL_ADDRESS;
               },
               //contentFunction: function(attrs) {
               //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
@@ -128,567 +128,567 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             }
           },
         },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/1',
-        options: {
-          id: 'roads',
-          title: 'Roads',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Roads',
-            headerFunction: function(attrs) {
-              return '' + attrs.NAME;
-            },
-            iconClass: 'fa fa-road',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/3',
-        options: {
-          id: 'hydrants',
-          title: 'Hydrants',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Hydrants',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/4',
-        options: {
-          id: 'futurelanduse',
-          title: 'Future Land Use',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            showLabels: true,
-            title: 'Future Land Use',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/5',
-        options: {
-          id: 'zoning',
-          title: 'Zoning',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Zoning',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/6',
-        options: {
-          id: 'municipalboundaries',
-          title: 'Municipal Boundaries',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Municipal Boundaries',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/7',
-        options: {
-          id: 'onefootcontours',
-          title: 'One Foot Contours',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'One Foot Contours',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/8',
-        options: {
-          id: 'easements',
-          title: 'Easements',
-          opacity: 1,
-          visible: true,
-         infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Easements',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/9',
-        options: {
-          id: 'femafloodways',
-          title: 'FEMA Floodways',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'FEMA Floodways',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/10',
-        options: {
-          id: 'femacobraopa',
-          title: 'FEMA COBRA & OPA',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'FEMA COBRA & OPA',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/11',
-        options: {
-          id: 'FEMAfloodzones',
-          title: 'FEMA Flood Zones',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'FEMA Flood Zones',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/12',
-        options: {
-          id: 'femafirmindex',
-          title: 'FEMA FIRM Index',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'FEMA FIRM Index',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/13',
-        options: {
-          id: 'wetlands',
-          title: 'Wetlands',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Wetlands',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/14',
-        options: {
-          id: 'soils',
-          title: 'Soils',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Soils',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/15',
-        options: {
-          id: 'evacuationzones',
-          title: 'Evacuation Zones',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Evacuation Zones',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/16',
-        options: {
-          id: 'CoastalHighHazardArea',
-          title: 'Coastal High Hazard Area',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Coastal High Hazard Area',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/17',
-        options: {
-          id: 'StormSurge',
-          title: 'Storm Surge',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Storm Surge',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/18',
-        options: {
-          id: 'EcosystemManagementAreas',
-          title: 'Ecosystem Management Areas',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Ecosystem Management Areas',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/19',
-        options: {
-          id: 'PlannedUnitDevelopments',
-          title: 'Planned Unit Developments',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Planned Unit Developments',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/20',
-        options: {
-          id: 'CommunityRedevAgencies',
-          title: 'Community Redev Agencies',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Community Redev Agencies',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/21',
-        options: {
-          id: 'CountyCommissionerDistricts',
-          title: 'County Commissioner Districts',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'County Commissioner Districts',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/22',
-        options: {
-          id: 'serviceareas',
-          title: 'Service Areas',
-          opacity: .5,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Service Areas',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/23',
-        options: {
-          id: 'beachaccess',
-          title: 'Beach Access',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Beach Access',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-sun-o',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/24',
-        options: {
-          id: 'boatramps',
-          title: 'Boat Ramps',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Boat Ramps',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-sun-o',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/25',
-        options: {
-          id: 'libraries',
-          title: 'Libraries',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Libraries',
-            headerFunction: function(attrs) {
-              return '' + attrs.NAME;
-            },
-            iconClass: 'fa fa-book',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/26',
-        options: {
-          id: 'recycling',
-          title: 'Recycling',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Recycling',
-            headerFunction: function(attrs) {
-              return '' + attrs.NAME;
-            },
-            iconClass: 'fa fa-book',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/27',
-        options: {
-          id: 'schools',
-          title: 'Schools',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Schools',
-            headerFunction: function(attrs) {
-              return '' + attrs.NAME;
-            },
-            iconClass: 'fa fa-graduation-cap',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-      },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/28',
-        options: {
-          id: 'parks',
-          title: 'Parks',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Parks',
-            headerFunction: function(attrs) {
-              return '' + attrs.NAME;
-            },
-            iconClass: 'fa fa-tree',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        }
-    },
-      {
-        type: 'Feature Layer',
-        url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
-        options: {
-          id: 'parcels',
-          title: 'Parcels',
-          opacity: 1,
-          visible: true,
-          infoWindow: {
-            isEnabled: true,
-            outFields: ['*'],
-            title: 'Parcels',
-            headerFunction: function(attrs) {
-              return '' + attrs.ADDRESS;
-            },
-            iconClass: 'fa fa-tint',
-            widget: '' // use 'DefaultInfoWindow' or define your own
-          }
-        },
-      }
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/1',
+    //     options: {
+    //       id: 'roads',
+    //       title: 'Roads',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Roads',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.NAME;
+    //         },
+    //         iconClass: 'fa fa-road',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/3',
+    //     options: {
+    //       id: 'hydrants',
+    //       title: 'Hydrants',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Hydrants',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/4',
+    //     options: {
+    //       id: 'futurelanduse',
+    //       title: 'Future Land Use',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         showLabels: true,
+    //         title: 'Future Land Use',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/5',
+    //     options: {
+    //       id: 'zoning',
+    //       title: 'Zoning',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Zoning',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/6',
+    //     options: {
+    //       id: 'municipalboundaries',
+    //       title: 'Municipal Boundaries',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Municipal Boundaries',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/7',
+    //     options: {
+    //       id: 'onefootcontours',
+    //       title: 'One Foot Contours',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'One Foot Contours',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/8',
+    //     options: {
+    //       id: 'easements',
+    //       title: 'Easements',
+    //       opacity: 1,
+    //       visible: true,
+    //      infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Easements',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/9',
+    //     options: {
+    //       id: 'femafloodways',
+    //       title: 'FEMA Floodways',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'FEMA Floodways',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/10',
+    //     options: {
+    //       id: 'femacobraopa',
+    //       title: 'FEMA COBRA & OPA',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'FEMA COBRA & OPA',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/11',
+    //     options: {
+    //       id: 'FEMAfloodzones',
+    //       title: 'FEMA Flood Zones',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'FEMA Flood Zones',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/12',
+    //     options: {
+    //       id: 'femafirmindex',
+    //       title: 'FEMA FIRM Index',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'FEMA FIRM Index',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/13',
+    //     options: {
+    //       id: 'wetlands',
+    //       title: 'Wetlands',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Wetlands',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/14',
+    //     options: {
+    //       id: 'soils',
+    //       title: 'Soils',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Soils',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/15',
+    //     options: {
+    //       id: 'evacuationzones',
+    //       title: 'Evacuation Zones',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Evacuation Zones',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/16',
+    //     options: {
+    //       id: 'CoastalHighHazardArea',
+    //       title: 'Coastal High Hazard Area',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Coastal High Hazard Area',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/17',
+    //     options: {
+    //       id: 'StormSurge',
+    //       title: 'Storm Surge',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Storm Surge',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/18',
+    //     options: {
+    //       id: 'EcosystemManagementAreas',
+    //       title: 'Ecosystem Management Areas',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Ecosystem Management Areas',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/19',
+    //     options: {
+    //       id: 'PlannedUnitDevelopments',
+    //       title: 'Planned Unit Developments',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Planned Unit Developments',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/20',
+    //     options: {
+    //       id: 'CommunityRedevAgencies',
+    //       title: 'Community Redev Agencies',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Community Redev Agencies',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/21',
+    //     options: {
+    //       id: 'CountyCommissionerDistricts',
+    //       title: 'County Commissioner Districts',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'County Commissioner Districts',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/22',
+    //     options: {
+    //       id: 'serviceareas',
+    //       title: 'Service Areas',
+    //       opacity: .5,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Service Areas',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/23',
+    //     options: {
+    //       id: 'beachaccess',
+    //       title: 'Beach Access',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Beach Access',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-sun-o',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/24',
+    //     options: {
+    //       id: 'boatramps',
+    //       title: 'Boat Ramps',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Boat Ramps',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-sun-o',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/25',
+    //     options: {
+    //       id: 'libraries',
+    //       title: 'Libraries',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Libraries',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.NAME;
+    //         },
+    //         iconClass: 'fa fa-book',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/26',
+    //     options: {
+    //       id: 'recycling',
+    //       title: 'Recycling',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Recycling',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.NAME;
+    //         },
+    //         iconClass: 'fa fa-book',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/27',
+    //     options: {
+    //       id: 'schools',
+    //       title: 'Schools',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Schools',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.NAME;
+    //         },
+    //         iconClass: 'fa fa-graduation-cap',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    //   },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/28',
+    //     options: {
+    //       id: 'parks',
+    //       title: 'Parks',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Parks',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.NAME;
+    //         },
+    //         iconClass: 'fa fa-tree',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     }
+    // },
+    //   {
+    //     type: 'Feature Layer',
+    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
+    //     options: {
+    //       id: 'parcels',
+    //       title: 'Parcels',
+    //       opacity: 1,
+    //       visible: true,
+    //       infoWindow: {
+    //         isEnabled: true,
+    //         outFields: ['*'],
+    //         title: 'Parcels',
+    //         headerFunction: function(attrs) {
+    //           return '' + attrs.ADDRESS;
+    //         },
+    //         iconClass: 'fa fa-tint',
+    //         widget: '' // use 'DefaultInfoWindow' or define your own
+    //       }
+    //     },
+    //   }
     ]
   };
 });

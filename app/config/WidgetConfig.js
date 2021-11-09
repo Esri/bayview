@@ -25,9 +25,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       container: 'titlepane', // options are: 'titlepane', 'dropdown', 'none'
       autoUpdate: true, // ignored if Portal
       respectCurrentMapScale: true, // ignored if Portal
-      includeLayerIds: ['beachaccess', 'boatramps', 'libraries', 'parks', 'recycling', 'schools', 'addresses', 'roads', 'hydrants', 'parcels', 'CommunityRedevAgencies',
-       'CountyCommissionerDistricts', 'easements', 'municipalboundaries', 'futurelanduse', 'PlannedUnitDevelopments', 'serviceareas', 'soils', 'zoning', 'femacobraopa',
-       'femafirmindex', 'femafloodways', 'FEMAfloodzones', 'onefootcontours', 'StormSurge', 'wetlands', 'CoastalHighHazardArea', 'EcosystemManagementAreas', 'evacuationzones']
+      includeLayerIds: ['addresses'] // 'beachaccess', 'boatramps', 'libraries', 'parks', 'recycling', 'schools', 'addresses', 'roads', 'hydrants', 'parcels', 'CommunityRedevAgencies', 'CountyCommissionerDistricts', 'easements', 'municipalboundaries', 'futurelanduse', 'PlannedUnitDevelopments', 'serviceareas', 'soils', 'zoning', 'femacobraopa', 'femafirmindex', 'femafloodways', 'FEMAfloodzones', 'onefootcontours', 'StormSurge', 'wetlands', 'CoastalHighHazardArea', 'EcosystemManagementAreas', 'evacuationzones'
     },
 
     // DRAW TOOL //
@@ -154,71 +152,76 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           icon: 'turned_in_not',
           layers: [
             {
-              'name': 'Beach Access',
-              'id': 'beachaccess',
+              'name': 'Addresses',
+              'id': 'addresses',
               'isSelected': false, // this will determine if the layer is on by default
             },
-            {
-              'name': 'Boat Ramps',
-              'id': 'boatramps',
-              'isSelected': false,
-            },
-            {
-              'name': 'Libraries',
-              'id': 'libraries',
-              'isSelected': false,
-            },
-            {
-              'name': 'Parks',
-              'id': 'parks',
-              'isSelected': false,
-            },
-            {
-              'name': 'Recycling',
-              'id': 'recycling',
-              'isSelected': false,
-            },
-            {
-              'name': 'Schools',
-              'id': 'schools',
-              'isSelected': false,
-            }
+            // {
+            //   'name': 'Beach Access',
+            //   'id': 'beachaccess',
+            //   'isSelected': false, // this will determine if the layer is on by default
+            // },
+            // {
+            //   'name': 'Boat Ramps',
+            //   'id': 'boatramps',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Libraries',
+            //   'id': 'libraries',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Parks',
+            //   'id': 'parks',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Recycling',
+            //   'id': 'recycling',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Schools',
+            //   'id': 'schools',
+            //   'isSelected': false,
+            // }
           ]
         },
         {
           'name': 'Parcels & Community',
           icon: 'store',
           layers: [
-            {
-              'name': 'Addresses',
-              'id': 'addresses',
-              'isSelected': false,
-            },
-            {
-              'name': 'Community Redev Agencies',
-              'id': 'CommunityRedevAgencies',
-              'isSelected': false,
-            },
-            {
-              'name': 'County Commissioner Districts',
-              'id': 'CountyCommissionerDistricts',
-              'isSelected': false,
-            },
-            {
-              'name': 'Easements',
-              'id': 'easements',
-              'isSelected': false,
-            },
-            {
-              'name': 'Municipal Boundaries',
-              'id': 'municipalboundaries',
-              'isSelected': false,
-            },
-            {
-              'name': 'Parcels',
-              'id': 'parcels',
-              'isSelected': true,
-            }
+            // {
+            //   'name': 'Addresses',
+            //   'id': 'addresses',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Community Redev Agencies',
+            //   'id': 'CommunityRedevAgencies',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'County Commissioner Districts',
+            //   'id': 'CountyCommissionerDistricts',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Easements',
+            //   'id': 'easements',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Municipal Boundaries',
+            //   'id': 'municipalboundaries',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Parcels',
+            //   'id': 'parcels',
+            //   'isSelected': true,
+            // }
           ]
       },
       {
@@ -226,113 +229,113 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         'isSelected': false,
         icon: 'directions_car',
         layers: [
-            {
-              'name': 'Roads',
-              'id': 'roads',
-              'isSelected': false,
-            }
+            // {
+            //   'name': 'Roads',
+            //   'id': 'roads',
+            //   'isSelected': false,
+            // }
         ]
       },
       {
         'name': 'Land Use & Zoning',
         icon: 'terrain',
         layers: [
-            {
-              'name': 'Future Land Use',
-              'id': 'futurelanduse',
-              'isSelected': false,
-            },
-            {
-              'name': 'Planned Unit Development',
-              'id': 'PlannedUnitDevelopments',
-              'isSelected': false,
-            },
-            {
-              'name': 'Service Areas',
-              'id': 'serviceareas',
-              'isSelected': false,
-            },
-            {
-              'name': 'Soils',
-              'id': 'soils',
-              'isSelected': false,
-            },
-            {
-              'name': 'Zoning',
-              'id': 'zoning',
-              'isSelected': false,
-            }
+            // {
+            //   'name': 'Future Land Use',
+            //   'id': 'futurelanduse',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Planned Unit Development',
+            //   'id': 'PlannedUnitDevelopments',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Service Areas',
+            //   'id': 'serviceareas',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Soils',
+            //   'id': 'soils',
+            //   'isSelected': false,
+            // },
+            // {
+            //   'name': 'Zoning',
+            //   'id': 'zoning',
+            //   'isSelected': false,
+            // }
         ]
       },
       {
           'name': 'Flood & Coastal',
           icon: 'pool',
           layers: [
-              {
-                'name': 'FEMA COBRA & OPA',
-                'id': 'femacobraopa',
-                'isSelected': false,
-              },
-              {
-                'name': 'FEMA FIRM Index',
-                'id': 'femafirmindex',
-                'isSelected': false,
-              },
-              {
-                'name': 'FEMA Floodways',
-                'id': 'femafloodways',
-                'isSelected': false,
-              },
-              {
-                'name': 'FEMA Flood Zones',
-                'id': 'FEMAfloodzones',
-                'isSelected': false,
-              },
-              {
-                'name': 'One Foot Contours',
-                'id': 'onefootcontours',
-                'isSelected': false,
-              },
-              {
-                'name': 'Storm Surge',
-                'id': 'StormSurge',
-                'isSelected': false,
-              },
-              {
-                'name': 'Wetlands',
-                'id': 'wetlands',
-                'isSelected': false,
-              }
+              // {
+              //   'name': 'FEMA COBRA & OPA',
+              //   'id': 'femacobraopa',
+              //   'isSelected': false,
+              // },
+              // {
+              //   'name': 'FEMA FIRM Index',
+              //   'id': 'femafirmindex',
+              //   'isSelected': false,
+              // },
+              // {
+              //   'name': 'FEMA Floodways',
+              //   'id': 'femafloodways',
+              //   'isSelected': false,
+              // },
+              // {
+              //   'name': 'FEMA Flood Zones',
+              //   'id': 'FEMAfloodzones',
+              //   'isSelected': false,
+              // },
+              // {
+              //   'name': 'One Foot Contours',
+              //   'id': 'onefootcontours',
+              //   'isSelected': false,
+              // },
+              // {
+              //   'name': 'Storm Surge',
+              //   'id': 'StormSurge',
+              //   'isSelected': false,
+              // },
+              // {
+              //   'name': 'Wetlands',
+              //   'id': 'wetlands',
+              //   'isSelected': false,
+              // }
           ]
       },
       {
         'name': 'Hazards & Impacts',
         icon: 'report',
         layers: [
-            {
-              'name': 'Coastal High Hazard Area',
-              'id': 'CoastalHighHazardArea',
-              'isSelected': false,
+          //   {
+          //     'name': 'Coastal High Hazard Area',
+          //     'id': 'CoastalHighHazardArea',
+          //     'isSelected': false,
 
-            },
-            {
-              'name': 'Ecosystem Management Areas',
-              'id': 'EcosystemManagementAreas',
-              'isSelected': false,
+          //   },
+          //   {
+          //     'name': 'Ecosystem Management Areas',
+          //     'id': 'EcosystemManagementAreas',
+          //     'isSelected': false,
 
-            },
-            {
-              'name': 'Evacuation Zones',
-              'id': 'evacuationzones',
-              'isSelected': false,
+          //   },
+          //   {
+          //     'name': 'Evacuation Zones',
+          //     'id': 'evacuationzones',
+          //     'isSelected': false,
 
-          },
-            {
-              'name': 'Hydrants',
-              'id': 'hydrants',
-              'isSelected': false,
+          // },
+          //   {
+          //     'name': 'Hydrants',
+          //     'id': 'hydrants',
+          //     'isSelected': false,
 
-            }
+          //   }
         ]
       },
 
@@ -371,19 +374,19 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       tables: [ // Search results table
           {
-            url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/0',
+            url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/0',
             idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
             query: {
               returnGeometry: true, // if false then relatedQuery is used to determine geometry
               'id': 'addresses', // unique identifier within the unifiedSearch Config
-              fields: ['ADDRESS'], // field to be queried on (where clause)
+              fields: ['FULL_ADDRESS'], // field to be queried on (where clause)
               group: {
                 isGrouped: true,
                 sectionHeader: 'Addresses',
                 iconClass: 'fa fa-folder'
               },
               results: {
-                labelFields: ['ADDRESS'],
+                labelFields: ['FULL_ADDRESS'],
                 // comment out to use the label field instead (only first field in the array of labelFields will be used)
                 /*
                 labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
@@ -399,54 +402,54 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
               relatedQuery: null
             }
         },
-        {
-          url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/1',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'roads', // unique identifier within the unifiedSearch Config
-            fields: ['OWNER', 'FULL_NAME'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Roads',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['FULL_NAME'],
-              iconClass: 'fa fa-road',
-              priority: 2
-            },
-            relatedQuery: null
-          }
-        },
-        {
-          url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/2',
-          idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-          query: {
-            returnGeometry: true, // if false then relatedQuery is used to determine geometry
-            'id': 'parcels', // unique identifier within the unifiedSearch Config
-            fields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'], // field to be queried on (where clause)
-            group: {
-              isGrouped: true,
-              sectionHeader: 'Parcels',
-              iconClass: 'fa fa-folder'
-            },
-            results: {
-              labelFields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'],
-              labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                return attrs.A1RENUM + ' (' + attrs.DSITEADDR + ')';
-              },
-              iconClass: 'fa fa-map-marker',
-              priority: 0
-            },
-            relatedQuery: null
-          }
-        }
+        // {
+        //   url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/1',
+        //   idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
+        //   query: {
+        //     returnGeometry: true, // if false then relatedQuery is used to determine geometry
+        //     'id': 'roads', // unique identifier within the unifiedSearch Config
+        //     fields: ['OWNER', 'FULL_NAME'], // field to be queried on (where clause)
+        //     group: {
+        //       isGrouped: true,
+        //       sectionHeader: 'Roads',
+        //       iconClass: 'fa fa-folder'
+        //     },
+        //     results: {
+        //       labelFields: ['FULL_NAME'],
+        //       iconClass: 'fa fa-road',
+        //       priority: 2
+        //     },
+        //     relatedQuery: null
+        //   }
+        // },
+        // {
+        //   url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/2',
+        //   idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
+        //   query: {
+        //     returnGeometry: true, // if false then relatedQuery is used to determine geometry
+        //     'id': 'parcels', // unique identifier within the unifiedSearch Config
+        //     fields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'], // field to be queried on (where clause)
+        //     group: {
+        //       isGrouped: true,
+        //       sectionHeader: 'Parcels',
+        //       iconClass: 'fa fa-folder'
+        //     },
+        //     results: {
+        //       labelFields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'],
+        //       labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
+        //         return attrs.A1RENUM + ' (' + attrs.DSITEADDR + ')';
+        //       },
+        //       iconClass: 'fa fa-map-marker',
+        //       priority: 0
+        //     },
+        //     relatedQuery: null
+        //   }
+        // }
       ],
       locators: [  // geocode locators is enabled at the begining of this section - geocode: { isEnabled: true }
         {
           'id': 'bc_geocoder',
-          'url': 'http://gis.baycountyfl.gov/arcgis/rest/services/Locator/GeocodeServer',
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/SingleAddressLocator2/GeocodeServer',
           'minScore': 50,
           'maxLocations': 5
         }

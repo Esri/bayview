@@ -1,6 +1,6 @@
 {
   "name": "bayview",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "Template app deployed by Bayview, Florida to analyze local surrounds",
   "main": "app/Controller.js",
@@ -16,7 +16,7 @@
     "JavaScript",
     "boilerplate"
   ],
-  "author": "Michael Gaigg <mgaigg@esri.com> (http://www.michaelgaigg.com/)",
+  "author": "Michael Gaigg",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Esri/Bayview/issues"
@@ -25,7 +25,7 @@
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
     "cssnano": "^2.1.0",
-    "grunt": "^0.4.5",
+    "grunt": "^1.4.0",
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-cssnano": "^1.1.0",
