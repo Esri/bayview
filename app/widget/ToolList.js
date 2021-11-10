@@ -94,7 +94,7 @@ define([
                 // Tool selection click event
                 on(this.toolSelectDraw, 'click', lang.hitch(this, this.handleToolSelect, 'draw')),
                 on(this.toolSelectMeasure, 'click', lang.hitch(this, this.handleToolSelect, 'measure')),
-                on(this.toolSelectExtract, 'click', lang.hitch(this, this.handleToolSelect, 'extract')),
+                //on(this.toolSelectExtract, 'click', lang.hitch(this, this.handleToolSelect, 'extract')),
                 on(this.toolSelectPrint, 'click', lang.hitch(this, this.handleToolSelect, 'print')),
                 on(this.toolSelectLegend, 'click', lang.hitch(this, this.handleLegend))
             );

@@ -360,12 +360,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     // this section will configure the search output
     unifiedSearch: {
       isEnabled: true,
-      placeholder: 'Search for parcels, addresses, or roads...',
+      placeholder: 'Search for parcels, addresses, places...',
       searchDelay: 400,
       zoomToFeature: true, // zoom to the feature after selecting it
       showInfoWindow: true, // show info window after zooming to feature,
       geocode: {
-        isEnabled: true,
+        isEnabled: false,
         url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
         addressLabelFunction: function(attrs) {
           return attrs.Match_addr;

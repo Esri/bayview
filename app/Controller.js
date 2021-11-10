@@ -203,7 +203,7 @@ define([
             if (!this.measurement.isActiveTool()) {
                 this.search.mapClickEvent(args.event.target);
                 // TODO turning this off for now (Reverse Geocode Search)
-                //this.search.searchMapPoint(args.event.mapPoint);
+                this.search.searchMapPoint(args.event.mapPoint);
             }
         }));
 

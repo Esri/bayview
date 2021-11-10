@@ -62,7 +62,7 @@ function(
       dojoOn(this.submitNode, 'click', lang.hitch(this, this.onInputKeyUp));
       dojoOn(this.clearNode, 'click', lang.hitch(this, this.clear));
 
-    //   dojoOn(this.locatemeNode, 'click', lang.hitch(this, this.locatmeClicked));
+      dojoOn(this.locatemeNode, 'click', lang.hitch(this, this.locatmeClicked));
 
       dojoOn(this.resultsNode, 'click', lang.hitch(this, this.resultClickHandler));
       dojoOn(this.resultsNode, 'keydown', lang.hitch(this, this.resultKeydownHandler));
@@ -90,12 +90,12 @@ function(
         position: ['below'],
         showDelay: 0
       });
-    //   new Tooltip({
-    //     connectId: [this.locatemeNode],
-    //     label: 'Locate me',
-    //     position: ['below'],
-    //     showDelay: 0
-    //   });
+      new Tooltip({
+        connectId: [this.locatemeNode],
+        label: 'Locate me',
+        position: ['below'],
+        showDelay: 0
+      });
     },
 
     // public methods

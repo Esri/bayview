@@ -163,7 +163,7 @@ function(
       }), function(error) {
         console.log('geocode error', error);
       });
-      /*
+
       var executeObj = Object.create(null);
       _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
         var loc = new Locator(locator.url);
@@ -171,7 +171,6 @@ function(
         executeObj[locator.id] = loc.locationToAddress(mp, this.searchConfig.geocode.distance);
       }));
       dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
-      */
     },
 
     _pointToExtent: function(point, toleranceInPixel) {
