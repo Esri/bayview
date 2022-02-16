@@ -84,8 +84,9 @@ function(
 
     _attachEventListeners: function() {
       this.own(
-        // Layer Group click event
-        // on(this.groupContainer, 'click', lang.hitch(this, this._toggleAllLayers)),
+        // Attach links to select/unselect all layers
+        on(this.selectAll, 'click', lang.hitch(this, this._toggleAllLayersOn)),
+        on(this.unselectAll, 'click', lang.hitch(this, this._toggleAllLayersOff)),
         // Expand Layer List click event
         on(this.groupContainer, 'click', lang.hitch(this, this._toggleLayerList)),
         // Single Layer Item click event
@@ -95,22 +96,17 @@ function(
       );
     },
 
-    // TODO maybe removed due to client spec
-    // _toggleAllLayers: function() {
-    //     // Set the header to the active/inactive color
-    //     // Activate/Deactivate each layer in list by checking the checkbox
-    //     if (domClass.contains(this.groupContainer, 'is-selected')) {
-    //         domClass.remove(this.groupContainer, 'is-selected');
-    //         _.each(registry.findWidgets(this.layersContainer), lang.hitch(this, function(layerItem) {
-    //             layerItem.checkbox.set('checked', false);
-    //         }));
-    //     } else {
-    //         domClass.add(this.groupContainer, 'is-selected');
-    //         _.each(registry.findWidgets(this.layersContainer), lang.hitch(this, function(layerItem) {
-    //             layerItem.checkbox.set('checked', true);
-    //         }));
-    //     }
-    // },
+    _toggleAllLayersOn: function() {
+      _.each(registry.findWidgets(this.layersContainer), lang.hitch(this, function(layerItem) {
+        layerItem.checkbox.set('checked', true);
+      }));
+    },
+
+    _toggleAllLayersOff: function() {
+      _.each(registry.findWidgets(this.layersContainer), lang.hitch(this, function(layerItem) {
+        layerItem.checkbox.set('checked', false);
+      }));
+    },
 
     _toggleLayerList: function() {
       if (domClass.contains(this.layersContainer, 'is-hidden')) {

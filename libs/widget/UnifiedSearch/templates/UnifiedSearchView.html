@@ -1,4 +1,4 @@
-<div class="unifiedsearch-container" data-dojo-attach-point="unifiedsearchContainer">
+<div class="unifiedsearch-container">
     <div class="unifiedsearch-wrapper">
         <div class="unifiedsearch-input-wrapper" data-dojo-attach-point="containerNode">
             <div title="Search" tabindex="0" class="unifiedsearch-input-button unifiedsearch-input-button-left unifiedsearch-input-button-search" data-dojo-attach-point="submitNode">
@@ -20,13 +20,16 @@
                 <i class="fa fa-crosshairs"></i>
             </div>
         </div>
-        <div data-dojo-attach-point="resultsContainer">
-          <div class="unifiedsearch-results-wrapper">
-              <div class="unifiedsearch-results-suggestions" data-dojo-attach-point="resultsNode"></div>
-          </div>
-          <div class="unifiedsearch-results-wrapper">
-              <div class="unifiedsearch-results-suggestions" data-dojo-attach-point="resultsNode2"></div>
-          </div>
+        <div class="unifiedsearch-results-wrapper" data-dojo-attach-point="resultsNodeWrapper">
+            <div class="unifiedsearch-results-suggestions">
+              <ul data-dojo-attach-point="resultsNode"></ul>
+            </div>
+        </div>
+        <div class="unifiedsearch-results-wrapper" data-dojo-attach-point="resultsNodeWrapper2">
+            <div class="unifiedsearch-results-suggestions">
+              <div class="unifiedsearch-results-suggestions-actions"><a data-dojo-attach-point="btnZoomAll" href="#">Zoom to all</a> | <a style='display:none' data-dojo-attach-point="btnAddAll" href="#">Add all</a></div>
+              <ul data-dojo-attach-point="resultsNode2"></ul>
+            </div>
         </div>
     </div>
 </div>

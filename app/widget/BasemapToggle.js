@@ -30,6 +30,13 @@ define([
   'dojo/dom-construct',
   'dijit/registry',
 
+  'esri/basemaps',
+  'esri/dijit/BasemapLayer',
+  'esri/dijit/Basemap',
+  'esri/layers/ArcGISImageServiceLayer',
+  'esri/layers/ImageServiceParameters',
+  'esri/layers/MapImageLayer',
+
   'dojo/text!./templates/BasemapToggle.html'
   ],
 
@@ -37,6 +44,7 @@ function(
   declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
   Evented,
   lang, connect, topic, parser, query, on, domStyle, domClass, domConstruct, registry,
+  esriBasemaps, BasemapLayer, Basemap, ArcGISImageServiceLayer, ImageServiceParameters, MapImageLayer,
   template
 ) {
 
@@ -44,6 +52,7 @@ function(
 
     templateString: template,
     widgetsInTemplate: true,
+    lubbockLayer: null,
 
     constructor: function() {
     },
@@ -53,6 +62,33 @@ function(
     },
 
     startup: function() {
+      _.each(this.config.basemaps, lang.hitch(this, function(basemap) {
+        if (basemap.url) {
+          // var customLayer = new BasemapLayer({
+          //   url: basemap.url,
+          // });
+          // var waterBasemap = new Basemap({
+          //   layers: [waterTemplateLayer],
+          //   title: "Water Template",
+          //   thumbnailUrl:"images/waterThumb.png"
+          // });
+          // add the custom basemap to the basemaplayers
+
+          var params = new ImageServiceParameters();
+          params.noData = 0;
+          this.lubbockLayer = new ArcGISImageServiceLayer(basemap.url, {
+            imageServiceParameters: params,
+            opacity: 1
+          });
+          this.map.addLayer(this.lubbockLayer, 1);
+          this.lubbockLayer.setVisibility(false);
+          //this.lubbockLayer.visible = 0;
+          // esriBasemaps.custom = {
+          //   baseMapLayers: [{layer}],
+          //   title: basemap.name,
+          // };
+        }
+      }));
       topic.publish('/BasemapToggle/changed', this, {
         newBasemap: this.config.basemaps[0]
       });
@@ -65,10 +101,13 @@ function(
         domClass.toggle(this.basemapContainer, 'is-selected');
         // Update text
         if (domClass.contains(this.basemapContainer, 'is-selected')) {
-            this.map.setBasemap(this.config.basemaps[0].basemap);
+            //this.map.setBasemap(this.config.basemaps[0].basemap);
+            this.lubbockLayer.setVisibility(false);
             this.basemapName.innerHTML = 'Satellite View';
         } else {
-            this.map.setBasemap(this.config.basemaps[1].basemap);
+            //this.map.setBasemap(this.config.basemaps[1].basemap);
+            //this.map.setBasemap(null);
+            this.lubbockLayer.setVisibility(true);
             this.basemapName.innerHTML = 'Streets View';
         }
 

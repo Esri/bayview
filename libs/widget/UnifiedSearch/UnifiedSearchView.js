@@ -4,27 +4,31 @@ define([
   'dojo/_base/lang',
   'dojo/dom-construct',
   'dojo/dom-class',
+  'dojo/dom-style',
   'dojo/dom-attr',
-
+  'dojo/on',
   'dojo/query',
   'dojo/keys',
   'dojo/on',
+  'dojo/mouse',
+  'dojo/topic',
 
-  'esri/dijit/_EventedWidget',
   'dijit/_TemplatedMixin',
   'dijit/focus',
   'dijit/Tooltip',
+  'dijit/registry',
 
-  'dojo/text!./UnifiedSearchView.html'
-],
+  'esri/dijit/_EventedWidget',
 
-function(
-  declare, dojoEvent, lang, domConstruct, domClass, domAttr,
-  dojoQuery, dojoKeys, dojoOn,
-  _EventedWidget, _TemplatedMixin, focusUtil, Tooltip,
-  template)
-{
+  './ResultRow',
 
+  'dojo/text!./templates/UnifiedSearchView.html'
+], function (
+  declare, dojoEvent, lang, domConstruct, domClass, domStyle, domAttr, on, dojoQuery, 
+  dojoKeys, dojoOn, dojoMouse, topic, _TemplatedMixin, focusUtil, Tooltip, registry,
+  _EventedWidget, ResultRow, template
+) {
+  
   return declare([_EventedWidget, _TemplatedMixin], {
 
     templateString: template,
@@ -32,7 +36,8 @@ function(
     id: 'layerSearch',
     inputTimeout: setTimeout(function() {}, 100),
     inputValue: '',
-    minChars: 2,
+    selectedResultRow: null,
+    gridRows: [],
 
     constructor: function() {
       this.inherited(arguments);
@@ -41,12 +46,38 @@ function(
     postCreate: function() {
       this.inherited(arguments);
       this.inputNode.placeholder = this.searchConfig.placeholder;
+      this.minChars = this.minChars;
+
+      if (!_.isUndefined(this.searchConfig.geocode)) {
+        if (this.searchConfig.geocode === false) {
+          //domStyle.set(this.locatemeNode, 'display', 'none');
+          domClass.add(this.locatemeNode, 'hidden');
+        }
+      }
+
+      topic.subscribe('/AssetsManager/grid/updated', lang.hitch(this, function(sender, args) {
+        this.gridRows = args.rows || [];
+        this.updateGrids();
+      }));
+
+      this.clear();
     },
 
     startup: function() {
       this.inherited(arguments);
       this._addEventListeners();
       this._addTooltips();
+    },
+
+    updateGrids: function() {
+      // update the current results view
+      _.each(registry.findWidgets(this.resultsNode2), lang.hitch(this, function(widget) {
+        var list = _.find(this.gridRows, lang.hitch(this, function(row) {
+          return (widget.getId() === row.getId());
+        }));
+        var hasAction = _.isUndefined(list);
+        widget.toggleActionButton(hasAction);
+      }));
     },
 
     _addEventListeners: function() {
@@ -64,33 +95,39 @@ function(
 
       dojoOn(this.locatemeNode, 'click', lang.hitch(this, this.locatmeClicked));
 
-      dojoOn(this.resultsNode, 'click', lang.hitch(this, this.resultClickHandler));
-      dojoOn(this.resultsNode, 'keydown', lang.hitch(this, this.resultKeydownHandler));
+      dojoOn(this.btnAddAll, 'click', lang.hitch(this, this.btnAddAllClicked));
+      dojoOn(this.btnZoomAll, 'click', lang.hitch(this, this.btnZoomAllClicked));
 
-      dojoOn(this.resultsNode2, 'click', lang.hitch(this, this.resultClickHandler));
-      dojoOn(this.resultsNode2, 'keydown', lang.hitch(this, this.resultKeydownHandler));
+      dojoOn(document, 'keydown', lang.hitch(this, this.onDocumentKeyDown));
+    },
+
+    onDocumentKeyDown: function(evt) {
+      console.log('key pressed: ', evt.keyCode);
+      if (evt.keyCode === 191) {
+        console.log('slash key pressed');
+      }
     },
 
     _addTooltips: function() {
-      new Tooltip({
+      Tooltip({
         connectId: [this.submitNode],
         label: 'Search',
         position: ['below'],
         showDelay: 0
       });
-      new Tooltip({
+      Tooltip({
         connectId: [this.backNode],
         label: 'Back',
         position: ['below'],
         showDelay: 0
       });
-      new Tooltip({
+      Tooltip({
         connectId: [this.clearNode],
         label: 'Clear',
         position: ['below'],
         showDelay: 0
       });
-      new Tooltip({
+      Tooltip({
         connectId: [this.locatemeNode],
         label: 'Locate me',
         position: ['below'],
@@ -135,33 +172,17 @@ function(
       domClass.remove(this.containerNode, 'search-error');
       this.clearResults();
       this.focus();
+
+      this.hideContainer1();
+      this.hideContainer2();
+
       this.emit('clear');
     },
 
     clearResults: function() {
       domConstruct.empty(this.resultsNode);
       domConstruct.empty(this.resultsNode2);
-      this.showResultsNode();
       this.clearSearchError();
-    },
-
-    showResultsNode: function() {
-      domClass.remove(this.resultsContainer, 'hidden');
-    },
-
-    hideResultsNode: function() {
-      domClass.add(this.resultsContainer, 'hidden');
-    },
-
-    openFeatureDetails: function(searchString) {
-        var fixedString = searchString.replace(/<(?:.|\n)*?>/gm, '');
-        domAttr.set(this.inputNode, 'value', fixedString);
-        this.inputValue = fixedString;
-        domClass.remove(this.containerNode, 'populated');
-        domClass.remove(this.containerNode, 'search-error');
-        //this.clearResults();
-        this.focus();
-        //this.emit('clear');
     },
 
     onInputKeyUp: function(evt) {
@@ -177,13 +198,10 @@ function(
         evt.keyCode === dojoKeys.UP_ARROW ||
         evt.keyCode === dojoKeys.DOWN_ARROW ||
         evt.keyCode === dojoKeys.LEFT_ARROW ||
-        evt.keyCode === dojoKeys.RIGHT_ARROW) {
+        evt.keyCode === dojoKeys.RIGHT_ARROW ||
+        evt.keyCode === dojoKeys.ENTER) {
         return;
       }
-
-    //   if (evt.keyCode === dojoKeys.ENTER) {
-    //       this.handleInput();
-    //   }
 
       this.clearInputTimeout();
 
@@ -209,12 +227,16 @@ function(
     },
 
     handleInput: function() {
-      domClass.add(this.containerNode, 'loading has-input');
+      this.showLoading();
       this.emit('input-change', this.inputValue);
     },
 
-    showClearBtn: function() {
-      domClass.add(this.containerNode, 'has-input');
+    showLoading: function() {
+      domClass.add(this.containerNode, 'loading has-input');
+    },
+
+    hideLoading: function() {
+
     },
 
     setInputValue: function(value) {
@@ -280,164 +302,191 @@ function(
       }
     },
 
-    tempLi: null,
-    setLoadingIcon: function(li) {
-      this.tempLi = li;
-      domClass.remove(li.children[0]);
-      domClass.add(li.children[0], 'search-results-icon fa fa-refresh fa-spin');
-    },
-
-    restoreLoadingIcon: function() {
-      if (this.tempLi !== null && this.tempLi.children.length > 0) {
-        domClass.remove(this.tempLi.children[0]);
-        domClass.add(this.tempLi.children[0], domAttr.get(this.tempLi, 'data-iconclass'));
-        domClass.add(this.tempLi.children[0], 'search-results-icon');
-      }
-    },
-
-    selectFeatureFromResult: function(target) {
-      var li = dojoQuery(target).closest('li')[0];
-      console.debug('li: ', domAttr.get(li, 'data-oid'), domAttr.get(li, 'data-lyr'));
-      this.setLoadingIcon(li);
-      var labelText = li.innerText || li.textContent;
-      if (!labelText) {
-        console.warn('aw crap, need to find li text some other way');
-        labelText = 'Browser error!';
-      }
-
-      labelText = labelText.trim ? labelText.trim() : labelText.replace(/^\s+|\s+$/g, '');
-
-      //console.debug('the extent that is being emitted', domAttr.get(li, 'data-extent'));
-      this.emit('select-oid', {
-        oid: domAttr.get(li, 'data-oid'),
-        lyr: domAttr.get(li, 'data-lyr'),
-        // TODO the extent is causing issues with the deatails panel
-        extent: domAttr.get(li, 'data-extent'),
-        //extent: null,
-        labelText: domAttr.get(li, 'data-label'),
-        obj: domAttr.get(li, 'data-obj')
-      });
-    },
-
     clearInputTimeout: function() {
       clearTimeout(this.inputTimeout);
     },
 
+    showRowLoading: function(row) {
+      this.selectedResultRow = row;
+      this.selectedResultRow.showLoading();
+    },
+
+    hideRowLoading: function() {
+      if (this.selectedResultRow !== null) {
+        this.selectedResultRow.hideLoading();
+      }
+      this.selectedResultRow = null;
+    },
+
     handleFormattedResults: function(results) {
+      this.hideRowLoading();
       domClass.remove(this.containerNode, 'loading');
       domClass.add(this.containerNode, 'has-input');
       if (!results.length) {
-        this.handleNoResults();
-        return;
+        //this.handleNoResults();
+        //return;
       }
 
       this.clearSearchError();
 
-      var regex = new RegExp('(' + this.inputValue + ')', 'gi');
-
-      var resultsUL = domConstruct.create('ul', {
-        'class': 'resultsList'
-      });
-
-      _.each(results, function(resultObj, idx) {
-        var formattedLabel = resultObj.label.replace(regex, '<strong>$1</strong>');
-
-        domConstruct.create('li', {
-          'class': 'LSResult',
-          'data-oid': resultObj.oid,
-          'data-lyr': resultObj.layer,
-          'data-idx': idx,
-          'data-label': formattedLabel,
-          'data-extent': resultObj.extent,
-          'data-iconclass': resultObj.iconClass,
-          'data-obj': resultObj.obj,
-          'tabindex': '0',
-          innerHTML:  '<span class="search-results-icon ' + resultObj.iconClass + '"></span> ' + formattedLabel + '</li>'
-        }, resultsUL);
-      });
-
       domConstruct.empty(this.resultsNode);
-      domConstruct.place(resultsUL, this.resultsNode);
-      domClass.remove(this.resultsNode, 'hidden');
+
+      _.each(results, lang.hitch(this, function(resultObj, idx) {
+        var row = new ResultRow({
+          'inputValue': resultObj.label,
+          'resultObj': resultObj,
+          'index': idx,
+          'map': this.map
+        }).placeAt(this.resultsNode);
+        this.own(on(row, 'itemclicked', lang.hitch(this, function(args) {
+          this.showRowLoading(row);
+          var resultObj = args.resultObj || {};
+          this.emitItem(resultObj, resultObj.label);
+        })));
+        this.own(on(row, 'actionclicked', lang.hitch(this, function(args) {
+          // doesn't exist at this level
+        })));
+        this.own(on(row, 'hover', lang.hitch(this, function(args) {
+          this.emitHover(args.resultObj);
+        })));
+      }));
+
+      this.showContainer1();
+      //domClass.remove(this.resultsNodeWrapper, 'hidden');
     },
 
     handleFormattedResults2: function(results, strInput) {
-        //console.log('handleFormattedResults2');
-      this.restoreLoadingIcon();
+      this.hideRowLoading();
       domClass.remove(this.containerNode, 'loading');
       domClass.add(this.containerNode, 'has-input');
       if (!results.length) {
-        this.handleNoResults();
-        return;
+        // this.handleNoResults();
+        // return;
       }
 
       this.clearSearchError();
 
-      var regex = new RegExp('(' + this.inputValue + ')', 'gi');
-
-      var resultsUL = domConstruct.create('ul', {
-        'class': 'resultsList'
-      });
-
-      _.each(results, function(resultObj, idx) {
-        var formattedLabel = resultObj.label.replace(regex, '<strong>$1</strong>');
-
-        domConstruct.create('li', {
-          'class': 'LSResult',
-          'data-oid': resultObj.oid,
-          'data-lyr': resultObj.layer,
-          'data-idx': idx,
-          'data-label': formattedLabel,
-          'data-extent': resultObj.extent,
-          'data-iconclass': resultObj.iconClass,
-          'data-obj': resultObj.obj,
-          'tabindex': '0',
-          innerHTML:  '<span class="search-results-icon ' + resultObj.iconClass + '"></span> ' + formattedLabel + '</li>'
-        }, resultsUL);
-      });
-
       domConstruct.empty(this.resultsNode2);
-      domConstruct.place(resultsUL, this.resultsNode2);
+
+      _.each(results, lang.hitch(this, function(resultObj, idx) {
+        var row = new ResultRow({
+          'inputValue': this.inputValue,
+          'resultObj': resultObj,
+          'index': idx,
+          'map': this.map
+        }).placeAt(this.resultsNode2);
+        this.own(on(row, 'iconclicked', lang.hitch(this, function(args) {
+          var feature = args.feature;
+          this.emit('zoomto', {
+            'features': [feature]
+          });
+        })));
+        this.own(on(row, 'itemclicked', lang.hitch(this, function(args) {
+          if (args.resultObj.hasOwnProperty('obj')) {  
+            var feature = args.resultObj.obj;
+            this.emit('zoomto', {
+              'features': [feature]
+            });
+          }
+        })));
+        this.own(on(row, 'actionclicked', lang.hitch(this, function(args) {
+          this.showRowLoading(row);
+          this.hideContainer2();
+          var resultObj = args.resultObj || {};
+          this.emitItem(resultObj, strInput);
+        })));
+        this.own(on(row, 'hover', lang.hitch(this, function(args) {
+          this.emitHover(args.resultObj);
+        })));
+
+      }));
+
+      this.updateGrids();
+
       domAttr.set(this.inputNode, 'value', strInput);
       domClass.add(this.containerNode, 'populated');
-      domClass.add(this.resultsNode, 'hidden');
+      this.hideContainer1();
+      this.showContainer2();
+      //domClass.add(this.resultsNodeWrapper, 'hidden');
+    },
+
+    showContainer1: function() {
+      domClass.remove(this.resultsNodeWrapper, 'hidden');
+    },
+
+    hideContainer1: function() {
+      domClass.add(this.resultsNodeWrapper, 'hidden');
+    },
+
+    showContainer2: function() {
+      domClass.remove(this.resultsNodeWrapper2, 'hidden');
+    },
+
+    hideContainer2: function() {
+      domClass.add(this.resultsNodeWrapper2, 'hidden');
+    },
+
+    btnAddAllClicked: function() {
+      _.each(registry.findWidgets(this.resultsNode2), lang.hitch(this, function(widget) {
+        this.emitItem(widget.getResultObj());
+      }));
+    },
+
+    btnZoomAllClicked: function() {
+      var features = _.map(registry.findWidgets(this.resultsNode2), lang.hitch(this, function(widget) {
+        return widget.getFeature();
+      }));
+
+      this.emit('zoomto', {
+        'features': features
+      });
+    },
+
+    emitHover: function(resultObj) {
+      this.emit('hover-obj', {
+        'oid': resultObj.oid,
+        'layerId': resultObj.layer,
+        'object': resultObj.obj
+      });
+    },
+
+    emitItem: function(resultObj, labelText) {
+      var labelText = labelText || '';
+      this.emit('select-oid', {
+        'oid': resultObj.oid,
+        'lyr': resultObj.layer,
+        'extent': resultObj.extent,
+        'labelText': labelText, //domAttr.get(li, 'data-label'),
+        'obj': resultObj.obj
+      });
     },
 
     clearSearchError: function() {
-      //domClass.remove(this.containerNode, 'search-error');
-      domConstruct.empty(this.resultsNode);
-      domClass.add(this.resultsNode, 'hidden');
+      domClass.remove(this.containerNode, 'search-error');
     },
 
     handleNoResults: function() {
       domConstruct.empty(this.resultsNode);
       //domClass.add(this.containerNode, 'search-error');
-      domConstruct.empty(this.resultsNode);
-      var content = '<div style="margin: 1rem;"><p>Your search didn\'t return results.<br/><i>Search only shows results within Bay County.</i></p>';
-      domConstruct.place(content, this.resultsNode);
-      domClass.remove(this.resultsNode, 'hidden');
     },
 
     onBackNodeClicked: function() {
-      if (domClass.contains(this.resultsContainer, 'hidden')) {
-        this.showResultsNode();
-      } else {
-        domClass.remove(this.containerNode, 'populated');
-        domConstruct.empty(this.resultsNode2);
-        domClass.remove(this.resultsNode, 'hidden');
-      }
       domAttr.set(this.inputNode, 'value', this.inputValue);
+      domClass.remove(this.containerNode, 'populated');
+
+      this.hideContainer2();
+      this.showContainer1();
+
       this.inputNode.focus();
-      this.emit('back');
+      topic.publish('/UnifiedSearch/back/clicked');
     },
 
     hide: function() {
-        domClass.add(this.unifiedsearchContainer, 'is-hidden');
+      domClass.add(this.domNode, 'is-hidden');
     },
 
-    show: function() {
-        domClass.remove(this.unifiedsearchContainer, 'is-hidden');
+    show: function(){
+      domClass.remove(this.domNode, 'is-hidden');
     }
-
   });
 });

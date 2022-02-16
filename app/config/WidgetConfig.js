@@ -25,7 +25,20 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       container: 'titlepane', // options are: 'titlepane', 'dropdown', 'none'
       autoUpdate: true, // ignored if Portal
       respectCurrentMapScale: true, // ignored if Portal
-      includeLayerIds: ['addresses'] // 'beachaccess', 'boatramps', 'libraries', 'parks', 'recycling', 'schools', 'addresses', 'roads', 'hydrants', 'parcels', 'CommunityRedevAgencies', 'CountyCommissionerDistricts', 'easements', 'municipalboundaries', 'futurelanduse', 'PlannedUnitDevelopments', 'serviceareas', 'soils', 'zoning', 'femacobraopa', 'femafirmindex', 'femafloodways', 'FEMAfloodzones', 'onefootcontours', 'StormSurge', 'wetlands', 'CoastalHighHazardArea', 'EcosystemManagementAreas', 'evacuationzones'
+      includeLayerIds: [
+        'citycouncildistricts',
+        'neighborhoodassociations',
+        'subdivisions',
+        'currentzoningcases',
+        'designdistricts',
+        'futurelanduseplan',
+        'pendingzbacases',
+        'pendingzonecases',
+        'preliminaryplats',
+        'floodzone',
+        'residentpermitonlyparkingzones',
+        'impactfeeservicearea'
+      ]
     },
 
     // DRAW TOOL //
@@ -149,196 +162,299 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         {
           // Layer List Group
           'name': 'Points of Interest',
-          icon: 'turned_in_not',
-          layers: [
+          'icon': 'map',
+          'layers': [
             {
-              'name': 'Addresses',
-              'id': 'addresses',
-              'isSelected': false, // this will determine if the layer is on by default
+              'id': 'airports',
+              'name': 'Airports',
+              'isSelected': false,
             },
-            // {
-            //   'name': 'Beach Access',
-            //   'id': 'beachaccess',
-            //   'isSelected': false, // this will determine if the layer is on by default
-            // },
-            // {
-            //   'name': 'Boat Ramps',
-            //   'id': 'boatramps',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Libraries',
-            //   'id': 'libraries',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Parks',
-            //   'id': 'parks',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Recycling',
-            //   'id': 'recycling',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Schools',
-            //   'id': 'schools',
-            //   'isSelected': false,
-            // }
+            {
+              'id': 'animalservices',
+              'name': 'Animal Services',
+              'isSelected': false,
+            },
+            {
+              'id': 'citibustransferplaza',
+              'name': 'Citibus Transfer Plaza',
+              'isSelected': false,
+            },
+            {
+              'id': 'citizenstower',
+              'name': 'Citizens Tower',
+              'isSelected': false,
+            },
+            {
+              'id': 'cementaries',
+              'name': 'City of Lubbock Cementary',
+              'isSelected': false,
+            },
+            {
+              'id': 'utilities',
+              'name': 'City of Lubbock Utilities',
+              'isSelected': false,
+            },
+            {
+              'id': 'civiccenter',
+              'name': 'Civic Center',
+              'isSelected': false,
+            },
+            {
+              'id': 'communitycenters',
+              'name': 'Community Centers',
+              'isSelected': false,
+            },
+            {
+              'id': 'firestations',
+              'name': 'Fire Stations',
+              'isSelected': false,
+            },
+            {
+              'id': 'healthdepartments',
+              'name': 'Health Departments',
+              'isSelected': false,
+            },
+            {
+              'id': 'libraries',
+              'name': 'Libraries',
+              'isSelected': false,
+            },
+            {
+              'id': 'museums',
+              'name': 'Museums',
+              'isSelected': false,
+            },
+            {
+              'id': 'policestations',
+              'name': 'Police Stations',
+              'isSelected': false,
+            },
+            {
+              'id': 'pools',
+              'name': 'Pools',
+              'isSelected': false,
+            },
+            {
+              'id': 'recyclingcenters',
+              'name': 'Recycling Centers',
+              'isSelected': false,
+            },
+            {
+              'id': 'sportcomplexes',
+              'name': 'Sport Complexes',
+              'isSelected': false,
+            },
           ]
         },
         {
           'name': 'Parcels & Community',
-          icon: 'store',
-          layers: [
-            // {
-            //   'name': 'Addresses',
-            //   'id': 'addresses',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Community Redev Agencies',
-            //   'id': 'CommunityRedevAgencies',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'County Commissioner Districts',
-            //   'id': 'CountyCommissionerDistricts',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Easements',
-            //   'id': 'easements',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Municipal Boundaries',
-            //   'id': 'municipalboundaries',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Parcels',
-            //   'id': 'parcels',
-            //   'isSelected': true,
-            // }
+          'icon': 'school',
+          'layers': [
+            {
+              'id': 'addresses',
+              'name': 'Addresses',
+              'isSelected': false,
+            },
+            {
+              'id': 'buildingfootprints',
+              'name': 'Building Footprints',
+              'isSelected': false,
+            },
+            {
+              'id': 'citycouncildistricts',
+              'name': 'City Council Districts',
+              'isSelected': false,
+            },
+            {
+              'id': 'citylimits',
+              'name': 'City Limits',
+              'isSelected': true,
+            },
+            {
+              'id': 'neighborhoodassociations',
+              'name': 'Neighborhood Associations',
+              'isSelected': false,
+            },
+            {
+              'id': 'parcels',
+              'name': 'Parcels',
+              'isSelected': false,
+            },
+            {
+              'id': 'parks',
+              'name': 'Parks',
+              'isSelected': false,
+            },
+            {
+              'id': 'subdivisions',
+              'name': 'Platted Subdivisions',
+              'isSelected': false,
+            },
+            {
+              'id': 'schools',
+              'name': 'Schools',
+              'isSelected': false,
+            },
+            {
+              'id': 'streetaddressdirection',
+              'name': 'Street Address Direction',
+              'isSelected': false,
+            },
+            {
+              'id': 'streetcenterlines',
+              'name': 'Street Centerlines',
+              'isSelected': false,
+            },
+            {
+              'id': 'streetnames',
+              'name': 'Street Names',
+              'isSelected': false,
+            },
+            {
+              'id': 'zipcodes',
+              'name': 'Zip Codes',
+              'isSelected': false,
+            },
           ]
       },
       {
-        'name': 'Roads & Highways',
-        'isSelected': false,
-        icon: 'directions_car',
-        layers: [
-            // {
-            //   'name': 'Roads',
-            //   'id': 'roads',
-            //   'isSelected': false,
-            // }
+        'name': 'Planning & Zoning',
+        'icon': 'draw',
+        'layers': [
+          {
+            'id': 'currentzoningcases',
+            'name': 'Current Zoning Cases',
+            'isSelected': false,
+          },
+          {
+            'id': 'designdistricts',
+            'name': 'Design Districts',
+            'isSelected': false,
+          },
+          {
+            'id': 'futurelanduseplan',
+            'name': 'Future Land Use Plan',
+            'isSelected': false,
+          },
+          {
+            'id': 'pendingzbacases',
+            'name': 'Pending ZBA Cases',
+            'isSelected': false,
+          },
+          {
+            'id': 'pendingzonecases',
+            'name': 'Pending Zone Cases',
+            'isSelected': false,
+          },
+          {
+            'id': 'preliminaryplats',
+            'name': 'Preliminary Plats',
+            'isSelected': false,
+          },
         ]
       },
       {
-        'name': 'Land Use & Zoning',
-        icon: 'terrain',
-        layers: [
-            // {
-            //   'name': 'Future Land Use',
-            //   'id': 'futurelanduse',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Planned Unit Development',
-            //   'id': 'PlannedUnitDevelopments',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Service Areas',
-            //   'id': 'serviceareas',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Soils',
-            //   'id': 'soils',
-            //   'isSelected': false,
-            // },
-            // {
-            //   'name': 'Zoning',
-            //   'id': 'zoning',
-            //   'isSelected': false,
-            // }
+        'name': 'Topography & Lakes',
+        'icon': 'water',
+        'layers': [
+          {
+            'id': 'floodzone',
+            'name': 'Flood Zone',
+            'isSelected': false,
+          },
+          {
+            'id': 'lake',
+            'name': 'Lake',
+            'isSelected': false,
+          },
+          {
+            'id': 'lakenumber',
+            'name': 'Lake Number',
+            'isSelected': false,
+          },
+          {
+            'id': 'contours',
+            'name': 'Contours',
+            'isSelected': false,
+          },
         ]
       },
       {
-          'name': 'Flood & Coastal',
-          icon: 'pool',
-          layers: [
-              // {
-              //   'name': 'FEMA COBRA & OPA',
-              //   'id': 'femacobraopa',
-              //   'isSelected': false,
-              // },
-              // {
-              //   'name': 'FEMA FIRM Index',
-              //   'id': 'femafirmindex',
-              //   'isSelected': false,
-              // },
-              // {
-              //   'name': 'FEMA Floodways',
-              //   'id': 'femafloodways',
-              //   'isSelected': false,
-              // },
-              // {
-              //   'name': 'FEMA Flood Zones',
-              //   'id': 'FEMAfloodzones',
-              //   'isSelected': false,
-              // },
-              // {
-              //   'name': 'One Foot Contours',
-              //   'id': 'onefootcontours',
-              //   'isSelected': false,
-              // },
-              // {
-              //   'name': 'Storm Surge',
-              //   'id': 'StormSurge',
-              //   'isSelected': false,
-              // },
-              // {
-              //   'name': 'Wetlands',
-              //   'id': 'wetlands',
-              //   'isSelected': false,
-              // }
+          'name': 'Public Works',
+          'icon': 'umbrella',
+          'layers': [
+            {
+              'id': 'firehydrants',
+              'name': 'Fire Hydrants',
+              'isSelected': false,
+            },
+            {
+              'id': 'watermains',
+              'name': 'Water Mains',
+              'isSelected': false,
+            },
+            {
+              'id': 'sewermanholes',
+              'name': 'Sewer Manholes',
+              'isSelected': false,
+            },
+            {
+              'id': 'sewercleanouts',
+              'name': 'Sewer Clean Outs',
+              'isSelected': false,
+            },
+            {
+              'id': 'sewergravitymains',
+              'name': 'Sewer Gravity Mains',
+              'isSelected': false,
+            },
+            {
+              'id': 'sewerforcemains',
+              'name': 'Sewer Force Mains',
+              'isSelected': false,
+            },
+            {
+              'id': 'stormwatermanholes',
+              'name': 'Stormwater Manholes',
+              'isSelected': false,
+            },
+            {
+              'id': 'stormwaterinlets',
+              'name': 'Stormwater Inlets',
+              'isSelected': false,
+            },
+            {
+              'id': 'stormwateroutfalls',
+              'name': 'Stormwater Outfalls',
+              'isSelected': false,
+            },
+            {
+              'id': 'stormwaterpipes',
+              'name': 'Stormwater Pipes',
+              'isSelected': false,
+            },
+            {
+              'id': 'trafficvolumetotals',
+              'name': 'Traffic Volume Totals',
+              'isSelected': false,
+            },
+            {
+              'id': 'trafficsignals',
+              'name': 'Traffic Signals',
+              'isSelected': false,
+            },
+            {
+              'id': 'residentpermitonlyparkingzones',
+              'name': 'Resident Permit Only Parking Zones',
+              'isSelected': false,
+            },
+            {
+              'id': 'impactfeeservicearea',
+              'name': 'Impact Fee Service Area',
+              'isSelected': false,
+            },
           ]
-      },
-      {
-        'name': 'Hazards & Impacts',
-        icon: 'report',
-        layers: [
-          //   {
-          //     'name': 'Coastal High Hazard Area',
-          //     'id': 'CoastalHighHazardArea',
-          //     'isSelected': false,
-
-          //   },
-          //   {
-          //     'name': 'Ecosystem Management Areas',
-          //     'id': 'EcosystemManagementAreas',
-          //     'isSelected': false,
-
-          //   },
-          //   {
-          //     'name': 'Evacuation Zones',
-          //     'id': 'evacuationzones',
-          //     'isSelected': false,
-
-          // },
-          //   {
-          //     'name': 'Hydrants',
-          //     'id': 'hydrants',
-          //     'isSelected': false,
-
-          //   }
-        ]
-      },
-
+        }
       ]
     },
 
@@ -351,7 +467,8 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         },
         {
           'name': 'Satellite',
-          basemap: 'satellite'
+          'basemap': 'custom',
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Imagery/Lubbock_Image_Cache_2021_Mercator/ImageServer',
         }
       ]
     },
@@ -361,11 +478,11 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     unifiedSearch: {
       isEnabled: true,
       placeholder: 'Search for parcels, addresses, places...',
-      searchDelay: 400,
+      searchDelay: 1000,
       zoomToFeature: true, // zoom to the feature after selecting it
       showInfoWindow: true, // show info window after zooming to feature,
       geocode: {
-        isEnabled: false,
+        isEnabled: true,
         url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer',
         addressLabelFunction: function(attrs) {
           return attrs.Match_addr;
@@ -373,78 +490,1023 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         distance: 500
       },
       tables: [ // Search results table
-          {
-            url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/0',
-            idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-            query: {
-              returnGeometry: true, // if false then relatedQuery is used to determine geometry
-              'id': 'addresses', // unique identifier within the unifiedSearch Config
-              fields: ['FULL_ADDRESS'], // field to be queried on (where clause)
-              group: {
-                isGrouped: true,
-                sectionHeader: 'Addresses',
-                iconClass: 'fa fa-folder'
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/0',
+          'idField': 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
+          'query': {
+            'textSearch': true,
+            'returnGeometry': true, // if false then relatedQuery is used to determine geometry
+            'id': 'addresses', // unique identifier within the unifiedSearch Config
+            'fields': ['FULL_ADDRESS'], // field to be queried on (where clause)
+            'group': {
+              'isGrouped': true,
+              'sectionHeader': 'Addresses',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['FULL_ADDRESS'],
+              'iconClass': 'fa fa-map-marker',
+              'priority': 1
+            },
+            'relatedQuery': null
+          }
+      },
+      
+      {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/4',
+          'idField': 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
+          'query': {
+            'textSearch': true,
+            'returnGeometry': true, // if false then relatedQuery is used to determine geometry
+            'id': 'parcels', // unique identifier within the unifiedSearch Config
+            'fields': ['LCADID', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS', 'LEGAL_DESCRIPTION','GUC','OWNER_ADDRESS', 'NO_PARKING_SPACES', 'POOL', 'SQUARE_FOOT', 'last_edited_date'], // field to be queried on (where clause)
+            'group': {
+              'isGrouped': true,
+              'sectionHeader': 'Parcels',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['LCADID', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS'],
+              'labelFunction': function(attrs) { // label to show in results (must refer to queryLabelFields)
+                return attrs.OWNER_ADDRESS + ' (' + attrs.SUBDIVISION + ', ' + attrs.LCADID + ')';
               },
-              results: {
-                labelFields: ['FULL_ADDRESS'],
-                // comment out to use the label field instead (only first field in the array of labelFields will be used)
-                /*
-                labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-                  return attrs.pocname + ' (' + attrs.opsstatus + ')';
-                },
-                iconClassFunction: function(attrs) {
-                  return 'stateface stateface-' + attrs.STATE_ABBR.toLowerCase();
-                },
-                */
-                iconClass: 'fa fa-map-marker',
-                priority: 1
-              },
-              relatedQuery: null
-            }
+              'iconClass': 'fa fa-house',
+              'priority': 2
+            },
+            'relatedQuery': null
+          }
         },
-        // {
-        //   url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/1',
-        //   idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-        //   query: {
-        //     returnGeometry: true, // if false then relatedQuery is used to determine geometry
-        //     'id': 'roads', // unique identifier within the unifiedSearch Config
-        //     fields: ['OWNER', 'FULL_NAME'], // field to be queried on (where clause)
-        //     group: {
-        //       isGrouped: true,
-        //       sectionHeader: 'Roads',
-        //       iconClass: 'fa fa-folder'
-        //     },
-        //     results: {
-        //       labelFields: ['FULL_NAME'],
-        //       iconClass: 'fa fa-road',
-        //       priority: 2
-        //     },
-        //     relatedQuery: null
-        //   }
-        // },
-        // {
-        //   url: 'http://arcgis4.roktech.net/arcgis/rest/services/Bay/BayView/MapServer/2',
-        //   idField: 'OBJECTID', // this is the id field that serves as the unique id and needs to be related to the feature layer
-        //   query: {
-        //     returnGeometry: true, // if false then relatedQuery is used to determine geometry
-        //     'id': 'parcels', // unique identifier within the unifiedSearch Config
-        //     fields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'], // field to be queried on (where clause)
-        //     group: {
-        //       isGrouped: true,
-        //       sectionHeader: 'Parcels',
-        //       iconClass: 'fa fa-folder'
-        //     },
-        //     results: {
-        //       labelFields: ['A1RENUM', 'DSITEADDR', 'A2OWNAME'],
-        //       labelFunction: function(attrs) { // label to show in results (must refer to queryLabelFields)
-        //         return attrs.A1RENUM + ' (' + attrs.DSITEADDR + ')';
-        //       },
-        //       iconClass: 'fa fa-map-marker',
-        //       priority: 0
-        //     },
-        //     relatedQuery: null
-        //   }
-        // }
+      
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/1',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'animalservices',
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'iconClass': 'fa fa-dog',
+            'priority': 6
+          },
+        },
+      },
+      
+      {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/2',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'citibustransferplaza',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-bus',
+              'priority': 7
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/3',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'citizenstower',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-gopuram',
+              'priority': 9
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/4',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'cementaries',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-tombstone',
+              'priority': 10
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/5',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'utilities',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-lamp',
+              'priority': 11
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/6',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'civiccenter',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 12
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/7',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'communitycenters',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 13
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/8',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'firestations',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 14
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/9',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'healthdepartments',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 15
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/10',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'libraries',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 16
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/11',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'museums',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 17
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/12',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'policestations',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 18
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/13',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'pools',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 19
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/14',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'recyclingcenters',
+            'fields': ['LOCATION', 'STATUS'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['LOCATION'],
+              'iconClass': 'fa fa-plane',
+              'priority': 20
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/15',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'sportcomplexes',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 21
+            },
+          },
+        },
+      
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/3',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'buildingfootprints',
+            'fields': ['STRUCTURE_NAME', 'TOTAL_NUMB_FLOORS', 'FIRST_FLOOR_AREA', 'TOTAL_FLOOR_AREA','NUMBER_RESIDENCES', 'DATE_BUILT', 'GUC', 'GUC_DESCRIPTION', 'last_edited_date'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['STRUCTURE_NAME'],
+              'iconClass': 'fa fa-building',
+              'priority': 23
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/11',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'citycouncildistricts',
+            'fields': ['DISTRICT', 'POPTOTAL'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['DISTRICT'],
+              'iconClass': 'fa fa-users',
+              'priority': 24
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/10',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'neighborhoodassociations',
+            'fields': ['NAME', 'ASSOC_NUM'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-chart-network',
+              'priority': 26
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/9',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'parks',
+            'fields': ['NAME', 'Address', 'Classification', 'Acres'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME', 'Address'],
+              'labelFunction': function(attrs) {
+                return attrs.NAME + ' (' + attrs.Address + ')';
+              },
+              'iconClass': 'fa fa-bench-tree',
+              'priority': 28
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/8',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'subdivisions',
+            'fields': ['NAME', 'PLAT', 'YEAR'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-vector-square',
+              'priority': 29
+            },
+          },
+        },
+      
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/0',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'airports',
+            'fields': ['NAME', 'TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': 'Airports',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['NAME'],
+              'iconClass': 'fa fa-plane',
+              'priority': 5
+            },
+          }
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/2',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': true,
+            'returnGeometry': true,
+            'id': 'schools',
+            'fields': ['SCHOOL_NAME', 'SCHOOL_LEVEL', 'SCHOOL_TYPE', 'ADDR', 'PHONE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['SCHOOL_NAME', 'ADDR'],
+              'labelFunction': function(attrs) {
+                return attrs.SCHOOL_NAME + ' (' + attrs.ADDR + ')';
+              },
+              'iconClass': 'fa fa-school',
+              'priority': 30
+            },
+          },
+        },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/7',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'streetaddressdirection',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 31
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/6',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'streetcenterlines',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 32
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/1',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'streetnames',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 33
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/13',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'zipcodes',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 34
+      //             },
+      //     },
+      //   },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/3',
+          'idField': 'OBJECTID',
+          'query': {
+            'returnGeometry': true,
+            'id': 'currentzoningcases',
+            'fields': ['CaseNumber', 'ZoningActual', 'ZoningRequested'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['CaseNumber'],
+              'iconClass': 'fa fa-border-all',
+              'priority': 35
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/1',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': true,
+            'returnGeometry': true,
+            'id': 'designdistricts',
+            'fields': ['CommonName', 'DetailName', 'CaseNumber'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['CommonName'],
+              'iconClass': 'fa fa-border-all',
+              'priority': 36
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/4',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': true,
+            'returnGeometry': true,
+            'id': 'futurelanduseplan',
+            'fields': ['FLUP', 'Vacant'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['FLUP'],
+              'iconClass': 'fa fa-border-all',
+              'priority': 37
+            },
+          },
+        },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/2',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'pendingzbacases',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 38
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/0',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'pendingzonecases',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 39
+      //             },
+      //     },
+      //   },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/5',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': true,
+            'returnGeometry': true,
+            'id': 'preliminaryplats',
+            'fields': ['Plan_Num', 'Project_Name', 'Main_Address', 'Current_District', 'Proposed_District', 'Plan_Status'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['Project_Name'],
+              'iconClass': 'fa fa-border-all',
+              'priority': 40
+            },
+          },
+        },
+      
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/0',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': true,
+            'returnGeometry': true,
+            'id': 'floodzone',
+            'fields': ['FLD_ZONE', 'STUDY_TYP'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['FLD_ZONE'],
+              'iconClass': 'fa fa-house-flood',
+              'priority': 41
+            },
+          },
+        },
+        {
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/1',
+          'idField': 'OBJECTID',
+          'query': {
+            'textSearch': false,
+            'returnGeometry': true,
+            'id': 'lake',
+            'fields': ['LAKE_NAME', 'LAKE_SITE', 'LAKE_TYPE'],
+            'group': {
+              'isGrouped': false,
+              'sectionHeader': '',
+              'iconClass': 'fa fa-folder'
+            },
+            'results': {
+              'labelFields': ['LAKE_NAME'],
+              'iconClass': 'fa fa-water',
+              'priority': 42
+            },
+          },
+        },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/2',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'lakenumber',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 43
+      //             },
+      //     },
+      //   },
+      
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/0',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'firehydrants',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 44
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/6',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'watermains',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 45
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/2',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'sewermanholes',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 46
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/1',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'sewercleanouts',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 47
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/7',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'sewergravitymains',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 48
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/8',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'sewerforcemains',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 49
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/3',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'stormwatermanholes',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 50
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/4',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'stormwaterinlets',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 51
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/5',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'stormwateroutfalls',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 52
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/9',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'stormwaterpipes',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 53
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/11',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'trafficvolumetotals',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 54
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/12',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'trafficsignals',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 55
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/15',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'residentpermitonlyparkingzones',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 56
+      //             },
+      //     },
+      //   },
+      //   {
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/10',
+      //       'idField': 'OBJECTID',
+      //           'query': {
+      //             'returnGeometry': true,
+      //             'id': 'impactfeeservicearea',
+      //             'fields': ['NAME', 'TYPE'],
+      //             'group': {
+      //               'isGrouped': false,
+      //               'sectionHeader': '',
+      //               'iconClass': 'fa fa-folder'
+      //             },
+      //             'results': {
+      //               'labelFields': ['NAME'],
+      //               'iconClass': 'fa fa-plane',
+      //               'priority': 57
+      //             },
+      //     },
+      //   }
+
       ],
       locators: [  // geocode locators is enabled at the begining of this section - geocode: { isEnabled: true }
         {
@@ -477,366 +1539,622 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
                 'label': 'Libraries'
               },
               {
-                'id': 'beachaccess',
-                'label': 'Beach Access'
-              },
-              {
                 'id': 'parks',
                 'label': 'Parks'
               },
-              {
-                'id': 'recycling',
-                'label': 'Recycling'
-              }
             ]
           },
           // related layers
           'layers': [
             {
-              'id': 'CountyCommissionerDistricts',
-              'field': 'NAME',
-              'label': 'County Commissioner District'
+              'id': 'futurelanduseplan',
+              'field': 'FLUP',
+              'label': 'Future Land Use'
+            },
+          {
+              'id': 'citycouncildistricts',
+              'field': 'DISTRICT',
+              'label': 'City Council District'
             },
             {
-                'id': 'evacuationzones',
-                'field': 'EZONE',
-                'label': 'Evacuation Zone'
+                'id': 'neighborhoodassociations',
+                'field': 'NAME',
+                'label': 'Neighborhood Association'
             },
-            {
-                'id': 'FEMAfloodzones',
-                'field': 'FLD_ZONE',
-                'label': 'FEMA Flood Zone'
-            },
-            {
-                'id': 'futurelanduse',
-                'field': 'FLU_CODE',
-                'label': 'Future Land Use'
-            },
-            {
-              'id': 'municipalboundaries',
-              'field': 'NAME',
-              'label': 'Municipal Boundary'
-            },
-            {
-                'id': 'serviceareas',
-                'field': 'SERVICE',
-                'label': 'Service Area'
-            },
-            {
-                'id': 'soils',
-                'field': 'SOILDESC',
-                'label': 'Soil'
-            }
           ]
       },
       // Configure each layers output details here
+      'airports': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'animalservices': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'citibustransferplaza': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'citizenstower': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'cementaries': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'utilities': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'civiccenter': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'communitycenters': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'firestations': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'healthdepartments': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'libraries': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'museums': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'policestations': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'pools': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+      'recyclingcenters': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'LOCATION',
+            'label': 'Locaton'
+          },
+          {
+            'field': 'STATUS',
+            'label': 'Status'
+          },
+        ]
+      },
+      'sportcomplexes': {
+        'hasDetails': false,
+        'hasAnalyzeButton': false,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
+            'label': 'Name'
+          },
+          {
+            'field': 'TYPE',
+            'label': 'Type'
+          },
+        ]
+      },
+    
       'addresses': { // layer ID
         'hasDetails': false, // Enables the details button
         'hasAnalyzeButton': true, // Enables the Analyze Surrounding Area button
         'hasPrint': true, // Enables the Print button
         'hasExportData': true, // Enables the Export Data button
+        'domain': 'Name',
         'infos': [
-          {
-            'field': 'ADDRESS', // The data field from the map server
+            {
+            'field': 'FULL_ADDRESS', // The data field from the map server
             'label': 'Address' //the desired label for the data field
-          }
+            },
         ]
       },
-      'roads': {
+      'buildingfootprints': {
         'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
         'infos': [
+            {
+            'field': 'STRUCTURE_NAME',
+            'label': 'Structure Name',
+            },
+            {
+            'field': 'TOTAL_NUMB_FLOORS',
+            'label': 'Total Number of Floors',
+            },
+            {
+            'field': 'FIRST_FLOOR_AREA',
+            'label': 'First Floor Area',
+            },
+            {
+            'field': 'TOTAL_FLOOR_AREA',
+            'label': 'Total Floor Area',
+            },
+            {
+            'field': 'NUMBER_RESIDENCES',
+            'label': 'Number of Residences',
+            },
+            {
+            'field': 'DATE_BUILT',
+            'label': 'Date Built',
+            },
+            {
+            'field': 'GUC',
+            'label': 'GUC',
+            },
+            {
+            'field': 'GUC_DESCRIPTION',
+            'label': 'GUC Description',
+            },
+            {
+            'field': 'last_edited_date',
+            'label': 'Last Edit Date',
+            },
+        ]
+      },
+      'citycouncildistricts': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
           {
-            'field': 'OWNER',
-            'label': 'Owner'
+            'field': 'DISTRICT',
+            'label': 'District'
           },
           {
-            'field': 'FULL_NAME',
+            'field': 'POPTOTAL',
+            'label': 'Total Population'
+          },
+        ]
+      },
+      'neighborhoodassociations': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'NAME',
             'label': 'Name'
           },
           {
-            'field': 'SURFACE',
-            'label': 'Surface Type'
-          }
+            'field': 'ASSOC_NUM',
+            'label': 'Association #'
+          },
         ]
       },
       'parcels': {
-        'hasDetails': true,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'A1RENUM',
-            'label': 'Parcel ID'
-          },
-          {
-            'field': 'A2OWNAME',
-            'label': 'Owner'
-          },
-          {
-            'field': 'DSITEADDR',
-            'label': 'Address'
-          },
-          {
-            'field': 'DTAXACRES',
-            'label': 'Acres'
-          },
-          {
-            'field': 'DORAPPDESC',
-            'label': 'Current Use'
-          },
-        ]
-      },
-      'futurelanduse': {
         'hasDetails': false,
         'hasAnalyzeButton': true,
         'hasPrint': true,
         'hasExportData': true,
         'infos': [
-          {
-            'field': 'SUB_FLU',
-            'label': 'Government'
-          },
-          {
-            'field': 'FLU_CODE',
-            'label': 'Designation'
-          },
-          {
-            'field': 'ORD_NUM',
-            'label': 'Ordinance'
-          }
-        ]
-      },
-      'zoning': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'SUB_ZONING',
-            'label': 'Government'
-          },
-          {
-            'field': 'ZONING',
-            'label': 'Designation'
-          },
-          {
-            'field': 'ORD_NUM',
-            'label': 'Ordinance'
-          }
-        ]
-      },
-      'easements': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'OWNER',
-            'label': 'Owner'
-          },
-          {
-            'field': 'SOURCE_TYP',
-            'label': 'Source'
-          },
-          {
-            'field': 'BOOK',
-            'label': 'Book'
-          },
-          {
-            'field': 'PAGE',
-            'label': 'Page'
-          },
-          {
-            'field': 'CATEGORY',
-            'label': 'Category'
-          }
-        ]
-      },
-      'FEMAfloodzones': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'FLD_ZONE',
-            'label': 'Flood Zone'
-          }
-        ]
-      },
-      'beachaccess': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'NUM',
-            'label': 'Access Number'
-          }
-        ]
-      },
-      'femafirmindex': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'FIRM_PAN',
-            'label': 'Map Panel'
-          }
-        ]
-      },
-      'boatramps': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'NAME',
-            'label': 'Name'
-          },
-          {
-            'field': 'ADMINISTRA',
-            'label': 'Manager'
-          }
-        ]
-      },
-      'libraries': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'NAME',
-            'label': 'Name'
-          }
-        ]
-      },
-      'recycling': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'Name',
-            'label': 'Name'
-          },
-          {
-            'field': 'Accepts',
-            'label': 'Accepts'
-          },
-          {
-            'field': 'OperatingH',
-            'label': 'Hours'
-          }
-        ]
-      },
-      'schools': {
-        'hasDetails': false,
-        'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'NAME',
-            'label': 'Name'
-          }
+            {
+            'field': 'LCADID',
+            'label': 'LCADID'
+            },
+            {
+            'field': 'SUBDIVISION',
+            'label': 'Subdivision',
+            },
+            {
+            'field': 'LEGAL_DESCRIPTION',
+            'label': 'Legal Description',
+            },
+            {
+            'field': 'GUC',
+            'label': 'Landuse',
+            },
+            {
+            'field': 'OWNER_NAME',
+            'label': 'Owner Name',
+            },
+            {
+            'field': 'OWNER_ADDRESS',
+            'label': 'Owner Address',
+            },
+            {
+            'field': 'NO_PARKING_SPACES',
+            'label': 'Number of Parking Spaces',
+            },
+            {
+            'field': 'POOL',
+            'label': 'Pool',
+            },
+            {
+            'field': 'SQUARE_FOOT',
+            'label': 'Area',
+            },
+            {
+            'field': 'last_edited_date',
+            'label': 'Last Edit Date',
+            },
         ]
       },
       'parks': {
         'hasDetails': false,
         'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
+        'hasPrint': false,
+        'hasExportData': false,
         'infos': [
           {
             'field': 'NAME',
             'label': 'Name'
           },
           {
-            'field': 'ADMINISTRA',
-            'label': 'Owner'
-          }
+            'field': 'Address',
+            'label': 'Address'
+          },
+          {
+            'field': 'Classification',
+            'label': 'Classification'
+          },
+          {
+            'field': 'Acres',
+            'label': 'Acres'
+          },
         ]
       },
-      'soils': {
+      'subdivisions': {
         'hasDetails': false,
         'hasAnalyzeButton': true,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'SOILDESC',
-            'label': 'Description'
-          }
-        ]
-      },
-	  'CountyCommissionerDistricts': {
-        'hasDetails': false,
-        'hasAnalyzeButton': false,
-        'hasPrint': true,
-        'hasExportData': true,
+        'hasPrint': false,
+        'hasExportData': false,
         'infos': [
           {
             'field': 'NAME',
-            'label': 'District'
+            'label': 'Name'
           },
-		  {
-            'field': 'REPNAME',
-            'label': 'Commissioner'
-          }
-        ]
-      },
-	  'femacobraopa': {
-        'hasDetails': false,
-        'hasAnalyzeButton': false,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
           {
-            'field': 'CBRS_TYP',
-            'label': 'Type'
-          }
-        ]
-      },
-	  'wetlands': {
-        'hasDetails': false,
-        'hasAnalyzeButton': false,
-        'hasPrint': true,
-        'hasExportData': true,
-        'infos': [
-          {
-            'field': 'WETLAND_TYPE',
-            'label': 'Type'
+            'field': 'PLAT',
+            'label': 'Plat'
           },
-		  {
-            'field': 'ATTRIBUTE',
-            'label': 'Attribute'
-          }
+          {
+            'field': 'YEAR',
+            'label': 'Year'
+          },
         ]
       },
-	  'evacuationzones': {
+      'schools': {
         'hasDetails': false,
-        'hasAnalyzeButton': false,
-        'hasPrint': true,
-        'hasExportData': true,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
         'infos': [
           {
-            'field': 'EZONE',
-            'label': 'Zone'
-          }
+            'field': 'SCHOOL_NAME',
+            'label': 'School Name'
+          },
+          {
+            'field': 'SCHOOL_LEVEL',
+            'label': 'School Level'
+          },
+          {
+            'field': 'SCHOOL_TYPE',
+            'label': 'School Type'
+          },
+          {
+            'field': 'ADDR',
+            'label': 'Address'
+          },
+          {
+            'field': 'PHONE',
+            'label': 'Phone'
+          },
         ]
-      }    }
+      },
+      'currentzoningcases': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'CaseNumber',
+            'label': 'Case #'
+          },
+          {
+            'field': 'ZoningActual',
+            'label': 'Zoning Actual'
+          },
+          {
+            'field': 'ZoningRequested',
+            'label': 'Zoning Requested'
+          },
+        ]
+      },
+      'designdistricts': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'CommonName',
+            'label': 'Common Name'
+          },
+          {
+            'field': 'DetailName',
+            'label': 'Detail Name'
+          },
+          {
+            'field': 'CaseNumber',
+            'label': 'Case Number'
+          },
+        ]
+      },
+      'futurelanduseplan': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'FLUP',
+            'label': 'FLUP'
+          },
+          {
+            'field': 'Vacant',
+            'label': 'Vacant'
+          },
+        ]
+      },
+      'preliminaryplats': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'Plan_Num',
+            'label': 'Plan #'
+          },
+          {
+            'field': 'Project_Name',
+            'label': 'Project Name'
+          },
+          {
+            'field': 'Main_Address',
+            'label': 'Main Address'
+          },
+          {
+            'field': 'Current_District',
+            'label': 'Current District'
+          },
+          {
+            'field': 'Proposed_District',
+            'label': 'Proposed District'
+          },
+          {
+            'field': 'Plan_Status',
+            'label': 'Plan Status'
+          },
+        ]
+      },
+      'floodzone': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'FLD_ZONE',
+            'label': 'Flood Zone'
+          },
+          {
+            'field': 'STUDY_TYP',
+            'label': 'Study Type'
+          },
+        ]
+      },
+      'lake': {
+        'hasDetails': false,
+        'hasAnalyzeButton': true,
+        'hasPrint': false,
+        'hasExportData': false,
+        'infos': [
+          {
+            'field': 'LAKE_NAME',
+            'label': 'Lake Name'
+          },
+          {
+            'field': 'LAKE_SITE',
+            'label': 'Lake Site'
+          },
+          {
+            'field': 'LAKE_TYPE',
+            'label': 'Lake Type'
+          },
+        ]
+      },
+    }
+
   };
 });
