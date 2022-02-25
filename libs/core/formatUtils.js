@@ -92,7 +92,16 @@ function(
       }
 
       return value;
-    }
+    },
+
+    removeDecimals: function(value) {
+      if (value !== 0) {
+        value = Number.format(value, {
+          places: 0
+        });
+      }
+      return value;
+    },
 
   };
 });

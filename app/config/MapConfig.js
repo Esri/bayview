@@ -106,139 +106,19 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     // 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
     operationalLayers: [
       {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/0',
+        options: {
+          id: 'floodzone',
+          opacity: 1,
+        },
+      },
+      {
         type: 'Vector Tile Layer',
-        url: 'https://tiles.arcgis.com/tiles/eYXun6c1pgy8Qpta/arcgis/rest/services/Contours_2016_Mercator_2/VectorTileServer',
+        url: 'https://tiles.arcgis.com/tiles/eYXun6c1pgy8Qpta/arcgis/rest/services/2021_Lubbock_Contours_1ft/VectorTileServer',
         options: {
           id: 'contours',
           opacity: 0.5,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/0',
-        options: {
-          id: 'airports',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/1',
-        options: {
-          id: 'animalservices',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/2',
-        options: {
-          id: 'citibustransferplaza',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/3',
-        options: {
-          id: 'citizenstower',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/4',
-        options: {
-          id: 'cementaries',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/5',
-        options: {
-          id: 'utilities',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/6',
-        options: {
-          id: 'civiccenter',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/7',
-        options: {
-          id: 'communitycenters',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/8',
-        options: {
-          id: 'firestations',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/9',
-        options: {
-          id: 'healthdepartments',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/10',
-        options: {
-          id: 'libraries',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/11',
-        options: {
-          id: 'museums',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/12',
-        options: {
-          id: 'policestations',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/13',
-        options: {
-          id: 'pools',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/14',
-        options: {
-          id: 'recyclingcenters',
-          opacity: 1,
-        },
-      },
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/15',
-        options: {
-          id: 'sportcomplexes',
-          opacity: 1,
         },
       },
 
@@ -396,14 +276,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         },
       },
 
-      {
-        type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/0',
-        options: {
-          id: 'floodzone',
-          opacity: 1,
-        },
-      },
+
       {
         type: 'Feature Layer',
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/1',
@@ -531,6 +404,296 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         options: {
           id: 'impactfeeservicearea',
           opacity: 0.5,
+        },
+      },
+
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/12',
+        options: {
+          id: 'alleydedicationdeeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/20',
+        options: {
+          id: 'blocknumbers',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/9',
+        options: {
+          id: 'drainageeasements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/5',
+        options: {
+          id: 'lotlines',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/21',
+        options: {
+          id: 'lotdimensions',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/22',
+        options: {
+          id: 'lotnumbers',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/19',
+        options: {
+          id: 'ordinanceclosures',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/13',
+        options: {
+          id: 'parkdedicationdeeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/14',
+        options: {
+          id: 'platdedicatedrow',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/10',
+        options: {
+          id: 'propertyacquisitiondeeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/17',
+        options: {
+          id: 'railroaddeedsandeasements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/23',
+        options: {
+          id: 'rowdimensions',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/15',
+        options: {
+          id: 'roweasements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/6',
+        options: {
+          id: 'sectionlines',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/16',
+        options: {
+          id: 'staterowdeedsandeasements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/11',
+        options: {
+          id: 'streetdedicationdeeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/24',
+        options: {
+          id: 'subdivisionnames',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/18',
+        options: {
+          id: 'uselicenses',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/7',
+        options: {
+          id: 'utilityequipmenteasements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/8',
+        options: {
+          id: 'utilitygarbageaccesseasements',
+          opacity: 1,
+        },
+      },
+
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/0',
+        options: {
+          id: 'airports',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/1',
+        options: {
+          id: 'animalservices',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/2',
+        options: {
+          id: 'citibustransferplaza',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/3',
+        options: {
+          id: 'citizenstower',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/4',
+        options: {
+          id: 'cementaries',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/5',
+        options: {
+          id: 'utilities',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/6',
+        options: {
+          id: 'civiccenter',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/7',
+        options: {
+          id: 'communitycenters',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/8',
+        options: {
+          id: 'firestations',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/9',
+        options: {
+          id: 'healthdepartments',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/10',
+        options: {
+          id: 'libraries',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/11',
+        options: {
+          id: 'museums',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/12',
+        options: {
+          id: 'policestations',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/13',
+        options: {
+          id: 'pools',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/14',
+        options: {
+          id: 'recyclingcenters',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/15',
+        options: {
+          id: 'sportcomplexes',
+          opacity: 1,
         },
       },
 

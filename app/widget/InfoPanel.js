@@ -134,7 +134,7 @@
                                     value = subtype.name;
                                 }
                                 //use domain values for subtype is this field has a corresponding domain
-                                if (subtype.domains && subtype.domains.hasOwnProperty(info.field)) {
+                                if (subtype.domains && subtype.domains.hasOwnProperty(info.field) && subtype.domains[info.field] && subtype.domains[info.field].codedValues) {
                                     var domain = subtype.domains[info.field].codedValues.filter(lang.hitch(this, function(obj){
                                         return obj.code == this.selectedFeature.attributes[info.field];
                                     }))[0];
@@ -147,7 +147,9 @@
                         if (info.field != 'E_LINK') {
                             InfoRow({
                                 label: info.label,
-                                value: value
+                                value: value,
+                                format: info.format,
+                                suffix: info.suffix,
                             }).placeAt(this.detailsContainer);
                         }
                     }));
@@ -310,7 +312,7 @@
                             // create the output
                             InfoRow({
                                 label: layer.label,
-                                value: result.features[0].attributes[layer.field]
+                                value: result.features[0].attributes[layer.field],
                             }).placeAt(this.analysisContainer);
                         }
                     }));

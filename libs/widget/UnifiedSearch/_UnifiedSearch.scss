@@ -16,7 +16,6 @@
     z-index: 10;
     color: #4C4C4C;
     background: #FFF;
-    z-index: 5;
 
     .unifiedsearch-input-wrapper {
       text-align: left;
@@ -181,4 +180,14 @@
       }
     }
   }
+
+  @include respond('xs') {
+    width: 422px;
+  }
+
+  @include respond('md') {
+    top: 0;
+    right: 0;
+  }
+
 }

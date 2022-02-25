@@ -25,7 +25,8 @@ define([
       var _options = lang.mixin({
         selector: 'date'
       }, options);
-      return locale.format(this._getDateObject(timeStamp), _options); // 'd MMM yyyy' // 'yyyy-MM-dd'
+      return locale.format(new Date(timeStamp), _options);
+      //return locale.format(this._getDateObject(timeStamp), _options); // 'd MMM yyyy' // 'yyyy-MM-dd'
     },
 
     getTime: function(timeStamp, options) {

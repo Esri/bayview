@@ -410,6 +410,17 @@ define([
       //domClass.add(this.resultsNodeWrapper, 'hidden');
     },
 
+    showPopupHandler: function(strInput) {
+      this.hideRowLoading();
+      domClass.remove(this.containerNode, 'loading');
+      domClass.add(this.containerNode, 'has-input');
+      this.clearSearchError();
+      domAttr.set(this.inputNode, 'value', strInput);
+      domClass.add(this.containerNode, 'populated');
+      this.hideContainer1();
+      this.hideContainer2();
+    },
+
     showContainer1: function() {
       domClass.remove(this.resultsNodeWrapper, 'hidden');
     },

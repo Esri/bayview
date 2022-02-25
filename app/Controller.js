@@ -122,7 +122,8 @@
           this.drawTool.startup();
     
           this.printer = new PrintController({
-            map: map
+            map: map,
+            printTaskUrl: appConfig.services.print,
           }, 'printContainer');
           this.printer.startup();
     
@@ -188,6 +189,23 @@
               var layerId = args.layerId;
               var selectedFeature = args.obj;
               selectedFeature._layer = args._layer;
+              var title = args.layerId;
+              if (selectedFeature.attributes && selectedFeature.attributes['NAME']) {
+                title = selectedFeature.attributes['NAME'];
+              } else {
+                var layers = [];
+                _.each(widgetConfig.layerList.groups, function(layerGroups) {
+                  _.each(layerGroups.layers, function(layer) {
+                    layers.push(layer);
+                  });
+                });
+
+                var layerObj = _.find(layers, layer => layer.id === args.layerId);
+                if (layerObj) {
+                  title = layerObj.name;
+                }
+              }
+              this.search.lsView.showPopupHandler(title);
               //this.search.lsView.clear();
               this.infoPanel.clear();
               this.infoPanel.showDetails(layerId, selectedFeature);

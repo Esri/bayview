@@ -138,10 +138,10 @@
 
     searchMapPoint: function(mapPoint) {
       if (this.map !== null) {
+        this.lsView.clear();
         var mp = webMercatorUtils.webMercatorToGeographic(mapPoint);
         this.lsView.setInputValue(mp.x.toFixed(6) + ', ' + mp.y.toFixed(6));
 
-        this.lsView.clear();
         this.lsView.showLoading();
 
         this.currentSearchString = null;

@@ -162,7 +162,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         {
           // Layer List Group
           'name': 'Points of Interest',
-          'icon': 'map',
+          'icon': 'place',
           'layers': [
             {
               'id': 'airports',
@@ -248,12 +248,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         },
         {
           'name': 'Parcels & Community',
-          'icon': 'school',
+          'icon': 'maps_home_work',
           'layers': [
             {
               'id': 'addresses',
               'name': 'Addresses',
-              'isSelected': false,
+              'isSelected': true,
             },
             {
               'id': 'buildingfootprints',
@@ -278,7 +278,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
               'id': 'parcels',
               'name': 'Parcels',
-              'isSelected': false,
+              'isSelected': true,
             },
             {
               'id': 'parks',
@@ -319,7 +319,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         'name': 'Planning & Zoning',
-        'icon': 'draw',
+        'icon': 'map',
         'layers': [
           {
             'id': 'currentzoningcases',
@@ -360,7 +360,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           {
             'id': 'floodzone',
             'name': 'Flood Zone',
-            'isSelected': false,
+            'isSelected': true,
           },
           {
             'id': 'lake',
@@ -381,7 +381,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
           'name': 'Public Works',
-          'icon': 'umbrella',
+          'icon': 'engineering',
           'layers': [
             {
               'id': 'firehydrants',
@@ -451,6 +451,112 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
               'id': 'impactfeeservicearea',
               'name': 'Impact Fee Service Area',
+              'isSelected': false,
+            },
+          ]
+        },
+        {
+          'name': 'Base Map',
+          'icon': 'description',
+          'layers': [
+            {
+              'id': 'alleydedicationdeeds',
+              'name': 'Alley Dedication Deeds',
+              'isSelected': false,
+            },
+            {
+              'id': 'blocknumbers',
+              'name': 'Block Numbers',
+              'isSelected': false,
+            },
+            {
+              'id': 'drainageeasements',
+              'name': 'Drainage Easements',
+              'isSelected': false,
+            },
+            {
+              'id': 'lotlines',
+              'name': 'Lot Lines',
+              'isSelected': false,
+            },
+            {
+              'id': 'lotdimensions',
+              'name': 'Lot Dimensions',
+              'isSelected': false,
+            },
+            {
+              'id': 'lotnumbers',
+              'name': 'Lot Numbers',
+              'isSelected': false,
+            },
+            {
+              'id': 'ordinanceclosures',
+              'name': 'Ordinance Closures',
+              'isSelected': false,
+            },
+            {
+              'id': 'parkdedicationdeeds',
+              'name': 'Park Dedication Deeds',
+              'isSelected': false,
+            },
+            {
+              'id': 'platdedicatedrow',
+              'name': 'Plat Dedicated ROW',
+              'isSelected': false,
+            },
+            {
+              'id': 'propertyacquisitiondeeds',
+              'name': 'Property Acquisition Deeds',
+              'isSelected': false,
+            },
+            {
+              'id': 'railroaddeedsandeasements',
+              'name': 'Railroad Deeds and Easements',
+              'isSelected': false,
+            },
+            {
+              'id': 'rowdimensions',
+              'name': 'ROW Dimensions',
+              'isSelected': false,
+            },
+            {
+              'id': 'roweasements',
+              'name': 'ROW Easements',
+              'isSelected': false,
+            },
+            {
+              'id': 'sectionlines',
+              'name': 'Section Lines',
+              'isSelected': false,
+            },
+            {
+              'id': 'staterowdeedsandeasements',
+              'name': 'State ROW Deeds and Easements',
+              'isSelected': false,
+            },
+            {
+              'id': 'streetdedicationdeeds',
+              'name': 'Street Dedication Deeds',
+              'isSelected': false,
+            },
+            {
+              'id': 'subdivisionnames',
+              'name': 'Subdivision Names',
+              'isSelected': false,
+            },
+            {
+              'id': 'uselicenses',
+              'name': 'Use Licenses',
+              'isSelected': false,
+            },
+            {
+              'id': 'utilityequipmenteasements',
+              'name': 'Utility Equipment Easements',
+              'isSelected': false,
+            },
+            {
+              'id': 'utilitygarbageaccesseasements',
+              'name': 'Utility, Garbage & Access Easements',
               'isSelected': false,
             },
           ]
@@ -552,7 +658,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           },
           'results': {
             'labelFields': ['NAME'],
-            'iconClass': 'fa fa-dog',
             'priority': 6
           },
         },
@@ -573,7 +678,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-bus',
               'priority': 7
             },
           },
@@ -593,7 +697,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-gopuram',
               'priority': 9
             },
           },
@@ -613,7 +716,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-tombstone',
               'priority': 10
             },
           },
@@ -633,7 +735,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-lamp',
               'priority': 11
             },
           },
@@ -653,7 +754,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 12
             },
           },
@@ -673,7 +773,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 13
             },
           },
@@ -693,7 +792,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 14
             },
           },
@@ -713,7 +811,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 15
             },
           },
@@ -733,7 +830,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 16
             },
           },
@@ -753,7 +849,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 17
             },
           },
@@ -773,7 +868,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 18
             },
           },
@@ -793,7 +887,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 19
             },
           },
@@ -813,7 +906,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['LOCATION'],
-              'iconClass': 'fa fa-plane',
               'priority': 20
             },
           },
@@ -833,7 +925,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 21
             },
           },
@@ -958,7 +1049,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
             'results': {
               'labelFields': ['NAME'],
-              'iconClass': 'fa fa-plane',
               'priority': 5
             },
           }
@@ -981,7 +1071,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
               'labelFunction': function(attrs) {
                 return attrs.SCHOOL_NAME + ' (' + attrs.ADDR + ')';
               },
-              'iconClass': 'fa fa-school',
               'priority': 30
             },
           },
@@ -1000,7 +1089,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       //             },
       //             'results': {
       //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
       //               'priority': 31
       //             },
       //     },
@@ -1019,7 +1107,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       //             },
       //             'results': {
       //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
       //               'priority': 32
       //             },
       //     },
@@ -1851,10 +1938,14 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
             'field': 'FIRST_FLOOR_AREA',
             'label': 'First Floor Area',
+            'format': 'number',
+            'suffix': 'sqft',
             },
             {
             'field': 'TOTAL_FLOOR_AREA',
             'label': 'Total Floor Area',
+            'format': 'number',
+            'suffix': 'sqft',
             },
             {
             'field': 'NUMBER_RESIDENCES',
@@ -1863,6 +1954,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
             'field': 'DATE_BUILT',
             'label': 'Date Built',
+            'format': 'date',
             },
             {
             'field': 'GUC',
@@ -1875,6 +1967,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
             'field': 'last_edited_date',
             'label': 'Last Edit Date',
+            'format': 'date',
             },
         ]
       },
@@ -1951,10 +2044,13 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
             'field': 'SQUARE_FOOT',
             'label': 'Area',
+            'format': 'number',
+            'suffix': 'sqft',
             },
             {
             'field': 'last_edited_date',
             'label': 'Last Edit Date',
+            'format': 'date',
             },
         ]
       },

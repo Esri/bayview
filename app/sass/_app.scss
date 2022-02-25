@@ -46,6 +46,11 @@ body {
   float: left;
   left: 50px;
   position: relative;
+
+  @include respond('xs') {
+    width: 340px;
+  }
+
 }
 
 

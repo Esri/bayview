@@ -21,7 +21,8 @@ define(function() {
 
     services: {
       geometry: 'http://gis.baycountyfl.gov/arcgis/rest/services/Utilities/Geometry/GeometryServer',
-      layers: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer'
+      layers: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer',
+      print: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PrintingTools/GPServer/Export%20Web%20Map%20Task',
     }
 
   };

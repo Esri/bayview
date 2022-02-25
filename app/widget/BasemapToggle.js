@@ -103,7 +103,7 @@ function(
         if (domClass.contains(this.basemapContainer, 'is-selected')) {
             //this.map.setBasemap(this.config.basemaps[0].basemap);
             this.lubbockLayer.setVisibility(false);
-            this.basemapName.innerHTML = 'Satellite View';
+            this.basemapName.innerHTML = 'Imagery';
         } else {
             //this.map.setBasemap(this.config.basemaps[1].basemap);
             //this.map.setBasemap(null);
