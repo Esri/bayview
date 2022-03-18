@@ -21,6 +21,9 @@
       'dojo/_base/lang',
       'dojo/sniff',
       'dojo/on',
+      'dojo/_base/connect',
+      'dijit/registry',
+      'dojo/dom-style',
     
       // core components
       'core/MapController',
@@ -55,7 +58,7 @@
       'dojo/i18n!./nls/Strings'
     
     ], function(
-      topic, dom, domClass, lang, has, on,
+      topic, dom, domClass, lang, has, on, connect, registry, domStyle,
       MapController,
       appConfig, mapConfig, widgetConfig,
       InfoWindowController, Navigation, InfoPanel, PrintController,
@@ -121,6 +124,7 @@
           }, 'drawContainer');
           this.drawTool.startup();
     
+          // this printer uses print GP service
           this.printer = new PrintController({
             map: map,
             printTaskUrl: appConfig.services.print,
@@ -167,11 +171,30 @@
               map: map
             });
             this.search.startup();
-    
           }
+
+          //var printDialogButton = document.querySelector('.mdl-dialog-button');
+          this.printDialog = document.querySelector('#printDialog');
+          if (! printDialog.showModal) {
+            dialogPolyfill.registerDialog(this.printDialog);
+          }
+          this.printDialog.querySelector('button:not([disabled])').addEventListener('click', lang.hitch(this, function() {
+            this.printDialog.close();
+          }));
     
           // finally remove the loading screen
           this._clearLoadingScreen();
+
+          // FIX resize issue
+          on(window, 'resize', function() { 
+            var mapContainer = dom.byId('mapContainer');
+            var computedStyle = domStyle.getComputedStyle(mapContainer);
+            domStyle.set("map", {
+              width: computedStyle.width,
+              height: computedStyle.height,
+            });
+          });
+
         },
     
         _clearLoadingScreen: function() {
@@ -315,6 +338,10 @@
     
           topic.subscribe('/layerlist/layer/clicked', lang.hitch(this, function(sender, args) {
             //this.search.layerVisibilityChanged(args);
+          }));
+
+          topic.subscribe('/Print/parcel', lang.hitch(this, function(sender, args) {
+            this.printDialog.showModal();
           }));
     
         }

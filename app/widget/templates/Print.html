@@ -1,52 +1,99 @@
-<div class="print-tool">
+<div class="printReport">
+  <style>
+    h1 {
+      font-size: 1.5rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+      border-bottom: 1px solid gray;
+    }
+    table {
+      border: 0;
+      width: 100%;
+    }
+    td {
+      vertical-align: top;
+    }
+    .structures, .structures th, .structures td {
+      border: 1px solid gray;
+      border-collapse: collapse;
+    }
+    .structures th {
+      background: gray;
+      color: #ffffff;
+    }
+    .structures td {
+      padding: 3px;
+    }
+    .label {
+      font-weight: bold;
+    }
 
-    <div class="print-tool__title">
-        <span class="print-tool__sub-title">Print</span>
-        <i class="material-icons draw-tool__icon" data-dojo-attach-point="closeBtn">clear</i>
-    </div>
+    .print-map {
+      margin: 1rem 0;
+    }
 
-    <form class="print-tool__form">
-        <div class="mdl-textfield mdl-js-textfield" data-dojo-attach-point="printTitleLabel">
-            <input class="mdl-textfield__input" type="text" id="printTitle" data-dojo-attach-point="printTitle">
-            <label class="mdl-textfield__label" for="printTitle">Title</label>
-        </div>
+  </style>
+  <img src="./app/img/logo.jpg">
+  <h1>Parcel Report</h1>
+  <p><span class="label">LCAD Property ID:</span> <span class="value" data-dojo-attach-point="lcadid">---</span></p>
 
-        <div class="print-tool__layout-label">
-            Page Layout
-        </div>
+  <h2>Owner Information:</h2>
+  <table>
+    <tr>
+      <td style="width: 50%;">
+        <span class="label">Owner:</span><br/>
+        <span class="value" data-dojo-attach-point="owner">---</span><br/>
+        <span class="value" data-dojo-attach-point="street">---</span><br/>
+        <span class="value" data-dojo-attach-point="city">---</span>
+      </td>
+      <td>
+        <span class="label">Property Address:</span><br/>
+        <span class="value" data-dojo-attach-point="propertyaddress">Loading addresses...</span>
+      </td>
+    </tr>
+  </table>
+  
 
-        <div class="print-tool__layout-label">
-            <!-- Left aligned menu below button -->
-            <div id="pageLayout" class="mdl-button mdl-js-button mdl-js-ripple-effect">
-                <span data-dojo-attach-point="layoutLabel">Landscape</span>
-                <i class="material-icons">arrow_drop_down</i>
-            </div>
+  <h2>Land Information:</h2>
+  <table>
+    <tr>
+      <td colspan="2"><span class="label">Legal Description:</span> <span class="value" data-dojo-attach-point="description">---</span></td>
+    </tr>
+    <tr>
+      <td><span class="label" style="width: 50%;">Block & Section:</span> <span class="value" data-dojo-attach-point="block">---</span></td>
+      <td><span class="label">Calculated Sq./Ft:</span> <span class="value" data-dojo-attach-point="sqft">---</span></td>
+    </tr>
+    <tr>
+      <td><span class="label">School District:</span> <span class="value" data-dojo-attach-point="schooldistrict">---</span></td>
+      <td><span class="label">Census Tract:</span> <span class="value" data-dojo-attach-point="censustract">---</span></td>
+    </tr>
+    <tr>
+      <td><span class="label">Landuse:</span> <span class="value" data-dojo-attach-point="landuse">---</span></td>
+      <td><span class="label">Council District:</span> <span class="value" data-dojo-attach-point="councildistrict">---</span></td>
+    </tr>
+  </table>
 
-            <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="pageLayout">
-                <li class="mdl-menu__item" data-dojo-attach-point="portrait">Portrait</li>
-                <li class="mdl-menu__item" data-dojo-attach-point="landscape">Landscape</li>
-            </ul>
-        </div>
+  <h2>Structure Information:</h2>
+  <table class="structures">
+    <thead>
+      <tr>
+        <th>Structure Name</th>
+        <th>1st Floor Area</th>
+        <th>Total Floor Area</th>
+        <th>GUC</th>
+      </tr>
+    </thead>
+    <tbody data-dojo-attach-point="structuredRows"></tbody>
+  </table>
 
-        <div class="print-tool__loading is-hidden" data-dojo-attach-point="printLoading">
-            <span class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></span>
-            <span class="print-tool__loading-label">loading printout</span>
-        </div>
+  <img class="print-map" src="./app/img/loader.gif" data-dojo-attach-point="mapContainer">
 
-        <div class="print-tool__submit">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" data-dojo-attach-point="printSubmit">
-                Print
-            </button>
-        </div>
-    </form>
-
-    <div class="print-tool__result is-hidden" data-dojo-attach-point="printResultContainer">
-        <a href="#" target="_blank" data-dojo-attach-point="printResult">View Printout</a>
-    </div>
-
-    <div class="print-tool__error is-hidden" data-dojo-attach-point="printErrorContainer">
-        <i class="material-icons">report_problem</i>
-        <span>An error occurred, please try again.</span>
-    </div>
-
+  <p class="footer">
+    <strong>City of Lubbock Disclaimer</strong>
+    <p>As required by Chapter 2051, GEOSPATIAL DATA PRODUCTS of the Government Code, the City of Lubbock hereby provides notice that the data on this map was created by the City of Lubbock. Any data that appears to
+    represent property boundaries is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the
+    approximate relative location of property boundaries.</p>
+    Copyright © 2022
+  </p>
 </div>

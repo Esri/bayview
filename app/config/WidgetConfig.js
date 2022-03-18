@@ -625,14 +625,14 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'textSearch': true,
             'returnGeometry': true, // if false then relatedQuery is used to determine geometry
             'id': 'parcels', // unique identifier within the unifiedSearch Config
-            'fields': ['LCADID', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS', 'LEGAL_DESCRIPTION','GUC','OWNER_ADDRESS', 'NO_PARKING_SPACES', 'POOL', 'SQUARE_FOOT', 'last_edited_date'], // field to be queried on (where clause)
+            'fields': ['LCADID', 'PIN', 'OWNER_CITY', 'OWNER_ZIP', 'OWNER_ST', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS', 'LEGAL_DESCRIPTION', 'GUC', 'NO_PARKING_SPACES', 'POOL', 'SQUARE_FOOT', 'last_edited_date'], // field to be queried on (where clause)
             'group': {
               'isGrouped': true,
               'sectionHeader': 'Parcels',
               'iconClass': 'fa fa-folder'
             },
             'results': {
-              'labelFields': ['LCADID', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS'],
+              'labelFields': ['LCADID', 'OWNER_NAME', 'SUBDIVISION'],
               'labelFunction': function(attrs) { // label to show in results (must refer to queryLabelFields)
                 return attrs.OWNER_ADDRESS + ' (' + attrs.SUBDIVISION + ', ' + attrs.LCADID + ')';
               },
@@ -1150,7 +1150,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       //     },
       //   },
         {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/3',
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/4',
           'idField': 'OBJECTID',
           'query': {
             'returnGeometry': true,
@@ -1168,8 +1168,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
           },
         },
+
         {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/1',
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/0',
           'idField': 'OBJECTID',
           'query': {
             'textSearch': true,
@@ -1188,8 +1189,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             },
           },
         },
+
         {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/4',
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/5',
           'idField': 'OBJECTID',
           'query': {
             'textSearch': true,
@@ -1228,7 +1230,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       //     },
       //   },
       //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/0',
+      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/4',
       //       'idField': 'OBJECTID',
       //           'query': {
       //             'returnGeometry': true,
@@ -1246,8 +1248,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       //             },
       //     },
       //   },
+
         {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/5',
+          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/1',
           'idField': 'OBJECTID',
           'query': {
             'textSearch': true,

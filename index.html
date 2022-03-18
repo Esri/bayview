@@ -27,6 +27,8 @@
 
 <body class="flat">
 
+  <div id="printContainer"></div>
+
   <!-- LOADING SCREEN -->
   <div id="loadingOuter" class="loading-outer splash-loading">
     <div class="loading-inner">
@@ -40,11 +42,14 @@
   </div>
 
   <!-- CONTENT -->
+  <header class="app-header">
+    <div class="logo-wrapper"><img src="/app/img/city-of-lubbock-logo.png" height="36" alt="City of Lubbock"></div>
+  </header>
   <div class="demo-layout-transparent mdl-layout mdl-js-layout js-nav-close">
     <div class="mdl-layout__drawer">
       <div id="navigation"></div>
     </div>
-    <main class="mdl-layout__content">
+    <main class="mdl-layout__content" id="mapContainer">
       <div id="map">
         <!-- top left -->
         <div class="map-overlay-top-left">
@@ -95,9 +100,29 @@
     </div>
   </dialog>
 
+  <!-- Print output -->
+  <dialog id="printDialog" class="mdl-dialog">
+    <div class="mdl-dialog__content" id="printDialogContent"></div>
+    <div class="mdl-dialog__actions hide-print">
+      <button type="button" class="mdl-button">Dismiss</button>
+      <button type="button" class="mdl-button" onClick="printer();">Print</button>
+    </div>
+  </dialog>
+
 </body>
 
 <script type="text/javascript">
+  function printer() {
+    var divName = 'printDialogContent';
+    var printContents = document.getElementById(divName).innerHTML;
+    var printWin = window.open('print.html', 'printpage');
+    printWin.document.open();
+    printWin.document.write(printContents);
+    printWin.document.close();
+    printWin.window.print();
+    printWin.close();
+    return false;
+  }
 (function() {
   var path = location.pathname.replace(/[^\/]+$/, '');
   window.djConfig = {

@@ -39,7 +39,7 @@ define([
 
     'app/config/WidgetConfig',
 
-    'dojo/text!./templates/Print.html'
+    'dojo/text!./templates/PrintController.html'
   ],
 
   function(
@@ -66,7 +66,7 @@ define([
 
             var template = new PrintTemplate();
             template.format = "PDF";
-            template.layout = "Letter ANSI A Landscape";
+            template.layout = "Letter ANSI A Portrait";
             template.layoutOptions = {
                 titleText: ""
             }

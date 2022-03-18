@@ -229,7 +229,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     
       {
         type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/3',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/4',
         options: {
           id: 'currentzoningcases',
           opacity: 1,
@@ -237,7 +237,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/1',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/0',
         options: {
           id: 'designdistricts',
           opacity: 1,
@@ -245,7 +245,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/4',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/5',
         options: {
           id: 'futurelanduseplan',
           opacity: 1,
@@ -261,7 +261,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/0',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/3',
         options: {
           id: 'pendingzonecases',
           opacity: 1,
@@ -269,7 +269,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       {
         type: 'Feature Layer',
-        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/5',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/1',
         options: {
           id: 'preliminaryplats',
           opacity: 1,

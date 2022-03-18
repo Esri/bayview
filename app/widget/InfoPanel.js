@@ -25,6 +25,7 @@
         'dojo/parser',
         'dojo/query',
         'dojo/on',
+        'dojo/dom',
         'dojo/dom-style',
         'dojo/dom-class',
         'dojo/dom-attr',
@@ -42,14 +43,17 @@
     
         './InfoRow',
         './InfoBox',
+
+        'app/widget/Print',
     
         'dojo/text!./templates/InfoPanel.html'
       ],
     
       function(
         declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin, Evented,
-        lang, connect, topic, parser, query, on, domStyle, domClass, domAttr, domConstruct, 
+        lang, connect, topic, parser, query, on, dom, domStyle, domClass, domAttr, domConstruct, 
         deferredAll, registry, queryUtils, layerUtils, graphicUtils, Query, Circle, Point, InfoRow, InfoBox,
+        Print,
         template
       ) {
     
@@ -327,9 +331,20 @@
             },
     
             _btnPrintClicked: function() {
-                //console.log('print clicked');
-                topic.publish('/InfoPanel/print', this, {
-                    type: 'print'
+                //domConstruct.empty("printDialogContent");
+                var print = new Print({
+                    map: this.map,
+                    selectedFeature: this.selectedFeature,
+                    resultsObject: this.resultsObject,
+                });
+                // domConstruct.empty("printDialogContent");
+                // var node = dom.byId("printDialogContent");
+                // node = print.domNode;
+                domConstruct.place(print.domNode, "printDialogContent", "only");
+
+                topic.publish('/Print/parcel', this, {
+                    map: this.map,
+                    printTaskUrl: this.printTaskUrl,
                 });
             },
     

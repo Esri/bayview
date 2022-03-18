@@ -26,8 +26,8 @@ function(
 
     postCreate: function() {
       this.inherited(arguments);
-      this.layer = this.layerDef.layer;
-      if (this.layer) {
+      if (this.layerDef && this.layerDef.layer) {
+        this.layer = this.layerDef.layer;
         // checkbox
         this.checkbox.set('checked', this.layer.visible);
         this.own(on(this.checkbox, 'change', lang.hitch(this, function(checked) {
