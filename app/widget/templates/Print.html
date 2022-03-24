@@ -33,6 +33,16 @@
       margin: 1rem 0;
     }
 
+    @media print {
+        .page-break { 
+          clear: both;
+          page-break-after: always; 
+        }
+        .print-map {
+          height: 800px;
+        }
+    }
+
   </style>
   <img src="./app/img/logo.jpg">
   <h1>Parcel Report</h1>
@@ -87,13 +97,12 @@
     <tbody data-dojo-attach-point="structuredRows"></tbody>
   </table>
 
+  <div class="page-break"></div>
   <img class="print-map" src="./app/img/loader.gif" data-dojo-attach-point="mapContainer">
 
   <p class="footer">
     <strong>City of Lubbock Disclaimer</strong>
-    <p>As required by Chapter 2051, GEOSPATIAL DATA PRODUCTS of the Government Code, the City of Lubbock hereby provides notice that the data on this map was created by the City of Lubbock. Any data that appears to
-    represent property boundaries is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the
-    approximate relative location of property boundaries.</p>
-    Copyright © 2022
+    <p>As required by Chapter 2051, Geospatial Data Products of the Government Code, this product is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of property boundaries.</p>
+    <p>Copyright © 2022</p>
   </p>
 </div>
