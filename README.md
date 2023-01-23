@@ -22,6 +22,24 @@ Intuitive, interactive online map deployed by Bay County, Florida. After searchi
 
 Configure your web server to include the above directory as virtual directory and browse to it (i.e. http://localhost/path/to/Bayview/).
 
+### Troubleshooting
+It is very likely that you need to "downgrade" node and install some dependencies for this app to run. Here are potential fixes if you run into problems:
+
+Need to run npm 10.14.0, recommend to install [nvm](https://github.com/coreybutler/nvm-windows/releases) to easily switch between node versions
+```bash
+nvm use 10.14.0
+```
+
+Install [Python 2.7.18](https://www.python.org/downloads/release/python-2718/) and set environment variable:
+```bash
+npm config set python "C:\Python27\python.exe"
+```
+
+Set MS Build path (check for your actual path/location)
+```bash
+npm config set msbuild_path "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin\MSBuild.exe" -g
+```
+
 ### Checking Code for Syntax Errors
 
 Please run [jshint](http://jshint.com/) on the application code before committing your changes:
@@ -29,9 +47,6 @@ Please run [jshint](http://jshint.com/) on the application code before committin
 ```bash
 grunt jshint
 ```
-
-### Node
-Definitely runs on node 10.14.0 and npm 6.4.1 - use [nvm](https://github.com/coreybutler/nvm-windows/releases) to switch between node versions
 
 ### Supported Browsers
 
