@@ -26,18 +26,79 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       autoUpdate: true, // ignored if Portal
       respectCurrentMapScale: true, // ignored if Portal
       includeLayerIds: [
+        'floodzone',
+        'contours',
+        'addresses',
+        'buildingfootprints',
         'citycouncildistricts',
+        'citylimits',
         'neighborhoodassociations',
+        'parcels',
+        'parks',
         'subdivisions',
+        'schools',
+        'streetaddressdirection',
+        'streetcenterlines',
+        'streetnames',
+        'zipcodes',
         'currentzoningcases',
         'designdistricts',
         'futurelanduseplan',
         'pendingzbacases',
         'pendingzonecases',
         'preliminaryplats',
-        'floodzone',
+        'lake',
+        'lakenumber',
+        'firehydrants',
+        'watermains',
+        'sewermanholes',
+        'sewercleanouts',
+        'sewergravitymains',
+        'sewerforcemains',
+        'stormwatermanholes',
+        'stormwaterinlets',
+        'stormwateroutfalls',
+        'stormwaterpipes',
+        'trafficvolumetotals',
+        'trafficsignals',
         'residentpermitonlyparkingzones',
-        'impactfeeservicearea'
+        'impactfeeservicearea',
+        'alleydedicationdeeds',
+        'blocknumbers',
+        'drainageeasements',
+        'lotlines',
+        'lotdimensions',
+        'lotnumbers',
+        'ordinanceclosures',
+        'parkdedicationdeeds',
+        'platdedicatedrow',
+        'propertyacquisitiondeeds',
+        'railroaddeedsandeasements',
+        'rowdimensions',
+        'roweasements',
+        'sectionlines',
+        'staterowdeedsandeasements',
+        'streetdedicationdeeds',
+        'subdivisionnames',
+        'uselicenses',
+        'utilityequipmenteasements',
+        'utilitygarbageaccesseasements',
+        'airports',
+        'animalservices',
+        'citibustransferplaza',
+        'citizenstower',
+        'cementaries',
+        'utilities',
+        'civiccenter',
+        'communitycenters',
+        'firestations',
+        'healthdepartments',
+        'libraries',
+        'museums',
+        'policestations',
+        'pools',
+        'recyclingcenters',
+        'sportcomplexes',
       ]
     },
 
@@ -48,30 +109,30 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         point: {
           'type': 'esriSMS',
           'style': 'esriSMSCircle', // esriSMSCircle | esriSMSCross | esriSMSDiamond | esriSMSSquare | esriSMSX | esriSMSTriangle
-          'color': [255, 0, 0, 255],
+          'color': [255, 153, 0, 100],
           'size': 8,
           'angle': 0,
           'xoffset': 0,
           'yoffset': 0,
           'outline': {
-            'color': [255, 0, 0, 255],
+            'color': [255, 153, 0, 255],
             'width': 1
           }
         },
         line: {
           'type': 'esriSLS',
           'style': 'esriSLSDash', // esriSLSDash | esriSLSDashDotDot | esriSLSDot | esriSLSNull | esriSLSSolid
-          'color': [255, 0, 0, 255], // blue
+          'color': [255, 153, 0, 255], // blue
           'width': 2
         },
         fill: {
           'type': 'esriSFS',
           'style': 'esriSFSSolid', // esriSFSBackwardDiagonal | esriSFSCross | esriSFSDiagonalCross | esriSFSForwardDiagonal | esriSFSHorizontal | esriSFSNull | esriSFSSolid | esriSFSVertical
-          'color': [255, 0, 0, 100],
+          'color': [255, 153, 0, 100],
           'outline': {
             'type': 'esriSLS',
             'style': 'esriSLSDash',
-            'color': [255, 0, 0, 255],
+            'color': [255, 153, 0, 100],
             'width': 2
           }
         }
@@ -603,6 +664,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'textSearch': true,
             'returnGeometry': true, // if false then relatedQuery is used to determine geometry
             'id': 'addresses', // unique identifier within the unifiedSearch Config
+            'searchFields': ['FULL_ADDRESS'],
             'fields': ['FULL_ADDRESS'], // field to be queried on (where clause)
             'group': {
               'isGrouped': true,
@@ -625,7 +687,8 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             'textSearch': true,
             'returnGeometry': true, // if false then relatedQuery is used to determine geometry
             'id': 'parcels', // unique identifier within the unifiedSearch Config
-            'fields': ['LCADID', 'PIN', 'OWNER_CITY', 'OWNER_ZIP', 'OWNER_ST', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS', 'LEGAL_DESCRIPTION', 'GUC', 'NO_PARKING_SPACES', 'POOL', 'SQUARE_FOOT', 'last_edited_date'], // field to be queried on (where clause)
+            'searchFields': ['LCADID', 'PIN', 'OWNER_CITY', 'OWNER_ZIP', 'OWNER_ST', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS', 'LEGAL_DESCRIPTION'], // field to be queried on (where clause)
+            'fields': ['LCADID', 'PIN', 'OWNER_CITY', 'OWNER_ZIP', 'OWNER_ST', 'OWNER_NAME', 'SUBDIVISION', 'OWNER_ADDRESS', 'LEGAL_DESCRIPTION', 'GUC', 'POOL', 'NO_PARKING_SPACES', 'SQUARE_FOOT', 'last_edited_date'], // return fields
             'group': {
               'isGrouped': true,
               'sectionHeader': 'Parcels',
@@ -650,6 +713,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           'textSearch': false,
           'returnGeometry': true,
           'id': 'animalservices',
+          'searchFields': ['NAME'],
           'fields': ['NAME', 'TYPE'],
           'group': {
             'isGrouped': false,
@@ -664,943 +728,573 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       },
       
       {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/2',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'citibustransferplaza',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 7
-            },
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/2',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'citibustransferplaza',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 7
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/3',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'citizenstower',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 9
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/3',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'citizenstower',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 9
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/4',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'cementaries',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 10
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/4',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'cementaries',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 10
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/5',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'utilities',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 11
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/5',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'utilities',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 11
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/6',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'civiccenter',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 12
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/6',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'civiccenter',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 12
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/7',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'communitycenters',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 13
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/7',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'communitycenters',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 13
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/8',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'firestations',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 14
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/8',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'firestations',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 14
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/9',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'healthdepartments',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 15
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/9',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'healthdepartments',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 15
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/10',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'libraries',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 16
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/10',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'libraries',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 16
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/11',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'museums',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 17
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/11',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'museums',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 17
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/12',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'policestations',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 18
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/12',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'policestations',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 18
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/13',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'pools',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 19
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/13',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'pools',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 19
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/14',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'recyclingcenters',
-            'fields': ['LOCATION', 'STATUS'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['LOCATION'],
-              'priority': 20
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/14',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'recyclingcenters',
+          'searchFields': ['LOCATION'],
+          'fields': ['LOCATION', 'STATUS'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['LOCATION'],
+            'priority': 20
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/15',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'sportcomplexes',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 21
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/15',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'sportcomplexes',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 21
           },
         },
+      },
+    
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/3',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'buildingfootprints',
+          'searchFields': ['STRUCTURE_NAME', 'GUC_DESCRIPTION'],
+          'fields': ['STRUCTURE_NAME', 'TOTAL_NUMB_FLOORS', 'FIRST_FLOOR_AREA', 'TOTAL_FLOOR_AREA','NUMBER_RESIDENCES', 'DATE_BUILT', 'GUC', 'GUC_DESCRIPTION', 'last_edited_date'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['STRUCTURE_NAME'],
+            'iconClass': 'fa fa-building',
+            'priority': 23
+          },
+        },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/11',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'citycouncildistricts',
+          'searchFields': ['DISTRICT'],
+          'fields': ['DISTRICT', 'POPTOTAL'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['DISTRICT'],
+            'iconClass': 'fa fa-users',
+            'priority': 24
+          },
+        },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/10',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'neighborhoodassociations',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'ASSOC_NUM'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'iconClass': 'fa fa-chart-network',
+            'priority': 26
+          },
+        },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/9',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'parks',
+          'searchFields': ['NAME', 'Address'],
+          'fields': ['NAME', 'Address', 'Classification', 'Acres'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME', 'Address'],
+            'labelFunction': function(attrs) {
+              return attrs.NAME + ' (' + attrs.Address + ')';
+            },
+            'iconClass': 'fa fa-bench-tree',
+            'priority': 28
+          },
+        },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/8',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'subdivisions',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'PLAT', 'YEAR'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'iconClass': 'fa fa-vector-square',
+            'priority': 29
+          },
+        },
+      },
+    
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/0',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'airports',
+          'searchFields': ['NAME'],
+          'fields': ['NAME', 'TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': 'Airports',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['NAME'],
+            'priority': 5
+          },
+        }
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/2',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': true,
+          'returnGeometry': true,
+          'id': 'schools',
+          'searchFields': ['SCHOOL_NAME', 'SCHOOL_TYPE', 'ADDR'],
+          'fields': ['SCHOOL_NAME', 'SCHOOL_LEVEL', 'SCHOOL_TYPE', 'ADDR', 'PHONE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['SCHOOL_NAME', 'ADDR'],
+            'labelFunction': function(attrs) {
+              return attrs.SCHOOL_NAME + ' (' + attrs.ADDR + ')';
+            },
+            'priority': 30
+          },
+        },
+      },
       
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/3',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'buildingfootprints',
-            'fields': ['STRUCTURE_NAME', 'TOTAL_NUMB_FLOORS', 'FIRST_FLOOR_AREA', 'TOTAL_FLOOR_AREA','NUMBER_RESIDENCES', 'DATE_BUILT', 'GUC', 'GUC_DESCRIPTION', 'last_edited_date'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['STRUCTURE_NAME'],
-              'iconClass': 'fa fa-building',
-              'priority': 23
-            },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/4',
+        'idField': 'OBJECTID',
+        'query': {
+          'returnGeometry': true,
+          'id': 'currentzoningcases',
+          'searchFields': ['CaseNumber'],
+          'fields': ['CaseNumber', 'ZoningActual', 'ZoningRequested'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['CaseNumber'],
+            'iconClass': 'fa fa-border-all',
+            'priority': 35
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/11',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'citycouncildistricts',
-            'fields': ['DISTRICT', 'POPTOTAL'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['DISTRICT'],
-              'iconClass': 'fa fa-users',
-              'priority': 24
-            },
-          },
-        },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/10',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'neighborhoodassociations',
-            'fields': ['NAME', 'ASSOC_NUM'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'iconClass': 'fa fa-chart-network',
-              'priority': 26
-            },
-          },
-        },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/9',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'parks',
-            'fields': ['NAME', 'Address', 'Classification', 'Acres'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME', 'Address'],
-              'labelFunction': function(attrs) {
-                return attrs.NAME + ' (' + attrs.Address + ')';
-              },
-              'iconClass': 'fa fa-bench-tree',
-              'priority': 28
-            },
-          },
-        },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/8',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'subdivisions',
-            'fields': ['NAME', 'PLAT', 'YEAR'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'iconClass': 'fa fa-vector-square',
-              'priority': 29
-            },
-          },
-        },
-      
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/MapServer/0',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'airports',
-            'fields': ['NAME', 'TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': 'Airports',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['NAME'],
-              'priority': 5
-            },
-          }
-        },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/2',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': true,
-            'returnGeometry': true,
-            'id': 'schools',
-            'fields': ['SCHOOL_NAME', 'SCHOOL_LEVEL', 'SCHOOL_TYPE', 'ADDR', 'PHONE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['SCHOOL_NAME', 'ADDR'],
-              'labelFunction': function(attrs) {
-                return attrs.SCHOOL_NAME + ' (' + attrs.ADDR + ')';
-              },
-              'priority': 30
-            },
-          },
-        },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/7',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'streetaddressdirection',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'priority': 31
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/6',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'streetcenterlines',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'priority': 32
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/1',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'streetnames',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 33
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/MapServer/13',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'zipcodes',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 34
-      //             },
-      //     },
-      //   },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/4',
-          'idField': 'OBJECTID',
-          'query': {
-            'returnGeometry': true,
-            'id': 'currentzoningcases',
-            'fields': ['CaseNumber', 'ZoningActual', 'ZoningRequested'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['CaseNumber'],
-              'iconClass': 'fa fa-border-all',
-              'priority': 35
-            },
-          },
-        },
+      },
 
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/0',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': true,
-            'returnGeometry': true,
-            'id': 'designdistricts',
-            'fields': ['CommonName', 'DetailName', 'CaseNumber'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['CommonName'],
-              'iconClass': 'fa fa-border-all',
-              'priority': 36
-            },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/0',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': true,
+          'returnGeometry': true,
+          'id': 'designdistricts',
+          'searchFields': ['CommonName', 'DetailName', 'CaseNumber'],
+          'fields': ['CommonName', 'DetailName', 'CaseNumber'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['CommonName'],
+            'iconClass': 'fa fa-border-all',
+            'priority': 36
           },
         },
+      },
 
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/5',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': true,
-            'returnGeometry': true,
-            'id': 'futurelanduseplan',
-            'fields': ['FLUP', 'Vacant'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['FLUP'],
-              'iconClass': 'fa fa-border-all',
-              'priority': 37
-            },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/5',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': true,
+          'returnGeometry': true,
+          'id': 'futurelanduseplan',
+          'searchFields': ['FLUP'],
+          'fields': ['FLUP', 'Vacant'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['FLUP'],
+            'iconClass': 'fa fa-border-all',
+            'priority': 37
           },
         },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/2',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'pendingzbacases',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 38
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/4',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'pendingzonecases',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 39
-      //             },
-      //     },
-      //   },
+      },
 
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/1',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': true,
-            'returnGeometry': true,
-            'id': 'preliminaryplats',
-            'fields': ['Plan_Num', 'Project_Name', 'Main_Address', 'Current_District', 'Proposed_District', 'Plan_Status'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['Project_Name'],
-              'iconClass': 'fa fa-border-all',
-              'priority': 40
-            },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/MapServer/1',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': true,
+          'returnGeometry': true,
+          'id': 'preliminaryplats',
+          'searchFields': ['Plan_Num', 'Project_Name', 'Main_Address'],
+          'fields': ['Plan_Num', 'Project_Name', 'Main_Address', 'Current_District', 'Proposed_District', 'Plan_Status'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['Project_Name'],
+            'iconClass': 'fa fa-border-all',
+            'priority': 40
           },
         },
-      
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/0',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': true,
-            'returnGeometry': true,
-            'id': 'floodzone',
-            'fields': ['FLD_ZONE', 'STUDY_TYP'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['FLD_ZONE'],
-              'iconClass': 'fa fa-house-flood',
-              'priority': 41
-            },
+      },
+    
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/0',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': true,
+          'returnGeometry': true,
+          'id': 'floodzone',
+          'searchFields': ['FLD_ZONE'],
+          'fields': ['FLD_ZONE', 'STUDY_TYP'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['FLD_ZONE'],
+            'iconClass': 'fa fa-house-flood',
+            'priority': 41
           },
         },
-        {
-          'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/1',
-          'idField': 'OBJECTID',
-          'query': {
-            'textSearch': false,
-            'returnGeometry': true,
-            'id': 'lake',
-            'fields': ['LAKE_NAME', 'LAKE_SITE', 'LAKE_TYPE'],
-            'group': {
-              'isGrouped': false,
-              'sectionHeader': '',
-              'iconClass': 'fa fa-folder'
-            },
-            'results': {
-              'labelFields': ['LAKE_NAME'],
-              'iconClass': 'fa fa-water',
-              'priority': 42
-            },
+      },
+      {
+        'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/1',
+        'idField': 'OBJECTID',
+        'query': {
+          'textSearch': false,
+          'returnGeometry': true,
+          'id': 'lake',
+          'searchFields': ['LAKE_NAME', 'LAKE_SITE'],
+          'fields': ['LAKE_NAME', 'LAKE_SITE', 'LAKE_TYPE'],
+          'group': {
+            'isGrouped': false,
+            'sectionHeader': '',
+            'iconClass': 'fa fa-folder'
+          },
+          'results': {
+            'labelFields': ['LAKE_NAME'],
+            'iconClass': 'fa fa-water',
+            'priority': 42
           },
         },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/MapServer/2',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'lakenumber',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 43
-      //             },
-      //     },
-      //   },
-      
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/0',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'firehydrants',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 44
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/6',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'watermains',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 45
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/2',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'sewermanholes',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 46
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/1',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'sewercleanouts',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 47
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/7',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'sewergravitymains',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 48
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/8',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'sewerforcemains',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 49
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/3',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'stormwatermanholes',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 50
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/4',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'stormwaterinlets',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 51
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/5',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'stormwateroutfalls',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 52
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/9',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'stormwaterpipes',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 53
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/11',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'trafficvolumetotals',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 54
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/12',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'trafficsignals',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 55
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/15',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'residentpermitonlyparkingzones',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 56
-      //             },
-      //     },
-      //   },
-      //   {
-      //     'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/MapServer/10',
-      //       'idField': 'OBJECTID',
-      //           'query': {
-      //             'returnGeometry': true,
-      //             'id': 'impactfeeservicearea',
-      //             'fields': ['NAME', 'TYPE'],
-      //             'group': {
-      //               'isGrouped': false,
-      //               'sectionHeader': '',
-      //               'iconClass': 'fa fa-folder'
-      //             },
-      //             'results': {
-      //               'labelFields': ['NAME'],
-      //               'iconClass': 'fa fa-plane',
-      //               'priority': 57
-      //             },
-      //     },
-      //   }
+      },
 
       ],
       locators: [  // geocode locators is enabled at the begining of this section - geocode: { isEnabled: true }
         {
-          'id': 'bc_geocoder',
+          'id': 'geocoder',
           'url': 'https://pubgis.ci.lubbock.tx.us/server/rest/services/SingleAddressLocator2/GeocodeServer',
           'minScore': 50,
           'maxLocations': 5

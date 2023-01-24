@@ -244,8 +244,8 @@ function(
       font.setSize('14pt');
       font.setWeight(Font.WEIGHT_BOLD);
       font.setFamily('Lato');
-      symbol = new TextSymbol(outputLabel, font, new Color([0, 0, 0, 255]));
-      symbol.setHaloColor(new Color([255, 255, 255, 255]));
+      symbol = new TextSymbol(outputLabel, font, new Color([255, 153, 0, 255]));
+      symbol.setHaloColor(new Color([0, 0, 0, 255]));
       symbol.setHaloSize(1);
       symbol.setAlign(TextSymbol.ALIGN_START);
       this._addGraphic(symbol);

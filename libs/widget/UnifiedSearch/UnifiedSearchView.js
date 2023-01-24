@@ -102,9 +102,9 @@ define([
     },
 
     onDocumentKeyDown: function(evt) {
-      console.log('key pressed: ', evt.keyCode);
+      //console.log('key pressed: ', evt.keyCode);
       if (evt.keyCode === 191) {
-        console.log('slash key pressed');
+        //console.log('slash key pressed');
       }
     },
 

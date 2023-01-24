@@ -81,7 +81,7 @@ function(
             opacity: 1
           });
           this.map.addLayer(this.lubbockLayer, 1);
-          this.lubbockLayer.setVisibility(false);
+          this.lubbockLayer.setVisibility(true);
           //this.lubbockLayer.visible = 0;
           // esriBasemaps.custom = {
           //   baseMapLayers: [{layer}],

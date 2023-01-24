@@ -182,7 +182,6 @@
         });
         */
 
-        /*
         var executeObj = Object.create(null);
         _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
           var loc = new Locator(locator.url);
@@ -190,7 +189,6 @@
           executeObj[locator.id] = loc.locationToAddress(mp, this.searchConfig.geocode.distance);
         }));
         dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
-        */
       } else {
         console.log('searchMapPoint cannot be executed, requires a map object')
       }
@@ -320,7 +318,7 @@
     },
 
     constructWhere: function(queryDef, valueStr) {
-      var fieldArr = queryDef.fields;
+      var fieldArr = queryDef.searchFields || queryDef.fields;
       var upperStr = valueStr.toUpperCase();
 
       // is a where clause configured?
@@ -341,7 +339,7 @@
         whereStr = '(' + whereStr +  ') AND ' + dirtyStr;
       }
 
-      console.log(whereStr);
+      //console.log(whereStr);
       return whereStr;
     },
 
@@ -494,7 +492,7 @@
         // if layer is still null, then it is a locator
         if (layer === null) {
           var locator = this.getLocatorById(lyrKey);
-          console.log('Locator  (' + lyrKey + ') response: ', response);
+          //console.log('Locator  (' + lyrKey + ') response: ', response);
 
           // do NOT group the results
           _.each(response, lang.hitch(this, function(obj, index) {
@@ -510,7 +508,7 @@
             }
           }));
         } else {
-          console.log('Table (' + lyrKey + ') returned ' + response.features.length + ' results');
+          //console.log('Table (' + lyrKey + ') returned ' + response.features.length + ' results');
 
           // group the results
           if (layer.query.group.isGrouped) {

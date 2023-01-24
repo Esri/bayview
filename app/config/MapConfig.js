@@ -110,7 +110,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/0',
         options: {
           id: 'floodzone',
-          opacity: 1,
+          opacity: 0.5,
         },
       },
       {
