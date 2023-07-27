@@ -65,7 +65,6 @@
       UnifiedSearch, Legend, Coordinates, DrawTool, Measure, ExtractData,
       PortalUserModel,
       arcgisUtils, arcgisPortal, OAuthInfo, esriId, GeometryService, esriConfig,
-      // Print, PrintTemplate,
       i18n
     ) {
     
