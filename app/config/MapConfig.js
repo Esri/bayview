@@ -129,6 +129,27 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           id: 'addresses',
           opacity: 1,
         },
+        showLabels: true,
+        labelingInfo: [{
+          "labelExpressionInfo": {
+            "expression": "$feature.ADDR + ' ' + $feature.SUITE",
+          },
+          "labelPlacement": "center-center",
+          "maxScale": 0,
+          "minScale": 2000,
+          "symbol": {
+            "type": "esriTS",
+            "color": [255, 255, 255, 255],
+            "haloColor": [0,76,115,255],
+            "haloSize": 1,
+            "maxScale": 0,
+            "minScale": 2000,
+            "font": {
+              "family": "Arial",
+              "size": 12,
+            },
+          },
+        }],
       },
       {
         type: 'Feature Layer',
@@ -169,25 +190,6 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           id: 'parcels',
           opacity: 1,
         },
-        showLabels: true,
-        labelingInfo: [{
-          "labelExpressionInfo": {
-            "expression": "$feature.OWNER_NUMBER",
-          },
-          "labelPlacement": "center-center",
-          "symbol": {
-            "type": "esriTS",
-            "color": [255, 255, 255, 255],
-            "haloColor": [0,76,115,255],
-            "haloSize": 1,
-            "maxScale": 0,
-            "minScale": 2000,
-            "font": {
-              "family": "Arial",
-              "size": 12,
-            },
-          },
-        }],
       },
       {
         type: 'Feature Layer',
@@ -231,7 +233,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         showLabels: true,
         labelingInfo: [{
           "labelExpressionInfo": {
-            "expression": "$feature.STREET + ' ' + $feature.STREET_TYPE",
+            "expression": "$feature.PREFIX + ' ' + $feature.STREET + ' ' + $feature.STREET_TYPE",
           },
           "labelPlacement": "above-after",
           "maxScale": 0,
