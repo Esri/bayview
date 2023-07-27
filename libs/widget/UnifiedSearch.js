@@ -445,7 +445,7 @@
             loc.setOutSpatialReference(this.map.spatialReference);
           }
           var address = {
-            'SingleLine': this.currentSearchString
+            'Single Line Input': this.currentSearchString
           };
           var params = {
             address: address,
