@@ -494,6 +494,9 @@ define([
           });
         }
 
+        layerDef.options.mode = FeatureLayer.MODE_ONDEMAND;
+        layerDef.options.visible = layerDef.options.visible || false;
+
         var layerObject = new FeatureLayer(layerDef.url, layerDef.options);
         layerObject.on('click', function(evt) {
           topic.publish('FeatureLayer/Clicked', {

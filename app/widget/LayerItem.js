@@ -81,7 +81,12 @@ function(
 
     setVisibility: function(isVisible) {
       // TODO: only turn on when checkbox is checked
-      this._layer.setVisibility(isVisible);
+      if (isVisible) {
+        this._layer.show();
+      } else {
+        this._layer.hide();
+       }
+      //this._layer.setVisibility(isVisible);
     }
 
   });

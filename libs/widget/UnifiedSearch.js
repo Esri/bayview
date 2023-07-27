@@ -714,7 +714,7 @@
         topic.publish('/map/zoom/feature', this, {
           feature: selectedFeature,
           showInfoWindow: params.showInfoWindow,
-          refreshLayers: true
+          refreshLayers: false,
         });
         topic.publish(this.toolPrefix + '/result/clicked', this, {
           'layerId': params.layerId,
@@ -727,7 +727,7 @@
             'spatialReference': this.map.spatialReference
           });
           topic.publish('/zoom/to', this, {
-            'geometry': new Extent(extent)
+            'geometry': new Extent(extent),
           });
         } else {
           if (this.searchConfig.zoomToFeature) {

@@ -140,6 +140,15 @@ define([
             }
           }));
 
+          
+          topic.subscribe('/zoom/to', lang.hitch(this, function(sender, args) {
+            //console.debug('map zoom extent', args);
+            if (args.geometry) {
+              map.setExtent(args.geometry.expand(1.5));
+            }
+          }));
+
+
           topic.subscribe('/map/zoom/extent', lang.hitch(this, function(sender, args) {
               //console.debug('map zoom extent', args);
             var wkid = (args.wkid) ? parseInt(args.wkid, 10) : map.spatialReference.wkid;
@@ -178,7 +187,7 @@ define([
             }
 
             if (geom && (geom.type === 'polygon' || geom.type === 'polyline')) {
-              map.setExtent(geom.getExtent().expand(1.5));
+              map.setExtent(geom.getExtent().expand(2));
             } else if (geom && geom.type === 'point') {
               var centerAndZoom = map.centerAndZoom(geom, map.getMaxZoom() - 2);
               if (args.zoomToFeature) {

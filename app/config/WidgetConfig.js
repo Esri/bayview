@@ -364,7 +364,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             {
               'id': 'streetcenterlines',
               'name': 'Street Centerlines',
-              'isSelected': false,
+              'isSelected': true,
             },
             {
               'id': 'streetnames',

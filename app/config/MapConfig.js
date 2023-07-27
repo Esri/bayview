@@ -169,6 +169,24 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           id: 'parcels',
           opacity: 1,
         },
+        showLabels: true,
+        labelingInfo: {
+          "labelExpressionInfo": {
+            "expression": "$feature.PROP_ADDR",
+          },
+          "labelPlacement": "center-center",
+          "symbol": {
+            "type": "text",
+            "color": "#ECCAF7",
+            "haloColor": "#004C73",
+            "haloSize": 1,
+            "font": {
+              "family": "Arial",
+              "size": 12,
+              "weight": "bold",
+            },
+          },
+        },
       },
       {
         type: 'Feature Layer',
@@ -213,6 +231,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       {
         type: 'Feature Layer',
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/1',
+        showLabels: true,
         options: {
           id: 'streetnames',
           opacity: 1,

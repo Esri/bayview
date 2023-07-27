@@ -87,7 +87,8 @@ define([
                 if (this.selectedFeature.attributes.PIN) {
                     this.getAddresses(this.selectedFeature.attributes.PIN);
                     this.getLandInfo(this.selectedFeature.attributes.LCADID);
-                    this.getStructures(this.selectedFeature.attributes.PIN);
+                    // TODO: hide structures for now, also remove display-none in Print.html to show the print html
+                    //this.getStructures(this.selectedFeature.attributes.PIN);
                 }
                 this.printMap();
             }
@@ -97,7 +98,7 @@ define([
             var queryParams = {
                 outFields: ["FULL_ADDRESS"],
                 returnGeometry: false,
-                where: "PIN = " + pin,
+                where: "PIN = '" + pin + "'",
             };
             queryUtils.createAndRun({
                 query: queryParams,
@@ -225,6 +226,12 @@ define([
             var template = new PrintTemplate();
             template.format = "JPG";
             template.layout = "MAP_ONLY";
+            template.showLabels = true;
+            template.exportOptions = {
+                width: 800,
+                height: 540,
+                dpi: 96,
+            };
             var printTask = new PrintTask(appConfig.services.print);
             var printParams = new PrintParameters();
             printParams.map = this.map;

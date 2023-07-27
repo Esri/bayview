@@ -1,11 +1,17 @@
 <div class="printReport">
   <style>
+    .printReport {
+      color: #222222;
+      font-family: Arial, Helvetica, sans-serif;
+    }
     h1 {
-      font-size: 1.5rem;
+      font-size: 28px;
     }
     h2 {
-      font-size: 1.2rem;
+      font-size: 18px;
       border-bottom: 1px solid gray;
+      line-height: inherit;
+      margin: 16px 3px 8px 3px;
     }
     table {
       border: 0;
@@ -28,9 +34,20 @@
     .label {
       font-weight: bold;
     }
+    .footer {
+      font-size: 10px;
+      margin-top: 1rem;
+    }
+    .footer strong {
+      font-size: 10px;
+    }
 
     .print-map {
       margin: 1rem 0;
+    }
+
+    .display-none {
+      display: none;
     }
 
     @media print {
@@ -39,15 +56,21 @@
           page-break-after: always; 
         }
         .print-map {
-          height: 800px;
+          /* height: 800px; */
         }
     }
 
   </style>
-  <img src="./app/img/logo.jpg">
-  <h1>Parcel Report</h1>
-  <p><span class="label">LCAD Property ID:</span> <span class="value" data-dojo-attach-point="lcadid">---</span></p>
-
+  <table>
+    <tr>
+      <td><img src="app/img/logo.jpg"></td>
+      <td><h1>Parcel Report</h1></td>
+      <td style="vertical-align: middle;text-align: right;">
+        <span class="label">LCAD Property ID:</span><br/><span class="value" data-dojo-attach-point="lcadid">---</span>
+      </td>
+    </tr>
+  </table>
+  
   <h2>Owner Information:</h2>
   <table>
     <tr>
@@ -84,8 +107,8 @@
     </tr>
   </table>
 
-  <h2>Structure Information:</h2>
-  <table class="structures">
+  <h2 class="display-none">Structure Information:</h2>
+  <table class="structures display-none">
     <thead>
       <tr>
         <th>Structure Name</th>
@@ -97,12 +120,12 @@
     <tbody data-dojo-attach-point="structuredRows"></tbody>
   </table>
 
-  <div class="page-break"></div>
+  <!-- <div class="page-break"></div> -->
   <img class="print-map" src="./app/img/loader.gif" data-dojo-attach-point="mapContainer">
 
   <p class="footer">
-    <strong>City of Lubbock Disclaimer</strong>
-    <p>As required by Chapter 2051, Geospatial Data Products of the Government Code, this product is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of property boundaries.</p>
-    <p>Copyright © 2022</p>
+    <strong>City of Lubbock Disclaimer</strong><br/>
+    As required by Chapter 2051, Geospatial Data Products of the Government Code, this product is for informational purposes and may not have been prepared for or be suitable for legal, engineering, or surveying purposes. It does not represent an on-the-ground survey and represents only the approximate relative location of property boundaries.<br/>
+    Copyright © 2023
   </p>
 </div>
