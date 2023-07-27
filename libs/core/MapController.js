@@ -144,7 +144,7 @@ define([
           topic.subscribe('/zoom/to', lang.hitch(this, function(sender, args) {
             //console.debug('map zoom extent', args);
             if (args.geometry) {
-              map.setExtent(args.geometry.expand(1.5));
+              map.setExtent(args.geometry.expand(3));
             }
           }));
 
@@ -252,7 +252,7 @@ define([
               //console.log('map zoomed to point geometry');
             } else {
               //var extent = new Extent(parseFloat(geom.xmin), parseFloat(geom.ymin), parseFloat(geom.xmax), parseFloat(geom.ymax), new SpatialReference({ wkid: geom.spatialReference.wkid }));
-              map.setExtent(geom.getExtent());
+              map.setExtent(geom.getExtent().expand(3));
               //console.log('map zoomed to extent geometry');
             }
           }));

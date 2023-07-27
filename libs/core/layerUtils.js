@@ -498,6 +498,10 @@ define([
         layerDef.options.visible = layerDef.options.visible || false;
 
         var layerObject = new FeatureLayer(layerDef.url, layerDef.options);
+        if (layerDef.labelingInfo) {
+          layerObject.setLabelingInfo(layerDef.labelingInfo);
+          layerObject.showLabels = true;
+        }
         layerObject.on('click', function(evt) {
           topic.publish('FeatureLayer/Clicked', {
             evt: evt

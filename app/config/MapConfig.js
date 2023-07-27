@@ -170,23 +170,24 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           opacity: 1,
         },
         showLabels: true,
-        labelingInfo: {
+        labelingInfo: [{
           "labelExpressionInfo": {
-            "expression": "$feature.PROP_ADDR",
+            "expression": "$feature.OWNER_NUMBER",
           },
           "labelPlacement": "center-center",
           "symbol": {
-            "type": "text",
-            "color": "#ECCAF7",
-            "haloColor": "#004C73",
+            "type": "esriTS",
+            "color": [255, 255, 255, 255],
+            "haloColor": [0,76,115,255],
             "haloSize": 1,
+            "maxScale": 0,
+            "minScale": 2000,
             "font": {
               "family": "Arial",
               "size": 12,
-              "weight": "bold",
             },
           },
-        },
+        }],
       },
       {
         type: 'Feature Layer',
@@ -227,6 +228,25 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           id: 'streetcenterlines',
           opacity: 1,
         },
+        showLabels: true,
+        labelingInfo: [{
+          "labelExpressionInfo": {
+            "expression": "$feature.STREET + ' ' + $feature.STREET_TYPE",
+          },
+          "labelPlacement": "above-after",
+          "maxScale": 0,
+          "minScale": 3000,
+          "symbol": {
+            "type": "esriTS",
+            "color": [255, 255, 255, 255],
+            "haloColor": [0, 0, 0, 255],
+            "haloSize": 1,
+            "font": {
+              "family": "Arial",
+              "size": 11,
+            },
+          },
+        }],
       },
       {
         type: 'Feature Layer',
