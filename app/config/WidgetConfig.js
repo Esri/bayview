@@ -25,6 +25,12 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
       container: 'titlepane', // options are: 'titlepane', 'dropdown', 'none'
       autoUpdate: true, // ignored if Portal
       respectCurrentMapScale: true, // ignored if Portal
+      layerInfos: [
+        {
+          layer: "floodzone",
+          title: "Flood Zones"
+        }
+      ],
       includeLayerIds: [
         'floodzone',
         'contours',

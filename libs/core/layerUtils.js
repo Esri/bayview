@@ -415,7 +415,7 @@ define([
           layerInfo = {
             layer: layerObject,
             url: layerObject.url,
-            id: layerObject.id
+            id: layerObject.id,
           };
           if (!_.isUndefined(layerObject._params.title)) {
             layerInfo.title = layerObject._params.title;

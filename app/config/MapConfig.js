@@ -110,6 +110,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/0',
         options: {
           id: 'floodzone',
+          title: 'Flood Zones',
           opacity: 0.5,
         },
       },
@@ -118,6 +119,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://tiles.arcgis.com/tiles/eYXun6c1pgy8Qpta/arcgis/rest/services/2021_Lubbock_Contours_1ft/VectorTileServer',
         options: {
           id: 'contours',
+          title: 'Contours',
           opacity: 0.5,
         },
       },
@@ -127,6 +129,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/0',
         options: {
           id: 'addresses',
+          title: 'Addresses',
           opacity: 1,
         },
         showLabels: true,
@@ -156,6 +159,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/3',
         options: {
           id: 'buildingfootprints',
+          title: 'Building Footprints',
           opacity: 1,
         },
       },
@@ -164,6 +168,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/11',
         options: {
           id: 'citycouncildistricts',
+          title: 'City Council Districts',
           opacity: 0.5,
         },
       },
@@ -172,6 +177,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/12',
         options: {
           id: 'citylimits',
+          title: 'City Limits',
           opacity: 1,
         },
       },
@@ -180,6 +186,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/10',
         options: {
           id: 'neighborhoodassociations',
+          title: 'Neighborhood Associations',
           opacity: 0.5,
         },
       },
@@ -188,6 +195,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/4',
         options: {
           id: 'parcels',
+          title: 'Parcels',
           opacity: 1,
         },
       },
@@ -196,6 +204,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/9',
         options: {
           id: 'parks',
+          title: 'Parks',
           opacity: 1,
         },
       },
@@ -204,6 +213,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/8',
         options: {
           id: 'subdivisions',
+          title: 'Subdivisions',
           opacity: 1,
         },
       },
@@ -212,6 +222,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/2',
         options: {
           id: 'schools',
+          title: 'Schools',
           opacity: 1,
         },
       },
@@ -220,6 +231,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/7',
         options: {
           id: 'streetaddressdirection',
+          title: 'Street Address Direction',
           opacity: 1,
         },
       },
@@ -228,6 +240,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/6',
         options: {
           id: 'streetcenterlines',
+          title: 'Street Centerlines',
           opacity: 1,
         },
         showLabels: true,
@@ -256,6 +269,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         showLabels: true,
         options: {
           id: 'streetnames',
+          title: 'Street Names',
           opacity: 1,
         },
       },
@@ -264,6 +278,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/13',
         options: {
           id: 'zipcodes',
+          title: 'Zip Codes',
           opacity: 0.5,
         },
       },
@@ -273,6 +288,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/4',
         options: {
           id: 'currentzoningcases',
+          title: 'Current Zoning Cases',
           opacity: 1,
         },
       },
@@ -281,6 +297,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/0',
         options: {
           id: 'designdistricts',
+          title: 'Design Districts',
           opacity: 1,
         },
       },
@@ -289,6 +306,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/5',
         options: {
           id: 'futurelanduseplan',
+          title: 'Future Land Use Plan',
           opacity: 1,
         },
       },
@@ -297,6 +315,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/2',
         options: {
           id: 'pendingzbacases',
+          title: 'Pending ZBA Cases',
           opacity: 1,
         },
       },
@@ -305,6 +324,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/3',
         options: {
           id: 'pendingzonecases',
+          title: 'Pending Zone Cases',
           opacity: 1,
         },
       },
@@ -313,6 +333,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/1',
         options: {
           id: 'preliminaryplats',
+          title: 'Preliminary Plats',
           opacity: 1,
         },
       },
@@ -323,6 +344,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/1',
         options: {
           id: 'lake',
+          title: 'Lakes',
           opacity: 1,
         },
       },
@@ -331,6 +353,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/2',
         options: {
           id: 'lakenumber',
+          title: 'Lake Number',
           opacity: 1,
         },
       },
@@ -340,6 +363,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/0',
         options: {
           id: 'firehydrants',
+          title: 'Fire Hydrants',
           opacity: 1,
         },
       },
@@ -348,6 +372,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/6',
         options: {
           id: 'watermains',
+          title: 'Water Mains',
           opacity: 1,
         },
       },
@@ -356,6 +381,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/2',
         options: {
           id: 'sewermanholes',
+          title: 'Sewer Manholes',
           opacity: 1,
         },
       },
@@ -364,6 +390,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/1',
         options: {
           id: 'sewercleanouts',
+          title: 'Sewer Cleanouts',
           opacity: 1,
         },
       },
@@ -372,6 +399,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/7',
         options: {
           id: 'sewergravitymains',
+          title: 'Sewer Gravity Mains',
           opacity: 1,
         },
       },
@@ -380,6 +408,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/8',
         options: {
           id: 'sewerforcemains',
+          title: 'Sewer Force Mains',
           opacity: 1,
         },
       },
@@ -388,6 +417,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/3',
         options: {
           id: 'stormwatermanholes',
+          title: 'Stormwater Manholes',
           opacity: 1,
         },
       },
@@ -396,6 +426,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/4',
         options: {
           id: 'stormwaterinlets',
+          title: 'Stormwater Inlets',
           opacity: 1,
         },
       },
@@ -404,6 +435,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/5',
         options: {
           id: 'stormwateroutfalls',
+          title: 'Stormwater Outfalls',
           opacity: 1,
         },
       },
@@ -412,6 +444,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/9',
         options: {
           id: 'stormwaterpipes',
+          title: 'Stormwater Pipes',
           opacity: 1,
         },
       },
@@ -420,6 +453,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/11',
         options: {
           id: 'trafficvolumetotals',
+          title: 'Traffic Volume Totals',
           opacity: 1,
         },
       },
@@ -428,6 +462,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/12',
         options: {
           id: 'trafficsignals',
+          title: 'Traffic Signals',
           opacity: 1,
         },
       },
@@ -436,6 +471,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/15',
         options: {
           id: 'residentpermitonlyparkingzones',
+          title: 'Resident Permit Only Parking Zones',
           opacity: 0.5,
         },
       },
@@ -444,6 +480,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/10',
         options: {
           id: 'impactfeeservicearea',
+          title: 'Impact Fee Service Area',
           opacity: 0.5,
         },
       },
@@ -453,6 +490,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/12',
         options: {
           id: 'alleydedicationdeeds',
+          title: 'Alley Dedication Deeds',
           opacity: 1,
         },
       },
@@ -461,6 +499,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/20',
         options: {
           id: 'blocknumbers',
+          title: 'Block Numbers',
           opacity: 1,
         },
       },
@@ -469,6 +508,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/9',
         options: {
           id: 'drainageeasements',
+          title: 'Drainage Easements',
           opacity: 1,
         },
       },
@@ -477,6 +517,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/5',
         options: {
           id: 'lotlines',
+          title: 'Lot Lines',
           opacity: 1,
         },
       },
@@ -485,6 +526,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/21',
         options: {
           id: 'lotdimensions',
+          title: 'Lot Dimensions',
           opacity: 1,
         },
       },
@@ -493,6 +535,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/22',
         options: {
           id: 'lotnumbers',
+          title: 'Lot Numbers',
           opacity: 1,
         },
       },
@@ -501,6 +544,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/19',
         options: {
           id: 'ordinanceclosures',
+          title: 'Ordinance Closures',
           opacity: 1,
         },
       },
@@ -509,6 +553,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/13',
         options: {
           id: 'parkdedicationdeeds',
+          title: 'Park Dedication Deeds',
           opacity: 1,
         },
       },
@@ -517,6 +562,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/14',
         options: {
           id: 'platdedicatedrow',
+          title: 'Plat Dedicated ROW',
           opacity: 1,
         },
       },
@@ -525,6 +571,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/10',
         options: {
           id: 'propertyacquisitiondeeds',
+          title: 'Property Acquisition Deeds',
           opacity: 1,
         },
       },
@@ -533,6 +580,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/17',
         options: {
           id: 'railroaddeedsandeasements',
+          title: 'Railroad Deeds and Easements',
           opacity: 1,
         },
       },
@@ -541,6 +589,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/23',
         options: {
           id: 'rowdimensions',
+          title: 'ROW Dimensions',
           opacity: 1,
         },
       },
@@ -549,6 +598,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/15',
         options: {
           id: 'roweasements',
+          title: 'ROW Easements',
           opacity: 1,
         },
       },
@@ -557,6 +607,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/6',
         options: {
           id: 'sectionlines',
+          title: 'Section Lines',
           opacity: 1,
         },
       },
@@ -565,6 +616,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/16',
         options: {
           id: 'staterowdeedsandeasements',
+          title: 'State ROW Deeds and Easements',
           opacity: 1,
         },
       },
@@ -573,6 +625,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/11',
         options: {
           id: 'streetdedicationdeeds',
+          title: 'Street Dedication Deeds',
           opacity: 1,
         },
       },
@@ -581,6 +634,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/24',
         options: {
           id: 'subdivisionnames',
+          title: 'Subdivision Names',
           opacity: 1,
         },
       },
@@ -589,6 +643,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/18',
         options: {
           id: 'uselicenses',
+          title: 'Use Licenses',
           opacity: 1,
         },
       },
@@ -597,6 +652,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/7',
         options: {
           id: 'utilityequipmenteasements',
+          title: 'Utility Equipment Easements',
           opacity: 1,
         },
       },
@@ -605,6 +661,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/8',
         options: {
           id: 'utilitygarbageaccesseasements',
+          title: 'Utility Garbage Access Easements',
           opacity: 1,
         },
       },
@@ -614,6 +671,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/0',
         options: {
           id: 'airports',
+          title: 'Airports',
           opacity: 1,
         },
       },
@@ -622,6 +680,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/1',
         options: {
           id: 'animalservices',
+          title: 'Animal Services',
           opacity: 1,
         },
       },
@@ -630,6 +689,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/2',
         options: {
           id: 'citibustransferplaza',
+          title: 'CitiBus Transfer Plaza',
           opacity: 1,
         },
       },
@@ -638,6 +698,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/3',
         options: {
           id: 'citizenstower',
+          title: 'Citizens Tower',
           opacity: 1,
         },
       },
@@ -646,6 +707,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/4',
         options: {
           id: 'cementaries',
+          title: 'Cementaries',
           opacity: 1,
         },
       },
@@ -654,6 +716,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/5',
         options: {
           id: 'utilities',
+          title: 'Utilities',
           opacity: 1,
         },
       },
@@ -662,6 +725,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/6',
         options: {
           id: 'civiccenter',
+          title: 'Civic Center',
           opacity: 1,
         },
       },
@@ -670,6 +734,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/7',
         options: {
           id: 'communitycenters',
+          title: 'Community Centers',
           opacity: 1,
         },
       },
@@ -678,6 +743,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/8',
         options: {
           id: 'firestations',
+          title: 'Fire Stations',
           opacity: 1,
         },
       },
@@ -686,6 +752,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/9',
         options: {
           id: 'healthdepartments',
+          title: 'Health Departments',
           opacity: 1,
         },
       },
@@ -694,6 +761,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/10',
         options: {
           id: 'libraries',
+          title: 'Libraries',
           opacity: 1,
         },
       },
@@ -702,6 +770,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/11',
         options: {
           id: 'museums',
+          title: 'Museums',
           opacity: 1,
         },
       },
@@ -710,6 +779,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/12',
         options: {
           id: 'policestations',
+          title: 'Police Stations',
           opacity: 1,
         },
       },
@@ -718,6 +788,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/13',
         options: {
           id: 'pools',
+          title: 'Pools',
           opacity: 1,
         },
       },
@@ -726,6 +797,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/14',
         options: {
           id: 'recyclingcenters',
+          title: 'Recycling Centers',
           opacity: 1,
         },
       },
@@ -734,6 +806,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
         url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/15',
         options: {
           id: 'sportcomplexes',
+          title: 'Sport Complexes',
           opacity: 1,
         },
       },
