@@ -331,6 +331,7 @@ define([
 
             //console.debug('making new map', this._options);
             this._map = new Map(this._mapDivId, this._options);
+
             // turning off the default info window so that map clicks are sent to USearch info panel
             this._map.setInfoWindowOnClick(false);
             //this._setPopup();

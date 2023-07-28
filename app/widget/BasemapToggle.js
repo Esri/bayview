@@ -33,7 +33,7 @@ define([
   'esri/basemaps',
   'esri/dijit/BasemapLayer',
   'esri/dijit/Basemap',
-  'esri/layers/ArcGISImageServiceLayer',
+  'esri/layers/RasterLayer',
   'esri/layers/ImageServiceParameters',
   'esri/layers/MapImageLayer',
 
@@ -76,9 +76,14 @@ function(
 
           var params = new ImageServiceParameters();
           params.noData = 0;
+          params.format = "jpg";
+          params.compressionQuality = 50;
+          
           this.lubbockLayer = new ArcGISImageServiceLayer(basemap.url, {
             imageServiceParameters: params,
-            opacity: 1
+            opacity: 1,
+            drawMode: false,
+            drawMode: 'webgl2',
           });
           this.map.addLayer(this.lubbockLayer, 1);
           this.lubbockLayer.setVisibility(true);
