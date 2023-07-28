@@ -728,6 +728,7 @@
           });
           topic.publish('/zoom/to', this, {
             'geometry': new Extent(extent),
+            'zoomFactor': 1.5,
           });
         } else {
           if (this.searchConfig.zoomToFeature) {

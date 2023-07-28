@@ -143,8 +143,9 @@ define([
           
           topic.subscribe('/zoom/to', lang.hitch(this, function(sender, args) {
             //console.debug('map zoom extent', args);
+            var zoomFactor = (args.zoomFactor) ? parseInt(args.zoomFactor, 10) : 3;
             if (args.geometry) {
-              map.setExtent(args.geometry.expand(3));
+              map.setExtent(args.geometry.expand(zoomFactor));
             }
           }));
 
