@@ -253,7 +253,7 @@ define([
               //console.log('map zoomed to point geometry');
             } else {
               //var extent = new Extent(parseFloat(geom.xmin), parseFloat(geom.ymin), parseFloat(geom.xmax), parseFloat(geom.ymax), new SpatialReference({ wkid: geom.spatialReference.wkid }));
-              map.setExtent(geom.getExtent().expand(3));
+              map.setExtent(geom.getExtent().expand(4));
               //console.log('map zoomed to extent geometry');
             }
           }));

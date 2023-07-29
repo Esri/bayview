@@ -146,7 +146,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
             "haloColor": [0,76,115,255],
             "haloSize": 1,
             "maxScale": 0,
-            "minScale": 2000,
+            "minScale": 3000,
             "font": {
               "family": "Arial",
               "size": 12,
@@ -250,7 +250,7 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
           },
           "labelPlacement": "above-after",
           "maxScale": 0,
-          "minScale": 3000,
+          "minScale": 4000,
           "symbol": {
             "type": "esriTS",
             "color": [255, 255, 255, 255],
