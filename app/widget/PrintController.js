@@ -39,7 +39,7 @@ define([
 
     'app/config/WidgetConfig',
 
-    'dojo/text!./templates/Print.html'
+    'dojo/text!./templates/PrintController.html'
   ],
 
   function(
@@ -62,15 +62,20 @@ define([
         postCreate: function() {
             this.inherited(arguments);
 
+            // TODO: get all available layout templates from https://pubgis.ci.lubbock.tx.us/server/rest/services/PrintingTools/GPServer/Get%20Layout%20Templates%20Info%20Task
+
             var template = new PrintTemplate();
             template.format = "PDF";
-            template.layout = "Letter ANSI A Landscape";
+            template.layout = "Letter ANSI A Portrait";
             template.layoutOptions = {
                 titleText: ""
             }
 
-            var url = 'http://gis.baycountyfl.gov/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task';
-            this.printTask = new PrintTask(url);
+            if (_.isUndefined(this.printTaskUrl) || !this.printTaskUrl) {
+                console.log('ERROR: no print task defined!!');
+                return;
+            }
+            this.printTask = new PrintTask(this.printTaskUrl);
             this.printParams = new PrintParameters();
             this.printParams.map = this.map;
             this.printParams.template = template;

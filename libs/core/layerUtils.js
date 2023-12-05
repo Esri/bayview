@@ -30,6 +30,7 @@ define([
   'esri/layers/ArcGISImageServiceLayer',
   'esri/layers/WebTiledLayer',
   'esri/layers/WMSLayer',
+  'esri/layers/VectorTileLayer',
 
   'esri/InfoTemplate',
   'esri/request',
@@ -40,7 +41,7 @@ define([
     lang, Color,
     Deferred, domConstruct, topic,
     SimpleLineSymbol, SimpleFillSymbol, SimpleRenderer,
-    FeatureLayer, ArcGISDynamicMapServiceLayer, ArcGISTiledMapServiceLayer, ArcGISImageServiceLayer, WebTiledLayer, WMSLayer,
+    FeatureLayer, ArcGISDynamicMapServiceLayer, ArcGISTiledMapServiceLayer, ArcGISImageServiceLayer, WebTiledLayer, WMSLayer, VectorTileLayer,
     InfoTemplate, esriRequest, arcgisUtils
   ) {
     return {
@@ -93,6 +94,10 @@ define([
               layerObjects.push(layerObject);
             } else if (layerDef.type === 'Feature Layer') {
               layerObject = this._getFeatureLayerObject(layerDef);
+              //this.addLayer(map, layerObject, layerDef.options);
+              layerObjects.push(layerObject);
+            } else if (layerDef.type === 'Vector Tile Layer') {
+              layerObject = this._getVectorTileLayerObject(layerDef);
               //this.addLayer(map, layerObject, layerDef.options);
               layerObjects.push(layerObject);
             } else if (layerDef.layerType === 'ArcGISMapServiceLayer') {
@@ -410,7 +415,7 @@ define([
           layerInfo = {
             layer: layerObject,
             url: layerObject.url,
-            id: layerObject.id
+            id: layerObject.id,
           };
           if (!_.isUndefined(layerObject._params.title)) {
             layerInfo.title = layerObject._params.title;
@@ -489,12 +494,24 @@ define([
           });
         }
 
+        layerDef.options.mode = FeatureLayer.MODE_ONDEMAND;
+        layerDef.options.visible = layerDef.options.visible || false;
+
         var layerObject = new FeatureLayer(layerDef.url, layerDef.options);
+        if (layerDef.labelingInfo) {
+          layerObject.setLabelingInfo(layerDef.labelingInfo);
+          layerObject.showLabels = true;
+        }
         layerObject.on('click', function(evt) {
           topic.publish('FeatureLayer/Clicked', {
             evt: evt
           });
         });
+        return layerObject;
+      },
+
+      _getVectorTileLayerObject: function(layerDef) {
+        var layerObject = new VectorTileLayer(layerDef.url, layerDef.options);
         return layerObject;
       },
 

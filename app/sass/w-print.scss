@@ -4,9 +4,9 @@
     min-width: 200px;
     padding: 0;
 
-    // @include respond('xs') {
-    //     min-width: 400px;
-    // }
+    @include respond('xs') {
+        min-width: 400px;
+    }
 
     @include respond('sm') {
         top: 0;

@@ -11,53 +11,47 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License. */
+    
+    define(
+      [
+        'dojo/_base/declare',
+        'dojo/_base/lang',
+        'dojo/promise/all',
+        'dojo/topic',
+    
+        'esri/tasks/QueryTask',
+        'esri/tasks/locator',
+        'esri/geometry/Point',
+        'esri/geometry/Extent',
+        'esri/geometry/webMercatorUtils',
+        'esri/graphicsUtils',
+    
+        'core/queryUtils',
+        './UnifiedSearch/UnifiedSearchView'
+      ],
 
-define([
-    'dojo/_base/declare',
-    'dojo/_base/lang',
-    'dojo/promise/all',
-    'dojo/topic',
-    'dojo/json',
+      function(
+        declare, lang, dojoAll, topic,
+        QT, Locator, Point, Extent, webMercatorUtils, graphicsUtils,
+        queryUtils,
+        LSView) {
 
-    'esri/tasks/QueryTask',
-    'esri/tasks/query',
-    'esri/tasks/locator',
-    'esri/geometry/Point',
-    'esri/geometry/Extent',
-    'esri/geometry/webMercatorUtils',
+          return declare([], {
 
-    'core/queryUtils',
-
-    './UnifiedSearch/UnifiedSearchView',
-
-    '.././app/config/WidgetConfig'],
-
-function(
-  declare, lang, dojoAll, topic, JSON,
-  QT, Query, Locator, Point, Extent, webMercatorUtils,
-  queryUtils,
-  LSView,
-  WidgetConfig)
-{
-
-  return declare([], {
-
-    locModel: null,
-    viewElement: null, // can be id string or actual node
-
-    queries: [],
-    queryTasks: [],
-
-    toolPrefix: null,
-
-    searchExtent: null,
-
-    constructor: function(options) {
-      this.inherited(arguments);
-      this.selectedLayerId = '';
-      this.currentSearch = null;
-      this.postCreate(options);
-    },
+            locModel: null,
+            viewElement: null, // can be id string or actual node
+      
+            queries: [],
+            queryTasks: [],
+      
+            toolPrefix: null,
+      
+            constructor: function(options) {
+              this.inherited(arguments);
+              this.currentSearch = null;
+              this.currentResults = null;
+              this.postCreate(options);
+            },
 
     // this does not happen automatically.
     /**
@@ -75,19 +69,17 @@ function(
       this.toolPrefix = '/' + options.toolPrefix || '/UnifiedSearch';
 
       this.searchConfig = options.searchConfig;
-      this.infoConfig = WidgetConfig.infoPanel;
 
       if (_.isObject(options.portalSearchConfig)) {
         this.mixinPortalSearchConfig(options.portalSearchConfig);
       }
 
-      // Set the initial search extent
-      this.searchExtent = this.map.extent;
-
       // initialize the view object
       this.lsView = new LSView({
-        searchConfig: this.searchConfig,
-        searchDelay: this.searchConfigsearchDelay || 400
+        'searchConfig': this.searchConfig,
+        'searchDelay': this.searchConfigsearchDelay || 400,
+        'minChars': this.minChars || 2,
+        'map': this.map
       }, options.viewElement); //
       this.lsView.startup();
 
@@ -130,7 +122,7 @@ function(
               },
               results: {
                 labelFields: layer.field.name,
-                iconClassFunction: function(attrs) {
+                iconClassFunction: function() {
                   return 'fa fa-map-marker';
                 },
                 priority: index
@@ -145,33 +137,61 @@ function(
     },
 
     searchMapPoint: function(mapPoint) {
-      var mp = webMercatorUtils.webMercatorToGeographic(mapPoint);
-      this.lsView.setInputValue(mp.x.toFixed(6) + ', ' + mp.y.toFixed(6));
-      var unifiedResults = [];
-      var loc = new Locator(this.searchConfig.geocode.url);
-      //loc.setOutSpatialReference(this.map.spatialReference);
-      loc.locationToAddress(mp, this.searchConfig.geocode.distance, lang.hitch(this, function(result) {
-        unifiedResults.push({
-          oid: 0,
-          label: this.searchConfig.geocode.addressLabelFunction(result.address),
-          layer: '',
-          extent: JSON.stringify(this._pointToExtent(mapPoint, 10)), //JSON.stringify(mp.getExtent()),
-          iconClass: 'fa fa-map-marker',
-          obj: JSON.stringify(result)
+      if (this.map !== null) {
+        this.lsView.clear();
+        var mp = webMercatorUtils.webMercatorToGeographic(mapPoint);
+        this.lsView.setInputValue(mp.x.toFixed(6) + ', ' + mp.y.toFixed(6));
+
+        this.lsView.showLoading();
+
+        this.currentSearchString = null;
+        this.currentGeometry = this._pointToExtent(mapPoint, 10);
+
+        // instantiate the new search object
+        var executeObj = Object.create(null);
+
+        // now add the tables
+        _.each(this.queries, lang.hitch(this, function(query, index) {
+          var queryDef = this.searchConfig.tables[index].query;
+          query.where = '';
+          query.geometry = this.currentGeometry;
+          if (this.map.getLayer(queryDef.id).visible) {
+            executeObj[queryDef.id] = this.queryTasks[index].execute(query);
+          }
+        }));
+
+        // execute all queries
+        this.currentSearch = dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
+
+        /*
+        // LOCATORS
+        var loc = new Locator(this.searchConfig.geocode.url);
+        //loc.setOutSpatialReference(this.map.spatialReference);
+        loc.locationToAddress(mp, this.searchConfig.geocode.distance, lang.hitch(this, function(result) {
+          unifiedResults.push({
+            oid: 0,
+            label: this.searchConfig.geocode.addressLabelFunction(result.address),
+            layer: '',
+            extent: this._pointToExtent(mapPoint, 10), //mp.getExtent(),
+            iconClass: 'fa fa-map-marker',
+            obj: result
+          });
+          this.lsView.handleFormattedResults(unifiedResults);
+        }), function(error) {
+          console.log('geocode error', error);
         });
-        this.lsView.handleFormattedResults(unifiedResults);
-      }), function(error) {
-        console.log('geocode error', error);
-      });
-      /*
-      var executeObj = Object.create(null);
-      _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
-        var loc = new Locator(locator.url);
-        loc.setOutSpatialReference(this.map.spatialReference);
-        executeObj[locator.id] = loc.locationToAddress(mp, this.searchConfig.geocode.distance);
-      }));
-      dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
-      */
+        */
+
+        var executeObj = Object.create(null);
+        _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
+          var loc = new Locator(locator.url);
+          loc.setOutSpatialReference(this.map.spatialReference);
+          executeObj[locator.id] = loc.locationToAddress(mp, this.searchConfig.geocode.distance);
+        }));
+        dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
+      } else {
+        console.log('searchMapPoint cannot be executed, requires a map object')
+      }
     },
 
     _pointToExtent: function(point, toleranceInPixel) {
@@ -193,9 +213,11 @@ function(
       _.each(this.searchConfig.tables, lang.hitch(this, function(table) {
         var query = queryUtils.createQuery({
           outFields: _.union(table.query.fields, table.query.results.labelFields, [table.idField]),
-          outSpatialReference: this.map.spatialReference,
           returnGeometry: table.query.returnGeometry
         });
+        if (this.map !== null) {
+          query.outSpatialReference = this.map.spatialReference;
+        }
         this.queries.push(query);
         this.queryTasks.push(new QT(table.url));
       }));
@@ -214,7 +236,11 @@ function(
 
       this.lsView.on('locateme', lang.hitch(this, this._locateMeClicked));
       this.lsView.on('clear', lang.hitch(this, this._clearClicked));
-      this.lsView.on('back', lang.hitch(this, this._backClicked));
+
+      this.lsView.on('hover-obj', lang.hitch(this, this._hoverItem));
+      this.lsView.on('info-clicked', lang.hitch(this, this._infoClicked));
+
+      this.lsView.on('zoomto', lang.hitch(this, this._zoomtoClicked));
     },
 
     _locateMeClicked: function() {
@@ -227,15 +253,29 @@ function(
 
     _clearClicked: function() {
       console.log('clear button clicked');
+      this.currentSearch = null;
+      this.currentGeometry = null;
+      this.currentResults = null;
       topic.publish(this.toolPrefix + '/clear/clicked', this, {});
-      // TODO is there a better place for this?
-      // Clear the map marker as well
-      topic.publish('/map/clear/simplemarker', this, {});
     },
 
-    _backClicked: function() {
-      console.log('back button clicked');
-      topic.publish(this.toolPrefix + '/back/clicked', this, {});
+    _hoverItem: function(params) {
+      var oid = params.oid;
+      var layerId = params.layerId;
+      var object = params.object;
+
+    },
+
+    _infoClicked: function(params) {
+      var oid = params.oid;
+      var layerId = params.layerId;
+      var object = params.object;
+    },
+
+    _zoomtoClicked: function(params) {
+      var features = params.features || [];
+      var extent = graphicsUtils.graphicsExtent(features);
+      topic.publish('/map/zoom/geometry', this, extent);
     },
 
     zoomToLocation: function(location) {
@@ -246,7 +286,6 @@ function(
         };
 
         // zoom to the coordinates
-        //this._zoomToLatLong(args);
         topic.publish('/map/zoom/latlong', this, args);
       }
     },
@@ -278,16 +317,19 @@ function(
       */
     },
 
-    _zoomToLatLong: function(args) {
-      var pt = new Point(args.longitude, args.latitude);
-      //addGraphic(pt);
-      this.map.centerAndZoom(pt, 12);
-    },
-
-    constructWhere: function(fieldArr, valueStr) {
+    constructWhere: function(queryDef, valueStr) {
+      var fieldArr = queryDef.searchFields || queryDef.fields;
       var upperStr = valueStr.toUpperCase();
+
+      // is a where clause configured?
+      var whereStr = (!_.isUndefined(queryDef.whereClause)) ? queryDef.whereClause : '';
+      if (whereStr !== '' && queryDef.fields.length > 0) {
+        whereStr += ' AND ';
+      }
+
+      // add the fields
       var whereArr = _.map(fieldArr, function(field) {
-        return 'UPPER(' + field + ') LIKE \'%' + upperStr + '%\'';
+        return field + ' LIKE \'%' + upperStr + '%\'';
       });
       var whereStr = whereArr.join(' OR ');
 
@@ -297,8 +339,7 @@ function(
         whereStr = '(' + whereStr +  ') AND ' + dirtyStr;
       }
 
-      console.log(whereStr);
-
+      //console.log(whereStr);
       return whereStr;
     },
 
@@ -342,33 +383,74 @@ function(
       return t;
     },
 
+    searchByGeometry: function(geometry) {
+      // cancel the current search
+      if (this.currentSearch !== null) {
+        this.currentSearch.cancel('new search incoming');
+      }
+
+      if (_.isUndefined(geometry)) {
+        return;
+      }
+
+      this.lsView.clearResults();
+      this.lsView.showLoading();
+
+      this.currentSearchString = null;
+      this.currentGeometry = geometry;
+
+      // instantiate the new search object
+      var executeObj = Object.create(null);
+
+      // now add the tables
+      _.each(this.queries, lang.hitch(this, function(query, index) {
+        var queryDef = this.searchConfig.tables[index].query;
+        query.where = '';
+        query.geometry = geometry;
+        executeObj[queryDef.id] = this.queryTasks[index].execute(query);
+      }));
+
+      // execute all queries
+      this.currentSearch = dojoAll(executeObj).then(lang.hitch(this, this.handleQueryResults), queryUtils.genericErrback);
+    },
+
+    setResults: function(resultsObj) {
+      this.currentResults = resultsObj;
+      this.handleQueryResults(resultsObj);
+    },
+
     handleSearchStr: function(str) {
       console.debug('handleSearchStr', str);
+
+      // cancel the current search
       if (this.currentSearch !== null) {
-          this.currentSearch.cancel('new search incoming');
+        this.currentSearch.cancel('new search incoming');
       }
+
+      // create the new search string
       this.currentSearchString = str;
       if (!this.lsView.inputValue || this.lsView.inputValue !== this.currentSearchString) {
         console.debug('why bother querying?', this.lsView.inputValue, this.currentSearchString);
         return;
       }
 
+      // instantiate the new search object
       var executeObj = Object.create(null);
 
       // first add the locators
-      if (this.searchConfig.geocode.isEnabled && this.searchConfig.locators && this.searchConfig.locators.length > 0) {
+      if (this.searchConfig.locators && this.searchConfig.locators.length > 0) {
         _.each(this.searchConfig.locators, lang.hitch(this, function(locator) {
           var loc = new Locator(locator.url);
-          loc.setOutSpatialReference(this.map.spatialReference);
+          if (this.map !== null) {
+            loc.setOutSpatialReference(this.map.spatialReference);
+          }
           var address = {
-            'SingleLine': this.currentSearchString
+            'Single Line Input': this.currentSearchString
           };
           var params = {
             address: address,
             outFields: ['*'],
-            maxLocations: locator.maxLocations,
-            //TODO experiments
-            searchExtent: this.searchExtent
+            maxLocations: locator.maxLocations
           };
           if (locator.countryCode) {
             params.countryCode = locator.countryCode;
@@ -380,9 +462,13 @@ function(
 
       // now add the tables
       _.each(this.queries, lang.hitch(this, function(query, index) {
-        query.where = this.constructWhere(this.searchConfig.tables[index].query.fields, this.currentSearchString);
-        //query.outFields = ["*"];
-        executeObj[this.searchConfig.tables[index].query.id] = this.queryTasks[index].execute(query);
+        var queryDef = this.searchConfig.tables[index].query;
+        // only add query if specified as "textSearch"
+        if (!_.isUndefined(queryDef.textSearch) && queryDef.textSearch) {
+          query.geometry = null;
+          query.where = this.constructWhere(queryDef, this.currentSearchString);
+          executeObj[queryDef.id] = this.queryTasks[index].execute(query);
+        }
       }));
 
       // execute all queries
@@ -391,9 +477,6 @@ function(
 
     handleQueryResults: function(responsesObj) {
       console.debug('handleQueryResults', responsesObj);
-
-      // hide the info panel if open
-      topic.publish(this.toolPrefix + '/clear/clicked', this, {});
 
       var unifiedResults = [];
       var sortedResponsesObj = this.getResultsByPriority(responsesObj);
@@ -409,7 +492,7 @@ function(
         // if layer is still null, then it is a locator
         if (layer === null) {
           var locator = this.getLocatorById(lyrKey);
-          console.log('Locator  (' + lyrKey + ') response: ', response);
+          //console.log('Locator  (' + lyrKey + ') response: ', response);
 
           // do NOT group the results
           _.each(response, lang.hitch(this, function(obj, index) {
@@ -418,36 +501,37 @@ function(
                 oid: index,
                 label: obj.address,
                 layer: lyrKey,
-                extent: JSON.stringify(obj.extent),
+                extent: obj.extent,
                 iconClass: 'fa fa-map-marker',
-                obj: JSON.stringify(obj)
+                obj: obj
               });
             }
           }));
         } else {
-          console.log('Table (' + lyrKey + ') returned ' + response.features.length + ' results');
+          //console.log('Table (' + lyrKey + ') returned ' + response.features.length + ' results');
 
           // group the results
           if (layer.query.group.isGrouped) {
-            if (response.features.length > 0) {
+            if ((!_.isUndefined(layer.query.group.isGrouped) && layer.query.group.isGrouped) || response.features.length > 0) {
               unifiedResults.push((layer !== null) ? {
                 oid: '',
                 label: '' + layer.query.group.sectionHeader + ' (' + response.features.length + ' results)',
                 layer: lyrKey,
                 iconClass: layer.query.group.iconClass,
-                extent: ''
+                extent: null
               } : null);
             }
           } else {
             // do NOT group the results
             var formattedResults = _.map(response.features, lang.hitch(this, function(feat) {
+              feat = this._enrichFeatureWithRenderer(feat, layer.query.id);
               return (layer !== null) ? {
                 oid: feat.attributes[layer.idField],
                 label: (layer.query.results.labelFunction) ? layer.query.results.labelFunction(feat.attributes) : feat.attributes[layer.query.results.labelFields[0]],
                 layer: lyrKey,
-                iconClass: (layer.query.results.iconClassFunction) ? layer.query.results.iconClassFunction(feat.attributes) : '',
-                extent: (feat.extent) ? JSON.stringify(feat.extent) : '',
-                obj: JSON.stringify(feat)
+                iconClass: (layer.query.results.iconClassFunction) ? layer.query.results.iconClassFunction(feat.attributes) : layer.query.results.iconClass,
+                extent: this._getExtent(feat),
+                obj: feat
               } : null;
             }));
             unifiedResults = unifiedResults.concat(formattedResults); //.slice(0,5)
@@ -462,41 +546,12 @@ function(
       this.lsView.handleFormattedResults(unifiedResults);
     },
 
-    mapClickEvent: function(target) {
-      function titleCase (str) {
-        if ((str===null) || (str===''))
-             return false;
-        else
-         str = str.toString();
-        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    _enrichFeatureWithRenderer: function(feat, layerId) {
+      var layer = this.map.getLayer(layerId);
+      if (layer && layer.renderer && layer.renderer.symbol && layer.renderer.symbol.type === 'picturemarkersymbol') {
+        feat.symbol = layer.renderer.symbol;
       }
-      if (target.e_graphic) {
-        target = target.e_graphic;
-        layer = target._layer.id
-        this.infoConfig[layer].infos.forEach( function(field, index) {
-            console.log(field);
-            if (field.hasOwnProperty('substitutions')) {
-                target.attributes[field.field] = titleCase(field.substitutions[target.attributes[field.field]])
-            }
-        });
-        var resultObj = {
-          oid: target.attributes.OBJECTID,
-          lyr: target._layer.id
-        }
-        console.debug('map click intercept', resultObj);
-
-        var label = target._layer.name || 'Map Feature'
-        label += ' info';
-        this.handleFeatureClick(label);
-        topic.publish('/InfoPanel/clear', this);
-        this.handleResultSelection(resultObj, false);
-      }
-    },
-
-    layerVisibilityChanged: function(args) {
-      if (!args.isChecked && args.layerId === this.selectedLayerId) {
-        this.lsView.clear();
-      }
+      return feat;
     },
 
     /**
@@ -504,78 +559,22 @@ function(
      * @param  {Object} resultObj from UnifiedSearchView (oid, lyr, extent, labelText)
      * @return {[type]}           [description]
      */
-    handleResultSelection: function(resultObj, zoomTo) {
-      //console.debug('handleResultSelection', resultObj, zoomTo);
-      //console.debug('handleResultSelection');
+    handleResultSelection: function(resultObj) {
+      console.debug('handleResultSelection', resultObj);
+      //topic.publish('search-select-oid', _.omit(resultObj, 'target'));
+      //topic.publish('function-finished');
 
-      var geocoder = this.searchConfig.locators[0].id;
-
-      if (resultObj.lyr === geocoder) {
-          topic.publish('/map/zoom/extent', this, JSON.parse(resultObj.extent));
-          topic.publish(this.toolPrefix + '/result/clicked', this,
-          {
-            layerId: resultObj.lyr,
-            obj: JSON.parse(resultObj.obj)
-          }
-        );
-        this.lsView.clear();
-      }
-      // Check if there is an oid
-      else if (resultObj.oid && resultObj.oid !== '' && resultObj.oid !== 'null') {
-        // if there is an oid then we have a feature
-        // clear the search panel to make room for the info panel
-        //this.lsView.clearResults();
-        this.lsView.hideResultsNode();
-        this.lsView.restoreLoadingIcon();
-
-        // Run a query on the features OID and LayerID to get the feature data
-        var hasValidFeature = false;
-        var query = new Query();
-        query.objectIds = [parseInt(resultObj.oid)];
-        query.outFields = [ "*" ];
-        var selectedFeatureLyr = this.map._layers[resultObj.lyr];
-
-        if (!_.isUndefined(selectedFeatureLyr)) {
-          var featureQuery = selectedFeatureLyr.queryFeatures(query, lang.hitch(this, function(featureSet) {
-            // Format the feature data a little
-            //console.debug('handleResultSelection query', featureSet, query);
-            var featureObj = {
-                feature: featureSet.features[0]
-            }
-            console.debug('Preping to zoom', featureObj);
-            if (typeof featureObj.feature === 'undefined') {
-                //hasValidFeature = true;
-                console.debug('Re-running query');
-                this.handleResultSelection(resultObj, zoomTo);
-                return;
-            }
-            // TODO Should the layer be made visibile?
-            //selectedFeatureLyr.setVisibility(true);
-
-            // If zoomTo is true then this is a USearch event else this is a Map click event
-            if (zoomTo !== false) {
-                topic.publish('/map/zoom/feature', this, featureObj);
-            }
-            // Add marker graphics to show the feature location
-            topic.publish('/map/add/simplemarker', this, featureObj.feature);
-
-            this.selectedLayerId = resultObj.lyr;
-
-            // Send the signal to open the info panel for the selected feature
-            topic.publish('/UnifiedSearch/result/clicked', this,
-              {
-                layerId: resultObj.lyr,
-                obj: featureObj.feature
-              }
-            );
-
-          }));
-        } else if (resultObj.extent) {
-          topic.publish('/map/zoom/extent', this, resultObj.extent);
-        } else {
-          console.log('UnifiedSearch result clicked but didn\'t know how to handle.');
-        }
-
+      if (resultObj.extent && resultObj.extent !== '' && resultObj.extent !== 'null') {
+        // we have the extent, no further queries needed
+        var params = {
+          zoomToFeature: this.searchConfig.zoomToFeature,
+          layer: (this.map !== null) ? this.map.getLayer(resultObj.lyr) : null,
+          layerId: resultObj.lyr,
+          obj: resultObj.obj,
+          type: 'extent'
+        };
+        var response = {};
+        this.runSelectedResponseHandler(params, response);
       } else {
         if (resultObj.oid !== '') {
           // when oid is populated we can run the related query
@@ -587,31 +586,58 @@ function(
       }
     },
 
-    _zoomToFeatureDeferred: function() {
-        console.log('the deferred has resolved');
-    },
-
     runGroupedQuery: function(resultObj) {
       var table = this.getTableByLayerKey(resultObj.lyr);
-      queryUtils.createAndRun({
-        query: {
+      var queryDef = table.query;
+      var queryParams;
+      if (!_.isUndefined(this.currentSearchString) && this.currentSearchString !== null && this.currentSearchString !== '') {
+        queryParams = {
           outFields: _.union(table.query.fields, table.query.results.labelFields, [table.idField]), //["*"],
           returnGeometry: true,
-          where: this.constructWhere(table.query.fields, this.currentSearchString)
-        },
-        url: table.url,
-        self: this,
-        callback: this.runGroupedQueryResponseHandler,
-        callbackArgs: {
+          where: this.constructWhere(queryDef, this.currentSearchString),
+          outSpatialReference: (this.map !== null) ? this.map.spatialReference : null
+        };
+        queryUtils.createAndRun({
+          query: queryParams,
+          url: table.url,
+          self: this,
+          callback: this.runGroupedQueryResponseHandler,
+          callbackArgs: {
+            lyrKey: resultObj.lyr,
+            label: resultObj.labelText
+          }
+        });
+      } else if (!_.isUndefined(this.currentGeometry) && this.currentGeometry !== null) {
+        queryParams = {
+          outFields: _.union(table.query.fields, table.query.results.labelFields, [table.idField]), //["*"],
+          returnGeometry: true,
+          geometry: this.currentGeometry,
+          outSpatialReference: (this.map !== null) ? this.map.spatialReference : null
+        };
+        queryUtils.createAndRun({
+          query: queryParams,
+          url: table.url,
+          self: this,
+          callback: this.runGroupedQueryResponseHandler,
+          callbackArgs: {
+            lyrKey: resultObj.lyr,
+            label: resultObj.labelText
+          }
+        });
+      } else if (!_.isUndefined(this.currentResults) && this.currentResults !== null) {
+        var params = {
           lyrKey: resultObj.lyr,
           label: resultObj.labelText
-        }
-      });
+        };
+        var response = this.currentResults[resultObj.lyr];
+        this.runGroupedQueryResponseHandler(params, response);
+      } else {
+        return;
+      }
     },
 
     runGroupedQueryResponseHandler: function(params, response) {
-      console.debug('runGroupedQueryResponseHandler', response);
-      //console.log(response);
+      console.debug('runGroupedQueryResponseHandler');
 
       var layer = this.getTableByLayerKey(params.lyrKey);
 
@@ -621,12 +647,10 @@ function(
           label: (layer.query.results.labelFunction) ? layer.query.results.labelFunction(feat.attributes) : feat.attributes[layer.query.results.labelFields[0]],
           layer: params.lyrKey,
           iconClass: (layer.query.results.iconClassFunction) ? layer.query.results.iconClassFunction(feat.attributes) : layer.query.results.iconClass,
-          extent: (feat.geometry) ? JSON.stringify(feat.geometry.getExtent()) : '',
-          obj: JSON.stringify(feat)
+          extent: this._getExtent(feat),
+          obj: feat
         } : null;
       }));
-
-      //console.debug('reutruning formatted results', formattedResults);
 
       this.lsView.handleFormattedResults2(formattedResults, params.label);
     },
@@ -635,12 +659,15 @@ function(
       var table = this.getTableByLayerKey(resultObj.lyr);
       var strUrl;
       var strWhere;
-      var intObjectid = parseInt(resultObj.oid, 10);
+      var intObjectid = resultObj.oid; //parseInt(resultObj.oid, 10);
+      // if (_.isNaN(intObjectid)) {
+      //   intObjectid = resultObj.oid;
+      // }
       var fieldValArr = [{
         fieldName: table.idField,
         newValue: intObjectid
       }];
-      if (table.query.relatedQuery != null && table.query.relatedQuery.isRelated) {
+      if (table.query.relatedQuery !== null && table.query.relatedQuery.isRelated) {
         // run the related query
         strUrl = table.query.relatedQuery.url;
         var val = (isNaN(intObjectid)) ? '\'' + resultObj.oid + '\'' : intObjectid;
@@ -662,57 +689,89 @@ function(
         callback: this.runSelectedResponseHandler,
         callbackArgs: {
           zoomToFeature: this.searchConfig.zoomToFeature,
-          showInfoWindow: this.searchConfig.showInfoWindow,
-          layer: this.map.getLayer(resultObj.lyr),
+          layer: (this.map !== null) ? this.map.getLayer(resultObj.lyr) : null,
           layerId: resultObj.lyr,
-          labelText: resultObj.labelText,
-          obj: JSON.parse(resultObj.obj)
+          obj: resultObj.obj,
+          type: 'feature'
         }
       });
     },
 
     runSelectedResponseHandler: function(params, response) {
       console.debug('runSelectedResponseHandler');
-      if (!queryUtils.checkResponseSuccess(response) || !queryUtils.checkFeatureExistence(response) || !queryUtils.checkSingleFeature(response)) {
-        console.error('not a single feature');
-        return;
+      if (params.type === 'feature') {
+        if (!queryUtils.checkResponseSuccess(response) || !queryUtils.checkFeatureExistence(response) || !queryUtils.checkSingleFeature(response)) {
+          console.error('not a single feature');
+          return;
+        }
+        var selectedFeature = response.features[0];
+        lang.mixin(response.features[0].attributes, params.obj.attributes);
+        if (params.layer !== null) {
+          selectedFeature = lang.mixin(selectedFeature, {
+            _layer: params.layer
+          });
+        }
+        topic.publish('/map/zoom/feature', this, {
+          feature: selectedFeature,
+          showInfoWindow: params.showInfoWindow,
+          refreshLayers: false,
+        });
+        topic.publish(this.toolPrefix + '/result/clicked', this, {
+          'layerId': params.layerId,
+          'obj': selectedFeature,
+          'currentGeometry': this.currentGeometry
+        });
+      } else if (params.type === 'extent') {
+        if (params.layerId === 'geocoder') {
+          var extent = lang.mixin(params.obj.extent, {
+            'spatialReference': this.map.spatialReference
+          });
+          topic.publish('/zoom/to', this, {
+            'geometry': new Extent(extent),
+            'zoomFactor': 1.5,
+          });
+        } else {
+          if (this.searchConfig.zoomToFeature) {
+            var extent = lang.mixin(params.obj.extent, {
+              'spatialReference': this.map.spatialReference
+            });
+            topic.publish('/zoom/to', this, {
+              'geometry': new Extent(extent)
+            });
+          }
+          topic.publish(this.toolPrefix + '/result/clicked', this, {
+            'layerId': params.layerId,
+            '_layer': params.layer,
+            'obj': params.obj,
+            'currentGeometry': this.currentGeometry
+          });
+        }
       }
 
-      this.lsView.openFeatureDetails(params.labelText);
+      if (!_.isUndefined(this.searchConfig.clearResultsOnClick) && _.isBoolean(this.searchConfig.clearResultsOnClick) && this.searchConfig.clearResultsOnClick) {
+        this.lsView.clear();
+      } else {
+        this.lsView.hideRowLoading();
+      }
 
-      var selectedFeature = lang.mixin(response.features[0], {_layer: params.layer});
-      console.debug('zooming to feature - prelim', response);
-      lang.mixin(response.features[0].attributes, params.obj.attributes);
+    },
 
-      topic.publish(this.toolPrefix + '/result/clicked', this,
-        {
-          layerId: params.layerId,
-          obj: selectedFeature
+    _getExtent: function(feature) {
+      var extent = null;
+      if (feature.extent) {
+        extent = feature.extent;
+      } else if (feature.geometry) {
+        if (feature.geometry.type === 'point') {
+          extent = feature.geometry;
+        } else if (_.isFunction(feature.geometry.getExtent)) {
+          extent = feature.geometry.getExtent().getCenter();
+        } else if (_.isFunction(feature.geometry._cache)) {
+          extent = new Extent(feature.geometry._cache._extent).getExtent().getCenter();
+        } else if (_.isFunction(feature.geometry.cache)) {
+          extent = new Extent(feature.geometry.cache._extent).getExtent().getCenter();
         }
-      );
-
-      console.debug('zooming to feature', selectedFeature);
-      topic.publish('/map/zoom/feature', this,
-        {
-          feature: selectedFeature,
-          zoomToFeature: true,
-          showInfoWindow: params.showInfoWindow,
-          refreshLayers: true
-        }
-      );
-    },
-
-    hide: function() {
-        this.lsView.hide();
-    },
-
-    show: function() {
-        this.lsView.show();
-    },
-
-    handleFeatureClick: function(label) {
-      this.lsView.setInputValue(label);
-      this.lsView.showClearBtn();
+      }
+      return extent;
     }
 
   });

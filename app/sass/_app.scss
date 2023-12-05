@@ -10,6 +10,8 @@ body {
   padding: 0;
 }
 .app-header {
+  background: #f2f2f2;
+  display: none;
 }
 .app-center {
   height: 100%;
@@ -17,6 +19,10 @@ body {
 }
 .app-footer {
   display: none;
+}
+
+.logo-wrapper {
+  padding: 1rem;
 }
 
 #appHeaderContainer {
@@ -42,10 +48,18 @@ body {
 
 /* SEARCH */
 .search-container {
-  width: 420px;
   float: left;
-  left: 50px;
   position: relative;
+  width: 300px;
+  top: -5px;
+  left: 42px;
+
+  @include respond('xs') {
+    width: 420px;
+    left: 50px;
+    top: 0;
+  }
+
 }
 
 

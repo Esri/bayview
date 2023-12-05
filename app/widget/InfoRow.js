@@ -31,6 +31,9 @@ define([
     'dojo/dom-construct',
     'dijit/registry',
 
+    'core/dateUtils',
+    'core/formatUtils',
+
     'dojo/text!./templates/InfoRow.html'
   ],
 
@@ -38,6 +41,7 @@ define([
     declare, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin,
     Evented,
     lang, connect, topic, parser, query, on, domStyle, domClass, domAttr, domConstruct, registry,
+    dateUtils, formatUtils,
     template
   ) {
 
@@ -51,7 +55,22 @@ define([
         postCreate: function() {
             this.inherited(arguments);
             this.txtLabel.innerHTML = this.label;
-            this.txtValue.innerHTML = this.value;
+            var value = this.value;
+            if (!_.isUndefined(this.format)) {
+              if (this.format === 'date' && this.value !== null) {
+                value = dateUtils.getDate(this.value, {
+                  selector: "date",
+                  formatLength: "short"
+                });
+              }
+              if (this.format === 'number') {
+                value = formatUtils.removeDecimals(this.value);
+              }
+            }
+            if (!_.isUndefined(this.suffix)) {
+              value += ' ' + this.suffix;
+            }
+            this.txtValue.innerHTML = value;
         },
 
         startup: function() {

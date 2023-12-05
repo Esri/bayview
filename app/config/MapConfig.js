@@ -48,9 +48,9 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     agsPortal: {
       isEnabled: false,
       appId: 'GVI6HH3sKAutXQuG',
-      portalUrl: 'http://prof-services.maps.arcgis.com/',
+      portalUrl: '',
       popup: false,
-      webmapId: 'cb5efa6f0ef242369b3bc3e2d1f0d32f',
+      webmapId: '',
       options: {
         autoRecenter: false, // needs to be false in responsive mode
         responsiveResize: false // needs to be false in responsive mode
@@ -105,590 +105,712 @@ define(['esri/layers/FeatureLayer'], function(FeatureLayer) {
     // operationalLayers: Layers to load on top of the basemap: valid 'type' options: 'dynamic', 'tiled', 'feature'.
     // 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
     operationalLayers: [
-        {
-          type: 'Feature Layer',
-          url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/Layers/ParcelMap/MapServer/0',
-          options: {
-            id: 'addresses',
-            title: 'Addresses',
-            opacity: 1,
-            visible: true,
-            infoWindow: {
-              isEnabled: true,
-              outFields: ['*'],
-              title: 'Addresses',
-              headerFunction: function(attrs) {
-                return '' + attrs.FULL_ADDRESS;
-              },
-              //contentFunction: function(attrs) {
-              //  return '<p>Population (2014): ' + attrs.POP2014 + '</p>';
-              //},
-              iconClass: 'fa fa-tint',
-              widget: '' // use 'DefaultInfoWindow' or define your own
-            }
-          },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/0',
+        options: {
+          id: 'floodzone',
+          title: 'Flood Zones',
+          opacity: 0.5,
         },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/1',
-    //     options: {
-    //       id: 'roads',
-    //       title: 'Roads',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Roads',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.NAME;
-    //         },
-    //         iconClass: 'fa fa-road',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/3',
-    //     options: {
-    //       id: 'hydrants',
-    //       title: 'Hydrants',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Hydrants',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/4',
-    //     options: {
-    //       id: 'futurelanduse',
-    //       title: 'Future Land Use',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         showLabels: true,
-    //         title: 'Future Land Use',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/5',
-    //     options: {
-    //       id: 'zoning',
-    //       title: 'Zoning',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Zoning',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/6',
-    //     options: {
-    //       id: 'municipalboundaries',
-    //       title: 'Municipal Boundaries',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Municipal Boundaries',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/7',
-    //     options: {
-    //       id: 'onefootcontours',
-    //       title: 'One Foot Contours',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'One Foot Contours',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/8',
-    //     options: {
-    //       id: 'easements',
-    //       title: 'Easements',
-    //       opacity: 1,
-    //       visible: true,
-    //      infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Easements',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/9',
-    //     options: {
-    //       id: 'femafloodways',
-    //       title: 'FEMA Floodways',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'FEMA Floodways',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/10',
-    //     options: {
-    //       id: 'femacobraopa',
-    //       title: 'FEMA COBRA & OPA',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'FEMA COBRA & OPA',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/11',
-    //     options: {
-    //       id: 'FEMAfloodzones',
-    //       title: 'FEMA Flood Zones',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'FEMA Flood Zones',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/12',
-    //     options: {
-    //       id: 'femafirmindex',
-    //       title: 'FEMA FIRM Index',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'FEMA FIRM Index',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/13',
-    //     options: {
-    //       id: 'wetlands',
-    //       title: 'Wetlands',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Wetlands',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/14',
-    //     options: {
-    //       id: 'soils',
-    //       title: 'Soils',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Soils',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/15',
-    //     options: {
-    //       id: 'evacuationzones',
-    //       title: 'Evacuation Zones',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Evacuation Zones',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/16',
-    //     options: {
-    //       id: 'CoastalHighHazardArea',
-    //       title: 'Coastal High Hazard Area',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Coastal High Hazard Area',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/17',
-    //     options: {
-    //       id: 'StormSurge',
-    //       title: 'Storm Surge',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Storm Surge',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/18',
-    //     options: {
-    //       id: 'EcosystemManagementAreas',
-    //       title: 'Ecosystem Management Areas',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Ecosystem Management Areas',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/19',
-    //     options: {
-    //       id: 'PlannedUnitDevelopments',
-    //       title: 'Planned Unit Developments',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Planned Unit Developments',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/20',
-    //     options: {
-    //       id: 'CommunityRedevAgencies',
-    //       title: 'Community Redev Agencies',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Community Redev Agencies',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/21',
-    //     options: {
-    //       id: 'CountyCommissionerDistricts',
-    //       title: 'County Commissioner Districts',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'County Commissioner Districts',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/22',
-    //     options: {
-    //       id: 'serviceareas',
-    //       title: 'Service Areas',
-    //       opacity: .5,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Service Areas',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/23',
-    //     options: {
-    //       id: 'beachaccess',
-    //       title: 'Beach Access',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Beach Access',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-sun-o',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/24',
-    //     options: {
-    //       id: 'boatramps',
-    //       title: 'Boat Ramps',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Boat Ramps',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-sun-o',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/25',
-    //     options: {
-    //       id: 'libraries',
-    //       title: 'Libraries',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Libraries',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.NAME;
-    //         },
-    //         iconClass: 'fa fa-book',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/26',
-    //     options: {
-    //       id: 'recycling',
-    //       title: 'Recycling',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Recycling',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.NAME;
-    //         },
-    //         iconClass: 'fa fa-book',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/27',
-    //     options: {
-    //       id: 'schools',
-    //       title: 'Schools',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Schools',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.NAME;
-    //         },
-    //         iconClass: 'fa fa-graduation-cap',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    //   },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/28',
-    //     options: {
-    //       id: 'parks',
-    //       title: 'Parks',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Parks',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.NAME;
-    //         },
-    //         iconClass: 'fa fa-tree',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     }
-    // },
-    //   {
-    //     type: 'Feature Layer',
-    //     url: 'http://gis.baycountyfl.gov/arcgis/rest/services/PublicViewer/MapServer/2',
-    //     options: {
-    //       id: 'parcels',
-    //       title: 'Parcels',
-    //       opacity: 1,
-    //       visible: true,
-    //       infoWindow: {
-    //         isEnabled: true,
-    //         outFields: ['*'],
-    //         title: 'Parcels',
-    //         headerFunction: function(attrs) {
-    //           return '' + attrs.ADDRESS;
-    //         },
-    //         iconClass: 'fa fa-tint',
-    //         widget: '' // use 'DefaultInfoWindow' or define your own
-    //       }
-    //     },
-    //   }
+      },
+      {
+        type: 'Vector Tile Layer',
+        url: 'https://tiles.arcgis.com/tiles/eYXun6c1pgy8Qpta/arcgis/rest/services/2021_Lubbock_Contours_1ft/VectorTileServer',
+        options: {
+          id: 'contours',
+          title: 'Contours',
+          opacity: 0.5,
+        },
+      },
+
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/0',
+        options: {
+          id: 'addresses',
+          title: 'Addresses',
+          opacity: 1,
+        },
+        showLabels: true,
+        labelingInfo: [{
+          "labelExpressionInfo": {
+            "expression": "$feature.ADDR + ' ' + $feature.SUITE",
+          },
+          "labelPlacement": "center-center",
+          "maxScale": 0,
+          "minScale": 2000,
+          "symbol": {
+            "type": "esriTS",
+            "color": [255, 255, 255, 255],
+            "haloColor": [0,76,115,255],
+            "haloSize": 1,
+            "maxScale": 0,
+            "minScale": 3000,
+            "font": {
+              "family": "Arial",
+              "size": 12,
+            },
+          },
+        }],
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/3',
+        options: {
+          id: 'buildingfootprints',
+          title: 'Building Footprints',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/11',
+        options: {
+          id: 'citycouncildistricts',
+          title: 'City Council Districts',
+          opacity: 0.5,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/12',
+        options: {
+          id: 'citylimits',
+          title: 'City Limits',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/10',
+        options: {
+          id: 'neighborhoodassociations',
+          title: 'Neighborhood Associations',
+          opacity: 0.5,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/4',
+        options: {
+          id: 'parcels',
+          title: 'Parcels',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/9',
+        options: {
+          id: 'parks',
+          title: 'Parks',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/8',
+        options: {
+          id: 'subdivisions',
+          title: 'Subdivisions',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/2',
+        options: {
+          id: 'schools',
+          title: 'Schools',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/7',
+        options: {
+          id: 'streetaddressdirection',
+          title: 'Street Address Direction',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/6',
+        options: {
+          id: 'streetcenterlines',
+          title: 'Street Centerlines',
+          opacity: 1,
+        },
+        showLabels: true,
+        labelingInfo: [{
+          "labelExpressionInfo": {
+            "expression": "$feature.PREFIX + ' ' + $feature.STREET + ' ' + $feature.STREET_TYPE",
+          },
+          "labelPlacement": "above-after",
+          "maxScale": 0,
+          "minScale": 4000,
+          "symbol": {
+            "type": "esriTS",
+            "color": [255, 255, 255, 255],
+            "haloColor": [0, 0, 0, 255],
+            "haloSize": 1,
+            "font": {
+              "family": "Arial",
+              "size": 11,
+            },
+          },
+        }],
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/1',
+        showLabels: true,
+        options: {
+          id: 'streetnames',
+          title: 'Street Names',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_ParcelsCommunity/FeatureServer/13',
+        options: {
+          id: 'zipcodes',
+          title: 'Zip Codes',
+          opacity: 0.5,
+        },
+      },
+    
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/4',
+        options: {
+          id: 'currentzoningcases',
+          title: 'Current Zoning Cases',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/0',
+        options: {
+          id: 'designdistricts',
+          title: 'Design Districts',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/5',
+        options: {
+          id: 'futurelanduseplan',
+          title: 'Future Land Use Plan',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/2',
+        options: {
+          id: 'pendingzbacases',
+          title: 'Pending ZBA Cases',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/3',
+        options: {
+          id: 'pendingzonecases',
+          title: 'Pending Zone Cases',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/PubPlanningZoning/FeatureServer/1',
+        options: {
+          id: 'preliminaryplats',
+          title: 'Preliminary Plats',
+          opacity: 1,
+        },
+      },
+
+
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/1',
+        options: {
+          id: 'lake',
+          title: 'Lakes',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_FloodZonesLakes/FeatureServer/2',
+        options: {
+          id: 'lakenumber',
+          title: 'Lake Number',
+          opacity: 1,
+        },
+      },
+
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/0',
+        options: {
+          id: 'firehydrants',
+          title: 'Fire Hydrants',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/6',
+        options: {
+          id: 'watermains',
+          title: 'Water Mains',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/2',
+        options: {
+          id: 'sewermanholes',
+          title: 'Sewer Manholes',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/1',
+        options: {
+          id: 'sewercleanouts',
+          title: 'Sewer Cleanouts',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/7',
+        options: {
+          id: 'sewergravitymains',
+          title: 'Sewer Gravity Mains',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/8',
+        options: {
+          id: 'sewerforcemains',
+          title: 'Sewer Force Mains',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/3',
+        options: {
+          id: 'stormwatermanholes',
+          title: 'Stormwater Manholes',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/4',
+        options: {
+          id: 'stormwaterinlets',
+          title: 'Stormwater Inlets',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/5',
+        options: {
+          id: 'stormwateroutfalls',
+          title: 'Stormwater Outfalls',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/9',
+        options: {
+          id: 'stormwaterpipes',
+          title: 'Stormwater Pipes',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/11',
+        options: {
+          id: 'trafficvolumetotals',
+          title: 'Traffic Volume Totals',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/12',
+        options: {
+          id: 'trafficsignals',
+          title: 'Traffic Signals',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/15',
+        options: {
+          id: 'residentpermitonlyparkingzones',
+          title: 'Resident Permit Only Parking Zones',
+          opacity: 0.5,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_PubWorks/FeatureServer/10',
+        options: {
+          id: 'impactfeeservicearea',
+          title: 'Impact Fee Service Area',
+          opacity: 0.5,
+        },
+      },
+
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/12',
+        options: {
+          id: 'alleydedicationdeeds',
+          title: 'Alley Dedication Deeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/20',
+        options: {
+          id: 'blocknumbers',
+          title: 'Block Numbers',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/9',
+        options: {
+          id: 'drainageeasements',
+          title: 'Drainage Easements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/5',
+        options: {
+          id: 'lotlines',
+          title: 'Lot Lines',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/21',
+        options: {
+          id: 'lotdimensions',
+          title: 'Lot Dimensions',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/22',
+        options: {
+          id: 'lotnumbers',
+          title: 'Lot Numbers',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/19',
+        options: {
+          id: 'ordinanceclosures',
+          title: 'Ordinance Closures',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/13',
+        options: {
+          id: 'parkdedicationdeeds',
+          title: 'Park Dedication Deeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/14',
+        options: {
+          id: 'platdedicatedrow',
+          title: 'Plat Dedicated ROW',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/10',
+        options: {
+          id: 'propertyacquisitiondeeds',
+          title: 'Property Acquisition Deeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/17',
+        options: {
+          id: 'railroaddeedsandeasements',
+          title: 'Railroad Deeds and Easements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/23',
+        options: {
+          id: 'rowdimensions',
+          title: 'ROW Dimensions',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/15',
+        options: {
+          id: 'roweasements',
+          title: 'ROW Easements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/6',
+        options: {
+          id: 'sectionlines',
+          title: 'Section Lines',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/16',
+        options: {
+          id: 'staterowdeedsandeasements',
+          title: 'State ROW Deeds and Easements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/11',
+        options: {
+          id: 'streetdedicationdeeds',
+          title: 'Street Dedication Deeds',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/24',
+        options: {
+          id: 'subdivisionnames',
+          title: 'Subdivision Names',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/18',
+        options: {
+          id: 'uselicenses',
+          title: 'Use Licenses',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/7',
+        options: {
+          id: 'utilityequipmenteasements',
+          title: 'Utility Equipment Easements',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_BaseMap/MapServer/8',
+        options: {
+          id: 'utilitygarbageaccesseasements',
+          title: 'Utility Garbage Access Easements',
+          opacity: 1,
+        },
+      },
+
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/0',
+        options: {
+          id: 'airports',
+          title: 'Airports',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/1',
+        options: {
+          id: 'animalservices',
+          title: 'Animal Services',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/2',
+        options: {
+          id: 'citibustransferplaza',
+          title: 'CitiBus Transfer Plaza',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/3',
+        options: {
+          id: 'citizenstower',
+          title: 'Citizens Tower',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/4',
+        options: {
+          id: 'cementaries',
+          title: 'Cementaries',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/5',
+        options: {
+          id: 'utilities',
+          title: 'Utilities',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/6',
+        options: {
+          id: 'civiccenter',
+          title: 'Civic Center',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/7',
+        options: {
+          id: 'communitycenters',
+          title: 'Community Centers',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/8',
+        options: {
+          id: 'firestations',
+          title: 'Fire Stations',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/9',
+        options: {
+          id: 'healthdepartments',
+          title: 'Health Departments',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/10',
+        options: {
+          id: 'libraries',
+          title: 'Libraries',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/11',
+        options: {
+          id: 'museums',
+          title: 'Museums',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/12',
+        options: {
+          id: 'policestations',
+          title: 'Police Stations',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/13',
+        options: {
+          id: 'pools',
+          title: 'Pools',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/14',
+        options: {
+          id: 'recyclingcenters',
+          title: 'Recycling Centers',
+          opacity: 1,
+        },
+      },
+      {
+        type: 'Feature Layer',
+        url: 'https://pubgis.ci.lubbock.tx.us/server/rest/services/PubViewer/Pub_POI/FeatureServer/15',
+        options: {
+          id: 'sportcomplexes',
+          title: 'Sport Complexes',
+          opacity: 1,
+        },
+      },
+
     ]
   };
 });

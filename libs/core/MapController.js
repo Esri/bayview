@@ -140,6 +140,16 @@ define([
             }
           }));
 
+          
+          topic.subscribe('/zoom/to', lang.hitch(this, function(sender, args) {
+            //console.debug('map zoom extent', args);
+            var zoomFactor = (args.zoomFactor) ? parseInt(args.zoomFactor, 10) : 3;
+            if (args.geometry) {
+              map.setExtent(args.geometry.expand(zoomFactor));
+            }
+          }));
+
+
           topic.subscribe('/map/zoom/extent', lang.hitch(this, function(sender, args) {
               //console.debug('map zoom extent', args);
             var wkid = (args.wkid) ? parseInt(args.wkid, 10) : map.spatialReference.wkid;
@@ -178,7 +188,7 @@ define([
             }
 
             if (geom && (geom.type === 'polygon' || geom.type === 'polyline')) {
-              map.setExtent(geom.getExtent().expand(1.5));
+              map.setExtent(geom.getExtent().expand(2));
             } else if (geom && geom.type === 'point') {
               var centerAndZoom = map.centerAndZoom(geom, map.getMaxZoom() - 2);
               if (args.zoomToFeature) {
@@ -243,7 +253,7 @@ define([
               //console.log('map zoomed to point geometry');
             } else {
               //var extent = new Extent(parseFloat(geom.xmin), parseFloat(geom.ymin), parseFloat(geom.xmax), parseFloat(geom.ymax), new SpatialReference({ wkid: geom.spatialReference.wkid }));
-              map.setExtent(geom.getExtent());
+              map.setExtent(geom.getExtent().expand(4));
               //console.log('map zoomed to extent geometry');
             }
           }));
@@ -322,6 +332,7 @@ define([
 
             //console.debug('making new map', this._options);
             this._map = new Map(this._mapDivId, this._options);
+
             // turning off the default info window so that map clicks are sent to USearch info panel
             this._map.setInfoWindowOnClick(false);
             //this._setPopup();
